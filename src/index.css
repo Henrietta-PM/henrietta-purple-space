@@ -8,7 +8,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 98%;
+    --background: 248 25% 92%;
     --foreground: 0 0% 4%;
 
     --card: 0 0% 100%;
@@ -61,7 +61,7 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 0 0% 4%;
+    --background: 248 25% 8%;
     --foreground: 0 0% 98%;
 
     --card: 0 0% 8%;
@@ -128,9 +128,10 @@ All colors MUST be HSL.
   
   .glass {
     background: rgba(var(--glass-bg));
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
     border: 1px solid rgba(var(--glass-border));
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
   }
   
   .text-glow {

@@ -1,7 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useState } from "react";
-import { cn } from "@/lib/utils";
 
 const Letter = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,12 +10,14 @@ const Letter = () => {
       <Navigation />
       <main className="pt-32 pb-16">
         <div className="container mx-auto px-6">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-center">
-            Letter to My Next Team
-          </h1>
-          <p className="text-xl text-muted-foreground text-center mb-16 max-w-2xl mx-auto">
-            A personal note about my journey and what I bring
-          </p>
+          <div className="mb-12 space-y-3">
+            <h1 className="text-4xl md:text-5xl font-display text-foreground">
+              A Letter to My Next Team
+            </h1>
+            <p className="text-sm text-muted-foreground">
+              My commitment and vision for collaboration
+            </p>
+          </div>
 
           <div className="max-w-3xl mx-auto">
             <div className="relative perspective-1000">
@@ -25,11 +26,11 @@ const Letter = () => {
                   onClick={() => setIsOpen(true)}
                   className="cursor-pointer group"
                 >
-                  <div className="bg-gradient-to-br from-primary/20 to-primary/5 p-12 rounded-3xl border-2 border-primary/30 hover:border-primary transition-all duration-350 hover:shadow-2xl transform hover:-translate-y-2">
+                  <div className="glass p-12 rounded-[2rem] hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-350">
                     <div className="text-center">
                       <div className="text-6xl mb-4">✉️</div>
                       <h2 className="text-3xl font-bold mb-2">Tap to open the letter</h2>
-                      <p className="text-muted-foreground">
+                      <p className="text-sm text-muted-foreground">
                         A personal message from Henrietta
                       </p>
                     </div>
@@ -39,7 +40,7 @@ const Letter = () => {
 
               {isOpen && (
                 <div className="animate-slide-up">
-                  <div className="bg-card p-8 md:p-12 rounded-3xl shadow-2xl border border-border">
+                  <div className="glass p-8 md:p-12 rounded-[2rem] shadow-2xl">
                     <div className="mb-8 text-center">
                       <button
                         onClick={() => setIsOpen(false)}
