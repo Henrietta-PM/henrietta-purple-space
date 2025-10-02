@@ -1,0 +1,202 @@
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import bloomieImage from "@/assets/bloomie-logo.png";
+import proxyImage from "@/assets/proxy-preview.jpg";
+import syncuImage from "@/assets/syncu-preview.png";
+
+const projectsData = [
+  {
+    name: "Bloomie AI",
+    tags: ["EdTech"],
+    link: "https://www.bloomie.com",
+    image: bloomieImage,
+    overview:
+      "Bloomie AI is a personalized learning platform for children, using AI to deliver adaptive lessons and engaging progress dashboards. It ensures that children have individualized learning paths while giving parents and teachers actionable insights.",
+    responsibilities: [
+      "Defined MVP scope and prioritized features for initial launch.",
+      "Wrote PRDs and broke user stories into actionable tasks for development.",
+      "Conducted A/B tests on onboarding flows and content delivery methods.",
+      "Led UX research sessions to ensure usability for children and parents.",
+      "Collaborated with data analysts to design engagement and retention tracking metrics.",
+    ],
+    achievements: [
+      "Achieved 80% daily adoption rates within the first 3 months.",
+      "Improved retention by 45% through iterative testing and refinement.",
+      "Established scalable frameworks for future content and AI personalization.",
+    ],
+  },
+  {
+    name: "ProxyMedicine",
+    tags: ["Telehealth", "HealthTech"],
+    link: "https://www.prxy.health",
+    image: proxyImage,
+    overview:
+      "ProxyMedicine is a telehealth platform that combines asynchronous care with AI-driven tools. It offers AI-powered diagnosis suggestions, prescription refills, weight loss tracking, and personalized diet/meal generation. Features include patient questionnaires, scheduling via Calendly, medication management, and an admin portal for billing, upsells, and transcript analysis.",
+    responsibilities: [
+      "Created detailed PRDs and refined user flows for AI diagnosis, weight management, and meal generation features.",
+      "Integrated Calendly for appointment scheduling and Stripe for secure billing.",
+      "Collaborated with design team to ensure usability of patient dashboards and AI chatbot.",
+      "Led weekly user interviews to validate new features and prioritize backlog.",
+      "Worked closely with engineering to optimize delivery, reducing redundant workflows.",
+      "Scoped and coordinated delivery of admin portal modules including billing, upsell prompts, and meeting transcript reviews.",
+    ],
+    achievements: [
+      "Increased patient satisfaction by 60% within the first quarter of launch.",
+      "Delivered roadmap 25% faster than initial estimates.",
+      "Reduced reported defects by 15% by strengthening PRD clarity and QA processes.",
+    ],
+  },
+  {
+    name: "Syncu",
+    tags: ["Community", "Collaboration"],
+    image: syncuImage,
+    overview:
+      "Syncu is a community platform that connects tech professionals to collaborate on product ideas. It enables hands-on experience, real-time portfolio building, and project-based team formation.",
+    responsibilities: [
+      "Designed platform vision and roadmap to support collaborative projects.",
+      "Grew the community to 250+ members through outreach and engagement.",
+      "Facilitated 10+ collaborations by connecting professionals with aligned goals.",
+      "Oversaw waitlist operations, managing 530+ potential users.",
+    ],
+    achievements: [
+      "Built and scaled a community of 250+ members.",
+      "Enabled 10+ active product collaborations.",
+      "Grew waitlist to 530+ users within launch window.",
+    ],
+  },
+  {
+    name: "CareerPASS",
+    tags: ["Psychometrics", "Career Guidance"],
+    overview:
+      "CareerPASS is a psychometric analysis and career recommendation platform. It helps students discover career paths aligned with their strengths through personality and skill assessments.",
+    responsibilities: [
+      "Scoped and managed end-to-end development of the MVP within 8 weeks.",
+      "Created PRDs and coordinated efforts across data analysts, developers, and designers.",
+      "Implemented Trello workflows to track deliverables and dependencies.",
+      "Oversaw integration of psychometric models into the platform.",
+    ],
+    achievements: [
+      "Delivered MVP on time with full functionality within 8 weeks.",
+      "Selected as a Top 5 project at a major career showcase.",
+      "Enabled 1,000+ students to access career assessments during pilot.",
+    ],
+  },
+  {
+    name: "Targett",
+    tags: ["AI Travel"],
+    overview:
+      "Targett is a concept-stage AI-powered trip planner that generates personalized travel itineraries using user preferences, budgets, and real-time data.",
+    responsibilities: [
+      "Developed concept and initial roadmap for MVP.",
+      "Outlined AI integration for itinerary generation and budget optimization.",
+      "Created early prototype designs to visualize product flow.",
+    ],
+    achievements: [
+      "Established proof of concept and roadmap for potential MVP.",
+      "Produced prototype that demonstrates AI itinerary generation workflow.",
+    ],
+  },
+];
+
+const Projects = () => {
+  const [expandedProject, setExpandedProject] = useState<number | null>(null);
+
+  const toggleProject = (index: number) => {
+    setExpandedProject(expandedProject === index ? null : index);
+  };
+
+  return (
+    <div className="min-h-screen">
+      <Navigation />
+      <main className="pt-32 pb-16">
+        <div className="container mx-auto px-6">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-center">Projects</h1>
+          <p className="text-xl text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+            A collection of products I've built and nurtured across EdTech, HealthTech, and beyond.
+          </p>
+
+          <div className="grid gap-8 max-w-5xl mx-auto">
+            {projectsData.map((project, index) => (
+              <Card
+                key={index}
+                className="overflow-hidden hover:shadow-2xl transition-all duration-350 border-none"
+              >
+                {project.image && (
+                  <div className="aspect-video overflow-hidden bg-muted">
+                    <img
+                      src={project.image}
+                      alt={project.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+                <CardContent className="p-6 md:p-8">
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {project.tags.map((tag, tagIndex) => (
+                      <Badge key={tagIndex} variant="secondary">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                  <h3 className="text-3xl font-bold mb-4">{project.name}</h3>
+                  <p className="text-muted-foreground mb-6 leading-relaxed">
+                    {project.overview}
+                  </p>
+
+                  {expandedProject === index && (
+                    <div className="animate-slide-up space-y-6 mb-6">
+                      <div>
+                        <h4 className="text-xl font-bold mb-3">Responsibilities</h4>
+                        <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+                          {project.responsibilities.map((resp, respIndex) => (
+                            <li key={respIndex}>{resp}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 className="text-xl font-bold mb-3">Achievements</h4>
+                        <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+                          {project.achievements.map((ach, achIndex) => (
+                            <li key={achIndex}>{ach}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="flex flex-wrap gap-3">
+                    <Button
+                      onClick={() => toggleProject(index)}
+                      variant="default"
+                      size="sm"
+                    >
+                      {expandedProject === index ? "Show Less" : "View Details"}
+                    </Button>
+                    {project.link && (
+                      <Button asChild variant="outline" size="sm">
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Visit Site →
+                        </a>
+                      </Button>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  );
+};
+
+export default Projects;
