@@ -29,7 +29,7 @@ const HowIWork = () => {
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
             How I Work
           </h2>
-          <p className="text-base text-muted-foreground max-w-2xl">
+          <p className="text-sm text-muted-foreground max-w-2xl">
             A proven process from discovery to delivery
           </p>
         </div>
@@ -48,7 +48,7 @@ const HowIWork = () => {
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className="pt-8 pb-6 px-6 text-center">
-                    <div className="mb-6 text-6xl font-display font-bold text-primary">
+                    <div className="mb-6 text-6xl font-display font-bold text-primary/30">
                       {step.number}
                     </div>
                     

@@ -8,14 +8,14 @@ const CTASection = () => {
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-6">
             Hire <span className="font-normal italic">Henrietta?</span>
           </h2>
-          <p className="text-base text-muted-foreground mb-8">
+          <p className="text-sm text-muted-foreground mb-8">
             Hi Henrietta, I am interested in working with you!
           </p>
           <Button
             asChild
             size="lg"
             variant="outline"
-            className="rounded-full px-8"
+            className="rounded-[2rem] px-8"
           >
             <a href="mailto:onwunemehenrietta7@gmail.com?subject=Opportunity">
               Hire Henrietta
