@@ -22,16 +22,21 @@ const projects = [
 
 const FeaturedProjects = () => {
   return (
-    <section className="py-20 bg-secondary/30">
+    <section className="py-20">
       <div className="container mx-auto px-6">
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
-          Featured Products
-        </h2>
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="mb-12">
+          <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
+            Featured Products
+          </h2>
+          <p className="text-base text-muted-foreground max-w-2xl">
+            Selected work across EdTech and HealthTech
+          </p>
+        </div>
+        <div className="grid md:grid-cols-2 gap-8 max-w-5xl">
           {projects.map((project, index) => (
-            <Card
+            <div
               key={index}
-              className="overflow-hidden hover:shadow-2xl transition-all duration-350 hover:-translate-y-2 border-none"
+              className="glass overflow-hidden rounded-[1.5rem] hover:shadow-2xl transition-all duration-350 hover:-translate-y-2"
             >
               <div className="aspect-video overflow-hidden bg-muted">
                 <img
@@ -40,15 +45,15 @@ const FeaturedProjects = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <CardContent className="p-6">
+              <div className="p-6">
                 <div className="flex flex-wrap gap-2 mb-3">
                   {project.tags.map((tag, tagIndex) => (
-                    <Badge key={tagIndex} variant="secondary">
+                    <span key={tagIndex} className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary">
                       {tag}
-                    </Badge>
+                    </span>
                   ))}
                 </div>
-                <h3 className="text-2xl font-bold mb-4">{project.name}</h3>
+                <h3 className="text-2xl font-display font-bold mb-4">{project.name}</h3>
                 <div className="flex gap-3">
                   <Button asChild variant="outline" size="sm">
                     <Link to="/projects">View Details</Link>
@@ -59,8 +64,8 @@ const FeaturedProjects = () => {
                     </a>
                   </Button>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
       </div>

@@ -56,10 +56,12 @@ const CV = () => {
       <Navigation />
       <main className="pt-32 pb-16">
         <div className="container mx-auto px-6">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-center">CV Timeline</h1>
-          <p className="text-xl text-muted-foreground text-center mb-16 max-w-2xl mx-auto">
-            My journey through product management and beyond
-          </p>
+          <div className="mb-16">
+            <h1 className="text-5xl md:text-6xl font-display font-bold mb-4">CV Timeline</h1>
+            <p className="text-base text-muted-foreground max-w-2xl">
+              My journey through product management and beyond
+            </p>
+          </div>
 
           <div className="max-w-4xl mx-auto">
             <div className="relative">
@@ -86,14 +88,14 @@ const CV = () => {
                         index % 2 === 0 ? "md:text-right md:pr-12" : "md:pl-12"
                       }`}
                     >
-                      <div className="bg-card p-6 rounded-2xl shadow-lg border border-border hover:shadow-xl transition-all duration-350">
-                        <h3 className="text-2xl font-bold mb-1">{node.title}</h3>
-                        <p className="text-primary font-semibold mb-2">{node.role}</p>
-                        <p className="text-sm text-muted-foreground mb-4">
+                      <div className="glass p-6 rounded-[1.5rem] hover:shadow-xl transition-all duration-350">
+                        <h3 className="text-2xl font-display font-bold mb-1">{node.title}</h3>
+                        <p className="text-primary font-semibold mb-2 text-sm">{node.role}</p>
+                        <p className="text-xs text-muted-foreground mb-4">
                           {node.dates}
                         </p>
                         <ul
-                          className={`space-y-2 text-sm ${
+                          className={`space-y-2 text-xs ${
                             index % 2 === 0
                               ? "md:text-right"
                               : "md:text-left"

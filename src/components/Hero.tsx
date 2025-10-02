@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import heroImage from "@/assets/henrietta-portrait.jpg";
+import heroImage from "@/assets/henrietta-hero.jpg";
 
 const Hero = () => {
   const [currentWord, setCurrentWord] = useState(0);
@@ -15,20 +15,17 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="min-h-screen flex items-center pt-20 pb-16 bg-gradient-to-b from-background to-primary-light/20">
+    <section className="min-h-screen flex items-center pt-20 pb-16">
       <div className="container mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div className="animate-slide-up space-y-6">
             <div className="inline-block">
-              <p className="text-lg md:text-xl text-muted-foreground mb-2">
-                Hi, I'm <span className="text-foreground font-semibold">Henrietta Onwuneme</span>.
-              </p>
-              <p className="text-2xl md:text-3xl font-display font-bold text-foreground">
-                A Product Manager.
+              <p className="text-lg md:text-xl text-muted-foreground mb-4">
+                Hi👋, I'm <span className="text-foreground font-bold text-glow">Henrietta Onwuneme</span>
               </p>
             </div>
             
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-display leading-tight">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-display leading-tight text-foreground">
               I{" "}
               <span className="relative inline-block">
                 {words.map((word, index) => (
@@ -45,15 +42,15 @@ const Hero = () => {
               products the digital way.
             </h1>
             
-            <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
               Product management, for me, is about people, their needs, and the paths we create to meet them.
             </p>
             
             <div className="flex flex-wrap gap-4 pt-4">
-              <Button asChild size="lg" className="rounded-full px-8 shadow-lg hover:shadow-xl transition-all">
+              <Button asChild size="lg" className="rounded-full px-8">
                 <Link to="/projects">View Projects</Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="rounded-full px-8 border-2">
+              <Button asChild variant="outline" size="lg" className="rounded-full px-8">
                 <a href="mailto:onwunemehenrietta7@gmail.com?subject=Opportunity">
                   Hire Me
                 </a>
@@ -63,11 +60,11 @@ const Hero = () => {
           
           <div className="animate-fade-in lg:order-last">
             <div className="relative">
-              <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-accent/20 rounded-3xl blur-2xl opacity-50"></div>
+              <div className="absolute -inset-4 bg-primary/10 rounded-[2rem] blur-3xl"></div>
               <img
                 src={heroImage}
                 alt="Henrietta Onwuneme portrait"
-                className="relative rounded-3xl shadow-2xl w-full object-cover border-8 border-background"
+                className="relative rounded-[2rem] w-full object-cover"
                 style={{ aspectRatio: "4/5" }}
               />
             </div>

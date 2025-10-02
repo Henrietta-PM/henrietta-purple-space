@@ -8,6 +8,7 @@ import bloomieImage from "@/assets/bloomie-logo.png";
 import proxyImage from "@/assets/proxy-preview.jpg";
 import syncuImage from "@/assets/syncu-preview.png";
 import careerpassImage from "@/assets/careerpass-preview.png";
+import targettImage from "@/assets/targett-preview.png";
 
 const projectsData = [
   {
@@ -54,6 +55,7 @@ const projectsData = [
   {
     name: "Syncu",
     tags: ["Community", "Collaboration"],
+    link: "https://www.linkedin.com/company/sync-u/",
     image: syncuImage,
     overview:
       "Syncu is a community platform that connects tech professionals to collaborate on product ideas. It enables hands-on experience, real-time portfolio building, and project-based team formation.",
@@ -72,6 +74,7 @@ const projectsData = [
   {
     name: "CareerPASS",
     tags: ["Psychometrics", "Career Guidance"],
+    link: "https://career-pass.vercel.app/",
     image: careerpassImage,
     overview:
       "CareerPASS is a psychometric analysis and career recommendation platform. It helps students discover career paths aligned with their strengths through personality and skill assessments.",
@@ -90,6 +93,8 @@ const projectsData = [
   {
     name: "Targett",
     tags: ["AI Travel"],
+    link: "https://www.targett.app",
+    image: targettImage,
     overview:
       "Targett is a concept-stage AI-powered trip planner that generates personalized travel itineraries using user preferences, budgets, and real-time data.",
     responsibilities: [
@@ -116,52 +121,54 @@ const Projects = () => {
       <Navigation />
       <main className="pt-32 pb-16">
         <div className="container mx-auto px-6">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-center">Projects</h1>
-          <p className="text-xl text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-            A collection of products I've built and nurtured across EdTech, HealthTech, and beyond.
-          </p>
+          <div className="mb-12">
+            <h1 className="text-5xl md:text-6xl font-display font-bold mb-4">Projects</h1>
+            <p className="text-base text-muted-foreground max-w-2xl">
+              A collection of products I've built and nurtured across EdTech, HealthTech, and beyond.
+            </p>
+          </div>
 
-          <div className="grid gap-8 max-w-5xl mx-auto">
+          <div className="grid gap-8 max-w-5xl">
             {projectsData.map((project, index) => (
-              <Card
+              <div
                 key={index}
-                className="overflow-hidden hover:shadow-2xl transition-all duration-350 border-none"
+                className="glass overflow-hidden rounded-[1.5rem] hover:shadow-2xl transition-all duration-350"
               >
                 {project.image && (
                   <div className="aspect-video overflow-hidden bg-muted">
                     <img
                       src={project.image}
                       alt={project.name}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-top"
                     />
                   </div>
                 )}
-                <CardContent className="p-6 md:p-8">
+                <div className="p-6 md:p-8">
                   <div className="flex flex-wrap gap-2 mb-3">
                     {project.tags.map((tag, tagIndex) => (
-                      <Badge key={tagIndex} variant="secondary">
+                      <span key={tagIndex} className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary">
                         {tag}
-                      </Badge>
+                      </span>
                     ))}
                   </div>
-                  <h3 className="text-3xl font-bold mb-4">{project.name}</h3>
-                  <p className="text-muted-foreground mb-6 leading-relaxed">
+                  <h3 className="text-3xl font-display font-bold mb-4">{project.name}</h3>
+                  <p className="text-muted-foreground mb-6 leading-relaxed text-sm">
                     {project.overview}
                   </p>
 
                   {expandedProject === index && (
                     <div className="animate-slide-up space-y-6 mb-6">
                       <div>
-                        <h4 className="text-xl font-bold mb-3">Responsibilities</h4>
-                        <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+                        <h4 className="text-xl font-display font-bold mb-3">Responsibilities</h4>
+                        <ul className="list-disc list-inside space-y-2 text-muted-foreground text-sm">
                           {project.responsibilities.map((resp, respIndex) => (
                             <li key={respIndex}>{resp}</li>
                           ))}
                         </ul>
                       </div>
                       <div>
-                        <h4 className="text-xl font-bold mb-3">Achievements</h4>
-                        <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+                        <h4 className="text-xl font-display font-bold mb-3">Achievements</h4>
+                        <ul className="list-disc list-inside space-y-2 text-muted-foreground text-sm">
                           {project.achievements.map((ach, achIndex) => (
                             <li key={achIndex}>{ach}</li>
                           ))}
@@ -173,13 +180,14 @@ const Projects = () => {
                   <div className="flex flex-wrap gap-3">
                     <Button
                       onClick={() => toggleProject(index)}
-                      variant="default"
+                      variant="outline"
                       size="sm"
+                      className="rounded-full"
                     >
                       {expandedProject === index ? "Show Less" : "View Details"}
                     </Button>
                     {project.link && (
-                      <Button asChild variant="outline" size="sm">
+                      <Button asChild variant="ghost" size="sm" className="rounded-full">
                         <a
                           href={project.link}
                           target="_blank"
@@ -190,8 +198,8 @@ const Projects = () => {
                       </Button>
                     )}
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             ))}
           </div>
         </div>
