@@ -7,6 +7,7 @@ import { useState } from "react";
 import bloomieImage from "@/assets/bloomie-logo.png";
 import proxyImage from "@/assets/proxy-preview.jpg";
 import syncuImage from "@/assets/syncu-preview.png";
+import careerpassImage from "@/assets/careerpass-preview.png";
 
 const projectsData = [
   {
@@ -71,6 +72,7 @@ const projectsData = [
   {
     name: "CareerPASS",
     tags: ["Psychometrics", "Career Guidance"],
+    image: careerpassImage,
     overview:
       "CareerPASS is a psychometric analysis and career recommendation platform. It helps students discover career paths aligned with their strengths through personality and skill assessments.",
     responsibilities: [

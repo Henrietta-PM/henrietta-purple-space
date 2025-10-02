@@ -14,7 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['"Proxima Nova"', 'Lato', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['"Space Grotesk"', 'Inter', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",

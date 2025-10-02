@@ -56,24 +56,28 @@ const Letter = () => {
                       
                       <div className="space-y-6 text-foreground leading-relaxed">
                         <p>
-                          I see every role as a journey. My path into product management grew from
-                          curiosity and steady work. Each role taught me how much can happen when
-                          people come together with clear intention to build. I have worked with
-                          teams across time zones and helped early ideas reach people who use them.
-                          Along the way I learned that steady effort and honest collaboration create
-                          lasting results.
+                          I see every role as a journey. My path into product management started with 
+                          curiosity and grew through resilience. Each step has shown me how much can 
+                          happen when people come together with the will to build. I have worked with 
+                          teams across time zones and turned early ideas into real products. Along the 
+                          way I learned that progress comes from steady effort and honest collaboration.
                         </p>
 
                         <p>
-                          I know I still have much to learn, and I welcome that knowledge from the
-                          projects we tackle together. I bring focus, care, and drive to grow
-                          alongside the team. I believe in leaving each project stronger than I
-                          found it.
+                          I know I still have much to learn, and I look forward to gaining that knowledge 
+                          from the work we do together. Every new challenge is a chance to grow, and I 
+                          embrace that growth with confidence in what I already bring. My belief is simple: 
+                          leave every project stronger than I found it and help those around me reach further.
                         </p>
 
                         <p>
-                          I would be honored to bring this energy to your team. Let us begin this
-                          work together.
+                          If we work together, I will bring focus and commitment. I will carry the skills 
+                          I have grown, the hunger to keep learning, and the energy to move both the work 
+                          and the team forward.
+                        </p>
+
+                        <p>
+                          I would be honored to bring this drive to your team. Let us begin the journey together.
                         </p>
 
                         <p className="text-right mt-8" style={{ fontFamily: 'cursive' }}>
