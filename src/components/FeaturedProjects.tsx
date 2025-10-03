@@ -11,12 +11,14 @@ const projects = [
     tags: ["EdTech"],
     image: bloomieImage,
     link: "https://www.bloomie.com",
+    isLive: true,
   },
   {
     name: "ProxyMedicine",
     tags: ["Telehealth", "HealthTech"],
     image: proxyImage,
     link: "https://www.prxy.health",
+    isLive: true,
   },
 ];
 
@@ -36,8 +38,14 @@ const FeaturedProjects = () => {
           {projects.map((project, index) => (
             <div
               key={index}
-              className="glass overflow-hidden rounded-[1.5rem] hover:shadow-2xl transition-all duration-350 hover:-translate-y-2"
+              className="glass overflow-hidden rounded-[1.5rem] hover:shadow-2xl transition-all duration-350 hover:-translate-y-2 relative"
             >
+              {project.isLive && (
+                <div className="absolute top-4 right-4 z-10 flex items-center gap-2 glass px-3 py-1.5 rounded-full">
+                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                  <span className="text-xs font-medium text-foreground">Live</span>
+                </div>
+              )}
               <div className="aspect-video overflow-hidden bg-muted">
                 <img
                   src={project.image}
@@ -48,7 +56,7 @@ const FeaturedProjects = () => {
               <div className="p-6">
                 <div className="flex flex-wrap gap-2 mb-3">
                   {project.tags.map((tag, tagIndex) => (
-                    <span key={tagIndex} className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary">
+                    <span key={tagIndex} className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary-lighter">
                       {tag}
                     </span>
                   ))}
@@ -67,6 +75,11 @@ const FeaturedProjects = () => {
               </div>
             </div>
           ))}
+        </div>
+        <div className="mt-12 text-center">
+          <Button asChild variant="outline" size="lg">
+            <Link to="/projects">View More Projects</Link>
+          </Button>
         </div>
       </div>
     </section>

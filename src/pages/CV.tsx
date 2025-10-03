@@ -70,6 +70,26 @@ const timelineNodes = [
   },
 ];
 
+const skills = [
+  "Product Roadmaps",
+  "PRDs & User Stories",
+  "UX Research",
+  "A/B Testing",
+  "Team Leadership",
+  "Data-driven Decisions",
+  "Analytics",
+  "User Journey",
+  "Product-Led Growth",
+  "Feature Prioritization",
+  "MVP Development",
+  "API Documentation",
+  "Data Analytics",
+  "Figma",
+  "Google Analytics",
+  "Agile Frameworks",
+  "Scrum Methodologies",
+];
+
 const CV = () => {
   return (
     <div className="min-h-screen">
@@ -77,13 +97,37 @@ const CV = () => {
       <main className="pt-32 pb-16">
         <div className="container mx-auto px-6">
           <div className="mb-12">
-            <h1 className="text-5xl md:text-6xl font-display font-bold mb-4">CV Timeline</h1>
+            <h1 className="text-5xl md:text-6xl font-display font-bold mb-4">CV</h1>
             <p className="text-sm text-muted-foreground max-w-2xl">
               My journey through product management and beyond
             </p>
           </div>
 
+          <div className="max-w-4xl mx-auto mb-16">
+            <div className="glass p-8 rounded-[1.5rem]">
+              <h2 className="text-3xl font-display font-bold mb-4">Professional Summary</h2>
+              <p className="text-muted-foreground leading-relaxed">
+                Product Manager with 2+ years of experience launching AI-driven products and scaling user communities. Led cross-functional teams across 5+ product lines, including telehealth, AI, SaaS, and personalized learning platforms. Decreased product development delays by 15% by adopting agile methodologies. Holds a BSc in Architecture, demonstrating a strong foundation in human-centered design.
+              </p>
+            </div>
+          </div>
+
+          <div className="max-w-4xl mx-auto mb-16">
+            <h2 className="text-3xl font-display font-bold mb-6">Skills</h2>
+            <div className="flex flex-wrap gap-3">
+              {skills.map((skill, index) => (
+                <span
+                  key={index}
+                  className="glass text-sm px-4 py-2 rounded-full hover:shadow-lg transition-all duration-350 cursor-default"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+
           <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-display font-bold mb-8">Experience Timeline</h2>
             <div className="relative">
               {/* Timeline line */}
               <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-primary/30" />

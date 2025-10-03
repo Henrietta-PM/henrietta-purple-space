@@ -16,6 +16,7 @@ const projectsData = [
     tags: ["EdTech"],
     link: "https://www.bloomie.com",
     image: bloomieImage,
+    isLive: true,
     overview:
       "Bloomie AI is a personalized learning platform for children, using AI to deliver adaptive lessons and engaging progress dashboards. It ensures that children have individualized learning paths while giving parents and teachers actionable insights.",
     responsibilities: [
@@ -36,6 +37,7 @@ const projectsData = [
     tags: ["Telehealth", "HealthTech"],
     link: "https://www.prxy.health",
     image: proxyImage,
+    isLive: true,
     overview:
       "ProxyMedicine is a telehealth platform that combines asynchronous care with AI-driven tools. It offers AI-powered diagnosis suggestions, prescription refills, weight loss tracking, and personalized diet/meal generation. Features include patient questionnaires, scheduling via Calendly, medication management, and an admin portal for billing, upsells, and transcript analysis.",
     responsibilities: [
@@ -132,8 +134,14 @@ const Projects = () => {
             {projectsData.map((project, index) => (
               <div
                 key={index}
-                className="glass overflow-hidden rounded-[1.5rem] hover:shadow-2xl transition-all duration-350"
+                className="glass overflow-hidden rounded-[1.5rem] hover:shadow-2xl transition-all duration-350 relative"
               >
+                {project.isLive && (
+                  <div className="absolute top-4 right-4 z-10 flex items-center gap-2 glass px-3 py-1.5 rounded-full">
+                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                    <span className="text-xs font-medium text-foreground">Live</span>
+                  </div>
+                )}
                 {project.image && (
                   <div className="aspect-video overflow-hidden bg-muted">
                     <img
@@ -146,7 +154,7 @@ const Projects = () => {
                 <div className="p-6 md:p-8">
                   <div className="flex flex-wrap gap-2 mb-3">
                     {project.tags.map((tag, tagIndex) => (
-                      <span key={tagIndex} className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary">
+                      <span key={tagIndex} className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary-lighter">
                         {tag}
                       </span>
                     ))}

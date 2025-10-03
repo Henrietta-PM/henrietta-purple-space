@@ -11,7 +11,7 @@ const Letter = () => {
       <main className="pt-32 pb-16">
         <div className="container mx-auto px-6">
           <div className="mb-12 space-y-3">
-            <h1 className="text-4xl md:text-5xl font-display text-foreground">
+            <h1 className="text-4xl md:text-5xl font-display text-foreground max-w-xs md:max-w-none">
               A Letter to My Next Team
             </h1>
             <p className="text-sm text-muted-foreground">

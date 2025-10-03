@@ -20,7 +20,8 @@ All colors MUST be HSL.
     --primary: 253 90% 60%;
     --primary-foreground: 0 0% 100%;
     --primary-hover: 253 75% 53%;
-    --primary-light: 253 90% 95%;
+    --primary-light: 253 90% 70%;
+    --primary-lighter: 253 70% 75%;
 
     --secondary: 253 20% 96%;
     --secondary-foreground: 253 90% 60%;
@@ -61,7 +62,7 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 253 35% 6%;
+    --background: 253 35% 8%;
     --foreground: 0 0% 98%;
 
     --card: 0 0% 8%;
@@ -90,8 +91,10 @@ All colors MUST be HSL.
     --input: 0 0% 20%;
     --ring: 253 90% 60%;
     
-    --glass-bg: 255 255 255 / 0.1;
-    --glass-border: 255 255 255 / 0.18;
+    --glass-bg: 255 255 255 / 0.12;
+    --glass-border: 255 255 255 / 0.22;
+    --glass-bg-strong: 200 200 200 / 0.2;
+    --glass-border-strong: 255 255 255 / 0.3;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;

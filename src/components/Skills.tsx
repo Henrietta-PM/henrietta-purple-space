@@ -1,4 +1,6 @@
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const skills = [
   "Product Roadmaps",
@@ -33,6 +35,11 @@ const Skills = () => {
               {skill}
             </span>
           ))}
+        </div>
+        <div className="mt-8">
+          <Button asChild variant="outline" size="lg">
+            <Link to="/cv">See Full CV</Link>
+          </Button>
         </div>
       </div>
     </section>
