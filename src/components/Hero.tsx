@@ -22,11 +22,11 @@ const Hero = () => {
           <img
             src={heroImage}
             alt="Henrietta Onwuneme portrait"
-            className="relative rounded-[3rem] w-full h-full object-cover object-[center_20%] lg:object-center"
+            className="relative rounded-[3rem] lg:rounded-[3rem] w-full h-full object-cover object-[center_70%] sm:object-[center_60%] lg:object-[center_45%]"
           />
           
           {/* Overlay Card - Always visible, positioned on image */}
-          <div className="absolute bottom-8 lg:bottom-auto lg:top-1/2 lg:-translate-y-1/2 left-4 right-4 lg:left-12 lg:right-auto lg:max-w-xl">
+          <div className="absolute bottom-8 lg:bottom-16 left-4 right-4 lg:left-1/2 lg:-translate-x-1/2 lg:max-w-xl">
             <div className="glass rounded-[2rem] p-6 lg:p-8 space-y-4 lg:space-y-6 animate-slide-up">
               <div>
                 <p className="text-base lg:text-lg text-muted-foreground mb-2">
@@ -51,11 +51,11 @@ const Hero = () => {
                 products the digital way.
               </h1>
               
-              <p className="text-sm lg:text-base text-foreground/90 leading-relaxed max-w-md font-medium">
+              <p className="text-sm lg:text-base text-foreground leading-relaxed max-w-[280px] lg:max-w-md font-medium">
                 Product management, for me, is about people, their needs, and the paths we create to meet them.
               </p>
               
-              <div className="flex flex-wrap gap-3 lg:gap-4 pt-2">
+              <div className="flex gap-3 lg:gap-4 pt-2">
                 <Button asChild size="default" className="rounded-[2rem] px-6 lg:px-8">
                   <Link to="/projects">View Projects</Link>
                 </Button>

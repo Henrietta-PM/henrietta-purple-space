@@ -7,9 +7,9 @@ const timelineNodes = [
     role: "Team Lead / Product Manager",
     dates: "Feb 2025 – Current",
     highlights: [
-      "Patient satisfaction +60%",
-      "Roadmap delivery 25% faster",
-      "Defects reduced 15%",
+      "Led development of AI-powered telehealth platform, increasing patient satisfaction by 60%",
+      "Facilitated product roadmap with defined milestones, resulting in 25% faster time to market",
+      "Conducted 5 user interviews per week to inform product decisions",
     ],
   },
   {
@@ -17,8 +17,9 @@ const timelineNodes = [
     role: "Product Manager",
     dates: "Nov 2024 – May 2025",
     highlights: [
-      "Defined AI-driven learning MVP",
-      "80% daily adoption, 45% retention uplift",
+      "Delivered Bloomie AI MVP core features, adopted by 80% of users daily",
+      "Created detailed PRDs and user flows, accelerating development speed by 20%",
+      "Drove data-informed product enhancements through A/B testing, boosting retention by 45%",
     ],
   },
   {
@@ -26,27 +27,46 @@ const timelineNodes = [
     role: "Product Manager",
     dates: "May 2024 – Dec 2024",
     highlights: [
-      "20+ user interviews guided prioritization",
-      "20% increase in positive reviews",
+      "Incorporated insights from 20+ user interviews to guide feature prioritization",
+      "Developed PRDs and wireframes, reducing development time by 15%",
+      "Optimized features through continuous testing, boosting user content generation by 20%",
     ],
   },
   {
     title: "Umbaji",
     role: "Project Manager",
     dates: "May 2023 – Feb 2024",
-    highlights: ["Launched Yodi AI language model", "Managed 1,500 contributors"],
+    highlights: [
+      "Spearheaded 15+ project kick-off meetings, reducing project delays by 2 weeks",
+      "Managed cross-functional team, achieving 84% average efficiency rate",
+      "Championed team alignment, increasing developer contributions by 31%",
+    ],
   },
   {
     title: "Syncu",
     role: "Team Lead / Product Manager",
     dates: "Jan 2024 – Current",
-    highlights: ["Scaled to 250+ members", "10+ product collaborations"],
+    highlights: [
+      "Scaled Syncu community to 250+ members",
+      "Facilitated 10+ successful product collaborations",
+      "Acquired 530+ users to waitlist through community-driven marketing",
+    ],
+  },
+  {
+    title: "CareerPASS",
+    role: "Team Lead / Product Manager",
+    dates: "Mar 2024 – Apr 2024",
+    highlights: [
+      "Led end-to-end development of CareerPASS psychometric platform",
+      "Integrated user feedback to enhance assessment algorithm precision",
+      "Recognized as top 5 project",
+    ],
   },
   {
     title: "University of Uyo",
     role: "BSc Architecture",
-    dates: "2018 – 2024",
-    highlights: ["Foundation in design and human-centered thinking"],
+    dates: "Jul 2018 – Jul 2024",
+    highlights: ["Strong foundation in human-centered design"],
   },
 ];
 
@@ -56,9 +76,9 @@ const CV = () => {
       <Navigation />
       <main className="pt-32 pb-16">
         <div className="container mx-auto px-6">
-          <div className="mb-16">
+          <div className="mb-12">
             <h1 className="text-5xl md:text-6xl font-display font-bold mb-4">CV Timeline</h1>
-            <p className="text-base text-muted-foreground max-w-2xl">
+            <p className="text-sm text-muted-foreground max-w-2xl">
               My journey through product management and beyond
             </p>
           </div>

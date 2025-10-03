@@ -9,16 +9,16 @@ const Contact = () => {
       <Navigation />
       <main className="pt-32 pb-16">
         <div className="container mx-auto px-6">
-          <div className="mb-16">
+          <div className="mb-12">
             <h1 className="text-5xl md:text-6xl font-display font-bold mb-4">
               Let's Build Together
             </h1>
-            <p className="text-base text-muted-foreground max-w-2xl">
-              Ready to collaborate? Reach out and let's create something meaningful.
+            <p className="text-sm text-muted-foreground max-w-2xl">
+              Ready to collaborate? Reach out and let's create something meaningful
             </p>
           </div>
 
-          <div className="max-w-2xl space-y-8">
+          <div className="max-w-2xl mx-auto space-y-8">
             <div className="glass p-8 rounded-[1.5rem]">
               <h2 className="text-2xl font-display font-bold mb-6">Direct Contact</h2>
               <div className="space-y-4">

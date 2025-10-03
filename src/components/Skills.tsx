@@ -7,18 +7,21 @@ const skills = [
   "A/B Testing",
   "Team Leadership",
   "Data-driven Decisions",
+  "Analytics",
+  "User Journey",
+  "Product-Led Growth",
 ];
 
 const Skills = () => {
   return (
-    <section className="py-20">
+    <section className="py-12">
       <div className="container mx-auto px-6">
-        <div className="mb-12">
+        <div className="mb-8">
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
             My Skills
           </h2>
-          <p className="text-base text-muted-foreground max-w-2xl">
-            Core competencies that drive product success
+          <p className="text-sm text-muted-foreground max-w-2xl">
+            These are my core competencies that have driven product success
           </p>
         </div>
         <div className="flex flex-wrap gap-4 max-w-3xl">

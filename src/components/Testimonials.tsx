@@ -38,13 +38,13 @@ const Testimonials = () => {
   const current = testimonials[currentIndex];
 
   return (
-    <section className="py-24 bg-gradient-to-b from-background to-primary-light/20">
+    <section className="py-12">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <div className="mb-8">
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
             What People Say
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-sm text-muted-foreground max-w-2xl">
             Testimonials from colleagues and leaders I've worked with
           </p>
         </div>

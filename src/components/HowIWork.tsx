@@ -23,14 +23,14 @@ const workSteps = [
 
 const HowIWork = () => {
   return (
-    <section className="py-24 bg-background">
+    <section className="py-12">
       <div className="container mx-auto px-6">
-        <div className="mb-16">
+        <div className="mb-8">
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
             How I Work
           </h2>
           <p className="text-sm text-muted-foreground max-w-2xl">
-            A proven process from discovery to delivery
+            My approach to building successful products
           </p>
         </div>
         

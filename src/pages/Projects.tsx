@@ -123,12 +123,12 @@ const Projects = () => {
         <div className="container mx-auto px-6">
           <div className="mb-12">
             <h1 className="text-5xl md:text-6xl font-display font-bold mb-4">Projects</h1>
-            <p className="text-base text-muted-foreground max-w-2xl">
-              A collection of products I've built and nurtured across EdTech, HealthTech, and beyond.
+            <p className="text-sm text-muted-foreground max-w-2xl">
+              A collection of products I've built and nurtured across EdTech, HealthTech, and beyond
             </p>
           </div>
 
-          <div className="grid gap-8 max-w-5xl">
+          <div className="grid gap-8 max-w-5xl mx-auto">
             {projectsData.map((project, index) => (
               <div
                 key={index}

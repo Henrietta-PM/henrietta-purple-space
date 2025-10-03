@@ -22,14 +22,14 @@ const projects = [
 
 const FeaturedProjects = () => {
   return (
-    <section className="py-20">
+    <section className="py-12">
       <div className="container mx-auto px-6">
-        <div className="mb-12">
+        <div className="mb-8">
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
-            Featured Products
+            Featured Work
           </h2>
-          <p className="text-base text-muted-foreground max-w-2xl">
-            Selected work across EdTech and HealthTech
+          <p className="text-sm text-muted-foreground max-w-2xl">
+            Recent projects and achievements
           </p>
         </div>
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl">

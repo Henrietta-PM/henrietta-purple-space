@@ -1,8 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
 
 const Navigation = () => {
   const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navLinks = [
     { path: "/", label: "Home" },
@@ -28,7 +31,7 @@ const Navigation = () => {
                 className={cn(
                   "text-sm font-medium transition-all px-4 py-2 rounded-[1rem] relative",
                   location.pathname === link.path
-                    ? "text-foreground bg-foreground/5"
+                    ? "text-foreground bg-primary/20"
                     : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
                 )}
               >
@@ -38,24 +41,49 @@ const Navigation = () => {
           </div>
 
           <div className="md:hidden">
-            <button className="text-foreground">
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
+            <button 
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="text-foreground p-2"
+            >
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      <div
+        className={cn(
+          "md:hidden fixed top-0 right-0 h-full w-64 glass transform transition-transform duration-300 ease-in-out z-50",
+          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+        )}
+      >
+        <div className="flex flex-col p-6 pt-20 gap-2">
+          {navLinks.map((link) => (
+            <Link
+              key={link.path}
+              to={link.path}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={cn(
+                "text-sm font-medium transition-all px-4 py-3 rounded-[1rem]",
+                location.pathname === link.path
+                  ? "text-foreground bg-primary/20"
+                  : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
+              )}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Overlay */}
+      {isMobileMenuOpen && (
+        <div
+          className="md:hidden fixed inset-0 bg-background/80 backdrop-blur-sm z-40"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
     </nav>
   );
 };
