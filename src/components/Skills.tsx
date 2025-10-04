@@ -2,34 +2,17 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
-const skillCategories = {
-  softSkills: [
-    "Team Leadership",
-    "Data-driven Decisions",
-    "Strategic Thinking",
-    "Communication",
-    "Problem Solving",
-  ],
-  technicalSkills: [
-    "Product Roadmaps",
-    "PRDs & User Stories",
-    "UX Research",
-    "A/B Testing",
-    "Analytics",
-    "User Journey",
-    "Product-Led Growth",
-    "Feature Prioritization",
-    "MVP Development",
-  ],
-  tools: [
-    "Figma",
-    "Google Analytics",
-    "Jira",
-    "Trello",
-    "Notion",
-    "Miro",
-  ],
-};
+const skills = [
+  "Product Roadmaps",
+  "PRDs & User Stories",
+  "UX Research",
+  "A/B Testing",
+  "Team Leadership",
+  "Data-driven Decisions",
+  "Analytics",
+  "User Journey",
+  "Product-Led Growth",
+];
 
 const Skills = () => {
   return (
@@ -43,51 +26,15 @@ const Skills = () => {
             These are my core competencies that have driven product success
           </p>
         </div>
-        <div className="space-y-8 max-w-4xl">
-          {/* Soft Skills */}
-          <div>
-            <h3 className="text-xl font-display font-semibold mb-4 text-primary-visible">Soft Skills</h3>
-            <div className="flex flex-wrap gap-4">
-              {skillCategories.softSkills.map((skill, index) => (
-                <span
-                  key={index}
-                  className="glass text-base px-6 py-3 rounded-full hover:shadow-lg transition-all duration-350 cursor-default"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Technical Skills */}
-          <div>
-            <h3 className="text-xl font-display font-semibold mb-4 text-primary-visible">Technical Skills</h3>
-            <div className="flex flex-wrap gap-4">
-              {skillCategories.technicalSkills.map((skill, index) => (
-                <span
-                  key={index}
-                  className="glass text-base px-6 py-3 rounded-full hover:shadow-lg transition-all duration-350 cursor-default"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Tools */}
-          <div>
-            <h3 className="text-xl font-display font-semibold mb-4 text-primary-visible">Tools</h3>
-            <div className="flex flex-wrap gap-4">
-              {skillCategories.tools.map((skill, index) => (
-                <span
-                  key={index}
-                  className="glass text-base px-6 py-3 rounded-full hover:shadow-lg transition-all duration-350 cursor-default"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
+        <div className="flex flex-wrap gap-4 max-w-3xl">
+          {skills.map((skill, index) => (
+            <span
+              key={index}
+              className="glass text-base px-6 py-3 rounded-full hover:shadow-lg transition-all duration-350 cursor-default"
+            >
+              {skill}
+            </span>
+          ))}
         </div>
         <div className="mt-12 text-center">
           <Button asChild variant="default" size="lg">

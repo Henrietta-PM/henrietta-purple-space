@@ -73,25 +73,38 @@ const timelineNodes = [
   },
 ];
 
-const skills = [
-  "Product Roadmaps",
-  "PRDs & User Stories",
-  "UX Research",
-  "A/B Testing",
-  "Team Leadership",
-  "Data-driven Decisions",
-  "Analytics",
-  "User Journey",
-  "Product-Led Growth",
-  "Feature Prioritization",
-  "MVP Development",
-  "API Documentation",
-  "Data Analytics",
-  "Figma",
-  "Google Analytics",
-  "Agile Frameworks",
-  "Scrum Methodologies",
-];
+const skillCategories = {
+  softSkills: [
+    "Team Leadership",
+    "Data-driven Decisions",
+    "Strategic Thinking",
+    "Communication",
+    "Problem Solving",
+  ],
+  technicalSkills: [
+    "Product Roadmaps",
+    "PRDs & User Stories",
+    "UX Research",
+    "A/B Testing",
+    "Analytics",
+    "User Journey",
+    "Product-Led Growth",
+    "Feature Prioritization",
+    "MVP Development",
+    "API Documentation",
+    "Data Analytics",
+    "Agile Frameworks",
+    "Scrum Methodologies",
+  ],
+  tools: [
+    "Figma",
+    "Google Analytics",
+    "Jira",
+    "Trello",
+    "Notion",
+    "Miro",
+  ],
+};
 
 const CV = () => {
   return (
@@ -107,7 +120,7 @@ const CV = () => {
                 className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover ring-4 ring-primary/20"
               />
               <div>
-                <h1 className="text-5xl md:text-6xl font-display font-bold mb-2">
+                <h1 className="text-3xl sm:text-4xl md:text-6xl font-display font-bold mb-2">
                   Curriculum <span className="font-handwritten text-primary-visible">Vitae</span>
                 </h1>
                 <p className="text-sm text-muted-foreground max-w-2xl">
@@ -137,15 +150,51 @@ const CV = () => {
 
           <div className="max-w-4xl mx-auto mb-16">
             <h2 className="text-3xl font-display font-bold mb-6">Skills</h2>
-            <div className="flex flex-wrap gap-3">
-              {skills.map((skill, index) => (
-                <span
-                  key={index}
-                  className="glass text-sm px-4 py-2 rounded-full hover:shadow-lg transition-all duration-350 cursor-default"
-                >
-                  {skill}
-                </span>
-              ))}
+            <div className="space-y-8">
+              {/* Soft Skills */}
+              <div>
+                <h3 className="text-xl font-display font-semibold mb-4 text-primary-visible">Soft Skills</h3>
+                <div className="flex flex-wrap gap-3">
+                  {skillCategories.softSkills.map((skill, index) => (
+                    <span
+                      key={index}
+                      className="glass text-sm px-4 py-2 rounded-full hover:shadow-lg transition-all duration-350 cursor-default"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Technical Skills */}
+              <div>
+                <h3 className="text-xl font-display font-semibold mb-4 text-primary-visible">Technical Skills</h3>
+                <div className="flex flex-wrap gap-3">
+                  {skillCategories.technicalSkills.map((skill, index) => (
+                    <span
+                      key={index}
+                      className="glass text-sm px-4 py-2 rounded-full hover:shadow-lg transition-all duration-350 cursor-default"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Tools */}
+              <div>
+                <h3 className="text-xl font-display font-semibold mb-4 text-primary-visible">Tools</h3>
+                <div className="flex flex-wrap gap-3">
+                  {skillCategories.tools.map((skill, index) => (
+                    <span
+                      key={index}
+                      className="glass text-sm px-4 py-2 rounded-full hover:shadow-lg transition-all duration-350 cursor-default"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
