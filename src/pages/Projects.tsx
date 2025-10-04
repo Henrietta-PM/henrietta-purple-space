@@ -124,7 +124,9 @@ const Projects = () => {
       <main className="pt-32 pb-16">
         <div className="container mx-auto px-6">
           <div className="mb-12">
-            <h1 className="text-5xl md:text-6xl font-display font-bold mb-4">Projects</h1>
+            <h1 className="text-5xl md:text-6xl font-display font-bold mb-4">
+              <span className="font-handwritten text-primary-visible">Projects</span>
+            </h1>
             <p className="text-sm text-muted-foreground max-w-2xl">
               A collection of products I've built and nurtured across EdTech, HealthTech, and beyond
             </p>
@@ -154,7 +156,7 @@ const Projects = () => {
                 <div className="p-6 md:p-8">
                 <div className="flex flex-wrap gap-2 mb-3">
                   {project.tags.map((tag, tagIndex) => (
-                    <span key={tagIndex} className="text-xs px-3 py-1 rounded-full glass border border-primary/30 text-primary">
+                    <span key={tagIndex} className="text-xs px-3 py-1 rounded-full glass border border-primary/30 text-white">
                       {tag}
                     </span>
                   ))}
@@ -188,7 +190,7 @@ const Projects = () => {
                   <div className="flex flex-wrap gap-3">
                     <Button
                       onClick={() => toggleProject(index)}
-                      variant="outline"
+                      variant="default"
                       size="sm"
                       className="rounded-full"
                     >

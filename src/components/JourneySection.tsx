@@ -19,7 +19,7 @@ const JourneySection = () => {
       <div className="container mx-auto px-6">
         <div className="mb-8">
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
-            My Journey
+            My <span className="font-handwritten text-primary-visible">Journey</span>
           </h2>
           <p className="text-sm text-muted-foreground max-w-2xl">
             From Architecture to Product Management

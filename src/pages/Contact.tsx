@@ -11,7 +11,7 @@ const Contact = () => {
         <div className="container mx-auto px-6">
           <div className="mb-12">
             <h1 className="text-5xl md:text-6xl font-display font-bold mb-4">
-              Let's Build Together
+              Let's Build <span className="font-handwritten text-primary-visible">Together</span>
             </h1>
             <p className="text-sm text-muted-foreground max-w-2xl">
               Ready to collaborate? Reach out and let's create something meaningful

@@ -27,7 +27,7 @@ const HowIWork = () => {
       <div className="container mx-auto px-6">
         <div className="mb-8">
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
-            How I Work
+            How I <span className="font-handwritten text-primary-visible">Work</span>
           </h2>
           <p className="text-sm text-muted-foreground max-w-2xl">
             My approach to building successful products

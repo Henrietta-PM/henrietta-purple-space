@@ -6,7 +6,7 @@ const CTASection = () => {
       <div className="container mx-auto px-6">
         <div className="glass rounded-[2rem] p-12 md:p-16 text-center max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-6">
-            Hire <span className="font-normal italic">Henrietta?</span>
+            Hire <span className="font-handwritten text-primary-visible">Henrietta?</span>
           </h2>
           <p className="text-sm text-muted-foreground mb-8">
             Hi Henrietta, I am interested in working with you!

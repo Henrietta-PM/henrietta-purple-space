@@ -16,6 +16,7 @@ export default {
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
         display: ['"Space Grotesk"', 'Inter', 'sans-serif'],
+        handwritten: ['"Dancing Script"', 'cursive'],
       },
       colors: {
         border: "hsl(var(--border))",

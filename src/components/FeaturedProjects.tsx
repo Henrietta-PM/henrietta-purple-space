@@ -28,7 +28,7 @@ const FeaturedProjects = () => {
       <div className="container mx-auto px-6">
         <div className="mb-8">
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
-            Featured Work
+            Featured <span className="font-handwritten text-primary-visible">Work</span>
           </h2>
           <p className="text-sm text-muted-foreground max-w-2xl">
             Recent projects and achievements
@@ -63,7 +63,7 @@ const FeaturedProjects = () => {
                 </div>
                 <h3 className="text-2xl font-display font-bold mb-4">{project.name}</h3>
                 <div className="flex gap-3">
-                  <Button asChild variant="outline" size="sm">
+                  <Button asChild variant="default" size="sm">
                     <Link to="/projects">View Details</Link>
                   </Button>
                   <Button asChild variant="ghost" size="sm">
@@ -77,7 +77,7 @@ const FeaturedProjects = () => {
           ))}
         </div>
         <div className="mt-12 text-center">
-          <Button asChild variant="outline" size="lg">
+          <Button asChild variant="default" size="lg">
             <Link to="/projects">View More Projects</Link>
           </Button>
         </div>
