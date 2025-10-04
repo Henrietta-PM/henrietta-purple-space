@@ -134,10 +134,19 @@ const Projects = () => {
 
           <div className="grid gap-8 max-w-5xl mx-auto">
             {projectsData.map((project, index) => (
-              <div
-                key={index}
-                className="glass overflow-hidden rounded-[1.5rem] hover:shadow-2xl transition-all duration-350 relative"
-              >
+              <>
+                {index === 2 && (
+                  <div className="my-8">
+                    <div className="border-t border-border/30 mb-8"></div>
+                    <h2 className="text-3xl md:text-4xl font-display font-bold mb-8">
+                      <span className="font-handwritten text-primary-visible">Side Projects</span>
+                    </h2>
+                  </div>
+                )}
+                <div
+                  key={index}
+                  className="glass overflow-hidden rounded-[1.5rem] hover:shadow-2xl transition-all duration-350 relative"
+                >
                 {project.isLive && (
                   <div className="absolute top-4 right-4 z-10 flex items-center gap-2 glass px-3 py-1.5 rounded-full">
                     <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
@@ -210,6 +219,7 @@ const Projects = () => {
                   </div>
                 </div>
               </div>
+              </>
             ))}
           </div>
         </div>
