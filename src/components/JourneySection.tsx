@@ -9,7 +9,7 @@ const journeySteps = [
   },
   {
     title: "Where I'm Headed",
-    text: "I want to keep building products that matter, growing with every challenge, and leaving each team and project stronger than I found it.",
+    text: "I want to keep building products that matter, growing with every challenge, and leaving each team and product stronger than I found it.",
   },
 ];
 

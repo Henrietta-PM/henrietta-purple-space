@@ -38,12 +38,13 @@ const Hero = () => {
             className="px-4 md:px-6 py-2 md:py-3 text-xs md:text-sm font-medium hover:bg-primary/10 rounded-full transition-all flex items-center gap-2 md:gap-3"
           >
             <span className="text-sm md:text-base font-bold text-white">ProxyMedicine</span>
+            <div className="w-px h-4 md:h-5 bg-white/20"></div>
             <span className="text-[9px] md:text-xs text-white/60 font-normal">Featured work</span>
           </Link>
         </div>
 
         {/* Main Heading */}
-        <h1 className="text-4xl md:text-7xl xl:text-8xl font-display font-bold leading-tight mb-4 md:mb-6 max-w-5xl mx-auto">
+        <h1 className="text-4xl md:text-7xl xl:text-8xl font-display font-bold leading-tight mb-6 md:mb-6 max-w-5xl mx-auto">
           <span className="text-white" style={{ textShadow: '0 4px 30px rgba(0, 0, 0, 0.8)' }}>
             I{" "}
             <span className="relative inline-block font-handwritten">
@@ -69,7 +70,7 @@ const Hero = () => {
         </h1>
 
         {/* Subtext with blur backdrop */}
-        <div className="inline-block mb-6 md:mb-12 px-4 md:px-6 py-2.5 md:py-4 rounded-2xl backdrop-blur-md bg-background/30">
+        <div className="inline-block mb-8 md:mb-12 px-4 md:px-6 py-2.5 md:py-4 rounded-2xl backdrop-blur-md bg-background/30">
           <p className="text-xs md:text-lg xl:text-xl text-white/95 leading-relaxed font-medium max-w-2xl">
             👋 Hi, I'm Henrietta. Product management for me, is about people, their needs, and the paths we create to meet them.
           </p>
