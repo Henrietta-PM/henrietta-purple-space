@@ -6,7 +6,7 @@ const Letter = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-20 md:pb-0">
       <Navigation />
       <main className="pt-32 pb-16">
         <div className="container mx-auto px-6">

@@ -14,7 +14,7 @@ const projectsData = [
   {
     name: "Bloomie AI",
     tags: ["EdTech"],
-    link: "https://www.bloomie.com",
+    link: "https://learn.bloomie.com",
     image: bloomieImage,
     isLive: true,
     overview:
@@ -119,7 +119,7 @@ const Projects = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-20 md:pb-0">
       <Navigation />
       <main className="pt-32 pb-16">
         <div className="container mx-auto px-6">
@@ -152,13 +152,13 @@ const Projects = () => {
                   </div>
                 )}
                 <div className="p-6 md:p-8">
-                  <div className="flex flex-wrap gap-2 mb-3">
-                    {project.tags.map((tag, tagIndex) => (
-                      <span key={tagIndex} className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary-lighter">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {project.tags.map((tag, tagIndex) => (
+                    <span key={tagIndex} className="text-xs px-3 py-1 rounded-full glass border border-primary/30 text-primary">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
                   <h3 className="text-3xl font-display font-bold mb-4">{project.name}</h3>
                   <p className="text-muted-foreground mb-6 leading-relaxed text-sm">
                     {project.overview}

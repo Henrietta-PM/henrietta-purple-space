@@ -7,17 +7,17 @@ import proxyImage from "@/assets/proxy-preview.jpg";
 
 const projects = [
   {
-    name: "Bloomie AI",
-    tags: ["EdTech"],
-    image: bloomieImage,
-    link: "https://www.bloomie.com",
-    isLive: true,
-  },
-  {
     name: "ProxyMedicine",
     tags: ["Telehealth", "HealthTech"],
     image: proxyImage,
     link: "https://www.prxy.health",
+    isLive: true,
+  },
+  {
+    name: "Bloomie AI",
+    tags: ["EdTech"],
+    image: bloomieImage,
+    link: "https://learn.bloomie.com",
     isLive: true,
   },
 ];

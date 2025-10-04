@@ -1,5 +1,8 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "lucide-react";
+import portraitImage from "@/assets/henrietta-portrait.jpg";
 
 const timelineNodes = [
   {
@@ -92,15 +95,30 @@ const skills = [
 
 const CV = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-20 md:pb-0">
       <Navigation />
       <main className="pt-32 pb-16">
         <div className="container mx-auto px-6">
-          <div className="mb-12">
-            <h1 className="text-5xl md:text-6xl font-display font-bold mb-4">CV</h1>
-            <p className="text-sm text-muted-foreground max-w-2xl">
-              My journey through product management and beyond
-            </p>
+          <div className="mb-12 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div className="flex items-center gap-6">
+              <img 
+                src={portraitImage} 
+                alt="Henrietta Onwuneme" 
+                className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover ring-4 ring-primary/20"
+              />
+              <div>
+                <h1 className="text-5xl md:text-6xl font-display font-bold mb-2">CV</h1>
+                <p className="text-sm text-muted-foreground max-w-2xl">
+                  My journey through product management and beyond
+                </p>
+              </div>
+            </div>
+            <Button asChild size="lg" className="gap-2 w-full md:w-auto">
+              <a href="https://calendar.app.google/aKsp6pywYzCAS6Nr9" target="_blank" rel="noopener noreferrer">
+                <Calendar className="w-5 h-5" />
+                Hire Henrietta
+              </a>
+            </Button>
           </div>
 
           <div className="max-w-4xl mx-auto mb-16">

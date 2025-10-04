@@ -8,7 +8,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 253 35% 18%;
+    --background: 253 35% 12%;
     --foreground: 0 0% 98%;
 
     --card: 0 0% 100%;
@@ -21,10 +21,11 @@ All colors MUST be HSL.
     --primary-foreground: 0 0% 100%;
     --primary-hover: 253 75% 53%;
     --primary-light: 253 90% 70%;
-    --primary-lighter: 253 70% 75%;
+    --primary-lighter: 253 85% 85%;
+    --primary-visible: 253 70% 90%;
 
     --secondary: 253 20% 96%;
-    --secondary-foreground: 253 90% 60%;
+    --secondary-foreground: 0 0% 100%;
 
     --muted: 0 0% 96%;
     --muted-foreground: 0 0% 50%;
@@ -43,6 +44,8 @@ All colors MUST be HSL.
     
     --glass-bg: 255 255 255 / 0.12;
     --glass-border: 255 255 255 / 0.25;
+    --glass-purple: 253 35% 30% / 0.5;
+    --glass-purple-border: 253 70% 70% / 0.3;
 
     --sidebar-background: 0 0% 98%;
 
@@ -62,7 +65,7 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 253 35% 8%;
+    --background: 253 35% 12%;
     --foreground: 0 0% 98%;
 
     --card: 0 0% 8%;
@@ -74,9 +77,12 @@ All colors MUST be HSL.
     --primary: 253 90% 60%;
     --primary-foreground: 0 0% 100%;
     --primary-hover: 253 75% 53%;
+    --primary-light: 253 90% 70%;
+    --primary-lighter: 253 85% 85%;
+    --primary-visible: 253 70% 90%;
 
     --secondary: 253 20% 15%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary-foreground: 0 0% 100%;
 
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 65%;
@@ -95,6 +101,8 @@ All colors MUST be HSL.
     --glass-border: 255 255 255 / 0.22;
     --glass-bg-strong: 200 200 200 / 0.2;
     --glass-border-strong: 255 255 255 / 0.3;
+    --glass-purple: 253 35% 30% / 0.5;
+    --glass-purple-border: 253 70% 70% / 0.3;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;

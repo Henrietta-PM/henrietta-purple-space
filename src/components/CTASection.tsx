@@ -14,10 +14,9 @@ const CTASection = () => {
           <Button
             asChild
             size="lg"
-            variant="outline"
             className="rounded-[2rem] px-8"
           >
-            <a href="mailto:onwunemehenrietta7@gmail.com?subject=Opportunity">
+            <a href="https://calendar.app.google/aKsp6pywYzCAS6Nr9" target="_blank" rel="noopener noreferrer">
               Hire Henrietta
             </a>
           </Button>

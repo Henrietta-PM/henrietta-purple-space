@@ -36,7 +36,7 @@ const Skills = () => {
             </span>
           ))}
         </div>
-        <div className="mt-8">
+        <div className="mt-8 flex justify-center">
           <Button asChild variant="outline" size="lg">
             <Link to="/cv">See Full CV</Link>
           </Button>

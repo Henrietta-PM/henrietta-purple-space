@@ -48,7 +48,7 @@ const HowIWork = () => {
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className="pt-8 pb-6 px-6 text-center">
-                    <div className="mb-6 text-6xl font-display font-bold text-primary/30">
+                    <div className="mb-6 text-6xl font-display font-bold text-primary-visible">
                       {step.number}
                     </div>
                     
