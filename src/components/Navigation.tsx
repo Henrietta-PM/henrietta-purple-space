@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { Home, Briefcase, User, Mail, Image } from "lucide-react";
+import { Home, Briefcase, User, Mail, MessageSquare } from "lucide-react";
 
 const Navigation = () => {
   const location = useLocation();
@@ -10,7 +10,7 @@ const Navigation = () => {
     { path: "/projects", label: "Projects", icon: Briefcase },
     { path: "/cv", label: "CV", icon: User },
     { path: "/letter", label: "Letter", icon: Mail },
-    { path: "/contact", label: "Contact", icon: Image },
+    { path: "/contact", label: "Contact", icon: MessageSquare },
   ];
 
   return (

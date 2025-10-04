@@ -1,20 +1,20 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Mail, Phone, Linkedin, Twitter, Instagram } from "lucide-react";
+import { Mail, Phone, Linkedin, Twitter, Instagram, Calendar } from "lucide-react";
 
 const Contact = () => {
   return (
     <div className="min-h-screen pb-20 md:pb-0">
       <Navigation />
-      <main className="pt-32 pb-16">
+      <main className="pt-24 pb-16">
         <div className="container mx-auto px-6">
           <div className="mb-12">
             <h1 className="text-5xl md:text-6xl font-display font-bold mb-4">
               Let's Build <span className="font-handwritten text-primary-visible">Together</span>
             </h1>
             <p className="text-sm text-muted-foreground max-w-2xl">
-              Ready to collaborate? Reach out and let's create something meaningful
+              Ready to collaborate? Let's grab a cup of coffee.
             </p>
           </div>
 
@@ -49,8 +49,9 @@ const Contact = () => {
               </div>
 
               <div className="mt-8">
-                <Button asChild size="lg" className="w-full rounded-full">
+                <Button asChild size="lg" className="w-full rounded-full gap-2">
                   <a href="https://calendar.app.google/aKsp6pywYzCAS6Nr9" target="_blank" rel="noopener noreferrer">
+                    <Calendar className="w-5 h-5" />
                     Hire Me
                   </a>
                 </Button>

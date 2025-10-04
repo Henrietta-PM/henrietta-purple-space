@@ -23,7 +23,7 @@ const workSteps = [
 
 const HowIWork = () => {
   return (
-    <section className="py-12">
+    <section className="py-8">
       <div className="container mx-auto px-6">
         <div className="mb-8">
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">

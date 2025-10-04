@@ -24,7 +24,7 @@ const projects = [
 
 const FeaturedProjects = () => {
   return (
-    <section className="py-12">
+    <section className="py-8">
       <div className="container mx-auto px-6">
         <div className="mb-8">
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
@@ -56,7 +56,7 @@ const FeaturedProjects = () => {
               <div className="p-6">
                 <div className="flex flex-wrap gap-2 mb-3">
                   {project.tags.map((tag, tagIndex) => (
-                    <span key={tagIndex} className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary-lighter">
+                    <span key={tagIndex} className="text-xs px-3 py-1 rounded-full glass text-white border border-white/20">
                       {tag}
                     </span>
                   ))}

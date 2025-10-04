@@ -8,13 +8,13 @@ const Letter = () => {
   return (
     <div className="min-h-screen pb-20 md:pb-0">
       <Navigation />
-      <main className="pt-32 pb-16">
+      <main className="pt-24 pb-16">
         <div className="container mx-auto px-6">
-          <div className="mb-12 space-y-3">
-            <h1 className="text-4xl md:text-5xl font-display text-foreground max-w-xs md:max-w-none">
+          <div className="mb-12">
+            <h1 className="text-5xl md:text-6xl font-display font-bold mb-4">
               <span className="font-handwritten text-primary-visible">Letter</span>
             </h1>
-            <p className="text-sm text-muted-foreground font-handwritten text-lg">
+            <p className="text-sm text-muted-foreground max-w-2xl">
               To my next team/employer
             </p>
           </div>
@@ -29,7 +29,7 @@ const Letter = () => {
                   <div className="glass p-12 rounded-[2rem] hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-350">
                     <div className="text-center">
                       <div className="text-6xl mb-4">✉️</div>
-                      <h2 className="text-3xl font-bold mb-2">Tap to open the letter</h2>
+                      <h2 className="text-3xl font-bold mb-2">Tap to open</h2>
                       <p className="text-sm text-muted-foreground">
                         A personal message from Henrietta
                       </p>
