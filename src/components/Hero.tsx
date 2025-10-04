@@ -72,7 +72,9 @@ const Hero = () => {
         {/* Subtext with blur backdrop */}
         <div className="inline-block mb-8 md:mb-12 px-4 md:px-6 py-2.5 md:py-4 rounded-2xl backdrop-blur-md bg-background/30">
           <p className="text-xs md:text-lg xl:text-xl text-white/95 leading-relaxed font-medium max-w-2xl">
-            👋 Hi, I'm Henrietta. Product management for me, is about people, their needs, and the paths we create to meet them.
+            👋 Hi, I'm Henrietta.
+            <br />
+            Product management for me, is about people, their needs, and the paths we create to meet them.
           </p>
         </div>
 
