@@ -42,7 +42,7 @@ const Testimonials = () => {
       <div className="container mx-auto px-6">
         <div className="mb-8">
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
-            What People <span className="font-handwritten text-primary-visible">Say</span>
+            What <span className="font-handwritten text-primary-visible">People</span> Say
           </h2>
           <p className="text-sm text-muted-foreground max-w-2xl">
             Testimonials from colleagues and leaders I've worked with

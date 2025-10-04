@@ -12,10 +12,10 @@ const Letter = () => {
         <div className="container mx-auto px-6">
           <div className="mb-12 space-y-3">
             <h1 className="text-4xl md:text-5xl font-display text-foreground max-w-xs md:max-w-none">
-              A Letter to My Next <span className="font-handwritten text-primary-visible">Team</span>
+              <span className="font-handwritten text-primary-visible">Letter</span>
             </h1>
-            <p className="text-sm text-muted-foreground">
-              My commitment and vision for collaboration
+            <p className="text-sm text-muted-foreground font-handwritten text-lg">
+              To my next team/employer
             </p>
           </div>
 
@@ -51,7 +51,7 @@ const Letter = () => {
                     </div>
 
                     <div className="prose prose-lg max-w-none">
-                      <h2 className="text-3xl font-bold mb-6" style={{ fontFamily: 'cursive' }}>
+                      <h2 className="text-2xl md:text-3xl font-handwritten text-primary-visible mb-6">
                         To My Next Team,
                       </h2>
                       
@@ -81,10 +81,10 @@ const Letter = () => {
                           I would be honored to bring this drive to your team. Let us begin the journey together.
                         </p>
 
-                        <p className="text-right mt-8" style={{ fontFamily: 'cursive' }}>
+                        <p className="text-left mt-8 font-handwritten text-xl md:text-2xl text-primary-visible">
                           Sincerely,
                           <br />
-                          <span className="text-primary font-bold">Henrietta</span>
+                          <span className="font-handwritten text-2xl md:text-3xl">Henrietta</span>
                         </p>
                       </div>
                     </div>
