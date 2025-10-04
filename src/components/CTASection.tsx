@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Calendar } from "lucide-react";
 
 const CTASection = () => {
   return (
@@ -14,9 +15,10 @@ const CTASection = () => {
           <Button
             asChild
             size="lg"
-            className="rounded-[2rem] px-8"
+            className="rounded-[2rem] px-8 gap-2"
           >
             <a href="https://calendar.app.google/aKsp6pywYzCAS6Nr9" target="_blank" rel="noopener noreferrer">
+              <Calendar className="w-5 h-5" />
               Hire Henrietta
             </a>
           </Button>

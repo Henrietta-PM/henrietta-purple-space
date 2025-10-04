@@ -35,10 +35,10 @@ const Hero = () => {
         <div className="mb-6 md:mb-12 inline-flex rounded-full glass border border-white/10">
           <Link 
             to="/projects"
-            className="px-6 md:px-8 py-3 md:py-4 text-xs md:text-sm font-medium hover:bg-primary/10 rounded-full transition-all flex items-center gap-3"
+            className="px-4 md:px-6 py-2 md:py-3 text-xs md:text-sm font-medium hover:bg-primary/10 rounded-full transition-all flex items-center gap-2 md:gap-3"
           >
-            <span className="text-xl md:text-2xl font-bold text-white">ProxyMedicine</span>
-            <span className="text-[10px] md:text-xs text-white/60 font-normal">Featured work</span>
+            <span className="text-sm md:text-base font-bold text-white">ProxyMedicine</span>
+            <span className="text-[9px] md:text-xs text-white/60 font-normal">Featured work</span>
           </Link>
         </div>
 
