@@ -139,7 +139,7 @@ const Projects = () => {
                   <div className="my-8">
                     <div className="border-t border-border/30 mb-8"></div>
                     <h2 className="text-3xl md:text-4xl font-display font-bold mb-8">
-                      <span className="font-handwritten text-primary-visible">Side Projects</span>
+                      Side <span className="font-handwritten text-primary-visible">Projects</span>
                     </h2>
                   </div>
                 )}

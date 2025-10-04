@@ -107,7 +107,9 @@ const CV = () => {
                 className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover ring-4 ring-primary/20"
               />
               <div>
-                <h1 className="text-5xl md:text-6xl font-display font-bold mb-2">CV</h1>
+                <h1 className="text-5xl md:text-6xl font-display font-bold mb-2">
+                  Curriculum <span className="font-handwritten text-primary-visible">Vitae</span>
+                </h1>
                 <p className="text-sm text-muted-foreground max-w-2xl">
                   My journey through product management and beyond
                 </p>
