@@ -103,14 +103,14 @@ const HeartModal = ({ isOpen, onClose }: HeartModalProps) => {
             <button
               onClick={handleHeartSent}
               disabled={heartSent || isSending}
-              className={`relative w-32 h-32 transition-all duration-300 ${
+              className={`relative w-32 h-32 transition-all duration-150 ${
                 heartSent 
                   ? "scale-110 animate-bounce" 
                   : "hover:scale-105 active:scale-95"
               } ${isSending ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
             >
               <Heart
-                className={`w-full h-full transition-all duration-500 ${
+                className={`w-full h-full transition-all duration-200 ${
                   heartSent 
                     ? "fill-primary stroke-primary drop-shadow-[0_0_20px_hsl(var(--primary))]" 
                     : "stroke-white fill-transparent"
