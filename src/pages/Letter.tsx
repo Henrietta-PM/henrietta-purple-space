@@ -8,7 +8,7 @@ const Letter = () => {
   return (
     <div className="min-h-screen pb-20 md:pb-0">
       <Navigation />
-      <main className="pt-24 pb-16">
+      <main className="pt-32 pb-16">
         <div className="container mx-auto px-6">
           <div className="mb-12">
             <h1 className="text-5xl md:text-6xl font-display font-bold mb-4">

@@ -121,7 +121,7 @@ const Projects = () => {
   return (
     <div className="min-h-screen pb-20 md:pb-0">
       <Navigation />
-      <main className="pt-24 pb-16">
+      <main className="pt-32 pb-16">
         <div className="container mx-auto px-6">
           <div className="mb-12">
             <h1 className="text-5xl md:text-6xl font-display font-bold mb-4">
@@ -138,7 +138,7 @@ const Projects = () => {
               {projectsData.filter(p => p.isLive).map((project, index) => (
                 <div
                   key={index}
-                  className="glass overflow-hidden rounded-[1.5rem] hover:shadow-2xl hover:shadow-primary/20 transition-all duration-350 relative"
+                  className="glass overflow-hidden rounded-[1.5rem] hover:shadow-2xl hover:shadow-primary/20 transition-all duration-350 relative flex flex-col"
                 >
                 {project.isLive && (
                   <div className="absolute top-4 right-4 z-10 flex items-center gap-2 glass px-3 py-1.5 rounded-full">
@@ -155,7 +155,7 @@ const Projects = () => {
                     />
                   </div>
                 )}
-                <div className="p-6 md:p-8">
+                <div className="p-6 md:p-8 flex flex-col flex-1">
                 <div className="flex flex-wrap gap-2 mb-3">
                   {project.tags.map((tag, tagIndex) => (
                     <span key={tagIndex} className="text-xs px-3 py-1 rounded-full glass text-white border border-white/20">
@@ -164,9 +164,14 @@ const Projects = () => {
                   ))}
                 </div>
                   <h3 className="text-3xl font-display font-bold mb-4">{project.name}</h3>
-                  <p className="text-muted-foreground mb-6 leading-relaxed text-sm">
+                  <p className="text-muted-foreground mb-6 leading-relaxed text-sm line-clamp-3">
                     {project.overview}
                   </p>
+                  {expandedProject === index && (
+                    <p className="text-muted-foreground mb-6 leading-relaxed text-sm">
+                      {project.overview}
+                    </p>
+                  )}
 
                   {expandedProject === index && (
                     <div className="animate-slide-up space-y-6 mb-6">
@@ -189,14 +194,14 @@ const Projects = () => {
                     </div>
                   )}
 
-                  <div className="flex flex-wrap gap-3">
+                  <div className="flex flex-wrap gap-3 mt-auto">
                     <Button
                       onClick={() => toggleProject(index)}
                       variant="default"
                       size="sm"
                       className="rounded-full"
                     >
-                      {expandedProject === index ? "Show Less" : "View Details"}
+                      {expandedProject === index ? "See Less" : "...See More"}
                     </Button>
                     {project.link && (
                       <Button asChild variant="ghost" size="sm" className="rounded-full">

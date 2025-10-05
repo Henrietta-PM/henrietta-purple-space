@@ -13,13 +13,13 @@ const AnnouncementBanner = () => {
       >
         <div className="animate-scroll whitespace-nowrap inline-block py-2 text-sm font-medium text-white">
           <span className="inline-block px-8">
-            👋Hi, I vibe coded my portfolio from scratch. This shows the tenacity and details I'm ready to put into your project. Click this banner to drop a heart for me if you think my portfolio looks great!
+            👋Hi, I built my portfolio from scratch. This shows the tenacity and details I'm ready to put into your project. Click this banner to drop a heart for me if you think my portfolio looks great!
           </span>
           <span className="inline-block px-8">
-            👋Hi, I vibe coded my portfolio from scratch. This shows the tenacity and details I'm ready to put into your project. Click this banner to drop a heart for me if you think my portfolio looks great!
+            👋Hi, I built my portfolio from scratch. This shows the tenacity and details I'm ready to put into your project. Click this banner to drop a heart for me if you think my portfolio looks great!
           </span>
           <span className="inline-block px-8">
-            👋Hi, I vibe coded my portfolio from scratch. This shows the tenacity and details I'm ready to put into your project. Click this banner to drop a heart for me if you think my portfolio looks great!
+            👋Hi, I built my portfolio from scratch. This shows the tenacity and details I'm ready to put into your project. Click this banner to drop a heart for me if you think my portfolio looks great!
           </span>
         </div>
       </div>
