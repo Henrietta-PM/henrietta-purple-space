@@ -225,7 +225,7 @@ const Projects = () => {
                     <Lightbulb className="w-20 h-20 text-primary-visible relative" />
                   </div>
                   <h3 className="text-2xl md:text-3xl font-display font-bold text-center">
-                    Your Amazing Idea Goes here.
+                    Your Product Goes Here
                   </h3>
                   <Button asChild size="lg" className="gap-2">
                     <a href="https://calendar.app.google/aKsp6pywYzCAS6Nr9" target="_blank" rel="noopener noreferrer">
@@ -251,7 +251,7 @@ const Projects = () => {
             {projectsData.filter(p => !p.isLive).map((project, index) => (
               <div
                 key={`side-${project.name}-${index}`}
-                className="glass overflow-hidden rounded-[1.5rem] hover:shadow-2xl hover:shadow-primary/20 transition-all duration-350 relative"
+                className="glass overflow-hidden rounded-[1.5rem] hover:shadow-2xl hover:shadow-primary/20 transition-all duration-350 relative flex flex-col"
               >
                 {project.image && (
                   <div className="aspect-video overflow-hidden bg-muted">
@@ -262,7 +262,7 @@ const Projects = () => {
                     />
                   </div>
                 )}
-                <div className="p-6">
+                <div className="p-6 md:p-8 flex flex-col flex-1">
                   <div className="flex flex-wrap gap-2 mb-3">
                     {project.tags.map((tag, tagIndex) => (
                       <span key={tagIndex} className="text-xs px-3 py-1 rounded-full glass text-white border border-white/20">
@@ -270,12 +270,33 @@ const Projects = () => {
                       </span>
                     ))}
                   </div>
-                  <h3 className="text-2xl font-display font-bold mb-4">{project.name}</h3>
-                  <p className="text-muted-foreground mb-6 leading-relaxed text-sm line-clamp-3">
+                  <h3 className="text-3xl font-display font-bold mb-4">{project.name}</h3>
+                  <p className={`text-muted-foreground mb-6 leading-relaxed text-sm ${expandedProject !== project.name ? 'line-clamp-3' : ''}`}>
                     {project.overview}
                   </p>
 
-                  <div className="flex flex-wrap gap-3">
+                  {expandedProject === project.name && (
+                    <div className="animate-slide-up space-y-6 mb-6">
+                      <div>
+                        <h4 className="text-xl font-display font-bold mb-3">Responsibilities</h4>
+                        <ul className="list-disc list-inside space-y-2 text-muted-foreground text-sm">
+                          {project.responsibilities.map((resp, respIndex) => (
+                            <li key={respIndex}>{resp}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 className="text-xl font-display font-bold mb-3">Achievements</h4>
+                        <ul className="list-disc list-inside space-y-2 text-muted-foreground text-sm">
+                          {project.achievements.map((ach, achIndex) => (
+                            <li key={achIndex}>{ach}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="flex flex-wrap gap-3 mt-auto">
                     <Button
                       onClick={(e) => {
                         e.stopPropagation();
