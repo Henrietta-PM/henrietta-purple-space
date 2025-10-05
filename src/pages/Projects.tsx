@@ -158,7 +158,7 @@ const Projects = () => {
                 <div className="p-6 md:p-8 flex flex-col flex-1">
                 <div className="flex flex-wrap gap-2 mb-3">
                   {project.tags.map((tag, tagIndex) => (
-                    <span key={tagIndex} className="text-xs px-3 py-1 rounded-full glass text-white border border-white/20">
+                    <span key={tagIndex} className="text-xs px-3 py-1 rounded-full glass text-foreground border border-border">
                       {tag}
                     </span>
                   ))}
@@ -265,7 +265,7 @@ const Projects = () => {
                 <div className="p-6 md:p-8 flex flex-col flex-1">
                   <div className="flex flex-wrap gap-2 mb-3">
                     {project.tags.map((tag, tagIndex) => (
-                      <span key={tagIndex} className="text-xs px-3 py-1 rounded-full glass text-white border border-white/20">
+                      <span key={tagIndex} className="text-xs px-3 py-1 rounded-full glass text-foreground border border-border">
                         {tag}
                       </span>
                     ))}
