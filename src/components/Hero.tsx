@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Calendar } from "lucide-react";
 import heroImage from "@/assets/henrietta-hero.jpg";
 import portraitImage from "@/assets/henrietta-portrait.jpg";
+import bloomieLogo from "@/assets/bloomie-logo.png";
 
 const Hero = () => {
   const [currentWord, setCurrentWord] = useState(0);
@@ -30,14 +32,19 @@ const Hero = () => {
       </div>
 
       {/* Content Container */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pt-8 md:pt-32 pb-24 md:pb-40 text-center">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pt-16 md:pt-32 pb-24 md:pb-40 text-center">
         {/* Featured Work Tab Button */}
-        <div className="mb-6 md:mb-12 inline-flex rounded-full glass border border-white/10">
+        <div className="mb-8 md:mb-12 inline-flex rounded-full glass border border-white/10">
           <Link 
             to="/projects"
-            className="px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium hover:bg-primary/10 rounded-full transition-all flex items-center gap-2"
+            className="px-2 md:px-3 py-1 md:py-1.5 text-xs md:text-sm font-medium hover:bg-primary/10 rounded-full transition-all flex items-center gap-1.5 md:gap-2"
           >
-            <span className="text-xs md:text-sm font-bold text-white">ProxyMedicine</span>
+            <img 
+              src={bloomieLogo} 
+              alt="Bloomie" 
+              className="w-5 h-5 md:w-6 md:h-6 rounded-full object-cover flex-shrink-0"
+            />
+            <span className="text-xs md:text-sm font-bold text-white">Bloomie</span>
             <div className="w-px h-3 md:h-4 bg-white/20"></div>
             <span className="text-[8px] md:text-[10px] text-white/60 font-normal">Featured work</span>
           </Link>
@@ -99,9 +106,10 @@ const Hero = () => {
             asChild 
             variant="secondary" 
             size="lg"
-            className="text-xs md:text-base px-4 md:px-8 h-10 md:h-12 flex-shrink-0 whitespace-nowrap"
+            className="text-xs md:text-base px-4 md:px-8 h-10 md:h-12 flex-shrink-0 whitespace-nowrap gap-2"
           >
-            <a href="https://calendar.app.google/aKsp6pywYzCAS6Nr9" target="_blank" rel="noopener noreferrer">
+            <a href="https://calendar.app.google/aKsp6pywYzCAS6Nr9" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+              <Calendar className="w-4 h-4 md:w-5 md:h-5" />
               Hire
             </a>
           </Button>

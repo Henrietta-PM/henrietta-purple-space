@@ -1,1 +1,4 @@
 project_id = "dszlcpqluiralgnnyjrx"
+
+[functions.send-heart-email]
+verify_jwt = false

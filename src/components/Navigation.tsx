@@ -23,18 +23,19 @@ const Navigation = () => {
               MyPvrpleSpace
             </Link>
             
-            <div className="flex items-center gap-8 glass px-6 py-3 rounded-full">
+            <div className="flex items-center gap-2 glass px-3 py-2 rounded-full">
               {navLinks.map((link) => {
                 const Icon = link.icon;
+                const isActive = location.pathname === link.path;
                 return (
                   <Link
                     key={link.path}
                     to={link.path}
                     className={cn(
-                      "flex items-center gap-2 text-sm font-medium transition-all",
-                      location.pathname === link.path
-                        ? "text-white"
-                        : "text-primary-visible hover:text-white"
+                      "flex items-center gap-2 text-sm font-medium transition-all px-4 py-2 rounded-full",
+                      isActive
+                        ? "text-white bg-primary/80 shadow-lg"
+                        : "text-primary-visible hover:text-white hover:bg-primary/20"
                     )}
                   >
                     <Icon className="w-4 h-4" />

@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { Calendar, Lightbulb } from "lucide-react";
 import bloomieImage from "@/assets/bloomie-logo.png";
 import proxyImage from "@/assets/proxy-preview.jpg";
 import syncuImage from "@/assets/syncu-preview.png";
@@ -39,10 +40,9 @@ const projectsData = [
     image: proxyImage,
     isLive: true,
     overview:
-      "ProxyMedicine is a telehealth platform that combines asynchronous care with AI-driven tools. It offers AI-powered diagnosis suggestions, prescription refills, weight loss tracking, and personalized diet/meal generation. Features include patient questionnaires, scheduling via Calendly, medication management, and an admin portal for billing, upsells, and transcript analysis.",
+      "ProxyMedicine is a telehealth platform that combines asynchronous care with AI-driven tools. It offers AI-powered diagnosis suggestions, prescription refills, weight loss tracking, and personalized diet/meal generation. Features include patient questionnaires, scheduling, medication management, and an admin portal for billing, upsells, and transcript analysis.",
     responsibilities: [
       "Created detailed PRDs and refined user flows for AI diagnosis, weight management, and meal generation features.",
-      "Integrated Calendly for appointment scheduling and Stripe for secure billing.",
       "Collaborated with design team to ensure usability of patient dashboards and AI chatbot.",
       "Led weekly user interviews to validate new features and prioritize backlog.",
       "Worked closely with engineering to optimize delivery, reducing redundant workflows.",
@@ -132,20 +132,13 @@ const Projects = () => {
             </p>
           </div>
 
-          <div className="grid gap-8 max-w-5xl mx-auto">
-            {projectsData.map((project, index) => (
-              <>
-                {index === 2 && (
-                  <div className="my-8">
-                    <div className="border-t border-border/30 mb-8"></div>
-                    <h2 className="text-3xl md:text-4xl font-display font-bold mb-8">
-                      Side <span className="font-handwritten text-primary-visible">Projects</span>
-                    </h2>
-                  </div>
-                )}
+          {/* Live Projects Grid */}
+          <div className="mb-16">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+              {projectsData.filter(p => p.isLive).map((project, index) => (
                 <div
                   key={index}
-                  className="glass overflow-hidden rounded-[1.5rem] hover:shadow-2xl transition-all duration-350 relative"
+                  className="glass overflow-hidden rounded-[1.5rem] hover:shadow-2xl hover:shadow-primary/20 transition-all duration-350 relative"
                 >
                 {project.isLive && (
                   <div className="absolute top-4 right-4 z-10 flex items-center gap-2 glass px-3 py-1.5 rounded-full">
@@ -218,8 +211,90 @@ const Projects = () => {
                     )}
                   </div>
                 </div>
+                </div>
+              ))}
+              
+              {/* Empty Card for Hire */}
+              <div className="glass overflow-hidden rounded-[1.5rem] hover:shadow-2xl hover:shadow-primary/20 transition-all duration-350 flex flex-col items-center justify-center p-12 min-h-[400px]">
+                <div className="flex flex-col items-center gap-6">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-primary/20 rounded-full blur-2xl animate-pulse" />
+                    <Lightbulb className="w-20 h-20 text-primary-visible relative" />
+                  </div>
+                  <h3 className="text-2xl md:text-3xl font-display font-bold text-center">
+                    Your Amazing Idea Goes here.
+                  </h3>
+                  <Button asChild size="lg" className="gap-2">
+                    <a href="https://calendar.app.google/aKsp6pywYzCAS6Nr9" target="_blank" rel="noopener noreferrer">
+                      <Calendar className="w-5 h-5" />
+                      Hire Henrietta
+                    </a>
+                  </Button>
+                </div>
               </div>
-              </>
+            </div>
+          </div>
+
+          {/* Side Projects Section */}
+          <div className="my-12">
+            <div className="border-t border-border/30 mb-8"></div>
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-8">
+              Side <span className="font-handwritten text-primary-visible">Projects</span>
+            </h2>
+          </div>
+
+          {/* Side Projects Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            {projectsData.filter(p => !p.isLive).map((project, index) => (
+              <div
+                key={index}
+                className="glass overflow-hidden rounded-[1.5rem] hover:shadow-2xl hover:shadow-primary/20 transition-all duration-350 relative"
+              >
+                {project.image && (
+                  <div className="aspect-video overflow-hidden bg-muted">
+                    <img
+                      src={project.image}
+                      alt={project.name}
+                      className="w-full h-full object-cover object-top"
+                    />
+                  </div>
+                )}
+                <div className="p-6">
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {project.tags.map((tag, tagIndex) => (
+                      <span key={tagIndex} className="text-xs px-3 py-1 rounded-full glass text-white border border-white/20">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <h3 className="text-2xl font-display font-bold mb-4">{project.name}</h3>
+                  <p className="text-muted-foreground mb-6 leading-relaxed text-sm line-clamp-3">
+                    {project.overview}
+                  </p>
+
+                  <div className="flex flex-wrap gap-3">
+                    <Button
+                      onClick={() => toggleProject(index)}
+                      variant="default"
+                      size="sm"
+                      className="rounded-full"
+                    >
+                      View Details
+                    </Button>
+                    {project.link && (
+                      <Button asChild variant="ghost" size="sm" className="rounded-full">
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Visit Site →
+                        </a>
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         </div>

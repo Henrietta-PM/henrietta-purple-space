@@ -1,9 +1,13 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Mail, Phone, Linkedin, Twitter, Instagram, Calendar } from "lucide-react";
+import { Mail, Phone, Linkedin, Twitter, Instagram, Calendar, Heart } from "lucide-react";
+import { useState } from "react";
+import HeartModal from "@/components/HeartModal";
 
 const Contact = () => {
+  const [showHeartModal, setShowHeartModal] = useState(false);
+
   return (
     <div className="min-h-screen pb-20 md:pb-0">
       <Navigation />
@@ -60,6 +64,17 @@ const Contact = () => {
 
             <div className="glass p-8 rounded-[1.5rem]">
               <h2 className="text-2xl font-display font-bold mb-6">Connect on Social</h2>
+              
+              <Button 
+                onClick={() => setShowHeartModal(true)}
+                variant="outline"
+                size="lg"
+                className="w-full mb-6 gap-2"
+              >
+                <Heart className="w-5 h-5" />
+                Add a Heart
+              </Button>
+
               <div className="grid sm:grid-cols-3 gap-4">
                 <a
                   href="https://linkedin.com/in/henrietta-onwuneme"
@@ -94,6 +109,7 @@ const Contact = () => {
         </div>
       </main>
       <Footer />
+      <HeartModal isOpen={showHeartModal} onClose={() => setShowHeartModal(false)} />
     </div>
   );
 };

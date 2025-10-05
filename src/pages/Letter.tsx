@@ -15,7 +15,7 @@ const Letter = () => {
               <span className="font-handwritten text-primary-visible">Letter</span>
             </h1>
             <p className="text-sm text-muted-foreground max-w-2xl">
-              To my next team/employer
+              To my next team and Employer
             </p>
           </div>
 

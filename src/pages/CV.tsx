@@ -80,6 +80,7 @@ const skillCategories = {
     "Strategic Thinking",
     "Communication",
     "Problem Solving",
+    "Creative Eyesight",
   ],
   technicalSkills: [
     "Product Roadmaps",
@@ -103,6 +104,11 @@ const skillCategories = {
     "Trello",
     "Notion",
     "Miro",
+    "Amplitude",
+    "ChatGPT",
+    "CursorAI",
+    "GitHub",
+    "Whimsical",
   ],
 };
 
