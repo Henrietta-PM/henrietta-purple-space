@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { Calendar, Lightbulb } from "lucide-react";
+import { Calendar, Lightbulb, Mail } from "lucide-react";
 import bloomieImage from "@/assets/bloomie-logo.png";
 import proxyImage from "@/assets/proxy-preview.jpg";
 import syncuImage from "@/assets/syncu-preview.png";
@@ -245,6 +245,12 @@ const Projects = () => {
                       <a href="https://calendar.app.google/aKsp6pywYzCAS6Nr9" target="_blank" rel="noopener noreferrer">
                         <Calendar className="w-4 h-4" />
                         Hire Henrietta
+                      </a>
+                    </Button>
+                    <Button asChild variant="ghost" size="sm" className="gap-2 rounded-full">
+                      <a href="mailto:onwunemehenrietta7@gmail.com">
+                        <Mail className="w-4 h-4" />
+                        Send Mail
                       </a>
                     </Button>
                   </div>
