@@ -94,8 +94,8 @@ const HeartModal = ({ isOpen, onClose }: HeartModalProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="glass border-primary/20 max-w-md rounded-3xl">
-        <div className="flex flex-col items-center gap-6 py-8">
-          <h2 className="text-sm font-display font-bold text-center">
+        <div className="flex flex-col items-center gap-4 py-8">
+          <h2 className="text-sm font-display font-bold text-center -mt-2">
             {heartSent ? "Henrietta has received your 💜" : "Tap to send a 💜!"}
           </h2>
           
@@ -110,12 +110,12 @@ const HeartModal = ({ isOpen, onClose }: HeartModalProps) => {
               } ${isSending ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
             >
               <Heart
-                className={`w-full h-full transition-all duration-300 ${
+                className={`w-full h-full transition-all duration-500 ${
                   heartSent 
                     ? "fill-primary stroke-primary drop-shadow-[0_0_20px_hsl(var(--primary))]" 
-                    : "stroke-white fill-primary"
+                    : "stroke-white fill-transparent"
                 }`}
-                strokeWidth={2}
+                strokeWidth={1.5}
               />
             </button>
           </div>

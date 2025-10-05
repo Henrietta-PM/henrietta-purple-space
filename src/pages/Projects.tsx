@@ -191,7 +191,10 @@ const Projects = () => {
 
                   <div className="flex flex-wrap gap-3 mt-auto">
                     <Button
-                      onClick={() => toggleProject(project.name)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleProject(project.name);
+                      }}
                       variant="default"
                       size="sm"
                       className="rounded-full"
@@ -274,12 +277,15 @@ const Projects = () => {
 
                   <div className="flex flex-wrap gap-3">
                     <Button
-                      onClick={() => toggleProject(project.name)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleProject(project.name);
+                      }}
                       variant="default"
                       size="sm"
                       className="rounded-full"
                     >
-                      View Details
+                      {expandedProject === project.name ? "See Less" : "View Details"}
                     </Button>
                     {project.link && (
                       <Button asChild variant="ghost" size="sm" className="rounded-full">
