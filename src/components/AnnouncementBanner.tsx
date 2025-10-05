@@ -13,13 +13,13 @@ const AnnouncementBanner = () => {
       >
         <div className="animate-scroll whitespace-nowrap inline-block py-2 text-sm font-medium text-white">
           <span className="inline-block px-8">
-            👋 Hi, I built this portfolio website. If you think it looks good, click here to leave a heart 💜.
+            👋 Hi, I designed this myself — and I'll bring the same energy to your project. Tap here to drop a heart if you love it 💜
           </span>
           <span className="inline-block px-8">
-            👋 Hi, I built this portfolio website. If you think it looks good, click here to leave a heart 💜.
+            👋 Hi, I designed this myself — and I'll bring the same energy to your project. Tap here to drop a heart if you love it 💜
           </span>
           <span className="inline-block px-8">
-            👋 Hi, I built this portfolio website. If you think it looks good, click here to leave a heart 💜.
+            👋 Hi, I designed this myself — and I'll bring the same energy to your project. Tap here to drop a heart if you love it 💜
           </span>
         </div>
       </div>

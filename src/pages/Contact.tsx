@@ -102,7 +102,7 @@ const Contact = () => {
                 className="w-full gap-2"
               >
                 <Heart className="w-5 h-5" />
-                Add a Heart
+                Send a Heart
               </Button>
             </div>
           </div>

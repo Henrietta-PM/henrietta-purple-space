@@ -112,10 +112,10 @@ const projectsData = [
 ];
 
 const Projects = () => {
-  const [expandedProject, setExpandedProject] = useState<number | null>(null);
+  const [expandedProject, setExpandedProject] = useState<string | null>(null);
 
-  const toggleProject = (index: number) => {
-    setExpandedProject(expandedProject === index ? null : index);
+  const toggleProject = (projectName: string) => {
+    setExpandedProject(expandedProject === projectName ? null : projectName);
   };
 
   return (
@@ -164,11 +164,11 @@ const Projects = () => {
                   ))}
                 </div>
                   <h3 className="text-3xl font-display font-bold mb-4">{project.name}</h3>
-                  <p className={`text-muted-foreground mb-6 leading-relaxed text-sm ${expandedProject !== index ? 'line-clamp-3' : ''}`}>
+                  <p className={`text-muted-foreground mb-6 leading-relaxed text-sm ${expandedProject !== project.name ? 'line-clamp-3' : ''}`}>
                     {project.overview}
                   </p>
 
-                  {expandedProject === index && (
+                  {expandedProject === project.name && (
                     <div className="animate-slide-up space-y-6 mb-6">
                       <div>
                         <h4 className="text-xl font-display font-bold mb-3">Responsibilities</h4>
@@ -191,12 +191,12 @@ const Projects = () => {
 
                   <div className="flex flex-wrap gap-3 mt-auto">
                     <Button
-                      onClick={() => toggleProject(index)}
+                      onClick={() => toggleProject(project.name)}
                       variant="default"
                       size="sm"
                       className="rounded-full"
                     >
-                      {expandedProject === index ? "See Less" : "View Details"}
+                      {expandedProject === project.name ? "See Less" : "View Details"}
                     </Button>
                     {project.link && (
                       <Button asChild variant="ghost" size="sm" className="rounded-full">
@@ -274,7 +274,7 @@ const Projects = () => {
 
                   <div className="flex flex-wrap gap-3">
                     <Button
-                      onClick={() => toggleProject(index)}
+                      onClick={() => toggleProject(project.name)}
                       variant="default"
                       size="sm"
                       className="rounded-full"
