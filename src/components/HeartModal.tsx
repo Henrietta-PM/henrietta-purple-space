@@ -57,31 +57,13 @@ const HeartModal = ({ isOpen, onClose }: HeartModalProps) => {
     setIsSending(true);
 
     try {
-      // Try to get approximate location (no need for user permission)
-      let location = "Unknown location";
-      try {
-        const geoResponse = await fetch('https://ipapi.co/json/');
-        if (geoResponse.ok) {
-          const geoData = await geoResponse.json();
-          if (geoData.city && geoData.country_name) {
-            location = `${geoData.city}, ${geoData.country_name}`;
-          } else if (geoData.country_name) {
-            location = geoData.country_name;
-          }
-        }
-      } catch (error) {
-        console.error('Error getting location:', error);
-      }
-
-      // Insert heart into database with location
-      const { error: dbError } = await supabase.from("hearts").insert({ location } as any);
+      // Insert heart into database
+      const { error: dbError } = await supabase.from("hearts").insert({});
       
       if (dbError) throw dbError;
 
-      // Send email notification with location
-      const { error: emailError } = await supabase.functions.invoke("send-heart-email", {
-        body: { location }
-      });
+      // Send email notification
+      const { error: emailError } = await supabase.functions.invoke("send-heart-email");
       
       if (emailError) {
         console.error("Email error:", emailError);
