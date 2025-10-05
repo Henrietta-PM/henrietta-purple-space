@@ -240,7 +240,7 @@ const Projects = () => {
                   <Button asChild size="lg" className="gap-2 rounded-xl px-8">
                     <a href="https://calendar.app.google/aKsp6pywYzCAS6Nr9" target="_blank" rel="noopener noreferrer">
                       <Calendar className="w-5 h-5" />
-                      Book a Free Consultation
+                      Hire Henrietta
                     </a>
                   </Button>
                 </div>
