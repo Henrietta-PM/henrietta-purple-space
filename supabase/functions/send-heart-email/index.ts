@@ -20,6 +20,17 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error("RESEND_API_KEY not configured");
     }
 
+    // Get location data from request headers
+    const cfCountry = req.headers.get("cf-ipcountry") || "Unknown";
+    const cfCity = req.headers.get("cf-ipcity") || "Unknown";
+    const cfRegion = req.headers.get("cf-region") || "";
+    
+    const location = cfCity !== "Unknown" && cfCountry !== "Unknown" 
+      ? `${cfCity}, ${cfCountry}` 
+      : cfCountry !== "Unknown" 
+      ? cfCountry 
+      : "Unknown location";
+
     const emailResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
@@ -37,6 +48,7 @@ const handler = async (req: Request): Promise<Response> => {
               A visitor to your portfolio was impressed and sent you a heart! 💜
             </p>
             <p style="font-size: 14px; color: #666;">
+              Location: ${location}<br>
               Sent at: ${new Date().toLocaleString()}
             </p>
           </div>
