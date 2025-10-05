@@ -218,31 +218,36 @@ const Projects = () => {
               ))}
               
               {/* Empty Card for Hire */}
-              <div className="border-2 border-dashed border-border/50 overflow-hidden rounded-[1.5rem] hover:shadow-2xl hover:shadow-primary/20 transition-all duration-350 flex flex-col bg-background/50">
-                <div className="aspect-video overflow-hidden flex items-center justify-center py-12">
+              <div className="border-2 border-dashed border-border/50 overflow-hidden rounded-[1.5rem] hover:shadow-2xl hover:shadow-primary/20 transition-all duration-350 flex flex-col">
+                <div className="aspect-video overflow-hidden flex items-center justify-center">
                   <div className="relative flex items-center justify-center">
                     {/* Concentric circles */}
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="absolute w-32 h-32 rounded-full border-2 border-primary/30"></div>
-                      <div className="absolute w-40 h-40 rounded-full border-2 border-primary/20"></div>
-                      <div className="absolute w-48 h-48 rounded-full border-2 border-primary/10"></div>
+                      <div className="absolute w-24 h-24 rounded-full border-2 border-primary/30"></div>
+                      <div className="absolute w-32 h-32 rounded-full border-2 border-primary/20"></div>
+                      <div className="absolute w-40 h-40 rounded-full border-2 border-primary/10"></div>
                     </div>
                     {/* Lightbulb icon */}
-                    <div className="relative z-10 w-20 h-20 rounded-full bg-primary flex items-center justify-center">
-                      <Lightbulb className="w-12 h-12 text-primary-foreground fill-current" />
+                    <div className="relative z-10 w-16 h-16 rounded-full bg-primary flex items-center justify-center">
+                      <Lightbulb className="w-9 h-9 text-primary-foreground fill-current" />
                     </div>
                   </div>
                 </div>
-                <div className="p-6 md:p-8 flex flex-col flex-1 justify-center items-center text-center">
-                  <h3 className="text-3xl font-display font-bold mb-6">
+                <div className="p-6 md:p-8 flex flex-col flex-1">
+                  <h3 className="text-3xl font-display font-bold mb-4">
                     Your <span className="font-handwritten text-primary-visible">Product</span> Goes Here
                   </h3>
-                  <Button asChild size="lg" className="gap-2 rounded-xl px-8">
-                    <a href="https://calendar.app.google/aKsp6pywYzCAS6Nr9" target="_blank" rel="noopener noreferrer">
-                      <Calendar className="w-5 h-5" />
-                      Hire Henrietta
-                    </a>
-                  </Button>
+                  <p className="text-muted-foreground mb-6 leading-relaxed text-sm line-clamp-3 opacity-0">
+                    Placeholder text to match card height
+                  </p>
+                  <div className="flex flex-wrap gap-3 mt-auto">
+                    <Button asChild size="sm" className="gap-2 rounded-full">
+                      <a href="https://calendar.app.google/aKsp6pywYzCAS6Nr9" target="_blank" rel="noopener noreferrer">
+                        <Calendar className="w-4 h-4" />
+                        Hire Henrietta
+                      </a>
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
