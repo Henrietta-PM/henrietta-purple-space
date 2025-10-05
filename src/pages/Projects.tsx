@@ -227,7 +227,7 @@ const Projects = () => {
                 </div>
                 <div className="p-6 md:p-8 flex flex-col flex-1 justify-center items-center text-center">
                   <h3 className="text-3xl font-display font-bold mb-6">
-                    Your Product Goes Here
+                    Your Product <span className="font-handwritten text-primary-visible">Here</span>
                   </h3>
                   <Button asChild size="lg" className="gap-2">
                     <a href="https://calendar.app.google/aKsp6pywYzCAS6Nr9" target="_blank" rel="noopener noreferrer">
