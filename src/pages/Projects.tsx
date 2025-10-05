@@ -218,13 +218,15 @@ const Projects = () => {
               ))}
               
               {/* Empty Card for Hire */}
-              <div className="glass overflow-hidden rounded-[1.5rem] hover:shadow-2xl hover:shadow-primary/20 transition-all duration-350 flex flex-col items-center justify-center p-12 min-h-[400px]">
-                <div className="flex flex-col items-center gap-6">
+              <div className="glass overflow-hidden rounded-[1.5rem] hover:shadow-2xl hover:shadow-primary/20 transition-all duration-350 flex flex-col">
+                <div className="aspect-video overflow-hidden bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center">
                   <div className="relative">
                     <div className="absolute inset-0 bg-primary/20 rounded-full blur-2xl animate-pulse" />
                     <Lightbulb className="w-20 h-20 text-primary-visible relative" />
                   </div>
-                  <h3 className="text-2xl md:text-3xl font-display font-bold text-center">
+                </div>
+                <div className="p-6 md:p-8 flex flex-col flex-1 justify-center items-center text-center">
+                  <h3 className="text-3xl font-display font-bold mb-6">
                     Your Product Goes Here
                   </h3>
                   <Button asChild size="lg" className="gap-2">
