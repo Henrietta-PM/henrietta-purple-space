@@ -233,14 +233,14 @@ const Projects = () => {
                     </div>
                   </div>
                 </div>
-                <div className="p-6 md:p-8 flex flex-col flex-1">
+                <div className="p-6 md:p-8 flex flex-col flex-1 items-center text-center">
                   <h3 className="text-3xl font-display font-bold mb-4">
                     Your <span className="font-handwritten text-primary-visible">Product</span> Goes Here
                   </h3>
                   <p className="text-muted-foreground mb-6 leading-relaxed text-sm line-clamp-3 opacity-0">
                     Placeholder text to match card height
                   </p>
-                  <div className="flex flex-wrap gap-3 mt-auto">
+                  <div className="flex flex-wrap gap-3 mt-auto justify-center">
                     <Button asChild size="sm" className="gap-2 rounded-full">
                       <a href="https://calendar.app.google/aKsp6pywYzCAS6Nr9" target="_blank" rel="noopener noreferrer">
                         <Calendar className="w-4 h-4" />
