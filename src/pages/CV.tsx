@@ -146,10 +146,9 @@ const CV = () => {
             <div className="glass p-8 rounded-[1.5rem]">
               <h2 className="text-3xl font-display font-bold mb-4">Professional Summary</h2>
               <ul className="text-muted-foreground leading-relaxed space-y-2 list-disc list-inside">
-                <li>Product Manager with 2+ years of experience launching AI-driven products and scaling user communities</li>
-                <li>Led cross-functional teams across 5+ product lines, including telehealth, AI, SaaS, and personalized learning platforms</li>
-                <li>Decreased product development delays by 15% by adopting agile methodologies</li>
-                <li>Holds a BSc in Architecture, demonstrating a strong foundation in human-centered design</li>
+                <li>Product Manager with 2+ years of experience leading the launch of AI-driven products across 5+ product lines, including telehealth, SaaS, and EdTech.</li>
+                <li>Skilled in leveraging AI and agile practices to drive cross-functional collaboration and reduce product development delays by 15%.</li>
+                <li>Holds a BSc in Architecture, providing a solid foundation in human-centered design.</li>
               </ul>
             </div>
           </div>
