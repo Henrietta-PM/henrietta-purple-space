@@ -16,8 +16,8 @@ const Navigation = () => {
   return (
     <>
       {/* Desktop Navigation */}
-      <nav className="hidden md:block fixed top-0 left-0 right-0 z-50">
-        <div className="container mx-auto px-6 py-6">
+      <nav className="hidden md:block fixed top-[40px] left-0 right-0 z-40 bg-background/20 backdrop-blur-sm">
+        <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <Link to="/" className="text-xl font-display font-bold text-foreground hover:text-primary-visible transition-colors">
               MyPvrpleSpace

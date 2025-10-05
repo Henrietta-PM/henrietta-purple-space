@@ -21,7 +21,16 @@ const Hero = () => {
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-[40px]">
       {/* Full screen background image with blur */}
       <div className="absolute inset-0 w-full h-full">
-...
+        <img
+          src={heroImage}
+          alt="Henrietta Hero"
+          className="w-full h-full object-cover"
+          style={{
+            filter: 'blur(8px)',
+            transform: 'scale(1.1)',
+          }}
+        />
+        <div className="absolute inset-0 bg-background/60" />
       </div>
 
       {/* Content Container */}
@@ -74,7 +83,8 @@ const Hero = () => {
           <p className="text-xs md:text-lg xl:text-xl text-white/95 leading-relaxed font-medium max-w-2xl">
             👋 Hi, I'm Henrietta.
             <br />
-            Product management for me, is about people, their needs, and the paths we create to meet them.
+            <span className="hidden md:inline">Product management for me, is about people, their needs, <br />and the paths we create to meet them.</span>
+            <span className="md:hidden">Product management for me, is about people, their needs, and the paths we create to meet them.</span>
           </p>
         </div>
 

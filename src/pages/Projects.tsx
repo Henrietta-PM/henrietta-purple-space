@@ -19,7 +19,7 @@ const projectsData = [
     image: bloomieImage,
     isLive: true,
     overview:
-      "Bloomie AI is a personalized learning platform for children, using AI to deliver adaptive lessons and engaging progress dashboards. It ensures that children have individualized learning paths while giving parents and teachers actionable insights.",
+      "Bloomie AI is a personalized learning platform for children, using AI to deliver adaptive lessons and engaging progress dashboards.",
     responsibilities: [
       "Defined MVP scope and prioritized features for initial launch.",
       "Wrote PRDs and broke user stories into actionable tasks for development.",
@@ -40,7 +40,7 @@ const projectsData = [
     image: proxyImage,
     isLive: true,
     overview:
-      "ProxyMedicine is a telehealth platform that combines asynchronous care with AI-driven tools. It offers AI-powered diagnosis suggestions, prescription refills, weight loss tracking, and personalized diet/meal generation. Features include patient questionnaires, scheduling, medication management, and an admin portal for billing, upsells, and transcript analysis.",
+      "ProxyMedicine is a telehealth platform that combines asynchronous care with AI-driven tools. It offers AI-powered diagnosis suggestions, prescription refills, weight loss tracking, and personalized diet/meal generation.",
     responsibilities: [
       "Created detailed PRDs and refined user flows for AI diagnosis, weight management, and meal generation features.",
       "Collaborated with design team to ensure usability of patient dashboards and AI chatbot.",
@@ -121,7 +121,7 @@ const Projects = () => {
   return (
     <div className="min-h-screen pb-20 md:pb-0">
       <Navigation />
-      <main className="pt-32 pb-16">
+      <main className="pt-40 pb-16">
         <div className="container mx-auto px-6">
           <div className="mb-12">
             <h1 className="text-5xl md:text-6xl font-display font-bold mb-4">
@@ -164,14 +164,9 @@ const Projects = () => {
                   ))}
                 </div>
                   <h3 className="text-3xl font-display font-bold mb-4">{project.name}</h3>
-                  <p className="text-muted-foreground mb-6 leading-relaxed text-sm line-clamp-3">
+                  <p className={`text-muted-foreground mb-6 leading-relaxed text-sm ${expandedProject !== index ? 'line-clamp-3' : ''}`}>
                     {project.overview}
                   </p>
-                  {expandedProject === index && (
-                    <p className="text-muted-foreground mb-6 leading-relaxed text-sm">
-                      {project.overview}
-                    </p>
-                  )}
 
                   {expandedProject === index && (
                     <div className="animate-slide-up space-y-6 mb-6">
@@ -201,7 +196,7 @@ const Projects = () => {
                       size="sm"
                       className="rounded-full"
                     >
-                      {expandedProject === index ? "See Less" : "...See More"}
+                      {expandedProject === index ? "See Less" : "View Details"}
                     </Button>
                     {project.link && (
                       <Button asChild variant="ghost" size="sm" className="rounded-full">

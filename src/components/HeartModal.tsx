@@ -16,14 +16,14 @@ const HeartModal = ({ isOpen, onClose }: HeartModalProps) => {
   const [heartCount, setHeartCount] = useState(0);
   const [isSending, setIsSending] = useState(false);
 
-  useEffect(() => {
-    const fetchHeartCount = async () => {
-      const { count } = await supabase
-        .from("hearts")
-        .select("*", { count: "exact", head: true });
-      setHeartCount(count || 0);
-    };
+  const fetchHeartCount = async () => {
+    const { count } = await supabase
+      .from("hearts")
+      .select("*", { count: "exact", head: true });
+    setHeartCount(count || 0);
+  };
 
+  useEffect(() => {
     fetchHeartCount();
 
     // Subscribe to realtime updates
@@ -94,6 +94,10 @@ const HeartModal = ({ isOpen, onClose }: HeartModalProps) => {
       }
 
       setHeartSent(true);
+      
+      // Immediately update the count locally
+      await fetchHeartCount();
+      
       toast({
         title: "Heart sent! 💜",
         description: "Thank you for your support!",
@@ -115,8 +119,8 @@ const HeartModal = ({ isOpen, onClose }: HeartModalProps) => {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="glass border-primary/20 max-w-md">
         <div className="flex flex-col items-center gap-6 py-8">
-          <h2 className="text-2xl font-display font-bold text-center">
-            {heartSent ? "Henrietta has received your heart! 💜" : "Press and hold to leave a heart"}
+          <h2 className="text-lg font-display font-bold text-center">
+            {heartSent ? "Henrietta has received your 💜" : "Press and hold to leave a heart"}
           </h2>
           
           <div className="relative">
@@ -127,29 +131,37 @@ const HeartModal = ({ isOpen, onClose }: HeartModalProps) => {
               onTouchStart={() => !heartSent && !isSending && setIsHolding(true)}
               onTouchEnd={() => setIsHolding(false)}
               disabled={heartSent || isSending}
-              className={`relative w-32 h-32 rounded-full transition-all duration-300 ${
+              className={`relative w-32 h-32 transition-all duration-300 ${
                 heartSent 
                   ? "scale-110 animate-bounce" 
                   : "hover:scale-105"
               } ${isSending ? "opacity-50 cursor-not-allowed" : ""}`}
             >
-              <Heart
-                className={`w-full h-full transition-all duration-300 ${
-                  heartSent ? "fill-primary text-primary" : "text-primary"
-                }`}
-                style={{
-                  fill: heartSent ? undefined : `rgba(139, 92, 246, ${progress / 100})`,
-                }}
-              />
-              {!heartSent && !isSending && (
-                <div
-                  className="absolute inset-0 rounded-full"
-                  style={{
-                    background: `conic-gradient(hsl(var(--primary)) ${progress * 3.6}deg, transparent 0deg)`,
-                    opacity: 0.3,
-                  }}
+              <div className="relative w-full h-full">
+                <Heart
+                  className={`w-full h-full transition-all duration-300 ${
+                    heartSent ? "fill-primary stroke-primary" : "stroke-white fill-transparent"
+                  }`}
+                  strokeWidth={2}
                 />
-              )}
+                {!heartSent && !isSending && (
+                  <div
+                    className="absolute inset-0 overflow-hidden"
+                    style={{
+                      clipPath: 'path("M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z")',
+                      transform: 'scale(2.6)',
+                      transformOrigin: 'center',
+                    }}
+                  >
+                    <div
+                      className="absolute bottom-0 left-0 right-0 bg-primary transition-all duration-200"
+                      style={{
+                        height: `${progress}%`,
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
             </button>
           </div>
 

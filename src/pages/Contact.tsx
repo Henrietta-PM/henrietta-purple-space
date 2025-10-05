@@ -11,7 +11,7 @@ const Contact = () => {
   return (
     <div className="min-h-screen pb-20 md:pb-0">
       <Navigation />
-      <main className="pt-32 pb-16">
+      <main className="pt-40 pb-16">
         <div className="container mx-auto px-6">
           <div className="mb-12">
             <h1 className="text-5xl md:text-6xl font-display font-bold mb-4">
@@ -64,18 +64,8 @@ const Contact = () => {
 
             <div className="glass p-8 rounded-[1.5rem]">
               <h2 className="text-2xl font-display font-bold mb-6">Connect on Social</h2>
-              
-              <Button 
-                onClick={() => setShowHeartModal(true)}
-                variant="outline"
-                size="lg"
-                className="w-full mb-6 gap-2"
-              >
-                <Heart className="w-5 h-5" />
-                Add a Heart
-              </Button>
 
-              <div className="grid sm:grid-cols-3 gap-4">
+              <div className="grid sm:grid-cols-3 gap-4 mb-6">
                 <a
                   href="https://linkedin.com/in/henrietta-onwuneme"
                   target="_blank"
@@ -104,6 +94,16 @@ const Contact = () => {
                   <p className="font-semibold text-sm">Instagram</p>
                 </a>
               </div>
+              
+              <Button 
+                onClick={() => setShowHeartModal(true)}
+                variant="outline"
+                size="lg"
+                className="w-full gap-2"
+              >
+                <Heart className="w-5 h-5" />
+                Add a Heart
+              </Button>
             </div>
           </div>
         </div>
