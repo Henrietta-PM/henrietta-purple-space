@@ -20,16 +20,34 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error("RESEND_API_KEY not configured");
     }
 
-    // Get location data from request headers
-    const cfCountry = req.headers.get("cf-ipcountry") || "Unknown";
-    const cfCity = req.headers.get("cf-ipcity") || "Unknown";
-    const cfRegion = req.headers.get("cf-region") || "";
+    // Get location from request body or try to fetch from IP
+    const body = await req.json().catch(() => ({}));
+    let location = body.location || "Unknown location";
     
-    const location = cfCity !== "Unknown" && cfCountry !== "Unknown" 
-      ? `${cfCity}, ${cfCountry}` 
-      : cfCountry !== "Unknown" 
-      ? cfCountry 
-      : "Unknown location";
+    // If no location provided, try to get from IP
+    if (location === "Unknown location") {
+      const clientIP = req.headers.get("x-forwarded-for")?.split(",")[0] || 
+                       req.headers.get("x-real-ip") || 
+                       "Unknown";
+      
+      if (clientIP !== "Unknown") {
+        try {
+          const geoResponse = await fetch(`https://ipapi.co/${clientIP}/json/`);
+          if (geoResponse.ok) {
+            const geoData = await geoResponse.json();
+            if (geoData.city && geoData.country_name) {
+              location = `${geoData.city}, ${geoData.country_name}`;
+            } else if (geoData.country_name) {
+              location = geoData.country_name;
+            }
+          }
+        } catch (error) {
+          console.error("Error fetching geolocation:", error);
+        }
+      }
+    }
+    
+    console.log("Location detected:", location);
 
     const emailResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
