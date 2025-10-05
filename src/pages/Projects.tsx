@@ -218,21 +218,29 @@ const Projects = () => {
               ))}
               
               {/* Empty Card for Hire */}
-              <div className="glass overflow-hidden rounded-[1.5rem] hover:shadow-2xl hover:shadow-primary/20 transition-all duration-350 flex flex-col">
-                <div className="aspect-video overflow-hidden bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center">
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-primary/20 rounded-full blur-2xl animate-pulse" />
-                    <Lightbulb className="w-20 h-20 text-primary-visible relative" />
+              <div className="border-2 border-dashed border-border/50 overflow-hidden rounded-[1.5rem] hover:shadow-2xl hover:shadow-primary/20 transition-all duration-350 flex flex-col bg-background/50">
+                <div className="aspect-video overflow-hidden flex items-center justify-center py-12">
+                  <div className="relative flex items-center justify-center">
+                    {/* Concentric circles */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="absolute w-32 h-32 rounded-full border-2 border-primary/30"></div>
+                      <div className="absolute w-40 h-40 rounded-full border-2 border-primary/20"></div>
+                      <div className="absolute w-48 h-48 rounded-full border-2 border-primary/10"></div>
+                    </div>
+                    {/* Lightbulb icon */}
+                    <div className="relative z-10 w-20 h-20 rounded-full bg-primary flex items-center justify-center">
+                      <Lightbulb className="w-12 h-12 text-primary-foreground fill-current" />
+                    </div>
                   </div>
                 </div>
                 <div className="p-6 md:p-8 flex flex-col flex-1 justify-center items-center text-center">
                   <h3 className="text-3xl font-display font-bold mb-6">
                     Your <span className="font-handwritten text-primary-visible">Product</span> Goes Here
                   </h3>
-                  <Button asChild size="lg" className="gap-2">
+                  <Button asChild size="lg" className="gap-2 rounded-xl px-8">
                     <a href="https://calendar.app.google/aKsp6pywYzCAS6Nr9" target="_blank" rel="noopener noreferrer">
                       <Calendar className="w-5 h-5" />
-                      Hire Henrietta
+                      Book a Free Consultation
                     </a>
                   </Button>
                 </div>
