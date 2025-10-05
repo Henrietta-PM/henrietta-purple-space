@@ -134,10 +134,10 @@ const Projects = () => {
 
           {/* Live Projects Grid */}
           <div className="mb-16">
-            <div className="flex flex-col lg:grid lg:grid-cols-2 xl:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto items-start">
               {projectsData.filter(p => p.isLive).map((project, index) => (
                 <div
-                  key={index}
+                  key={`live-${project.name}-${index}`}
                   className="glass overflow-hidden rounded-[1.5rem] hover:shadow-2xl hover:shadow-primary/20 transition-all duration-350 relative flex flex-col"
                 >
                 {project.isLive && (
@@ -247,10 +247,10 @@ const Projects = () => {
           </div>
 
           {/* Side Projects Grid */}
-          <div className="flex flex-col lg:grid lg:grid-cols-2 xl:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto items-start">
             {projectsData.filter(p => !p.isLive).map((project, index) => (
               <div
-                key={index}
+                key={`side-${project.name}-${index}`}
                 className="glass overflow-hidden rounded-[1.5rem] hover:shadow-2xl hover:shadow-primary/20 transition-all duration-350 relative"
               >
                 {project.image && (
