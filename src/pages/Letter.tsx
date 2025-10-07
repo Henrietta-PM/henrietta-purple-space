@@ -1,9 +1,11 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useState } from "react";
+import { useScrollFade } from "@/hooks/use-scroll-fade";
 
 const Letter = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { ref, opacity, translateY } = useScrollFade();
 
   return (
     <div className="min-h-screen pb-20 md:pb-0">
@@ -20,7 +22,11 @@ const Letter = () => {
           </div>
 
           <div className="max-w-3xl mx-auto">
-            <div className="relative perspective-1000">
+            <div 
+              ref={ref}
+              className="relative perspective-1000"
+              style={{ opacity, transform: `translateY(${translateY}px)` }}
+            >
               {!isOpen && (
                 <div
                   onClick={() => setIsOpen(true)}

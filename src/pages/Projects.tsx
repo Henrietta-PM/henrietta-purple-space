@@ -1,11 +1,11 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Calendar, Lightbulb, Mail } from "lucide-react";
 import bloomieImage from "@/assets/bloomie-logo.png";
+import ProjectCardDetailed from "@/components/ProjectCardDetailed";
+import { useScrollFade } from "@/hooks/use-scroll-fade";
 import proxyImage from "@/assets/proxy-preview.jpg";
 import syncuImage from "@/assets/syncu-preview.png";
 import careerpassImage from "@/assets/careerpass-preview.png";
@@ -113,6 +113,7 @@ const projectsData = [
 
 const Projects = () => {
   const [expandedProject, setExpandedProject] = useState<string | null>(null);
+  const { ref: hireCardRef, opacity: hireOpacity, translateY: hireTranslateY } = useScrollFade();
 
   const toggleProject = (projectName: string) => {
     setExpandedProject(expandedProject === projectName ? null : projectName);
@@ -136,89 +137,27 @@ const Projects = () => {
           <div className="mb-16">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto items-start">
               {projectsData.filter(p => p.isLive).map((project, index) => (
-                <div
+                <ProjectCardDetailed
                   key={`live-${project.name}-${index}`}
-                  className="glass overflow-hidden rounded-[1.5rem] hover:shadow-2xl hover:shadow-primary/20 transition-all duration-350 relative flex flex-col"
-                >
-                {project.isLive && (
-                  <div className="absolute top-4 right-4 z-10 flex items-center gap-2 glass px-3 py-1.5 rounded-full">
-                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                    <span className="text-xs font-medium text-foreground">Live</span>
-                  </div>
-                )}
-                {project.image && (
-                  <div className="aspect-video overflow-hidden bg-muted">
-                    <img
-                      src={project.image}
-                      alt={project.name}
-                      className="w-full h-full object-cover object-top"
-                    />
-                  </div>
-                )}
-                <div className="p-6 md:p-8 flex flex-col flex-1">
-                <div className="flex flex-wrap gap-2 mb-3">
-                  {project.tags.map((tag, tagIndex) => (
-                    <span key={tagIndex} className="text-xs px-3 py-1 rounded-full glass text-foreground border border-border">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                  <h3 className="text-3xl font-display font-bold mb-4">{project.name}</h3>
-                  <p className={`text-muted-foreground mb-6 leading-relaxed text-sm ${expandedProject !== project.name ? 'line-clamp-3' : ''}`}>
-                    {project.overview}
-                  </p>
-
-                  {expandedProject === project.name && (
-                    <div className="animate-slide-up space-y-6 mb-6">
-                      <div>
-                        <h4 className="text-xl font-display font-bold mb-3">Responsibilities</h4>
-                        <ul className="list-disc list-inside space-y-2 text-muted-foreground text-sm">
-                          {project.responsibilities.map((resp, respIndex) => (
-                            <li key={respIndex}>{resp}</li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div>
-                        <h4 className="text-xl font-display font-bold mb-3">Achievements</h4>
-                        <ul className="list-disc list-inside space-y-2 text-muted-foreground text-sm">
-                          {project.achievements.map((ach, achIndex) => (
-                            <li key={achIndex}>{ach}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="flex flex-wrap gap-3 mt-auto">
-                    <Button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleProject(project.name);
-                      }}
-                      variant="default"
-                      size="sm"
-                      className="rounded-full"
-                    >
-                      {expandedProject === project.name ? "See Less" : "View Details"}
-                    </Button>
-                    {project.link && (
-                      <Button asChild variant="ghost" size="sm" className="rounded-full">
-                        <a
-                          href={project.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          Visit Site →
-                        </a>
-                      </Button>
-                    )}
-                  </div>
-                </div>
-                </div>
+                  name={project.name}
+                  tags={project.tags}
+                  image={project.image}
+                  link={project.link}
+                  isLive={project.isLive}
+                  overview={project.overview}
+                  responsibilities={project.responsibilities}
+                  achievements={project.achievements}
+                  expandedProject={expandedProject}
+                  onToggle={toggleProject}
+                />
               ))}
               
               {/* Empty Card for Hire */}
-              <div className="border-2 border-dashed border-border/50 overflow-hidden rounded-[1.5rem] hover:shadow-2xl hover:shadow-primary/20 transition-all duration-350 flex flex-col">
+              <div 
+                ref={hireCardRef}
+                className="border-2 border-dashed border-border/50 overflow-hidden rounded-[1.5rem] hover:shadow-2xl hover:shadow-primary/20 transition-all duration-350 flex flex-col"
+                style={{ opacity: hireOpacity, transform: `translateY(${hireTranslateY}px)` }}
+              >
                 <div className="aspect-video overflow-hidden flex items-center justify-center">
                   <div className="relative flex items-center justify-center">
                     {/* Concentric circles */}
@@ -270,79 +209,18 @@ const Projects = () => {
           {/* Side Projects Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto items-start">
             {projectsData.filter(p => !p.isLive).map((project, index) => (
-              <div
+              <ProjectCardDetailed
                 key={`side-${project.name}-${index}`}
-                className="glass overflow-hidden rounded-[1.5rem] hover:shadow-2xl hover:shadow-primary/20 transition-all duration-350 relative flex flex-col"
-              >
-                {project.image && (
-                  <div className="aspect-video overflow-hidden bg-muted">
-                    <img
-                      src={project.image}
-                      alt={project.name}
-                      className="w-full h-full object-cover object-top"
-                    />
-                  </div>
-                )}
-                <div className="p-6 md:p-8 flex flex-col flex-1">
-                  <div className="flex flex-wrap gap-2 mb-3">
-                    {project.tags.map((tag, tagIndex) => (
-                      <span key={tagIndex} className="text-xs px-3 py-1 rounded-full glass text-foreground border border-border">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <h3 className="text-3xl font-display font-bold mb-4">{project.name}</h3>
-                  <p className={`text-muted-foreground mb-6 leading-relaxed text-sm ${expandedProject !== project.name ? 'line-clamp-3' : ''}`}>
-                    {project.overview}
-                  </p>
-
-                  {expandedProject === project.name && (
-                    <div className="animate-slide-up space-y-6 mb-6">
-                      <div>
-                        <h4 className="text-xl font-display font-bold mb-3">Responsibilities</h4>
-                        <ul className="list-disc list-inside space-y-2 text-muted-foreground text-sm">
-                          {project.responsibilities.map((resp, respIndex) => (
-                            <li key={respIndex}>{resp}</li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div>
-                        <h4 className="text-xl font-display font-bold mb-3">Achievements</h4>
-                        <ul className="list-disc list-inside space-y-2 text-muted-foreground text-sm">
-                          {project.achievements.map((ach, achIndex) => (
-                            <li key={achIndex}>{ach}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="flex flex-wrap gap-3 mt-auto">
-                    <Button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleProject(project.name);
-                      }}
-                      variant="default"
-                      size="sm"
-                      className="rounded-full"
-                    >
-                      {expandedProject === project.name ? "See Less" : "View Details"}
-                    </Button>
-                    {project.link && (
-                      <Button asChild variant="ghost" size="sm" className="rounded-full">
-                        <a
-                          href={project.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          Visit Site →
-                        </a>
-                      </Button>
-                    )}
-                  </div>
-                </div>
-              </div>
+                name={project.name}
+                tags={project.tags}
+                image={project.image}
+                link={project.link}
+                overview={project.overview}
+                responsibilities={project.responsibilities}
+                achievements={project.achievements}
+                expandedProject={expandedProject}
+                onToggle={toggleProject}
+              />
             ))}
           </div>
         </div>

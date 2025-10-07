@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Mail, Linkedin, Twitter, Instagram, Calendar, Heart } from "lucide-react";
 import { useState } from "react";
 import HeartModal from "@/components/HeartModal";
+import ContactCard from "@/components/ContactCard";
 
 const Contact = () => {
   const [showHeartModal, setShowHeartModal] = useState(false);
@@ -23,7 +24,7 @@ const Contact = () => {
           </div>
 
           <div className="max-w-2xl mx-auto space-y-8">
-            <div className="glass p-8 rounded-[1.5rem]">
+            <ContactCard>
               <h2 className="text-2xl font-display font-bold mb-6">Direct Contact</h2>
               <div className="space-y-4">
                 <div className="flex items-start gap-4">
@@ -48,9 +49,9 @@ const Contact = () => {
                   </a>
                 </Button>
               </div>
-            </div>
+            </ContactCard>
 
-            <div className="glass p-8 rounded-[1.5rem]">
+            <ContactCard>
               <h2 className="text-2xl font-display font-bold mb-6">Connect on Social</h2>
 
               <div className="grid sm:grid-cols-3 gap-4 mb-6">
@@ -92,7 +93,7 @@ const Contact = () => {
                 <Heart className="w-5 h-5" />
                 Send a Heart
               </Button>
-            </div>
+            </ContactCard>
           </div>
         </div>
       </main>
