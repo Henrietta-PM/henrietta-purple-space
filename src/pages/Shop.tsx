@@ -3,19 +3,21 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
 import FloatingActionButton from "@/components/FloatingActionButton";
+import prdTemplateComplete from "@/assets/prd-template-complete.png";
+import prdTemplateOverview from "@/assets/prd-template-overview.png";
 
 const products = [
   {
     title: "Complete 3-in-1 PRD Template",
     subtitle: "Copy & Paste PRD Templates for PMs & Founders",
-    image: "/src/assets/prd-template-complete.png",
+    image: prdTemplateComplete,
     url: "https://selar.com/49gf07l554",
     badge: "PREMIUM"
   },
   {
     title: "PRD Overview + User Flows Templates",
     subtitle: "Copy & Paste PRD Templates for PMs & Founders",
-    image: "/src/assets/prd-template-overview.png",
+    image: prdTemplateOverview,
     url: "https://selar.com/1r76753817",
     badge: "MOST POPULAR"
   }
