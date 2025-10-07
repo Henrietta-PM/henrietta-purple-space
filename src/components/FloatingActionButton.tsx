@@ -31,15 +31,15 @@ const FloatingActionButton = () => {
           }`}
         />
 
-        {/* Action Buttons - Following the curve at the top */}
+        {/* Action Buttons - One at vertical top, one at vertical left */}
         <div className="relative">
-          {/* Heart Button - Top Left along curve */}
+          {/* Heart Button - Vertical Top */}
           <Button
             onClick={handleHeartClick}
             size="icon"
             className={`absolute w-12 h-12 rounded-full glass border-2 border-white/40 hover:border-white/60 transition-all duration-500 shadow-lg ${
               isOpen 
-                ? 'opacity-100 scale-100 -translate-x-14 -translate-y-16' 
+                ? 'opacity-100 scale-100 translate-x-0 -translate-y-20' 
                 : 'opacity-0 scale-50 translate-x-0 translate-y-0 pointer-events-none'
             }`}
             style={{ left: '1px', top: '1px' }}
@@ -47,13 +47,13 @@ const FloatingActionButton = () => {
             <Heart className="w-5 h-5 text-white" fill="white" />
           </Button>
           
-          {/* Store Button - Top Right along curve */}
+          {/* Store Button - Vertical Left (closer to top) */}
           <Button
             onClick={handleStoreClick}
             size="icon"
             className={`absolute w-12 h-12 rounded-full glass border-2 border-white/40 hover:border-white/60 transition-all duration-500 shadow-lg ${
               isOpen 
-                ? 'opacity-100 scale-100 translate-x-14 -translate-y-16' 
+                ? 'opacity-100 scale-100 -translate-x-20 -translate-y-8' 
                 : 'opacity-0 scale-50 translate-x-0 translate-y-0 pointer-events-none'
             }`}
             style={{ left: '1px', top: '1px' }}
