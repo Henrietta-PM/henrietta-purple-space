@@ -113,7 +113,7 @@ const HeartModal = ({ isOpen, onClose }: HeartModalProps) => {
                 className={`w-full h-full transition-all duration-200 ${
                   heartSent 
                     ? "fill-primary stroke-primary drop-shadow-[0_0_20px_hsl(var(--primary))]" 
-                    : "stroke-white fill-transparent"
+                    : "stroke-foreground dark:stroke-white fill-transparent"
                 }`}
                 strokeWidth={1.5}
               />
