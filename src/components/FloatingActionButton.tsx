@@ -14,9 +14,9 @@ const FloatingActionButton = () => {
         <Button
           onClick={() => setShowHeartModal(true)}
           size="icon"
-          className="w-14 h-14 rounded-full bg-primary/80 hover:bg-primary shadow-xl hover:shadow-2xl transition-all duration-350"
+          className="w-14 h-14 rounded-full glass shadow-xl hover:shadow-2xl transition-all duration-350 active:scale-95"
         >
-          <Heart className="w-6 h-6 text-white" fill="white" />
+          <Heart className="w-6 h-6 text-primary-visible" fill="currentColor" />
         </Button>
       </div>
 

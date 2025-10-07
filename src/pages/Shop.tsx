@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
+import FloatingActionButton from "@/components/FloatingActionButton";
 
 const products = [
   {
@@ -84,6 +85,7 @@ const Shop = () => {
       </main>
 
       <Footer />
+      <FloatingActionButton />
     </div>
   );
 };

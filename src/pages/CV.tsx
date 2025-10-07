@@ -6,6 +6,7 @@ import portraitImage from "@/assets/henrietta-portrait.jpg";
 import CVTimelineNode from "@/components/CVTimelineNode";
 import CVSkillCategory from "@/components/CVSkillCategory";
 import { useScrollFade } from "@/hooks/use-scroll-fade";
+import FloatingActionButton from "@/components/FloatingActionButton";
 
 const timelineNodes = [
   {
@@ -207,6 +208,7 @@ const CV = () => {
         </div>
       </main>
       <Footer />
+      <FloatingActionButton />
     </div>
   );
 };

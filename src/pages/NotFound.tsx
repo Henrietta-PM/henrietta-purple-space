@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import FloatingActionButton from "@/components/FloatingActionButton";
 
 const NotFound = () => {
   const location = useLocation();
@@ -23,6 +24,7 @@ const NotFound = () => {
           </Button>
         </div>
       </div>
+      <FloatingActionButton />
     </div>
   );
 };

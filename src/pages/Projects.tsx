@@ -10,6 +10,7 @@ import proxyImage from "@/assets/proxy-preview.jpg";
 import syncuImage from "@/assets/syncu-preview.png";
 import careerpassImage from "@/assets/careerpass-preview.png";
 import targettImage from "@/assets/targett-preview.png";
+import FloatingActionButton from "@/components/FloatingActionButton";
 
 const projectsData = [
   {
@@ -236,6 +237,7 @@ const Projects = () => {
         </div>
       </main>
       <Footer />
+      <FloatingActionButton />
     </div>
   );
 };

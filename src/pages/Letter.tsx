@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useState } from "react";
 import { useScrollFade } from "@/hooks/use-scroll-fade";
+import FloatingActionButton from "@/components/FloatingActionButton";
 
 const Letter = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -105,6 +106,7 @@ const Letter = () => {
         </div>
       </main>
       <Footer />
+      <FloatingActionButton />
     </div>
   );
 };

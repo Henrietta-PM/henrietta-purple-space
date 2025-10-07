@@ -7,6 +7,7 @@ import HeartModal from "@/components/HeartModal";
 import ContactCard from "@/components/ContactCard";
 import SocialCard from "@/components/SocialCard";
 import { useScrollFade } from "@/hooks/use-scroll-fade";
+import FloatingActionButton from "@/components/FloatingActionButton";
 
 const Contact = () => {
   const [showHeartModal, setShowHeartModal] = useState(false);
@@ -85,6 +86,7 @@ const Contact = () => {
       </main>
       <Footer />
       <HeartModal isOpen={showHeartModal} onClose={() => setShowHeartModal(false)} />
+      <FloatingActionButton />
     </div>
   );
 };
