@@ -23,9 +23,9 @@ const FloatingActionButton = () => {
           className="w-14 h-14 rounded-full glass shadow-xl hover:shadow-2xl transition-all duration-350 active:scale-95"
         >
           {theme === "dark" ? (
-            <Sun className="w-6 h-6 text-primary-visible" />
+            <Sun className="w-6 h-6 text-foreground dark:text-primary-visible" />
           ) : (
-            <Moon className="w-6 h-6 text-primary-visible" />
+            <Moon className="w-6 h-6 text-foreground dark:text-primary-visible" />
           )}
         </Button>
         
@@ -34,7 +34,7 @@ const FloatingActionButton = () => {
           size="icon"
           className="w-14 h-14 rounded-full glass shadow-xl hover:shadow-2xl transition-all duration-350 active:scale-95"
         >
-          <Heart className="w-6 h-6 text-primary-visible" fill="currentColor" />
+          <Heart className="w-6 h-6 text-foreground dark:text-primary-visible" fill="currentColor" />
         </Button>
       </div>
 
