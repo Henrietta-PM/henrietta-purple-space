@@ -20,7 +20,7 @@ const Skills = () => {
       <div className="container mx-auto px-6">
         <div className="mb-8">
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
-            My <span className="font-handwritten text-primary-visible">Skills</span>
+            <span className="font-handwritten text-primary-visible">Henrietta's</span> Skills
           </h2>
           <p className="text-sm text-muted-foreground max-w-2xl">
             These are my core competencies that have driven product success

@@ -7,6 +7,7 @@ import FeaturedProjects from "@/components/FeaturedProjects";
 import Testimonials from "@/components/Testimonials";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
+import FloatingActionButton from "@/components/FloatingActionButton";
 
 const Index = () => {
   return (
@@ -20,6 +21,7 @@ const Index = () => {
       <Testimonials />
       <CTASection />
       <Footer />
+      <FloatingActionButton />
     </div>
   );
 };

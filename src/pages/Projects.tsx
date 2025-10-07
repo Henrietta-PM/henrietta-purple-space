@@ -247,7 +247,7 @@ const Projects = () => {
                         Hire Henrietta
                       </a>
                     </Button>
-                    <Button asChild variant="ghost" size="sm" className="gap-2 rounded-full">
+                    <Button asChild variant="secondary" size="sm" className="gap-2">
                       <a href="mailto:onwunemehenrietta7@gmail.com">
                         <Mail className="w-4 h-4" />
                         Send Mail

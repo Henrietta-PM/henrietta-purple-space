@@ -1,7 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Mail, Phone, Linkedin, Twitter, Instagram, Calendar, Heart } from "lucide-react";
+import { Mail, Linkedin, Twitter, Instagram, Calendar, Heart } from "lucide-react";
 import { useState } from "react";
 import HeartModal from "@/components/HeartModal";
 
@@ -35,18 +35,6 @@ const Contact = () => {
                       className="text-primary-visible hover:text-white hover:underline text-sm"
                     >
                       onwunemehenrietta7@gmail.com
-                    </a>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <Phone className="w-6 h-6 text-primary-visible mt-1" />
-                  <div>
-                    <p className="font-semibold mb-1">Phone</p>
-                    <a
-                      href="tel:+2348103173566"
-                      className="text-primary-visible hover:text-white hover:underline text-sm"
-                    >
-                      +234 810 317 3566
                     </a>
                   </div>
                 </div>

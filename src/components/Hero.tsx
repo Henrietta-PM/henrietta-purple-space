@@ -2,34 +2,52 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Calendar } from "lucide-react";
-import heroImage from "@/assets/henrietta-hero.jpg";
+import heroImage1 from "@/assets/henrietta-hero-1.jpg";
+import heroImage2 from "@/assets/henrietta-hero-2.jpg";
+import heroImage3 from "@/assets/henrietta-hero-3.jpg";
+import heroImage4 from "@/assets/henrietta-hero-4.jpg";
 import portraitImage from "@/assets/henrietta-portrait.jpg";
 import bloomieLogoFeatured from "@/assets/bloomie-logo-featured.png";
 
 const Hero = () => {
   const [currentWord, setCurrentWord] = useState(0);
+  const [currentImage, setCurrentImage] = useState(0);
   const words = ["Build", "Nurture"];
+  const heroImages = [heroImage1, heroImage2, heroImage3, heroImage4];
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const wordInterval = setInterval(() => {
       setCurrentWord((prev) => (prev + 1) % words.length);
     }, 3000);
-    return () => clearInterval(interval);
+    
+    const imageInterval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+    
+    return () => {
+      clearInterval(wordInterval);
+      clearInterval(imageInterval);
+    };
   }, []);
 
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-[40px]">
       {/* Full screen background image with blur */}
       <div className="absolute inset-0 w-full h-full">
-        <img
-          src={heroImage}
-          alt="Henrietta Hero"
-          className="w-full h-full object-cover"
-          style={{
-            filter: 'blur(3px)',
-            transform: 'scale(1.1)',
-          }}
-        />
+        {heroImages.map((image, index) => (
+          <img
+            key={index}
+            src={image}
+            alt={`Henrietta Hero ${index + 1}`}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+              index === currentImage ? 'opacity-100' : 'opacity-0'
+            }`}
+            style={{
+              filter: 'blur(3px)',
+              transform: 'scale(1.1)',
+            }}
+          />
+        ))}
         <div className="absolute inset-0 bg-background/60" />
       </div>
 
