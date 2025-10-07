@@ -96,7 +96,7 @@ const HeartModal = ({ isOpen, onClose }: HeartModalProps) => {
       <DialogContent className="glass border-primary/20 max-w-md rounded-3xl">
         <div className="flex flex-col items-center gap-4 py-8">
           <h2 className="text-sm font-display font-bold text-center -mt-2">
-            {heartSent ? "Henrietta has received your heart!💜" : "Tap to send a 💜 to Henrietta!"}
+            {heartSent ? "Thank you for loving my portfolio! 💜" : "Love this portfolio? Send a 💜!"}
           </h2>
           
           <div className="relative">
@@ -121,7 +121,7 @@ const HeartModal = ({ isOpen, onClose }: HeartModalProps) => {
           </div>
 
           <p className="text-sm text-muted-foreground text-center">
-            {heartCount} 💜 sent, {heartSent ? "thank you!" : "add yours!"}
+            {heartCount} people love this portfolio 💜
           </p>
         </div>
       </DialogContent>
