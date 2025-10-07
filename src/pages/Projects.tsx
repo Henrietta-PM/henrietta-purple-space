@@ -162,7 +162,7 @@ const Projects = () => {
               {/* Empty Card for Hire */}
               <div 
                 ref={hireCardRef}
-                className="border-2 border-dashed border-border/50 overflow-hidden rounded-[1.5rem] hover:shadow-2xl hover:shadow-primary/20 transition-all duration-350 flex flex-col"
+                className="border-2 border-dashed border-border overflow-hidden rounded-[1.5rem] hover:shadow-2xl hover:shadow-primary/20 transition-all duration-350 flex flex-col"
                 style={{ opacity: hireOpacity, transform: `translateY(${hireTranslateY}px)` }}
               >
                 <div className="aspect-video overflow-hidden flex items-center justify-center">
