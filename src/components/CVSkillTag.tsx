@@ -11,7 +11,10 @@ const CVSkillTag = ({ skill }: CVSkillTagProps) => {
     <span
       ref={ref}
       className="glass text-sm px-4 py-2 rounded-full hover:shadow-lg transition-all duration-350 cursor-default"
-      style={{ opacity, transform: `translateY(${translateY}px)` }}
+      style={{ 
+        opacity: Math.max(0.3, opacity), // Keep minimum 30% opacity
+        transform: `translateY(${translateY * 0.5}px)` // Reduce movement
+      }}
     >
       {skill}
     </span>

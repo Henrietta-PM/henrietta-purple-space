@@ -12,9 +12,9 @@ export const useScrollFade = () => {
       const rect = ref.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
       
-      // Element fades as it scrolls up past the middle of the viewport
-      const fadeStart = windowHeight * 0.6; // Start fading when element is 60% up the viewport
-      const fadeEnd = windowHeight * 0.2; // Fully faded when element is 20% up the viewport
+      // Element fades as it scrolls up past the top 20% of viewport
+      const fadeStart = windowHeight * 0.2; // Start fading only when element reaches top 20%
+      const fadeEnd = -50; // Fully faded 50px above viewport
       
       if (rect.bottom > fadeStart) {
         setOpacity(1);
