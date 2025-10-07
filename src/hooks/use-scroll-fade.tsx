@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 export const useScrollFade = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [opacity, setOpacity] = useState(1);
+  const [translateY, setTranslateY] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -11,21 +12,23 @@ export const useScrollFade = () => {
       const rect = ref.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
       
-      // Calculate opacity based on how much of the section has been scrolled past
-      // Fade starts when top of section reaches middle of viewport
-      // Fade ends when section is completely off screen
-      const fadeStart = windowHeight * 0.5;
-      const fadeEnd = -rect.height;
+      // Element fades as it scrolls up past the middle of the viewport
+      const fadeStart = windowHeight * 0.6; // Start fading when element is 60% up the viewport
+      const fadeEnd = windowHeight * 0.2; // Fully faded when element is 20% up the viewport
       
-      if (rect.top > fadeStart) {
+      if (rect.bottom > fadeStart) {
         setOpacity(1);
-      } else if (rect.top < fadeEnd) {
+        setTranslateY(0);
+      } else if (rect.bottom < fadeEnd) {
         setOpacity(0);
+        setTranslateY(-30);
       } else {
         const fadeRange = fadeStart - fadeEnd;
-        const currentPosition = rect.top - fadeEnd;
+        const currentPosition = rect.bottom - fadeEnd;
         const newOpacity = currentPosition / fadeRange;
+        const newTranslateY = -30 * (1 - newOpacity);
         setOpacity(Math.max(0, Math.min(1, newOpacity)));
+        setTranslateY(newTranslateY);
       }
     };
 
@@ -37,5 +40,5 @@ export const useScrollFade = () => {
     };
   }, []);
 
-  return { ref, opacity };
+  return { ref, opacity, translateY };
 };

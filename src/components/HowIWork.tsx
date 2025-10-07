@@ -1,5 +1,5 @@
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-import { useScrollFade } from "@/hooks/use-scroll-fade";
+import WorkStepCard from "./WorkStepCard";
 
 const workSteps = [
   {
@@ -25,18 +25,10 @@ const workSteps = [
 ];
 
 const HowIWork = () => {
-  const { ref: animRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
-  const { ref: fadeRef, opacity } = useScrollFade();
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
 
   return (
-    <section 
-      className="py-8" 
-      ref={(node: HTMLDivElement | null) => {
-        if (animRef) animRef.current = node;
-        if (fadeRef) fadeRef.current = node;
-      }}
-      style={{ opacity }}
-    >
+    <section className="py-8" ref={ref}>
       <div className="container mx-auto px-6">
         <div className={`mb-8 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
@@ -53,26 +45,16 @@ const HowIWork = () => {
             <div className="hidden lg:block absolute top-20 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/20 via-primary/50 to-primary/20" 
                  style={{ width: 'calc(100% - 8rem)', left: '4rem' }} />
             
-            {workSteps.map((step, index) => {
-              return (
-                <div
-                  key={index}
-                  className={`relative glass rounded-[1.5rem] hover:shadow-xl hover:-translate-y-2 transition-all duration-700 ${
-                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                  }`}
-                  style={{ transitionDelay: `${index * 100}ms` }}
-                >
-                  <div className="pt-8 pb-6 px-6 text-center">
-                    <div className="mb-6 text-6xl font-display font-bold text-primary-visible opacity-70">
-                      {step.number}
-                    </div>
-                    
-                    <h3 className="text-xl font-display font-bold mb-3">{step.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed text-sm">{step.text}</p>
-                  </div>
-                </div>
-              );
-            })}
+            {workSteps.map((step, index) => (
+              <WorkStepCard
+                key={index}
+                number={step.number}
+                title={step.title}
+                text={step.text}
+                index={index}
+                isVisible={isVisible}
+              />
+            ))}
           </div>
         </div>
       </div>

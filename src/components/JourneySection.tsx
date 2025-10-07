@@ -1,5 +1,5 @@
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-import { useScrollFade } from "@/hooks/use-scroll-fade";
+import JourneyStep from "./JourneyStep";
 
 const journeySteps = [
   {
@@ -17,18 +17,10 @@ const journeySteps = [
 ];
 
 const JourneySection = () => {
-  const { ref: animRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
-  const { ref: fadeRef, opacity } = useScrollFade();
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
 
   return (
-    <section 
-      className="py-8" 
-      ref={(node: HTMLDivElement | null) => {
-        if (animRef) animRef.current = node;
-        if (fadeRef) fadeRef.current = node;
-      }}
-      style={{ opacity }}
-    >
+    <section className="py-8" ref={ref}>
       <div className="container mx-auto px-6">
         <div className={`mb-8 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
@@ -46,24 +38,13 @@ const JourneySection = () => {
             
             <div className="space-y-8">
               {journeySteps.map((step, index) => (
-                <div
+                <JourneyStep
                   key={index}
-                  className={`relative flex gap-8 items-start transition-all duration-700 ${
-                    isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
-                  }`}
-                  style={{ transitionDelay: `${index * 150}ms` }}
-                >
-                  {/* Timeline dot */}
-                  <div className="hidden md:flex items-center justify-center w-16 h-16 rounded-full glass border-2 border-primary/30 flex-shrink-0 relative z-10">
-                    <div className="w-3 h-3 rounded-full bg-primary" />
-                  </div>
-                  
-                  {/* Content card */}
-                  <div className="flex-1 glass p-6 md:p-8 rounded-[2rem] hover:shadow-xl transition-all duration-300">
-                    <h3 className="text-xl md:text-2xl font-display font-bold mb-3">{step.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed text-sm">{step.text}</p>
-                  </div>
-                </div>
+                  title={step.title}
+                  text={step.text}
+                  index={index}
+                  isVisible={isVisible}
+                />
               ))}
             </div>
           </div>

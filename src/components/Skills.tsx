@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-import { useScrollFade } from "@/hooks/use-scroll-fade";
+import SkillTag from "./SkillTag";
 
 const skills = [
   "Product Roadmaps",
@@ -16,18 +16,10 @@ const skills = [
 ];
 
 const Skills = () => {
-  const { ref: animRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
-  const { ref: fadeRef, opacity } = useScrollFade();
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
 
   return (
-    <section 
-      className="py-8" 
-      ref={(node: HTMLDivElement | null) => {
-        if (animRef) animRef.current = node;
-        if (fadeRef) fadeRef.current = node;
-      }}
-      style={{ opacity }}
-    >
+    <section className="py-8" ref={ref}>
       <div className="container mx-auto px-6">
         <div className={`mb-8 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
@@ -39,15 +31,12 @@ const Skills = () => {
         </div>
         <div className="flex flex-wrap gap-4 max-w-3xl">
           {skills.map((skill, index) => (
-            <span
+            <SkillTag
               key={index}
-              className={`glass text-base px-6 py-3 rounded-full hover:shadow-lg transition-all duration-700 cursor-default hover-scale ${
-                isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
-              }`}
-              style={{ transitionDelay: `${index * 50}ms` }}
-            >
-              {skill}
-            </span>
+              skill={skill}
+              index={index}
+              isVisible={isVisible}
+            />
           ))}
         </div>
         <div className={`mt-12 text-center transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
