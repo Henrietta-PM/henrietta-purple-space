@@ -22,55 +22,54 @@ const FloatingActionButton = () => {
   return (
     <>
       <div className={`fixed ${isMobile ? 'bottom-24 right-6' : 'bottom-8 right-8'} z-[9999]`}>
-        {/* Action Buttons - appear in a circular pattern */}
-        <div className={`absolute bottom-0 right-0 transition-all duration-300 ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-          {/* Theme Toggle Button */}
+        {/* Vertical backdrop container */}
+        <div 
+          className={`absolute bottom-0 right-0 bg-primary rounded-full shadow-xl transition-all duration-500 ease-out overflow-hidden ${
+            isOpen ? 'h-[180px] w-14' : 'h-14 w-14'
+          }`}
+        >
+          {/* Action Buttons Container */}
+          <div className={`flex flex-col items-center gap-3 pt-3 transition-all duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`}>
+            {/* Heart Button */}
+            <Button
+              onClick={() => {
+                setShowHeartModal(true);
+                setIsOpen(false);
+              }}
+              size="icon"
+              variant="ghost"
+              className="w-12 h-12 rounded-full hover:bg-primary-hover transition-all duration-300 active:scale-95"
+            >
+              <Heart className="w-5 h-5 text-primary-foreground" fill="currentColor" />
+            </Button>
+            
+            {/* Theme Toggle Button */}
+            <Button
+              onClick={toggleTheme}
+              size="icon"
+              variant="ghost"
+              className="w-12 h-12 rounded-full hover:bg-primary-hover transition-all duration-300 active:scale-95"
+            >
+              {theme === "dark" ? (
+                <Sun className="w-5 h-5 text-primary-foreground" />
+              ) : (
+                <Moon className="w-5 h-5 text-primary-foreground" />
+              )}
+            </Button>
+          </div>
+
+          {/* Main Toggle Button */}
           <Button
-            onClick={toggleTheme}
+            onClick={toggleMenu}
             size="icon"
-            className="absolute w-12 h-12 rounded-full glass shadow-lg hover:shadow-xl transition-all duration-300 active:scale-95"
-            style={{
-              transform: isOpen ? 'translate(-80px, -10px)' : 'translate(0, 0)',
-              transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
-            }}
+            variant="ghost"
+            className={`absolute bottom-0 right-0 w-14 h-14 rounded-full hover:bg-primary-hover transition-all duration-300 active:scale-95`}
           >
-            {theme === "dark" ? (
-              <Sun className="w-5 h-5 text-foreground dark:text-primary-visible" />
-            ) : (
-              <Moon className="w-5 h-5 text-foreground dark:text-primary-visible" />
-            )}
-          </Button>
-          
-          {/* Heart Button */}
-          <Button
-            onClick={() => {
-              setShowHeartModal(true);
-              setIsOpen(false);
-            }}
-            size="icon"
-            className="absolute w-12 h-12 rounded-full glass shadow-lg hover:shadow-xl transition-all duration-300 active:scale-95"
-            style={{
-              transform: isOpen ? 'translate(-60px, -60px)' : 'translate(0, 0)',
-              transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) 0.05s',
-            }}
-          >
-            <Heart className="w-5 h-5 text-foreground dark:text-primary-visible" fill="currentColor" />
+            <Plus 
+              className={`w-6 h-6 text-primary-foreground transition-all duration-300 ${isOpen ? 'rotate-45' : 'rotate-0'}`}
+            />
           </Button>
         </div>
-
-        {/* Main Toggle Button */}
-        <Button
-          onClick={toggleMenu}
-          size="icon"
-          className="w-14 h-14 rounded-full bg-primary hover:bg-primary-hover shadow-xl hover:shadow-2xl transition-all duration-300 active:scale-95 relative"
-        >
-          <Plus 
-            className={`w-6 h-6 text-primary-foreground absolute transition-all duration-300 ${isOpen ? 'rotate-45 opacity-0' : 'rotate-0 opacity-100'}`}
-          />
-          <X 
-            className={`w-6 h-6 text-primary-foreground absolute transition-all duration-300 ${isOpen ? 'rotate-0 opacity-100' : 'rotate-45 opacity-0'}`}
-          />
-        </Button>
       </div>
 
       <HeartModal isOpen={showHeartModal} onClose={() => setShowHeartModal(false)} />
