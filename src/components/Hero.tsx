@@ -74,7 +74,7 @@ const Hero = () => {
             }}
           />
         ))}
-        <div className="absolute inset-0 bg-background/60" />
+        <div className="absolute inset-0 bg-background/75 dark:bg-background/60" />
       </div>
 
       {/* Content Container */}
