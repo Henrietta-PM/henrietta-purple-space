@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Calendar } from "lucide-react";
+import heroImage from "@/assets/henrietta-hero.jpg";
 import heroImage1 from "@/assets/henrietta-hero-1.jpg";
 import heroImage2 from "@/assets/henrietta-hero-2.jpg";
 import heroImage3 from "@/assets/henrietta-hero-3.jpg";
@@ -13,7 +14,7 @@ const Hero = () => {
   const [currentWord, setCurrentWord] = useState(0);
   const [currentImage, setCurrentImage] = useState(0);
   const words = ["Build", "Nurture"];
-  const heroImages = [heroImage1, heroImage2, heroImage3, heroImage4];
+  const heroImages = [heroImage, heroImage1, heroImage2, heroImage3, heroImage4];
 
   useEffect(() => {
     const wordInterval = setInterval(() => {
