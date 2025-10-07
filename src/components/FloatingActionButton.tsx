@@ -27,7 +27,7 @@ const FloatingActionButton = () => {
         {/* Circular Background */}
         <div 
           className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/80 transition-all duration-500 ${
-            isOpen ? 'w-48 h-48 opacity-100 scale-100' : 'w-14 h-14 opacity-0 scale-50'
+            isOpen ? `${isMobile ? 'w-36 h-36' : 'w-48 h-48'} opacity-100 scale-100` : 'w-14 h-14 opacity-0 scale-50'
           }`}
         />
 
@@ -39,7 +39,7 @@ const FloatingActionButton = () => {
             size="icon"
             className={`absolute w-12 h-12 rounded-full glass border-2 border-white/40 hover:border-white/60 transition-all duration-500 shadow-lg ${
               isOpen 
-                ? 'opacity-100 scale-100 translate-x-0 -translate-y-20' 
+                ? `opacity-100 scale-100 translate-x-0 ${isMobile ? '-translate-y-16' : '-translate-y-20'}` 
                 : 'opacity-0 scale-50 translate-x-0 translate-y-0 pointer-events-none'
             }`}
             style={{ left: '1px', top: '1px' }}
@@ -53,7 +53,7 @@ const FloatingActionButton = () => {
             size="icon"
             className={`absolute w-12 h-12 rounded-full glass border-2 border-white/40 hover:border-white/60 transition-all duration-500 shadow-lg ${
               isOpen 
-                ? 'opacity-100 scale-100 -translate-x-20 -translate-y-8' 
+                ? `opacity-100 scale-100 ${isMobile ? '-translate-x-16' : '-translate-x-20'} ${isMobile ? '-translate-y-6' : '-translate-y-8'}` 
                 : 'opacity-0 scale-50 translate-x-0 translate-y-0 pointer-events-none'
             }`}
             style={{ left: '1px', top: '1px' }}
