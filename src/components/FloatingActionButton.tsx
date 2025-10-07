@@ -31,28 +31,26 @@ const FloatingActionButton = () => {
           {/* Action Buttons Container */}
           <div className={`flex flex-col items-center transition-all duration-300 delay-100 ${isOpen ? 'opacity-100 pt-4' : 'opacity-0 pt-0'}`}>
             {/* Heart Button with label */}
-            <div className="flex flex-col items-center gap-1 mb-4">
+            <div className="flex flex-col items-center gap-1.5 mb-4">
               <Button
                 onClick={() => {
                   setShowHeartModal(true);
                   setIsOpen(false);
                 }}
                 size="icon"
-                variant="ghost"
-                className="w-12 h-12 rounded-full hover:bg-primary/10 transition-all duration-300 active:scale-95"
+                className="w-12 h-12 rounded-full glass shadow-lg hover:shadow-xl transition-all duration-300 active:scale-95"
               >
                 <Heart className="w-5 h-5 text-foreground dark:text-primary-visible" fill="currentColor" />
               </Button>
-              <span className="text-[10px] font-medium text-foreground/70 dark:text-white/70">Love</span>
+              <span className="text-[9px] font-medium text-foreground/80 dark:text-white/80">Love</span>
             </div>
             
             {/* Theme Toggle Button with label */}
-            <div className="flex flex-col items-center gap-1 mb-4">
+            <div className="flex flex-col items-center gap-1.5 mb-4">
               <Button
                 onClick={toggleTheme}
                 size="icon"
-                variant="ghost"
-                className="w-12 h-12 rounded-full hover:bg-primary/10 transition-all duration-300 active:scale-95"
+                className="w-12 h-12 rounded-full glass shadow-lg hover:shadow-xl transition-all duration-300 active:scale-95"
               >
                 {theme === "dark" ? (
                   <Sun className="w-5 h-5 text-foreground dark:text-primary-visible" />
@@ -60,7 +58,7 @@ const FloatingActionButton = () => {
                   <Moon className="w-5 h-5 text-foreground dark:text-primary-visible" />
                 )}
               </Button>
-              <span className="text-[10px] font-medium text-foreground/70 dark:text-white/70">Theme</span>
+              <span className="text-[9px] font-medium text-foreground/80 dark:text-white/80">Theme</span>
             </div>
 
             {/* Subtle divider line */}
