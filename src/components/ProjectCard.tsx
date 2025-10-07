@@ -43,7 +43,7 @@ const ProjectCard = ({ name, tags, image, link, isLive, index, isVisible }: Proj
       <div className="p-6">
         <div className="flex flex-wrap gap-2 mb-3">
           {tags.map((tag, tagIndex) => (
-            <span key={tagIndex} className="text-xs px-3 py-1 rounded-full glass text-white border border-white/20">
+            <span key={tagIndex} className="text-xs px-3 py-1 rounded-full glass text-foreground dark:text-white border border-border">
               {tag}
             </span>
           ))}
