@@ -24,7 +24,7 @@ const Navigation = () => {
               MyPvrpleSpace
             </Link>
             
-            <div className="flex items-center gap-2 glass px-3 py-2 rounded-full">
+            <div className="flex items-center gap-1 glass px-2 py-2 rounded-full">
               {navLinks.map((link) => {
                 const Icon = link.icon;
                 const isActive = location.pathname === link.path;
@@ -33,7 +33,7 @@ const Navigation = () => {
                     key={link.path}
                     to={link.path}
                     className={cn(
-                      "flex items-center gap-2 text-sm font-medium transition-all px-4 py-2 rounded-full",
+                      "flex items-center gap-1.5 text-sm font-medium transition-all px-3 py-1.5 rounded-full",
                       isActive
                         ? "text-white bg-primary/80 shadow-lg"
                         : "text-primary-visible hover:text-white hover:bg-primary/20"
@@ -58,7 +58,7 @@ const Navigation = () => {
              borderTop: '1px solid hsl(var(--glass-purple-border))',
              borderRadius: '2rem 2rem 0 0',
            }}>
-        <div className="flex items-center justify-around py-3 px-2">
+        <div className="flex items-center justify-around py-2 px-1">
           {navLinks.map((link) => {
             const Icon = link.icon;
             const isActive = location.pathname === link.path;
@@ -67,14 +67,14 @@ const Navigation = () => {
                 key={link.path}
                 to={link.path}
                 className={cn(
-                  "flex flex-col items-center gap-1 px-4 py-2 rounded-2xl transition-all",
+                  "flex flex-col items-center gap-0.5 px-2 py-1.5 rounded-2xl transition-all min-w-0",
                   isActive
                     ? "text-white bg-primary/80 shadow-lg"
                     : "text-primary-visible hover:text-white"
                 )}
               >
-                <Icon className="w-5 h-5" />
-                <span className="text-xs font-medium">{link.label}</span>
+                <Icon className="w-4 h-4 flex-shrink-0" />
+                <span className="text-[10px] font-medium truncate">{link.label}</span>
               </Link>
             );
           })}
