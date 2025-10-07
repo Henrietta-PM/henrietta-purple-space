@@ -5,14 +5,19 @@ import { useScrollFade } from "@/hooks/use-scroll-fade";
 
 const Letter = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { ref, opacity, translateY } = useScrollFade();
+  const { ref: headerRef, opacity: headerOpacity, translateY: headerTranslateY } = useScrollFade();
+  const { ref: envelopeRef, opacity: envelopeOpacity, translateY: envelopeTranslateY } = useScrollFade();
 
   return (
     <div className="min-h-screen pb-20 md:pb-0">
       <Navigation />
       <main className="pt-40 pb-16">
         <div className="container mx-auto px-6">
-          <div className="mb-12">
+          <div 
+            ref={headerRef}
+            className="mb-12"
+            style={{ opacity: headerOpacity, transform: `translateY(${headerTranslateY}px)` }}
+          >
             <h1 className="text-5xl md:text-6xl font-display font-bold mb-4">
               <span className="font-handwritten text-primary-visible">Letter</span>
             </h1>
@@ -22,15 +27,13 @@ const Letter = () => {
           </div>
 
           <div className="max-w-3xl mx-auto">
-            <div 
-              ref={ref}
-              className="relative perspective-1000"
-              style={{ opacity, transform: `translateY(${translateY}px)` }}
-            >
+            <div className="relative perspective-1000">
               {!isOpen && (
                 <div
+                  ref={envelopeRef as any}
                   onClick={() => setIsOpen(true)}
                   className="cursor-pointer group"
+                  style={{ opacity: envelopeOpacity, transform: `translateY(${envelopeTranslateY}px)` }}
                 >
                   <div className="glass p-12 rounded-[2rem] hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-350">
                     <div className="text-center">

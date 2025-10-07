@@ -113,7 +113,9 @@ const projectsData = [
 
 const Projects = () => {
   const [expandedProject, setExpandedProject] = useState<string | null>(null);
+  const { ref: headerRef, opacity: headerOpacity, translateY: headerTranslateY } = useScrollFade();
   const { ref: hireCardRef, opacity: hireOpacity, translateY: hireTranslateY } = useScrollFade();
+  const { ref: sideHeaderRef, opacity: sideHeaderOpacity, translateY: sideHeaderTranslateY } = useScrollFade();
 
   const toggleProject = (projectName: string) => {
     setExpandedProject(expandedProject === projectName ? null : projectName);
@@ -124,7 +126,11 @@ const Projects = () => {
       <Navigation />
       <main className="pt-40 pb-16">
         <div className="container mx-auto px-6">
-          <div className="mb-12">
+          <div 
+            ref={headerRef as any}
+            className="mb-12"
+            style={{ opacity: headerOpacity, transform: `translateY(${headerTranslateY}px)` }}
+          >
             <h1 className="text-5xl md:text-6xl font-display font-bold mb-4">
               <span className="font-handwritten text-primary-visible">Projects</span>
             </h1>
@@ -199,7 +205,11 @@ const Projects = () => {
           </div>
 
           {/* Side Projects Section */}
-          <div className="my-12">
+          <div 
+            ref={sideHeaderRef as any}
+            className="my-12"
+            style={{ opacity: sideHeaderOpacity, transform: `translateY(${sideHeaderTranslateY}px)` }}
+          >
             <div className="border-t border-border/30 mb-8"></div>
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-8">
               Side <span className="font-handwritten text-primary-visible">Projects</span>

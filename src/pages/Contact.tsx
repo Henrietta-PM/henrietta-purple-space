@@ -5,16 +5,24 @@ import { Mail, Linkedin, Twitter, Instagram, Calendar, Heart } from "lucide-reac
 import { useState } from "react";
 import HeartModal from "@/components/HeartModal";
 import ContactCard from "@/components/ContactCard";
+import SocialCard from "@/components/SocialCard";
+import { useScrollFade } from "@/hooks/use-scroll-fade";
 
 const Contact = () => {
   const [showHeartModal, setShowHeartModal] = useState(false);
+  const { ref: headerRef, opacity: headerOpacity, translateY: headerTranslateY } = useScrollFade();
+  const { ref: buttonRef, opacity: buttonOpacity, translateY: buttonTranslateY } = useScrollFade();
 
   return (
     <div className="min-h-screen pb-20 md:pb-0">
       <Navigation />
       <main className="pt-40 pb-16">
         <div className="container mx-auto px-6">
-          <div className="mb-12">
+          <div 
+            ref={headerRef as any}
+            className="mb-12"
+            style={{ opacity: headerOpacity, transform: `translateY(${headerTranslateY}px)` }}
+          >
             <h1 className="text-5xl md:text-6xl font-display font-bold mb-4">
               Let's Build <span className="font-handwritten text-primary-visible">Together</span>
             </h1>
@@ -55,40 +63,18 @@ const Contact = () => {
               <h2 className="text-2xl font-display font-bold mb-6">Connect on Social</h2>
 
               <div className="grid sm:grid-cols-3 gap-4 mb-6">
-                <a
-                  href="https://linkedin.com/in/henrietta-onwuneme"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-6 glass rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all duration-350 flex flex-col items-center gap-3 group"
-                >
-                  <Linkedin className="w-8 h-8 text-primary-visible" />
-                  <p className="font-semibold text-sm">LinkedIn</p>
-                </a>
-                <a
-                  href="https://x.com/henrietta_bby"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-6 glass rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all duration-350 flex flex-col items-center gap-3 group"
-                >
-                  <Twitter className="w-8 h-8 text-primary-visible" />
-                  <p className="font-semibold text-sm">Twitter</p>
-                </a>
-                <a
-                  href="https://www.instagram.com/henriettaofpm"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-6 glass rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all duration-350 flex flex-col items-center gap-3 group"
-                >
-                  <Instagram className="w-8 h-8 text-primary-visible" />
-                  <p className="font-semibold text-sm">Instagram</p>
-                </a>
+                <SocialCard href="https://linkedin.com/in/henrietta-onwuneme" icon={Linkedin} label="LinkedIn" />
+                <SocialCard href="https://x.com/henrietta_bby" icon={Twitter} label="Twitter" />
+                <SocialCard href="https://www.instagram.com/henriettaofpm" icon={Instagram} label="Instagram" />
               </div>
               
               <Button 
+                ref={buttonRef as any}
                 onClick={() => setShowHeartModal(true)}
                 variant="outline"
                 size="lg"
                 className="w-full gap-2"
+                style={{ opacity: buttonOpacity, transform: `translateY(${buttonTranslateY}px)` }}
               >
                 <Heart className="w-5 h-5" />
                 Send a Heart

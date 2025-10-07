@@ -116,14 +116,21 @@ const skillCategories = {
 };
 
 const CV = () => {
+  const { ref: headerRef, opacity: headerOpacity, translateY: headerTranslateY } = useScrollFade();
   const { ref: summaryRef, opacity: summaryOpacity, translateY: summaryTranslateY } = useScrollFade();
+  const { ref: skillsHeaderRef, opacity: skillsHeaderOpacity, translateY: skillsHeaderTranslateY } = useScrollFade();
+  const { ref: timelineHeaderRef, opacity: timelineHeaderOpacity, translateY: timelineHeaderTranslateY } = useScrollFade();
 
   return (
     <div className="min-h-screen pb-20 md:pb-0">
       <Navigation />
       <main className="pt-40 pb-16">
         <div className="container mx-auto px-6">
-          <div className="mb-12 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div 
+            ref={headerRef as any}
+            className="mb-12 flex flex-col md:flex-row md:items-center md:justify-between gap-6"
+            style={{ opacity: headerOpacity, transform: `translateY(${headerTranslateY}px)` }}
+          >
             <div className="flex items-center gap-6">
               <img 
                 src={portraitImage} 
@@ -149,7 +156,7 @@ const CV = () => {
 
           <div className="max-w-4xl mx-auto mb-16">
             <div 
-              ref={summaryRef}
+              ref={summaryRef as any}
               className="glass p-8 rounded-[1.5rem]"
               style={{ opacity: summaryOpacity, transform: `translateY(${summaryTranslateY}px)` }}
             >
@@ -163,7 +170,11 @@ const CV = () => {
           </div>
 
           <div className="max-w-4xl mx-auto mb-16">
-            <h2 className="text-3xl font-display font-bold mb-6">Skills</h2>
+            <h2 
+              ref={skillsHeaderRef as any}
+              className="text-3xl font-display font-bold mb-6"
+              style={{ opacity: skillsHeaderOpacity, transform: `translateY(${skillsHeaderTranslateY}px)` }}
+            >Skills</h2>
             <div className="space-y-8">
               <CVSkillCategory title="Soft Skills" skills={skillCategories.softSkills} />
               <CVSkillCategory title="Technical Skills" skills={skillCategories.technicalSkills} />
@@ -172,7 +183,11 @@ const CV = () => {
           </div>
 
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-display font-bold mb-8">Experience Timeline</h2>
+            <h2 
+              ref={timelineHeaderRef as any}
+              className="text-3xl font-display font-bold mb-8"
+              style={{ opacity: timelineHeaderOpacity, transform: `translateY(${timelineHeaderTranslateY}px)` }}
+            >Experience Timeline</h2>
             <div className="relative">
               {/* Timeline line */}
               <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-primary/30" />
