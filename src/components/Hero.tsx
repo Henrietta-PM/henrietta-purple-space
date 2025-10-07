@@ -88,7 +88,7 @@ const Hero = () => {
         }}
       >
         {/* Featured Work Tab Button */}
-        <div className="mb-8 md:mb-12 inline-flex rounded-full glass border border-primary/20 dark:border-white/10">
+        <div className="mb-8 md:mb-12 inline-flex rounded-full glass border border-white/10 dark:border-white/10 border-primary/20">
           <Link 
             to="/projects"
             className="px-2 md:px-3 py-1 md:py-1.5 text-xs md:text-sm font-medium hover:bg-primary/10 rounded-full transition-all flex items-center gap-1.5 md:gap-2"
@@ -99,7 +99,7 @@ const Hero = () => {
               className="w-5 h-5 md:w-6 md:h-6 object-contain flex-shrink-0"
             />
             <span className="text-xs md:text-sm font-bold text-foreground dark:text-white">Bloomie</span>
-            <div className="w-px h-3 md:h-4 bg-primary/30 dark:bg-white/20"></div>
+            <div className="w-px h-3 md:h-4 bg-border dark:bg-white/20"></div>
             <span className="text-[8px] md:text-[10px] text-muted-foreground dark:text-white/60 font-normal">Featured work</span>
           </Link>
         </div>
