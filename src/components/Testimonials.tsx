@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { useState } from "react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { useScrollFade } from "@/hooks/use-scroll-fade";
 
 const testimonials = [
   {
@@ -27,7 +28,8 @@ const testimonials = [
 
 const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
+  const { ref: animRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
+  const { ref: fadeRef, opacity } = useScrollFade();
 
   const next = () => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
@@ -40,7 +42,14 @@ const Testimonials = () => {
   const current = testimonials[currentIndex];
 
   return (
-    <section className="py-8" ref={ref}>
+    <section 
+      className="py-8" 
+      ref={(node: HTMLDivElement | null) => {
+        if (animRef) animRef.current = node;
+        if (fadeRef) fadeRef.current = node;
+      }}
+      style={{ opacity }}
+    >
       <div className="container mx-auto px-6">
         <div className={`mb-8 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">

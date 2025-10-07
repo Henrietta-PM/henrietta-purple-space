@@ -2,15 +2,24 @@ import { Button } from "@/components/ui/button";
 import { Calendar, Heart } from "lucide-react";
 import { useState } from "react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { useScrollFade } from "@/hooks/use-scroll-fade";
 import HeartModal from "./HeartModal";
 
 const CTASection = () => {
   const [showHeartModal, setShowHeartModal] = useState(false);
-  const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
+  const { ref: animRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
+  const { ref: fadeRef, opacity } = useScrollFade();
 
   return (
     <>
-      <section className="py-8" ref={ref}>
+      <section 
+        className="py-8" 
+        ref={(node: HTMLDivElement | null) => {
+          if (animRef) animRef.current = node;
+          if (fadeRef) fadeRef.current = node;
+        }}
+        style={{ opacity }}
+      >
         <div className="container mx-auto px-6">
           <div className={`glass rounded-[2rem] p-12 md:p-16 text-center max-w-4xl mx-auto transition-all duration-700 ${
             isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'

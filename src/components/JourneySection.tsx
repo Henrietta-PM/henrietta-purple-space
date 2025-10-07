@@ -1,4 +1,5 @@
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { useScrollFade } from "@/hooks/use-scroll-fade";
 
 const journeySteps = [
   {
@@ -16,10 +17,18 @@ const journeySteps = [
 ];
 
 const JourneySection = () => {
-  const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
+  const { ref: animRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
+  const { ref: fadeRef, opacity } = useScrollFade();
 
   return (
-    <section className="py-8" ref={ref}>
+    <section 
+      className="py-8" 
+      ref={(node: HTMLDivElement | null) => {
+        if (animRef) animRef.current = node;
+        if (fadeRef) fadeRef.current = node;
+      }}
+      style={{ opacity }}
+    >
       <div className="container mx-auto px-6">
         <div className={`mb-8 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
