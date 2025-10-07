@@ -25,11 +25,11 @@ const FloatingActionButton = () => {
         {/* Vertical backdrop container */}
         <div 
           className={`absolute bottom-0 right-0 bg-primary rounded-full shadow-xl transition-all duration-500 ease-out ${
-            isOpen ? 'h-[180px] w-14' : 'h-14 w-14'
+            isOpen ? 'h-[200px] w-14' : 'h-14 w-14'
           }`}
         >
           {/* Action Buttons Container */}
-          <div className={`flex flex-col items-center gap-3 pt-3 transition-all duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+          <div className={`flex flex-col items-center gap-4 pt-4 px-1 transition-all duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
             {/* Heart Button */}
             <Button
               onClick={() => {
@@ -61,7 +61,7 @@ const FloatingActionButton = () => {
             onClick={toggleMenu}
             size="icon"
             variant="ghost"
-            className={`absolute bottom-0 right-0 w-14 h-14 rounded-full hover:bg-primary-hover transition-all duration-300 active:scale-95`}
+            className={`absolute bottom-1 right-0 w-14 h-14 rounded-full hover:bg-primary-hover transition-all duration-300 active:scale-95`}
           >
             <Plus 
               className={`w-6 h-6 text-primary-foreground transition-all duration-300 ${isOpen ? 'rotate-45' : 'rotate-0'}`}
