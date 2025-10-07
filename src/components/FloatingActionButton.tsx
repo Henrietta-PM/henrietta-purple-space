@@ -24,24 +24,41 @@ const FloatingActionButton = () => {
   return (
     <>
       <div className={`fixed ${isMobile ? 'bottom-24 right-6' : 'bottom-8 right-8'} z-50`}>
-        {/* Action Buttons */}
-        <div className={`absolute bottom-16 right-0 flex flex-col gap-3 transition-all duration-300 ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}>
-          {/* Heart Button */}
+        {/* Circular Background */}
+        <div 
+          className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/80 transition-all duration-500 ${
+            isOpen ? 'w-48 h-48 opacity-100 scale-100' : 'w-14 h-14 opacity-0 scale-50'
+          }`}
+        />
+
+        {/* Action Buttons - Positioned in circular pattern */}
+        <div className="relative">
+          {/* Heart Button - Upper Left (-45deg) */}
           <Button
             onClick={handleHeartClick}
             size="icon"
-            className="w-12 h-12 rounded-full glass border-2 border-primary/20 hover:border-primary/40 transition-all duration-350 shadow-lg"
+            className={`absolute w-12 h-12 rounded-full glass border-2 border-white/40 hover:border-white/60 transition-all duration-500 shadow-lg ${
+              isOpen 
+                ? 'opacity-100 scale-100 -translate-x-20 -translate-y-20' 
+                : 'opacity-0 scale-50 translate-x-0 translate-y-0 pointer-events-none'
+            }`}
+            style={{ left: '1px', top: '1px' }}
           >
-            <Heart className="w-5 h-5 text-primary-visible" fill="hsl(var(--primary-visible))" />
+            <Heart className="w-5 h-5 text-white" fill="white" />
           </Button>
           
-          {/* Store Button */}
+          {/* Store Button - Upper Right (45deg) */}
           <Button
             onClick={handleStoreClick}
             size="icon"
-            className="w-12 h-12 rounded-full glass border-2 border-primary/20 hover:border-primary/40 transition-all duration-350 shadow-lg"
+            className={`absolute w-12 h-12 rounded-full glass border-2 border-white/40 hover:border-white/60 transition-all duration-500 shadow-lg ${
+              isOpen 
+                ? 'opacity-100 scale-100 translate-x-20 -translate-y-20' 
+                : 'opacity-0 scale-50 translate-x-0 translate-y-0 pointer-events-none'
+            }`}
+            style={{ left: '1px', top: '1px' }}
           >
-            <ShoppingBag className="w-5 h-5 text-primary-visible" />
+            <ShoppingBag className="w-5 h-5 text-white" />
           </Button>
         </div>
 
@@ -49,7 +66,7 @@ const FloatingActionButton = () => {
         <Button
           onClick={() => setIsOpen(!isOpen)}
           size="icon"
-          className="w-14 h-14 rounded-full bg-primary/80 hover:bg-primary shadow-xl hover:shadow-2xl transition-all duration-350"
+          className="relative w-14 h-14 rounded-full bg-primary/80 hover:bg-primary shadow-xl hover:shadow-2xl transition-all duration-350 z-10"
         >
           {isOpen ? (
             <X className="w-6 h-6 text-white" />
