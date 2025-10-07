@@ -22,14 +22,14 @@ const FloatingActionButton = () => {
   return (
     <>
       <div className={`fixed ${isMobile ? 'bottom-24 right-6' : 'bottom-8 right-8'} z-[9999]`}>
-        {/* Vertical elongating backdrop */}
+        {/* Vertical elongating backdrop - grows upward from toggle button */}
         <div 
-          className={`glass rounded-full shadow-xl transition-all duration-500 ease-out overflow-hidden ${
+          className={`absolute bottom-0 right-0 glass rounded-full shadow-xl transition-all duration-500 ease-out overflow-hidden ${
             isOpen ? 'h-[240px] w-14' : 'h-14 w-14'
           }`}
         >
-          {/* Action Buttons Container */}
-          <div className={`flex flex-col items-center transition-all duration-300 delay-100 ${isOpen ? 'opacity-100 pt-4' : 'opacity-0 pt-0'}`}>
+          {/* Action Buttons Container - positioned from top */}
+          <div className={`absolute top-4 left-0 right-0 flex flex-col items-center transition-all duration-300 delay-100 ${isOpen ? 'opacity-100' : 'opacity-0'}`}>
             {/* Heart Button with label */}
             <div className="flex flex-col items-center gap-1.5 mb-4">
               <Button
@@ -62,22 +62,20 @@ const FloatingActionButton = () => {
             </div>
 
             {/* Subtle divider line */}
-            <div className="w-8 h-px bg-border mb-3" />
+            <div className="w-8 h-px bg-border" />
           </div>
 
-          {/* Main Toggle Button - always at bottom */}
-          <div className={`absolute transition-all duration-500 ${isOpen ? 'bottom-3' : 'bottom-0 inset-x-0'}`}>
-            <Button
-              onClick={toggleMenu}
-              size="icon"
-              variant="ghost"
-              className="w-14 h-14 rounded-full hover:bg-primary/10 transition-all duration-300 active:scale-95 mx-auto"
-            >
-              <Plus 
-                className={`w-6 h-6 text-foreground dark:text-primary-visible transition-all duration-300 ${isOpen ? 'rotate-45' : 'rotate-0'}`}
-              />
-            </Button>
-          </div>
+          {/* Main Toggle Button - fixed at bottom */}
+          <Button
+            onClick={toggleMenu}
+            size="icon"
+            variant="ghost"
+            className="absolute bottom-0 left-0 right-0 w-14 h-14 rounded-full hover:bg-primary/10 transition-all duration-300 active:scale-95"
+          >
+            <Plus 
+              className={`w-6 h-6 text-foreground dark:text-primary-visible transition-all duration-300 ${isOpen ? 'rotate-45' : 'rotate-0'}`}
+            />
+          </Button>
         </div>
       </div>
 
