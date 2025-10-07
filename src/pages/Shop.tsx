@@ -25,16 +25,18 @@ const Shop = () => {
     <div className="min-h-screen pb-20 md:pb-0">
       <Navigation />
       
-      <main className="container mx-auto px-4 pt-32 pb-20">
-        <div className="max-w-6xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 gradient-text">
-            Digital Products
-          </h1>
-          <p className="text-lg text-muted-foreground mb-12">
-            Tools and templates to help you build better products
-          </p>
+      <main className="pt-40 pb-16">
+        <div className="container mx-auto px-6">
+          <div className="mb-12">
+            <h1 className="text-5xl md:text-6xl font-display font-bold mb-4">
+              Digital <span className="font-handwritten text-primary-visible">Products</span>
+            </h1>
+            <p className="text-sm text-muted-foreground max-w-2xl">
+              Tools and templates to help you build better products
+            </p>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-7xl mx-auto">
             {products.map((product, index) => (
               <div
                 key={index}
