@@ -32,7 +32,7 @@ const Shop = () => {
               Digital <span className="font-handwritten text-primary-visible">Products</span>
             </h1>
             <p className="text-sm text-muted-foreground max-w-2xl">
-              Tools and templates to help you build better products
+              Tools and templates I've built to help you ship better products.
             </p>
           </div>
 
