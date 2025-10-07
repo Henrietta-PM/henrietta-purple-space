@@ -24,7 +24,7 @@ const FloatingActionButton = () => {
       <div className={`fixed ${isMobile ? 'bottom-24 right-6' : 'bottom-8 right-8'} z-[9999]`}>
         {/* Vertical backdrop container */}
         <div 
-          className={`absolute bottom-0 right-0 bg-primary rounded-full shadow-xl transition-all duration-500 ease-out ${
+          className={`absolute bottom-0 right-0 glass rounded-full shadow-xl transition-all duration-500 ease-out ${
             isOpen ? 'h-[200px] w-14' : 'h-14 w-14'
           }`}
         >
@@ -60,11 +60,10 @@ const FloatingActionButton = () => {
           <Button
             onClick={toggleMenu}
             size="icon"
-            variant="ghost"
-            className={`absolute bottom-1 right-0 w-14 h-14 rounded-full hover:bg-primary-hover transition-all duration-300 active:scale-95`}
+            className="absolute bottom-1 right-0 w-14 h-14 rounded-full glass hover:bg-primary/10 transition-all duration-300 active:scale-95"
           >
             <Plus 
-              className={`w-6 h-6 text-primary-foreground transition-all duration-300 ${isOpen ? 'rotate-45' : 'rotate-0'}`}
+              className={`w-6 h-6 text-foreground dark:text-primary-visible transition-all duration-300 ${isOpen ? 'rotate-45' : 'rotate-0'}`}
             />
           </Button>
         </div>
