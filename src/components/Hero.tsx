@@ -99,8 +99,8 @@ const Hero = () => {
               className="w-5 h-5 md:w-6 md:h-6 object-contain flex-shrink-0"
             />
             <span className="text-xs md:text-sm font-bold text-foreground dark:text-white">Bloomie</span>
-            <div className="w-px h-3 md:h-4 bg-border dark:bg-white/20"></div>
-            <span className="text-[8px] md:text-[10px] text-muted-foreground dark:text-white/60 font-normal">Featured work</span>
+            <div className="w-px h-3 md:h-4 bg-foreground/20 dark:bg-white/20"></div>
+            <span className="text-[8px] md:text-[10px] text-foreground/70 dark:text-white/60 font-normal">Featured work</span>
           </Link>
         </div>
 
