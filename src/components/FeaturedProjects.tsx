@@ -1,7 +1,6 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import bloomieImage from "@/assets/bloomie-logo.png";
 import proxyImage from "@/assets/proxy-preview.jpg";
 
@@ -23,10 +22,12 @@ const projects = [
 ];
 
 const FeaturedProjects = () => {
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
+
   return (
-    <section className="py-8">
+    <section className="py-8" ref={ref}>
       <div className="container mx-auto px-6">
-        <div className="mb-8">
+        <div className={`mb-8 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
             Featured <span className="font-handwritten text-primary-visible">Work</span>
           </h2>
@@ -38,7 +39,10 @@ const FeaturedProjects = () => {
           {projects.map((project, index) => (
             <div
               key={index}
-              className="glass overflow-hidden rounded-[1.5rem] hover:shadow-2xl transition-all duration-350 hover:-translate-y-2 relative"
+              className={`glass overflow-hidden rounded-[1.5rem] hover:shadow-2xl transition-all duration-700 hover:-translate-y-2 relative ${
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
+              style={{ transitionDelay: `${index * 200}ms` }}
             >
               {project.isLive && (
                 <div className="absolute top-4 right-4 z-10 flex items-center gap-2 glass px-3 py-1.5 rounded-full">
@@ -76,7 +80,7 @@ const FeaturedProjects = () => {
             </div>
           ))}
         </div>
-        <div className="mt-12 text-center">
+        <div className={`mt-12 text-center transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <Button asChild variant="default" size="lg">
             <Link to="/projects">View More Projects</Link>
           </Button>

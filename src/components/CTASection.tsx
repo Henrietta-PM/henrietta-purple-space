@@ -1,16 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { Calendar, Heart } from "lucide-react";
 import { useState } from "react";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import HeartModal from "./HeartModal";
 
 const CTASection = () => {
   const [showHeartModal, setShowHeartModal] = useState(false);
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
 
   return (
     <>
-      <section className="py-8">
+      <section className="py-8" ref={ref}>
         <div className="container mx-auto px-6">
-          <div className="glass rounded-[2rem] p-12 md:p-16 text-center max-w-4xl mx-auto">
+          <div className={`glass rounded-[2rem] p-12 md:p-16 text-center max-w-4xl mx-auto transition-all duration-700 ${
+            isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+          }`}>
             <h2 className="text-4xl md:text-5xl font-display font-bold mb-6">
               Hire <span className="font-handwritten text-primary-visible">Henrietta?</span>
             </h2>

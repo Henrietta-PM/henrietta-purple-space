@@ -1,3 +1,5 @@
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+
 const journeySteps = [
   {
     title: "Where I Started",
@@ -14,10 +16,12 @@ const journeySteps = [
 ];
 
 const JourneySection = () => {
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
+
   return (
-    <section className="py-8">
+    <section className="py-8" ref={ref}>
       <div className="container mx-auto px-6">
-        <div className="mb-8">
+        <div className={`mb-8 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
           <span className="font-handwritten text-primary-visible">Henrietta's</span> Journey
         </h2>
@@ -35,8 +39,10 @@ const JourneySection = () => {
               {journeySteps.map((step, index) => (
                 <div
                   key={index}
-                  className="relative flex gap-8 items-start animate-slide-up"
-                  style={{ animationDelay: `${index * 150}ms` }}
+                  className={`relative flex gap-8 items-start transition-all duration-700 ${
+                    isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
+                  }`}
+                  style={{ transitionDelay: `${index * 150}ms` }}
                 >
                   {/* Timeline dot */}
                   <div className="hidden md:flex items-center justify-center w-16 h-16 rounded-full glass border-2 border-primary/30 flex-shrink-0 relative z-10">

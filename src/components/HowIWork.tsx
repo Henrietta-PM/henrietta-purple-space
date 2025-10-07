@@ -1,3 +1,5 @@
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+
 const workSteps = [
   {
     number: "01",
@@ -22,10 +24,12 @@ const workSteps = [
 ];
 
 const HowIWork = () => {
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
+
   return (
-    <section className="py-8">
+    <section className="py-8" ref={ref}>
       <div className="container mx-auto px-6">
-        <div className="mb-8">
+        <div className={`mb-8 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
             How I <span className="font-handwritten text-primary-visible">Work</span>
           </h2>
@@ -44,8 +48,10 @@ const HowIWork = () => {
               return (
                 <div
                   key={index}
-                  className="relative glass rounded-[1.5rem] hover:shadow-xl hover:-translate-y-2 transition-all duration-300 animate-slide-up"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  className={`relative glass rounded-[1.5rem] hover:shadow-xl hover:-translate-y-2 transition-all duration-700 ${
+                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                  }`}
+                  style={{ transitionDelay: `${index * 100}ms` }}
                 >
                   <div className="pt-8 pb-6 px-6 text-center">
                     <div className="mb-6 text-6xl font-display font-bold text-primary-visible opacity-70">
