@@ -13,10 +13,15 @@ import bloomieLogoFeatured from "@/assets/bloomie-logo-featured.png";
 const Hero = () => {
   const [currentWord, setCurrentWord] = useState(0);
   const [currentImage, setCurrentImage] = useState(0);
+  const [scrollOpacity, setScrollOpacity] = useState(1);
+  const [isLoaded, setIsLoaded] = useState(false);
   const words = ["Build", "Nurture"];
   const heroImages = [heroImage, heroImage1, heroImage2, heroImage3, heroImage4];
 
   useEffect(() => {
+    // Trigger entrance animation
+    setIsLoaded(true);
+
     const wordInterval = setInterval(() => {
       setCurrentWord((prev) => (prev + 1) % words.length);
     }, 3000);
@@ -24,10 +29,30 @@ const Hero = () => {
     const imageInterval = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % heroImages.length);
     }, 5000);
+
+    // Handle scroll for fade out effect
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const fadeStart = 0;
+      const fadeEnd = windowHeight * 0.6;
+      
+      if (scrollPosition <= fadeStart) {
+        setScrollOpacity(1);
+      } else if (scrollPosition >= fadeEnd) {
+        setScrollOpacity(0);
+      } else {
+        const opacity = 1 - (scrollPosition - fadeStart) / (fadeEnd - fadeStart);
+        setScrollOpacity(opacity);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
     
     return () => {
       clearInterval(wordInterval);
       clearInterval(imageInterval);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
@@ -53,7 +78,15 @@ const Hero = () => {
       </div>
 
       {/* Content Container */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pt-0 md:pt-32 pb-32 md:pb-40 text-center animate-fade-in">
+      <div 
+        className={`relative z-10 w-full max-w-6xl mx-auto px-6 pt-0 md:pt-32 pb-32 md:pb-40 text-center transition-all duration-1000 ${
+          isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+        style={{ 
+          opacity: scrollOpacity,
+          transform: `translateY(${(1 - scrollOpacity) * -50}px)`
+        }}
+      >
         {/* Featured Work Tab Button */}
         <div className="mb-8 md:mb-12 inline-flex rounded-full glass border border-white/10">
           <Link 
