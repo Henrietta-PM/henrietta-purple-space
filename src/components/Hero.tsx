@@ -52,7 +52,7 @@ const Hero = () => {
       </div>
 
       {/* Content Container */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pt-16 md:pt-32 pb-24 md:pb-40 text-center">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pt-8 md:pt-32 pb-32 md:pb-40 text-center">
         {/* Featured Work Tab Button */}
         <div className="mb-8 md:mb-12 inline-flex rounded-full glass border border-white/10">
           <Link 
