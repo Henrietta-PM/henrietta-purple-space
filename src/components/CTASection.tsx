@@ -26,22 +26,22 @@ const CTASection = () => {
           <p className="text-sm text-muted-foreground mb-8">
             Hi Henrietta, I am interested in working with you!
           </p>
-          <div className="flex flex-wrap gap-3 justify-center">
+          <div className="flex gap-3 justify-center">
             <Button
               asChild
               size="lg"
-              className="rounded-[2rem] px-8 gap-2"
+              className="rounded-[2rem] px-4 sm:px-8 gap-2 text-sm sm:text-base"
             >
               <a href="https://calendar.app.google/aKsp6pywYzCAS6Nr9" target="_blank" rel="noopener noreferrer">
-                <Calendar className="w-5 h-5" />
-                Hire Henrietta
+                <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="whitespace-nowrap">Hire Henrietta</span>
               </a>
             </Button>
             <Button
               asChild
               variant="secondary"
               size="lg"
-              className="rounded-full sm:rounded-[2rem] gap-2 w-11 sm:w-auto px-0 sm:px-4"
+              className="rounded-full sm:rounded-[2rem] gap-2 w-11 sm:w-auto px-0 sm:px-4 flex-shrink-0"
             >
               <a href="mailto:onwunemehenrietta7@gmail.com" className="flex items-center gap-2">
                 <Mail className="w-5 h-5" />
