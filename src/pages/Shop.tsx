@@ -43,7 +43,7 @@ const Shop = () => {
             {products.map((product, index) => (
               <div
                 key={index}
-                className="glass rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-350 group relative"
+                className="glass rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-350 group"
               >
                 {product.badge && (
                   <div className="absolute top-4 right-4 z-10">
