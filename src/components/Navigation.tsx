@@ -27,7 +27,7 @@ const Navigation = () => {
               MyPvrpleSpace
             </Link>
             
-            <div className="flex items-center gap-1 glass px-2 py-2 rounded-full">
+            <div className="flex items-center gap-0.5 glass px-1.5 py-1.5 rounded-full">
               {navLinks.map((link) => {
                 const Icon = link.icon;
                 const isActive = location.pathname === link.path;
@@ -36,7 +36,7 @@ const Navigation = () => {
                     key={link.path}
                     to={link.path}
                     className={cn(
-                      "flex items-center gap-1.5 text-sm font-medium transition-all px-3 py-1.5 rounded-full",
+                      "flex items-center gap-1.5 text-sm font-medium transition-all px-2.5 py-1.5 rounded-full",
                       isActive
                         ? "text-white bg-primary/80 shadow-lg"
                         : "text-primary-visible hover:text-white hover:bg-primary/20"
@@ -48,18 +48,18 @@ const Navigation = () => {
                 );
               })}
               
-              <div className="h-6 w-px bg-border mx-1" />
+              <div className="h-6 w-px bg-border mx-0.5" />
               
               <Button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                 size="icon"
-                className="w-10 h-10 rounded-full hover:bg-primary/20 transition-all"
+                className="w-9 h-9 rounded-full hover:bg-primary/20 transition-all"
                 variant="ghost"
               >
                 {theme === "dark" ? (
-                  <Sun className="w-5 h-5 text-primary-visible" />
+                  <Sun className="w-4 h-4 text-primary-visible" />
                 ) : (
-                  <Moon className="w-5 h-5 text-primary-visible" />
+                  <Moon className="w-4 h-4 text-primary-visible" />
                 )}
               </Button>
             </div>
