@@ -81,14 +81,13 @@ const Navigation = () => {
                 key={link.path}
                 to={link.path}
                 className={cn(
-                  "flex flex-col items-center gap-0.5 px-2 py-1.5 rounded-[1.25rem] transition-all min-w-0",
+                  "flex items-center justify-center p-2.5 rounded-[1.25rem] transition-all",
                   isActive
                     ? "text-white bg-primary/80 shadow-lg"
                     : "text-primary-visible hover:text-white"
                 )}
               >
-                <Icon className="w-4 h-4 flex-shrink-0" />
-                <span className="text-[10px] font-medium truncate">{link.label}</span>
+                <Icon className="w-5 h-5" />
               </Link>
             );
           })}
