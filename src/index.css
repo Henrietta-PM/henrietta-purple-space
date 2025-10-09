@@ -153,26 +153,26 @@ All colors MUST be HSL.
   }
   
   .glass {
-    background: hsl(var(--primary) / 0.2);
-    backdrop-filter: blur(32px) saturate(180%);
-    -webkit-backdrop-filter: blur(32px) saturate(180%);
-    border: 0.5px solid hsl(var(--primary) / 0.3);
+    background: hsl(var(--primary) / 0.15);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border: 1px solid hsl(var(--primary) / 0.25);
     border-radius: 2rem;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08),
-                0 4px 16px 0 rgba(31, 38, 135, 0.04),
-                inset 0 2px 4px 0 rgba(255, 255, 255, 0.08),
-                inset 0 -2px 4px 0 rgba(0, 0, 0, 0.02);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.12),
+                0 4px 16px 0 rgba(31, 38, 135, 0.08),
+                inset 0 2px 4px 0 rgba(255, 255, 255, 0.15),
+                inset 0 -2px 4px 0 rgba(0, 0, 0, 0.05);
   }
   
   .dark .glass {
-    background: hsl(var(--primary) / 0.2);
-    backdrop-filter: blur(32px) saturate(180%);
-    -webkit-backdrop-filter: blur(32px) saturate(180%);
-    border: 0.5px solid hsl(var(--primary) / 0.3);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3),
-                0 4px 16px 0 rgba(0, 0, 0, 0.2),
-                inset 0 2px 4px 0 rgba(255, 255, 255, 0.05),
-                inset 0 -2px 4px 0 rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4),
+                0 4px 16px 0 rgba(0, 0, 0, 0.3),
+                inset 0 2px 4px 0 rgba(255, 255, 255, 0.08),
+                inset 0 -2px 4px 0 rgba(0, 0, 0, 0.15);
   }
   
   .text-glow {
