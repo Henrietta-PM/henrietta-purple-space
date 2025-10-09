@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Heart } from "lucide-react";
@@ -13,19 +13,6 @@ const HeartModal = ({ isOpen, onClose }: HeartModalProps) => {
   const [heartSent, setHeartSent] = useState(false);
   const [heartCount, setHeartCount] = useState(0);
   const [isSending, setIsSending] = useState(false);
-  const [ignoreOutsideClick, setIgnoreOutsideClick] = useState(false);
-
-  useEffect(() => {
-    console.log("💜 HeartModal isOpen changed:", isOpen);
-    if (isOpen) {
-      // Prevent outside clicks from closing for 300ms after opening
-      setIgnoreOutsideClick(true);
-      const timer = setTimeout(() => {
-        setIgnoreOutsideClick(false);
-      }, 300);
-      return () => clearTimeout(timer);
-    }
-  }, [isOpen]);
 
   const fetchHeartCount = async () => {
     const { count } = await supabase
@@ -105,32 +92,12 @@ const HeartModal = ({ isOpen, onClose }: HeartModalProps) => {
   };
 
   return (
-    <Dialog 
-      open={isOpen} 
-      onOpenChange={(open) => {
-        console.log("🔄 HeartModal: Dialog onOpenChange called with:", open);
-        if (!open) {
-          onClose();
-        }
-      }}
-      modal={true}
-    >
-      <DialogContent 
-        className="glass border-primary/20 max-w-md rounded-3xl"
-        onInteractOutside={(e) => {
-          if (ignoreOutsideClick) {
-            console.log("🚫 Ignoring outside click during grace period");
-            e.preventDefault();
-          }
-        }}
-      >
-        <DialogTitle className="text-sm font-display font-bold text-center -mt-2">
-          {heartSent ? "Thank you for loving my portfolio! 💜" : "Love this portfolio? Send a 💜!"}
-        </DialogTitle>
-        <DialogDescription className="sr-only">
-          {heartSent ? "Your heart has been sent successfully" : "Click the heart to show your support"}
-        </DialogDescription>
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="glass border-primary/20 max-w-md rounded-3xl">
         <div className="flex flex-col items-center gap-4 py-8">
+          <h2 className="text-sm font-display font-bold text-center -mt-2">
+            {heartSent ? "Thank you for loving my portfolio! 💜" : "Love this portfolio? Send a 💜!"}
+          </h2>
           
           <div className="relative">
             <button

@@ -2,22 +2,17 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Mail, Linkedin, Twitter, Instagram, Calendar, Heart } from "lucide-react";
+import { useState } from "react";
+import HeartModal from "@/components/HeartModal";
 import ContactCard from "@/components/ContactCard";
 import SocialCard from "@/components/SocialCard";
 import { useScrollFade } from "@/hooks/use-scroll-fade";
 import FloatingActionButton from "@/components/FloatingActionButton";
-import { useHeartModal } from "@/App";
 
 const Contact = () => {
-  const { openHeartModal } = useHeartModal();
+  const [showHeartModal, setShowHeartModal] = useState(false);
   const { ref: headerRef, opacity: headerOpacity, translateY: headerTranslateY } = useScrollFade();
   const { ref: buttonRef, opacity: buttonOpacity, translateY: buttonTranslateY } = useScrollFade();
-
-  const handleSendHeart = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    console.log("❤️ Send a Heart button clicked");
-    setTimeout(() => openHeartModal(), 0);
-  };
 
   return (
     <div className="min-h-screen pb-20 md:pb-0">
@@ -76,10 +71,10 @@ const Contact = () => {
               
               <Button 
                 ref={buttonRef as any}
-                onClick={handleSendHeart}
+                onClick={() => setShowHeartModal(true)}
                 variant="outline"
                 size="lg"
-                className="w-full gap-2 rounded-full"
+                className="w-full gap-2"
                 style={{ opacity: buttonOpacity, transform: `translateY(${buttonTranslateY}px)` }}
               >
                 <Heart className="w-5 h-5" />
@@ -90,6 +85,7 @@ const Contact = () => {
         </div>
       </main>
       <Footer />
+      <HeartModal isOpen={showHeartModal} onClose={() => setShowHeartModal(false)} />
       <FloatingActionButton />
     </div>
   );

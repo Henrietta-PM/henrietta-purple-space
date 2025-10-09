@@ -1,28 +1,27 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
+import HeartModal from "./HeartModal";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { useHeartModal } from "@/App";
 
 const FloatingActionButton = () => {
-  const { openHeartModal } = useHeartModal();
+  const [showHeartModal, setShowHeartModal] = useState(false);
   const isMobile = useIsMobile();
 
-  const handleClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    console.log("💜 Floating action button clicked");
-    setTimeout(() => openHeartModal(), 0);
-  };
-
   return (
-    <div className={`fixed ${isMobile ? 'bottom-24 right-6' : 'bottom-8 right-8'} z-50`}>
-      <Button
-        onClick={handleClick}
-        size="icon"
-        className="w-14 h-14 rounded-full glass shadow-xl hover:shadow-2xl transition-all duration-300 active:scale-95"
-      >
-        <Heart className="w-6 h-6 text-foreground dark:text-primary-visible" fill="currentColor" />
-      </Button>
-    </div>
+    <>
+      <div className={`fixed ${isMobile ? 'bottom-24 right-6' : 'bottom-8 right-8'} z-[9999]`}>
+        <Button
+          onClick={() => setShowHeartModal(true)}
+          size="icon"
+          className="w-14 h-14 rounded-full glass shadow-xl hover:shadow-2xl transition-all duration-300 active:scale-95"
+        >
+          <Heart className="w-6 h-6 text-foreground dark:text-primary-visible" fill="currentColor" />
+        </Button>
+      </div>
+
+      <HeartModal isOpen={showHeartModal} onClose={() => setShowHeartModal(false)} />
+    </>
   );
 };
 
