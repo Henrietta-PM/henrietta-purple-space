@@ -15,7 +15,7 @@ const workSteps = [
   {
     number: "03",
     title: "Lead collaboration",
-    text: "I work closely with design and engineering to stay aligned and move fast together.",
+    text: "I keep design and engineering aligned so we can ship with clarity",
   },
   {
     number: "04",
