@@ -68,9 +68,9 @@ const Navigation = () => {
       </nav>
 
       {/* Mobile Bottom Navigation */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 glass" 
+      <nav className="md:hidden fixed bottom-4 left-4 right-4 z-50 glass" 
            style={{
-             borderRadius: '2rem 2rem 0 0',
+             borderRadius: '2rem',
            }}>
         <div className="flex items-center justify-around py-2 px-1">
           {navLinks.map((link) => {
