@@ -1,4 +1,5 @@
 import { useScrollFade } from "@/hooks/use-scroll-fade";
+import { Separator } from "@/components/ui/separator";
 
 interface JourneyStepProps {
   title: string;
@@ -30,6 +31,7 @@ const JourneyStep = ({ title, text, index, isVisible }: JourneyStepProps) => {
       {/* Content card */}
       <div className="flex-1 glass p-6 md:p-8 rounded-[2rem] hover:shadow-xl transition-all duration-300">
         <h3 className="text-xl md:text-2xl font-display font-bold mb-3">{title}</h3>
+        <Separator className="my-4" />
         <p className="text-muted-foreground leading-relaxed text-sm">{text}</p>
       </div>
     </div>
