@@ -168,11 +168,7 @@ All colors MUST be HSL.
   }
   
   .dark .glass {
-    background: linear-gradient(
-      135deg,
-      rgba(var(--glass-bg)) 0%,
-      rgba(var(--glass-purple)) 100%
-    );
+    background: rgba(var(--glass-bg));
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3),
                 0 2px 16px 0 rgba(0, 0, 0, 0.2),
                 inset 0 1px 0 0 rgba(255, 255, 255, 0.08),

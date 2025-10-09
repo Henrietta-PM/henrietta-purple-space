@@ -27,33 +27,33 @@ const Navigation = () => {
               MyPvrpleSpace
             </Link>
             
-            <div className="flex items-center gap-2">
-              <div className="flex items-center gap-1 glass px-2 py-2 rounded-full">
-                {navLinks.map((link) => {
-                  const Icon = link.icon;
-                  const isActive = location.pathname === link.path;
-                  return (
-                    <Link
-                      key={link.path}
-                      to={link.path}
-                      className={cn(
-                        "flex items-center gap-1.5 text-sm font-medium transition-all px-3 py-1.5 rounded-full",
-                        isActive
-                          ? "text-white bg-primary/80 shadow-lg"
-                          : "text-primary-visible hover:text-white hover:bg-primary/20"
-                      )}
-                    >
-                      <Icon className="w-4 h-4" />
-                      {link.label}
-                    </Link>
-                  );
-                })}
-              </div>
+            <div className="flex items-center gap-1 glass px-2 py-2 rounded-full">
+              {navLinks.map((link) => {
+                const Icon = link.icon;
+                const isActive = location.pathname === link.path;
+                return (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    className={cn(
+                      "flex items-center gap-1.5 text-sm font-medium transition-all px-3 py-1.5 rounded-full",
+                      isActive
+                        ? "text-white bg-primary/80 shadow-lg"
+                        : "text-primary-visible hover:text-white hover:bg-primary/20"
+                    )}
+                  >
+                    <Icon className="w-4 h-4" />
+                    {link.label}
+                  </Link>
+                );
+              })}
+              
+              <div className="h-6 w-px bg-border mx-1" />
               
               <Button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                 size="icon"
-                className="glass w-10 h-10 rounded-full hover:bg-primary/20 transition-all"
+                className="w-10 h-10 rounded-full hover:bg-primary/20 transition-all"
                 variant="ghost"
               >
                 {theme === "dark" ? (
@@ -97,16 +97,17 @@ const Navigation = () => {
             );
           })}
           
+          <div className="h-8 w-px bg-border mx-1" />
+          
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="flex flex-col items-center gap-0.5 px-2 py-1.5 rounded-2xl transition-all min-w-0 text-primary-visible hover:text-white"
+            className="flex items-center justify-center px-2 py-1.5 rounded-2xl transition-all text-primary-visible hover:text-white"
           >
             {theme === "dark" ? (
-              <Sun className="w-4 h-4 flex-shrink-0" />
+              <Sun className="w-5 h-5" />
             ) : (
-              <Moon className="w-4 h-4 flex-shrink-0" />
+              <Moon className="w-5 h-5" />
             )}
-            <span className="text-[10px] font-medium truncate">Theme</span>
           </button>
         </div>
       </nav>
