@@ -36,9 +36,9 @@ const Navigation = () => {
                     key={link.path}
                     to={link.path}
                     className={cn(
-                      "flex items-center gap-1 font-medium transition-all px-2 lg:px-2.5 py-1.5 rounded-full whitespace-nowrap",
+                      "flex items-center gap-1 font-medium transition-all duration-350 px-2 lg:px-2.5 py-1.5 rounded-full whitespace-nowrap",
                       isActive
-                        ? "text-white bg-primary/80 shadow-lg"
+                        ? "text-white bg-primary/80 backdrop-blur-md border-0.5 border-primary/40 shadow-[0_12px_48px_0_rgba(0,0,0,0.08),0_4px_24px_0_rgba(0,0,0,0.04),inset_0_2px_4px_0_rgba(255,255,255,0.12)]"
                         : "text-primary-visible hover:text-white hover:bg-primary/20"
                     )}
                   >

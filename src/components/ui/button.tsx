@@ -5,14 +5,14 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-all duration-350 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        default: "bg-primary/80 text-white hover:bg-primary shadow-lg hover:shadow-xl transition-all duration-350 rounded-[2rem] backdrop-blur-md border border-primary/40",
-        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-lg hover:shadow-xl rounded-[2rem]",
-        outline: "glass border-2 border-primary/20 text-foreground dark:text-primary-visible hover:bg-primary/10 shadow-md hover:shadow-lg transition-all duration-350 rounded-[2rem]",
-        secondary: "glass text-foreground dark:text-white border-2 border-primary/30 dark:border-white/20 hover:bg-primary/10 dark:hover:bg-white/10 shadow-md hover:shadow-lg rounded-[2rem]",
+        default: "bg-primary/80 text-white hover:bg-primary rounded-[2rem] backdrop-blur-md border-0.5 border-primary/40 shadow-[0_12px_48px_0_rgba(0,0,0,0.08),0_4px_24px_0_rgba(0,0,0,0.04),inset_0_2px_4px_0_rgba(255,255,255,0.12)] hover:shadow-[0_16px_56px_0_rgba(0,0,0,0.12),0_6px_28px_0_rgba(0,0,0,0.06),inset_0_2px_4px_0_rgba(255,255,255,0.16)]",
+        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-[2rem] shadow-[0_12px_48px_0_rgba(0,0,0,0.08),0_4px_24px_0_rgba(0,0,0,0.04),inset_0_2px_4px_0_rgba(255,255,255,0.12)] hover:shadow-[0_16px_56px_0_rgba(0,0,0,0.12),0_6px_28px_0_rgba(0,0,0,0.06)]",
+        outline: "glass border-0.5 border-primary/20 text-foreground dark:text-primary-visible hover:bg-primary/10 rounded-[2rem]",
+        secondary: "glass text-foreground dark:text-white border-0.5 border-primary/30 dark:border-white/20 hover:bg-primary/10 dark:hover:bg-white/10 rounded-[2rem]",
         ghost: "hover:bg-accent hover:text-accent-foreground rounded-[2rem]",
         link: "text-primary-visible underline-offset-4 hover:underline",
       },
