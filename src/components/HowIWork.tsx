@@ -32,7 +32,7 @@ const HowIWork = () => {
       <div className="container mx-auto px-6">
         <div className={`mb-8 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
-            How I <span className="font-handwritten text-primary-visible">Work</span>
+            <span className="inline-block font-handwritten text-primary-visible -skew-x-6">How</span> I Work
           </h2>
           <p className="text-sm text-muted-foreground max-w-2xl">
             My approach to building successful products
