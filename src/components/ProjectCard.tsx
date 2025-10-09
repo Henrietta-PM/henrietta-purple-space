@@ -53,7 +53,7 @@ const ProjectCard = ({ name, tags, image, link, isLive, index, isVisible }: Proj
           <Button asChild variant="default" size="sm">
             <Link to="/projects">View Details</Link>
           </Button>
-          <Button asChild variant="ghost" size="sm">
+          <Button asChild variant="ghost" size="sm" className="hover:bg-primary/20">
             <a href={link} target="_blank" rel="noopener noreferrer">
               Visit Site →
             </a>

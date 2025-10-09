@@ -68,12 +68,8 @@ const Navigation = () => {
       </nav>
 
       {/* Mobile Bottom Navigation */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50" 
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 glass" 
            style={{
-             background: 'hsl(253 35% 40% / 0.7)',
-             backdropFilter: 'blur(32px) saturate(180%)',
-             WebkitBackdropFilter: 'blur(32px) saturate(180%)',
-             borderTop: '1px solid hsl(var(--glass-purple-border))',
              borderRadius: '2rem 2rem 0 0',
            }}>
         <div className="flex items-center justify-around py-2 px-1">

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Calendar } from "lucide-react";
+import { Calendar, Mail } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { useScrollFade } from "@/hooks/use-scroll-fade";
 
@@ -26,16 +26,29 @@ const CTASection = () => {
           <p className="text-sm text-muted-foreground mb-8">
             Hi Henrietta, I am interested in working with you!
           </p>
-          <Button
-            asChild
-            size="lg"
-            className="rounded-[2rem] px-8 gap-2"
-          >
-            <a href="https://calendar.app.google/aKsp6pywYzCAS6Nr9" target="_blank" rel="noopener noreferrer">
-              <Calendar className="w-5 h-5" />
-              Hire Henrietta
-            </a>
-          </Button>
+          <div className="flex flex-wrap gap-3 justify-center">
+            <Button
+              asChild
+              size="lg"
+              className="rounded-[2rem] px-8 gap-2"
+            >
+              <a href="https://calendar.app.google/aKsp6pywYzCAS6Nr9" target="_blank" rel="noopener noreferrer">
+                <Calendar className="w-5 h-5" />
+                Hire Henrietta
+              </a>
+            </Button>
+            <Button
+              asChild
+              variant="secondary"
+              size="lg"
+              className="rounded-[2rem] gap-2"
+            >
+              <a href="mailto:onwunemehenrietta7@gmail.com" className="flex items-center gap-2">
+                <Mail className="w-5 h-5" />
+                <span className="hidden sm:inline">Send Mail</span>
+              </a>
+            </Button>
+          </div>
         </div>
       </div>
     </section>

@@ -107,7 +107,7 @@ const ProjectCardDetailed = ({
             {expandedProject === name ? "See Less" : "View Details"}
           </Button>
           {link && (
-            <Button asChild variant="ghost" size="sm" className="rounded-full">
+            <Button asChild variant="ghost" size="sm" className="rounded-full hover:bg-primary/20">
               <a href={link} target="_blank" rel="noopener noreferrer">
                 Visit Site →
               </a>
