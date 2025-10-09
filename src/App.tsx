@@ -35,11 +35,21 @@ export const useHeartModal = () => {
 const App = () => {
   const [showHeartModal, setShowHeartModal] = useState(false);
 
+  const openHeartModal = () => {
+    console.log("🎯 App.tsx: openHeartModal called, setting showHeartModal to true");
+    setShowHeartModal(true);
+  };
+
+  const closeHeartModal = () => {
+    console.log("🎯 App.tsx: closeHeartModal called, setting showHeartModal to false");
+    setShowHeartModal(false);
+  };
+
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} storageKey="portfolio-theme">
         <TooltipProvider>
-          <HeartModalContext.Provider value={{ openHeartModal: () => setShowHeartModal(true) }}>
+          <HeartModalContext.Provider value={{ openHeartModal }}>
             <Toaster />
             <Sonner />
             <BrowserRouter>
@@ -55,7 +65,7 @@ const App = () => {
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
-              <HeartModal isOpen={showHeartModal} onClose={() => setShowHeartModal(false)} />
+              <HeartModal isOpen={showHeartModal} onClose={closeHeartModal} />
             </BrowserRouter>
           </HeartModalContext.Provider>
         </TooltipProvider>

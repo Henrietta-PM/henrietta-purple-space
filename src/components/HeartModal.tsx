@@ -96,13 +96,25 @@ const HeartModal = ({ isOpen, onClose }: HeartModalProps) => {
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => {
-      console.log("🔄 Dialog onOpenChange called with:", open);
-      if (!open) onClose();
-    }}>
-      <DialogContent className="glass border-primary/20 max-w-md rounded-3xl" onPointerDownOutside={(e) => {
-        console.log("👆 Clicked outside dialog");
-      }}>
+    <Dialog 
+      open={isOpen} 
+      onOpenChange={(open) => {
+        console.log("🔄 HeartModal: Dialog onOpenChange called with:", open, "current isOpen:", isOpen);
+        if (!open) {
+          console.log("🔄 HeartModal: Closing dialog, calling onClose");
+          onClose();
+        }
+      }}
+    >
+      <DialogContent 
+        className="glass border-primary/20 max-w-md rounded-3xl" 
+        onPointerDownOutside={(e) => {
+          console.log("👆 HeartModal: Clicked outside dialog");
+        }}
+        onInteractOutside={(e) => {
+          console.log("👆 HeartModal: Interact outside triggered");
+        }}
+      >
         <DialogTitle className="text-sm font-display font-bold text-center -mt-2">
           {heartSent ? "Thank you for loving my portfolio! 💜" : "Love this portfolio? Send a 💜!"}
         </DialogTitle>
