@@ -105,15 +105,10 @@ const HeartModal = ({ isOpen, onClose }: HeartModalProps) => {
           onClose();
         }
       }}
+      modal={true}
     >
       <DialogContent 
-        className="glass border-primary/20 max-w-md rounded-3xl" 
-        onPointerDownOutside={(e) => {
-          console.log("👆 HeartModal: Clicked outside dialog");
-        }}
-        onInteractOutside={(e) => {
-          console.log("👆 HeartModal: Interact outside triggered");
-        }}
+        className="glass border-primary/20 max-w-md rounded-3xl"
       >
         <DialogTitle className="text-sm font-display font-bold text-center -mt-2">
           {heartSent ? "Thank you for loving my portfolio! 💜" : "Love this portfolio? Send a 💜!"}

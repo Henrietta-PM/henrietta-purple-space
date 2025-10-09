@@ -15,7 +15,7 @@ const FloatingActionButton = () => {
   };
 
   return (
-    <div className={`fixed ${isMobile ? 'bottom-24 right-6' : 'bottom-8 right-8'} z-[9999]`}>
+    <div className={`fixed ${isMobile ? 'bottom-24 right-6' : 'bottom-8 right-8'} z-50`}>
       <Button
         onClick={handleClick}
         size="icon"
