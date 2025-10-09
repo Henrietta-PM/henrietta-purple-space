@@ -68,9 +68,14 @@ const Navigation = () => {
       </nav>
 
       {/* Mobile Bottom Navigation */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 glass" 
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 pb-safe" 
            style={{
+             background: 'linear-gradient(135deg, hsl(var(--primary) / 0.25) 0%, hsl(var(--primary) / 0.15) 50%, hsl(var(--primary) / 0.25) 100%)',
+             backdropFilter: 'blur(40px) saturate(200%)',
+             WebkitBackdropFilter: 'blur(40px) saturate(200%)',
+             border: '1px solid hsl(var(--primary) / 0.4)',
              borderRadius: '2rem 2rem 0 0',
+             boxShadow: '0 1px 1px 0 rgba(255, 255, 255, 0.3) inset, 0 -10px 30px -10px hsl(var(--primary) / 0.08)',
            }}>
         <div className="flex items-center justify-around py-2 px-1">
           {navLinks.map((link) => {
