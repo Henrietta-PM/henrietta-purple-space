@@ -153,26 +153,68 @@ All colors MUST be HSL.
   }
   
   .glass {
-    background: hsl(var(--primary) / 0.2);
-    backdrop-filter: blur(32px) saturate(180%);
-    -webkit-backdrop-filter: blur(32px) saturate(180%);
-    border: 0.5px solid hsl(var(--primary) / 0.3);
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary) / 0.25) 0%,
+      hsl(var(--primary) / 0.15) 50%,
+      hsl(var(--primary) / 0.25) 100%
+    );
+    backdrop-filter: blur(40px) saturate(200%);
+    -webkit-backdrop-filter: blur(40px) saturate(200%);
+    border: 1px solid hsl(var(--primary) / 0.4);
     border-radius: 2rem;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08),
-                0 4px 16px 0 rgba(31, 38, 135, 0.04),
-                inset 0 2px 4px 0 rgba(255, 255, 255, 0.08),
-                inset 0 -2px 4px 0 rgba(0, 0, 0, 0.02);
+    box-shadow: 
+      0 1px 1px 0 rgba(255, 255, 255, 0.4) inset,
+      0 50px 100px -20px hsl(var(--primary) / 0.15),
+      0 30px 60px -30px hsl(var(--primary) / 0.2),
+      0 -1px 4px 0 hsl(var(--primary) / 0.15) inset,
+      0 2px 8px 0 rgba(0, 0, 0, 0.03);
+    position: relative;
+  }
+  
+  .glass::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 2rem;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary) / 0.5) 0%,
+      hsl(var(--primary) / 0.1) 50%,
+      hsl(var(--primary) / 0.3) 100%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
   }
   
   .dark .glass {
-    background: hsl(var(--primary) / 0.2);
-    backdrop-filter: blur(32px) saturate(180%);
-    -webkit-backdrop-filter: blur(32px) saturate(180%);
-    border: 0.5px solid hsl(var(--primary) / 0.3);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3),
-                0 4px 16px 0 rgba(0, 0, 0, 0.2),
-                inset 0 2px 4px 0 rgba(255, 255, 255, 0.05),
-                inset 0 -2px 4px 0 rgba(0, 0, 0, 0.1);
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary) / 0.25) 0%,
+      hsl(var(--primary) / 0.15) 50%,
+      hsl(var(--primary) / 0.25) 100%
+    );
+    backdrop-filter: blur(40px) saturate(200%);
+    -webkit-backdrop-filter: blur(40px) saturate(200%);
+    border: 1px solid hsl(var(--primary) / 0.4);
+    box-shadow: 
+      0 1px 1px 0 rgba(255, 255, 255, 0.15) inset,
+      0 50px 100px -20px rgba(0, 0, 0, 0.5),
+      0 30px 60px -30px hsl(var(--primary) / 0.3),
+      0 -1px 4px 0 rgba(0, 0, 0, 0.5) inset,
+      0 2px 8px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  .dark .glass::before {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary) / 0.4) 0%,
+      hsl(var(--primary) / 0.1) 50%,
+      hsl(var(--primary) / 0.3) 100%
+    );
   }
   
   .text-glow {
