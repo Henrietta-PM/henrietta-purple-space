@@ -35,7 +35,7 @@ const ProjectCardDetailed = ({
       style={{ opacity, transform: `translateY(${translateY}px)` }}
     >
       {isLive && (
-        <div className="absolute top-4 right-4 z-10 flex items-center gap-2 glass px-3 py-1.5 rounded-full">
+        <div className="absolute top-4 right-4 z-10 flex items-center gap-2 px-3 py-1.5 rounded-full bg-background/60 backdrop-blur-xl border border-primary/30 shadow-lg">
           <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
           <span className="text-xs font-medium text-foreground">Live</span>
         </div>
