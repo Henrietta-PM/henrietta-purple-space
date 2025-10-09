@@ -28,7 +28,7 @@ const ProjectCard = ({ name, tags, image, link, isLive, index, isVisible }: Proj
       }}
     >
       {isLive && (
-        <div className="absolute top-4 right-4 z-10 flex items-center gap-2 px-3 py-1.5 rounded-full bg-background/60 backdrop-blur-xl border border-primary/30 shadow-lg">
+        <div className="absolute top-4 right-4 z-10 flex items-center gap-2 bg-background/80 backdrop-blur-md px-3 py-1.5 rounded-full border border-border shadow-lg">
           <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
           <span className="text-xs font-medium text-foreground">Live</span>
         </div>
