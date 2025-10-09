@@ -10,7 +10,7 @@ const workSteps = [
   {
     number: "02",
     title: "Create clarity",
-    text: "Clear PRDs and flows that teams can execute.",
+    text: "I create clear PRDs and flows, using AI to spin up quick prototypes for clarity.",
   },
   {
     number: "03",
