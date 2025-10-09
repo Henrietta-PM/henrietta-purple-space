@@ -15,12 +15,12 @@ const workSteps = [
   {
     number: "03",
     title: "Lead collaboration",
-    text: "Align design and engineering around outcomes.",
+    text: "I work closely with design and engineering to stay aligned and move fast together.",
   },
   {
     number: "04",
     title: "Measure outcomes",
-    text: "Define metrics and learn from data.",
+    text: "I track what matters, learn from the data, and use it to make smarter decisions.",
   },
 ];
 
