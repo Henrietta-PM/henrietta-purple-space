@@ -18,13 +18,14 @@ const ProjectCard = ({ name, tags, image, link, isLive, index, isVisible }: Proj
   return (
     <div
       ref={ref}
-      className={`glass overflow-hidden rounded-[1.5rem] hover:shadow-2xl transition-all duration-700 hover:-translate-y-2 relative ${
+      className={`glass overflow-hidden hover:shadow-2xl transition-all duration-700 hover:-translate-y-2 relative ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       }`}
       style={{ 
         transitionDelay: `${index * 200}ms`,
         opacity,
-        transform: `translateY(${translateY}px)`
+        transform: `translateY(${translateY}px)`,
+        clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 1.5rem), calc(100% - 1.5rem) 100%, 0 100%)'
       }}
     >
       {isLive && (

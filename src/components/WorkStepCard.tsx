@@ -14,13 +14,14 @@ const WorkStepCard = ({ number, title, text, index, isVisible }: WorkStepCardPro
   return (
     <div
       ref={ref}
-      className={`relative glass rounded-[1.5rem] hover:shadow-xl hover:-translate-y-2 transition-all duration-700 ${
+      className={`relative glass hover:shadow-xl hover:-translate-y-2 transition-all duration-700 ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       }`}
       style={{ 
         transitionDelay: `${index * 100}ms`,
         opacity,
-        transform: `translateY(${translateY}px)`
+        transform: `translateY(${translateY}px)`,
+        clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 1.5rem), calc(100% - 1.5rem) 100%, 0 100%)'
       }}
     >
       <div className="pt-8 pb-6 px-6 text-center">
