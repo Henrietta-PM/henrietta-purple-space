@@ -9,11 +9,11 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary/80 text-white hover:bg-primary rounded-[2rem] backdrop-blur-md border-0.5 border-primary/40 shadow-[0_12px_48px_0_rgba(0,0,0,0.08),0_4px_24px_0_rgba(0,0,0,0.04),inset_0_2px_4px_0_rgba(255,255,255,0.12)] hover:shadow-[0_16px_56px_0_rgba(0,0,0,0.12),0_6px_28px_0_rgba(0,0,0,0.06),inset_0_2px_4px_0_rgba(255,255,255,0.16)]",
+        default: "bg-primary/80 text-white hover:bg-primary rounded-[2rem] backdrop-blur-md border-0.5 border-primary/40 shadow-[0_12px_48px_0_rgba(0,0,0,0.08),0_4px_24px_0_rgba(0,0,0,0.04),inset_0_2px_4px_0_rgba(255,255,255,0.12)] hover:shadow-[0_16px_56px_0_rgba(0,0,0,0.12),0_6px_28px_0_rgba(0,0,0,0.06),inset_0_2px_4px_0_rgba(255,255,255,0.16)] active:bg-primary/20",
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-[2rem] shadow-[0_12px_48px_0_rgba(0,0,0,0.08),0_4px_24px_0_rgba(0,0,0,0.04),inset_0_2px_4px_0_rgba(255,255,255,0.12)] hover:shadow-[0_16px_56px_0_rgba(0,0,0,0.12),0_6px_28px_0_rgba(0,0,0,0.06)]",
-        outline: "glass border-0.5 border-primary/20 text-foreground dark:text-primary-visible hover:bg-primary/10 rounded-[2rem]",
-        secondary: "glass text-foreground dark:text-white border-0.5 border-primary/30 dark:border-white/20 hover:bg-primary/10 dark:hover:bg-white/10 rounded-[2rem]",
-        ghost: "hover:bg-accent hover:text-accent-foreground rounded-[2rem]",
+        outline: "glass border-0.5 border-primary/20 text-foreground dark:text-primary-visible hover:bg-primary/20 active:bg-primary/20 rounded-[2rem]",
+        secondary: "glass text-foreground dark:text-white border-0.5 border-primary/30 dark:border-white/20 hover:bg-primary/20 dark:hover:bg-primary/20 active:bg-primary/20 rounded-[2rem]",
+        ghost: "hover:bg-primary/20 active:bg-primary/20 hover:text-accent-foreground rounded-[2rem]",
         link: "text-primary-visible underline-offset-4 hover:underline",
       },
       size: {
