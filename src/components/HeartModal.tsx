@@ -1,4 +1,4 @@
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Heart } from "lucide-react";
@@ -94,10 +94,13 @@ const HeartModal = ({ isOpen, onClose }: HeartModalProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="glass border-primary/20 max-w-md rounded-3xl">
+        <DialogTitle className="text-sm font-display font-bold text-center -mt-2">
+          {heartSent ? "Thank you for loving my portfolio! 💜" : "Love this portfolio? Send a 💜!"}
+        </DialogTitle>
+        <DialogDescription className="sr-only">
+          {heartSent ? "Your heart has been sent successfully" : "Click the heart to show your support"}
+        </DialogDescription>
         <div className="flex flex-col items-center gap-4 py-8">
-          <h2 className="text-sm font-display font-bold text-center -mt-2">
-            {heartSent ? "Thank you for loving my portfolio! 💜" : "Love this portfolio? Send a 💜!"}
-          </h2>
           
           <div className="relative">
             <button
