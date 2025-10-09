@@ -4,10 +4,9 @@ const AnnouncementBanner = () => {
   const { openHeartModal } = useHeartModal();
 
   const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
     e.stopPropagation();
     console.log("🎉 Announcement banner clicked");
-    openHeartModal();
+    setTimeout(() => openHeartModal(), 0);
   };
 
   return (

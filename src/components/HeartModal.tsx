@@ -13,9 +13,18 @@ const HeartModal = ({ isOpen, onClose }: HeartModalProps) => {
   const [heartSent, setHeartSent] = useState(false);
   const [heartCount, setHeartCount] = useState(0);
   const [isSending, setIsSending] = useState(false);
+  const [ignoreOutsideClick, setIgnoreOutsideClick] = useState(false);
 
   useEffect(() => {
     console.log("💜 HeartModal isOpen changed:", isOpen);
+    if (isOpen) {
+      // Prevent outside clicks from closing for 300ms after opening
+      setIgnoreOutsideClick(true);
+      const timer = setTimeout(() => {
+        setIgnoreOutsideClick(false);
+      }, 300);
+      return () => clearTimeout(timer);
+    }
   }, [isOpen]);
 
   const fetchHeartCount = async () => {
@@ -99,9 +108,8 @@ const HeartModal = ({ isOpen, onClose }: HeartModalProps) => {
     <Dialog 
       open={isOpen} 
       onOpenChange={(open) => {
-        console.log("🔄 HeartModal: Dialog onOpenChange called with:", open, "current isOpen:", isOpen);
+        console.log("🔄 HeartModal: Dialog onOpenChange called with:", open);
         if (!open) {
-          console.log("🔄 HeartModal: Closing dialog, calling onClose");
           onClose();
         }
       }}
@@ -109,6 +117,12 @@ const HeartModal = ({ isOpen, onClose }: HeartModalProps) => {
     >
       <DialogContent 
         className="glass border-primary/20 max-w-md rounded-3xl"
+        onInteractOutside={(e) => {
+          if (ignoreOutsideClick) {
+            console.log("🚫 Ignoring outside click during grace period");
+            e.preventDefault();
+          }
+        }}
       >
         <DialogTitle className="text-sm font-display font-bold text-center -mt-2">
           {heartSent ? "Thank you for loving my portfolio! 💜" : "Love this portfolio? Send a 💜!"}

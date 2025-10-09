@@ -14,10 +14,9 @@ const Contact = () => {
   const { ref: buttonRef, opacity: buttonOpacity, translateY: buttonTranslateY } = useScrollFade();
 
   const handleSendHeart = (e: React.MouseEvent) => {
-    e.preventDefault();
     e.stopPropagation();
     console.log("❤️ Send a Heart button clicked");
-    openHeartModal();
+    setTimeout(() => openHeartModal(), 0);
   };
 
   return (
