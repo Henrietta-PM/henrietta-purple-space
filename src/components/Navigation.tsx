@@ -81,7 +81,7 @@ const Navigation = () => {
                 key={link.path}
                 to={link.path}
                 className={cn(
-                  "flex flex-col items-center gap-0.5 px-2 py-1.5 rounded-2xl transition-all min-w-0",
+                  "flex flex-col items-center gap-0.5 px-2 py-1.5 rounded-[1.25rem] transition-all min-w-0",
                   isActive
                     ? "text-white bg-primary/80 shadow-lg"
                     : "text-primary-visible hover:text-white"
@@ -97,7 +97,7 @@ const Navigation = () => {
           
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="flex items-center justify-center px-1 py-1.5 rounded-2xl transition-all text-primary-visible hover:text-white flex-shrink-0"
+            className="flex items-center justify-center px-1 py-1.5 rounded-[1.25rem] transition-all text-primary-visible hover:text-white flex-shrink-0"
           >
             {theme === "dark" ? (
               <Sun className="w-5 h-5" />
