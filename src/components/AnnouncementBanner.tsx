@@ -1,30 +1,26 @@
-import { useState } from "react";
-import HeartModal from "./HeartModal";
+import { useHeartModal } from "@/App";
 
 const AnnouncementBanner = () => {
-  const [showModal, setShowModal] = useState(false);
+  const { openHeartModal } = useHeartModal();
 
   return (
-    <>
-      <div 
-        onClick={() => setShowModal(true)}
-        className="fixed top-0 left-0 right-0 z-50 overflow-hidden cursor-pointer bg-primary/20 backdrop-blur-md border-b border-primary/30"
-        style={{ height: "40px" }}
-      >
-        <div className="animate-scroll whitespace-nowrap inline-block py-2 text-sm font-medium text-foreground dark:text-white">
-          <span className="inline-block px-8">
-            👋 Hi, I designed this portfolio myself, and I'll bring the same energy to your project. Tap here to drop a 💜 if you love it!
-          </span>
-          <span className="inline-block px-8">
-            👋 Hi, I designed this portfolio myself, and I'll bring the same energy to your project. Tap here to drop a 💜 if you love it!
-          </span>
-          <span className="inline-block px-8">
-            👋 Hi, I designed this portfolio myself, and I'll bring the same energy to your project. Tap here to drop a 💜 if you love it!
-          </span>
-        </div>
+    <div 
+      onClick={openHeartModal}
+      className="fixed top-0 left-0 right-0 z-50 overflow-hidden cursor-pointer bg-primary/20 backdrop-blur-md border-b border-primary/30"
+      style={{ height: "40px" }}
+    >
+      <div className="animate-scroll whitespace-nowrap inline-block py-2 text-sm font-medium text-foreground dark:text-white">
+        <span className="inline-block px-8">
+          👋 Hi, I designed this portfolio myself, and I'll bring the same energy to your project. Tap here to drop a 💜 if you love it!
+        </span>
+        <span className="inline-block px-8">
+          👋 Hi, I designed this portfolio myself, and I'll bring the same energy to your project. Tap here to drop a 💜 if you love it!
+        </span>
+        <span className="inline-block px-8">
+          👋 Hi, I designed this portfolio myself, and I'll bring the same energy to your project. Tap here to drop a 💜 if you love it!
+        </span>
       </div>
-      <HeartModal isOpen={showModal} onClose={() => setShowModal(false)} />
-    </>
+    </div>
   );
 };
 

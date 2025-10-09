@@ -2,15 +2,14 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Mail, Linkedin, Twitter, Instagram, Calendar, Heart } from "lucide-react";
-import { useState } from "react";
-import HeartModal from "@/components/HeartModal";
 import ContactCard from "@/components/ContactCard";
 import SocialCard from "@/components/SocialCard";
 import { useScrollFade } from "@/hooks/use-scroll-fade";
 import FloatingActionButton from "@/components/FloatingActionButton";
+import { useHeartModal } from "@/App";
 
 const Contact = () => {
-  const [showHeartModal, setShowHeartModal] = useState(false);
+  const { openHeartModal } = useHeartModal();
   const { ref: headerRef, opacity: headerOpacity, translateY: headerTranslateY } = useScrollFade();
   const { ref: buttonRef, opacity: buttonOpacity, translateY: buttonTranslateY } = useScrollFade();
 
@@ -71,7 +70,7 @@ const Contact = () => {
               
               <Button 
                 ref={buttonRef as any}
-                onClick={() => setShowHeartModal(true)}
+                onClick={openHeartModal}
                 variant="outline"
                 size="lg"
                 className="w-full gap-2"
@@ -85,7 +84,6 @@ const Contact = () => {
         </div>
       </main>
       <Footer />
-      <HeartModal isOpen={showHeartModal} onClose={() => setShowHeartModal(false)} />
       <FloatingActionButton />
     </div>
   );
