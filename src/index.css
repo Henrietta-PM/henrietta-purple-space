@@ -153,16 +153,30 @@ All colors MUST be HSL.
   }
   
   .glass {
-    background: rgba(var(--glass-bg));
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    border: 1px solid rgba(var(--glass-border));
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08),
-                0 2px 8px 0 rgba(0, 0, 0, 0.04);
+    background: linear-gradient(
+      135deg,
+      rgba(var(--glass-bg)) 0%,
+      rgba(var(--glass-purple)) 100%
+    );
+    backdrop-filter: blur(40px) saturate(200%);
+    -webkit-backdrop-filter: blur(40px) saturate(200%);
+    border: 1.5px solid rgba(var(--glass-border));
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.12),
+                0 2px 16px 0 rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.1),
+                inset 0 -1px 0 0 rgba(0, 0, 0, 0.1);
   }
   
   .dark .glass {
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+    background: linear-gradient(
+      135deg,
+      rgba(var(--glass-bg)) 0%,
+      rgba(var(--glass-purple)) 100%
+    );
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3),
+                0 2px 16px 0 rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
+                inset 0 -1px 0 0 rgba(0, 0, 0, 0.2);
   }
   
   .text-glow {
