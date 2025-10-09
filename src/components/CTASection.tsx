@@ -41,7 +41,7 @@ const CTASection = () => {
               asChild
               variant="secondary"
               size="lg"
-              className="rounded-[2rem] gap-2"
+              className="rounded-full sm:rounded-[2rem] gap-2 w-11 sm:w-auto px-0 sm:px-4"
             >
               <a href="mailto:onwunemehenrietta7@gmail.com" className="flex items-center gap-2">
                 <Mail className="w-5 h-5" />
