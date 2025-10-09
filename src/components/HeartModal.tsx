@@ -14,6 +14,10 @@ const HeartModal = ({ isOpen, onClose }: HeartModalProps) => {
   const [heartCount, setHeartCount] = useState(0);
   const [isSending, setIsSending] = useState(false);
 
+  useEffect(() => {
+    console.log("💜 HeartModal isOpen changed:", isOpen);
+  }, [isOpen]);
+
   const fetchHeartCount = async () => {
     const { count } = await supabase
       .from("hearts")

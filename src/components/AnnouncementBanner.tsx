@@ -3,9 +3,14 @@ import { useHeartModal } from "@/App";
 const AnnouncementBanner = () => {
   const { openHeartModal } = useHeartModal();
 
+  const handleClick = () => {
+    console.log("🎉 Announcement banner clicked");
+    openHeartModal();
+  };
+
   return (
     <div 
-      onClick={openHeartModal}
+      onClick={handleClick}
       className="fixed top-0 left-0 right-0 z-50 overflow-hidden cursor-pointer bg-primary/20 backdrop-blur-md border-b border-primary/30"
       style={{ height: "40px" }}
     >

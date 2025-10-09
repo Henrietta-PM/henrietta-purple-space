@@ -13,6 +13,11 @@ const Contact = () => {
   const { ref: headerRef, opacity: headerOpacity, translateY: headerTranslateY } = useScrollFade();
   const { ref: buttonRef, opacity: buttonOpacity, translateY: buttonTranslateY } = useScrollFade();
 
+  const handleSendHeart = () => {
+    console.log("❤️ Send a Heart button clicked");
+    openHeartModal();
+  };
+
   return (
     <div className="min-h-screen pb-20 md:pb-0">
       <Navigation />
@@ -70,10 +75,10 @@ const Contact = () => {
               
               <Button 
                 ref={buttonRef as any}
-                onClick={openHeartModal}
+                onClick={handleSendHeart}
                 variant="outline"
                 size="lg"
-                className="w-full gap-2"
+                className="w-full gap-2 rounded-full"
                 style={{ opacity: buttonOpacity, transform: `translateY(${buttonTranslateY}px)` }}
               >
                 <Heart className="w-5 h-5" />
