@@ -27,7 +27,7 @@ const Navigation = () => {
               MyPvrpleSpace
             </Link>
             
-            <div className="flex items-center gap-0.5 glass px-1.5 py-1.5 rounded-full">
+            <div className="flex items-center gap-0.5 glass px-1 py-1 rounded-full text-xs lg:text-sm">
               {navLinks.map((link) => {
                 const Icon = link.icon;
                 const isActive = location.pathname === link.path;
@@ -36,30 +36,30 @@ const Navigation = () => {
                     key={link.path}
                     to={link.path}
                     className={cn(
-                      "flex items-center gap-1.5 text-sm font-medium transition-all px-2.5 py-1.5 rounded-full",
+                      "flex items-center gap-1 font-medium transition-all px-2 lg:px-2.5 py-1.5 rounded-full whitespace-nowrap",
                       isActive
                         ? "text-white bg-primary/80 shadow-lg"
                         : "text-primary-visible hover:text-white hover:bg-primary/20"
                     )}
                   >
-                    <Icon className="w-4 h-4" />
-                    {link.label}
+                    <Icon className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
+                    <span className="hidden lg:inline">{link.label}</span>
                   </Link>
                 );
               })}
               
-              <div className="h-6 w-px bg-border mx-0.5" />
+              <div className="h-5 w-px bg-foreground dark:bg-white mx-0.5" />
               
               <Button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                 size="icon"
-                className="w-9 h-9 rounded-full hover:bg-primary/20 transition-all"
+                className="w-8 h-8 lg:w-9 lg:h-9 rounded-full hover:bg-primary/20 transition-all"
                 variant="ghost"
               >
                 {theme === "dark" ? (
-                  <Sun className="w-4 h-4 text-primary-visible" />
+                  <Sun className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-primary-visible" />
                 ) : (
-                  <Moon className="w-4 h-4 text-primary-visible" />
+                  <Moon className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-primary-visible" />
                 )}
               </Button>
             </div>
@@ -97,7 +97,7 @@ const Navigation = () => {
             );
           })}
           
-          <div className="h-8 w-px bg-border mx-1" />
+          <div className="h-8 w-px bg-foreground dark:bg-white mx-1" />
           
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
