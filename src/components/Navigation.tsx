@@ -93,11 +93,11 @@ const Navigation = () => {
             );
           })}
           
-          <div className="h-8 w-px bg-foreground dark:bg-white mx-1" />
+          <div className="h-8 w-px bg-foreground dark:bg-white mx-0.5" />
           
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="flex items-center justify-center px-2 py-1.5 rounded-2xl transition-all text-primary-visible hover:text-white"
+            className="flex items-center justify-center px-1 py-1.5 rounded-2xl transition-all text-primary-visible hover:text-white flex-shrink-0"
           >
             {theme === "dark" ? (
               <Sun className="w-5 h-5" />
