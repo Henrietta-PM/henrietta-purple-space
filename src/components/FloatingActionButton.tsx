@@ -7,7 +7,9 @@ const FloatingActionButton = () => {
   const { openHeartModal } = useHeartModal();
   const isMobile = useIsMobile();
 
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     console.log("💜 Floating action button clicked");
     openHeartModal();
   };

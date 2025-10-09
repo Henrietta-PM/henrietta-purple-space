@@ -3,7 +3,9 @@ import { useHeartModal } from "@/App";
 const AnnouncementBanner = () => {
   const { openHeartModal } = useHeartModal();
 
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     console.log("🎉 Announcement banner clicked");
     openHeartModal();
   };
