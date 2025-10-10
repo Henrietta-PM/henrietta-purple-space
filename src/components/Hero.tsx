@@ -14,7 +14,7 @@ const Hero = () => {
   const [currentImage, setCurrentImage] = useState(0);
   const [scrollOpacity, setScrollOpacity] = useState(1);
   const [isLoaded, setIsLoaded] = useState(false);
-  const words = ["Build", "Nurture"];
+  const words = ["Build", "Manage"];
   const heroImages = [heroImage1, heroImage2, heroImage3, heroImage4];
 
   useEffect(() => {
