@@ -107,7 +107,7 @@ const Hero = () => {
         <h1 className="text-3xl sm:text-4xl md:text-7xl xl:text-8xl font-display font-bold leading-tight mb-6 md:mb-6 max-w-5xl mx-auto">
           <span className="text-foreground dark:text-white" style={{ textShadow: '0 4px 30px rgba(0, 0, 0, 0.3)' }}>
             I{" "}
-            <span className="relative inline-block font-handwritten" style={{ height: '1.2em', width: 'fit-content', verticalAlign: 'baseline', margin: '0 0.5em' }}>
+            <span className="relative inline-block font-handwritten" style={{ height: '1.2em', width: 'fit-content', verticalAlign: 'baseline', margin: '0 0.5em 0 0.2em' }}>
               {words.map((word, index) => (
                 <span
                   key={word}
