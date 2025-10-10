@@ -107,11 +107,11 @@ const Hero = () => {
         <h1 className="text-3xl sm:text-4xl md:text-7xl xl:text-8xl font-display font-bold leading-tight mb-6 md:mb-6 max-w-5xl mx-auto">
           <span className="text-foreground dark:text-white" style={{ textShadow: '0 4px 30px rgba(0, 0, 0, 0.3)' }}>
             I{" "}
-            <span className="relative inline-block font-handwritten overflow-hidden align-middle" style={{ minWidth: '160px', height: '1.2em' }}>
+            <span className="relative inline-block font-handwritten align-middle" style={{ height: '1.2em', width: 'fit-content' }}>
               {words.map((word, index) => (
                 <span
                   key={word}
-                  className={`absolute inset-0 transition-all duration-700 ease-in-out text-glow ${
+                  className={`absolute left-0 top-0 transition-all duration-700 ease-in-out text-glow whitespace-nowrap ${
                     index === currentWord 
                       ? "translate-y-0 opacity-100" 
                       : index < currentWord 
@@ -125,6 +125,7 @@ const Hero = () => {
                   {word}
                 </span>
               ))}
+              <span className="invisible whitespace-nowrap">Manage</span>
             </span>{" "}
             Products{" "}
             <br className="hidden md:block" />
