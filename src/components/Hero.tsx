@@ -104,14 +104,14 @@ const Hero = () => {
         </div>
 
         {/* Main Heading */}
-        <h1 className="text-4xl md:text-7xl xl:text-8xl font-display font-bold leading-tight mb-6 md:mb-6 max-w-5xl mx-auto">
+        <h1 className="text-3xl sm:text-4xl md:text-7xl xl:text-8xl font-display font-bold leading-tight mb-6 md:mb-6 max-w-5xl mx-auto">
           <span className="text-foreground dark:text-white" style={{ textShadow: '0 4px 30px rgba(0, 0, 0, 0.3)' }}>
             I{" "}
-            <span className="relative inline-block font-handwritten text-glow overflow-hidden" style={{ minWidth: '200px', height: '1.2em', verticalAlign: 'middle' }}>
+            <span className="relative inline-block font-handwritten overflow-hidden align-middle" style={{ minWidth: '160px', height: '1.2em' }}>
               {words.map((word, index) => (
                 <span
                   key={word}
-                  className={`absolute inset-0 transition-all duration-700 ease-in-out ${
+                  className={`absolute inset-0 transition-all duration-700 ease-in-out text-glow ${
                     index === currentWord 
                       ? "translate-y-0 opacity-100" 
                       : index < currentWord 
