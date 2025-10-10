@@ -5,6 +5,7 @@ import { Calendar } from "lucide-react";
 import heroImage1 from "@/assets/henrietta-hero-1.jpg";
 import heroImage2 from "@/assets/henrietta-hero-2.jpg";
 import heroImage4 from "@/assets/henrietta-hero-4.jpg";
+import heroImage5 from "@/assets/henrietta-hero-5.jpg";
 import portraitImage from "@/assets/henrietta-portrait.jpg";
 import bloomieLogoFeatured from "@/assets/bloomie-logo-featured.png";
 
@@ -14,7 +15,7 @@ const Hero = () => {
   const [scrollOpacity, setScrollOpacity] = useState(1);
   const [isLoaded, setIsLoaded] = useState(false);
   const words = ["Build", "Manage"];
-  const heroImages = [heroImage1, heroImage2, heroImage4];
+  const heroImages = [heroImage1, heroImage2, heroImage4, heroImage5];
 
   useEffect(() => {
     // Trigger entrance animation
