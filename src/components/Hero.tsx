@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Calendar } from "lucide-react";
 import heroImage1 from "@/assets/henrietta-hero-1.jpg";
-import heroImage2 from "@/assets/henrietta-hero-2.jpg";
 import heroImage3 from "@/assets/henrietta-hero-3.jpg";
 import portraitImage from "@/assets/henrietta-portrait.jpg";
 import bloomieLogoFeatured from "@/assets/bloomie-logo-featured.png";
@@ -14,7 +13,7 @@ const Hero = () => {
   const [scrollOpacity, setScrollOpacity] = useState(1);
   const [isLoaded, setIsLoaded] = useState(false);
   const words = ["Build", "Manage"];
-  const heroImages = [heroImage1, heroImage2, heroImage3];
+  const heroImages = [heroImage1, heroImage3];
 
   useEffect(() => {
     // Trigger entrance animation
@@ -106,16 +105,15 @@ const Hero = () => {
         <h1 className="text-4xl md:text-7xl xl:text-8xl font-display font-bold leading-tight mb-6 md:mb-6 max-w-5xl mx-auto">
           <span className="text-foreground dark:text-white" style={{ textShadow: '0 4px 30px rgba(0, 0, 0, 0.3)' }}>
             I{" "}
-            <span className="relative inline-block font-handwritten">
+            <span className="relative inline-block font-handwritten text-glow">
               {words.map((word, index) => (
                 <span
                   key={word}
-                  className={`transition-opacity duration-500 dark:[text-shadow:0_0_60px_hsl(var(--primary)_/_0.9),0_0_100px_hsl(var(--primary)_/_0.6),0_0_140px_hsl(var(--primary)_/_0.4)] ${
+                  className={`transition-opacity duration-500 ${
                     index === currentWord ? "opacity-100" : "opacity-0 absolute inset-0"
                   }`}
                   style={{ 
                     color: 'hsl(var(--primary-visible))',
-                    textShadow: '0 0 40px hsl(var(--primary) / 0.6), 0 0 80px hsl(var(--primary) / 0.3)'
                   }}
                 >
                   {word}
