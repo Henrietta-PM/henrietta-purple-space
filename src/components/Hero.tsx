@@ -107,12 +107,16 @@ const Hero = () => {
         <h1 className="text-4xl md:text-7xl xl:text-8xl font-display font-bold leading-tight mb-6 md:mb-6 max-w-5xl mx-auto">
           <span className="text-foreground dark:text-white" style={{ textShadow: '0 4px 30px rgba(0, 0, 0, 0.3)' }}>
             I{" "}
-            <span className="relative inline-block font-handwritten text-glow">
+            <span className="relative inline-block font-handwritten text-glow overflow-hidden" style={{ minWidth: '200px', height: '1.2em', verticalAlign: 'middle' }}>
               {words.map((word, index) => (
                 <span
                   key={word}
-                  className={`transition-opacity duration-500 ${
-                    index === currentWord ? "opacity-100" : "opacity-0 absolute inset-0"
+                  className={`absolute inset-0 transition-all duration-700 ease-in-out ${
+                    index === currentWord 
+                      ? "translate-y-0 opacity-100" 
+                      : index < currentWord 
+                        ? "-translate-y-full opacity-0" 
+                        : "translate-y-full opacity-0"
                   }`}
                   style={{ 
                     color: 'hsl(var(--primary-visible))',
