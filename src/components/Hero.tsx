@@ -5,7 +5,6 @@ import { Calendar } from "lucide-react";
 import heroImage1 from "@/assets/henrietta-hero-1.jpg";
 import heroImage2 from "@/assets/henrietta-hero-2.jpg";
 import heroImage3 from "@/assets/henrietta-hero-3.jpg";
-import heroImage4 from "@/assets/henrietta-hero-4.jpg";
 import portraitImage from "@/assets/henrietta-portrait.jpg";
 import bloomieLogoFeatured from "@/assets/bloomie-logo-featured.png";
 
@@ -15,7 +14,7 @@ const Hero = () => {
   const [scrollOpacity, setScrollOpacity] = useState(1);
   const [isLoaded, setIsLoaded] = useState(false);
   const words = ["Build", "Manage"];
-  const heroImages = [heroImage1, heroImage2, heroImage3, heroImage4];
+  const heroImages = [heroImage1, heroImage2, heroImage3];
 
   useEffect(() => {
     // Trigger entrance animation
@@ -111,7 +110,7 @@ const Hero = () => {
               {words.map((word, index) => (
                 <span
                   key={word}
-                  className={`transition-opacity duration-500 ${
+                  className={`transition-opacity duration-500 dark:[text-shadow:0_0_60px_hsl(var(--primary)_/_0.9),0_0_100px_hsl(var(--primary)_/_0.6),0_0_140px_hsl(var(--primary)_/_0.4)] ${
                     index === currentWord ? "opacity-100" : "opacity-0 absolute inset-0"
                   }`}
                   style={{ 
