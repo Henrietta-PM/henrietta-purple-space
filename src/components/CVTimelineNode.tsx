@@ -1,4 +1,5 @@
 import { useScrollFade } from "@/hooks/use-scroll-fade";
+import { useScrollGlow } from "@/hooks/use-scroll-glow";
 
 interface CVTimelineNodeProps {
   title: string;
@@ -10,6 +11,7 @@ interface CVTimelineNodeProps {
 
 const CVTimelineNode = ({ title, role, dates, highlights, index }: CVTimelineNodeProps) => {
   const { ref, opacity, translateY } = useScrollFade();
+  const { ref: glowRef, glowIntensity } = useScrollGlow();
 
   return (
     <div
@@ -35,7 +37,13 @@ const CVTimelineNode = ({ title, role, dates, highlights, index }: CVTimelineNod
             index % 2 === 0 ? "md:text-right md:pr-12" : "md:pl-12"
           }`}
         >
-          <div className="glass p-6 rounded-[1.5rem] transition-all duration-350 hover:shadow-[0_0_50px_10px_hsl(var(--primary)/0.25),0_0_90px_18px_hsl(var(--primary)/0.12)] dark:hover:shadow-[0_0_80px_16px_hsl(var(--primary)/0.4),0_0_120px_24px_hsl(var(--primary)/0.2)]">
+          <div 
+            ref={glowRef}
+            className="glass p-6 rounded-[1.5rem] transition-all duration-350"
+            style={{
+              boxShadow: `0 0 ${50 * glowIntensity}px ${10 * glowIntensity}px hsl(var(--primary) / ${0.25 * glowIntensity}), 0 0 ${90 * glowIntensity}px ${18 * glowIntensity}px hsl(var(--primary) / ${0.12 * glowIntensity}), 0 0 ${120 * glowIntensity}px ${24 * glowIntensity}px hsl(var(--primary) / ${0.08 * glowIntensity})`
+            }}
+          >
             <h3 className="text-2xl font-display font-bold mb-1">{title}</h3>
             <p className="text-primary font-semibold mb-2 text-sm">{role}</p>
             <p className="text-xs text-muted-foreground mb-4">{dates}</p>

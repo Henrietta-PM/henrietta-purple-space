@@ -1,4 +1,5 @@
 import { useScrollFade } from "@/hooks/use-scroll-fade";
+import { useScrollGlow } from "@/hooks/use-scroll-glow";
 import { Separator } from "@/components/ui/separator";
 
 interface JourneyStepProps {
@@ -10,6 +11,7 @@ interface JourneyStepProps {
 
 const JourneyStep = ({ title, text, index, isVisible }: JourneyStepProps) => {
   const { ref, opacity, translateY } = useScrollFade();
+  const { ref: glowRef, glowIntensity } = useScrollGlow();
 
   return (
     <div
@@ -29,7 +31,13 @@ const JourneyStep = ({ title, text, index, isVisible }: JourneyStepProps) => {
       </div>
       
       {/* Content card */}
-      <div className="flex-1 glass p-6 md:p-8 rounded-[2rem] transition-all duration-300 relative group hover:shadow-[0_0_40px_8px_hsl(var(--primary)/0.2),0_0_80px_16px_hsl(var(--primary)/0.1)] dark:hover:shadow-[0_0_60px_12px_hsl(var(--primary)/0.35),0_0_100px_20px_hsl(var(--primary)/0.15)]">
+      <div 
+        ref={glowRef}
+        className="flex-1 glass p-6 md:p-8 rounded-[2rem] transition-all duration-300 relative"
+        style={{
+          boxShadow: `0 0 ${40 * glowIntensity}px ${8 * glowIntensity}px hsl(var(--primary) / ${0.2 * glowIntensity}), 0 0 ${80 * glowIntensity}px ${16 * glowIntensity}px hsl(var(--primary) / ${0.1 * glowIntensity})`
+        }}
+      >
         <h3 className="text-xl md:text-2xl font-display font-bold mb-3">{title}</h3>
         <Separator className="my-4 bg-foreground/20 dark:bg-foreground/30" />
         <p className="text-muted-foreground leading-relaxed text-sm">{text}</p>

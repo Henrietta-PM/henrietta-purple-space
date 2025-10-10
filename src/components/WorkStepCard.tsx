@@ -1,4 +1,5 @@
 import { useScrollFade } from "@/hooks/use-scroll-fade";
+import { useScrollGlow } from "@/hooks/use-scroll-glow";
 
 interface WorkStepCardProps {
   number: string;
@@ -10,17 +11,24 @@ interface WorkStepCardProps {
 
 const WorkStepCard = ({ number, title, text, index, isVisible }: WorkStepCardProps) => {
   const { ref, opacity, translateY } = useScrollFade();
+  const { ref: glowRef, glowIntensity } = useScrollGlow();
 
   return (
     <div
-      ref={ref}
-      className={`relative glass rounded-[1.5rem] hover:-translate-y-2 transition-all duration-700 hover:shadow-[0_0_40px_8px_hsl(var(--primary)/0.2),0_0_80px_16px_hsl(var(--primary)/0.1)] dark:hover:shadow-[0_0_60px_12px_hsl(var(--primary)/0.35),0_0_100px_20px_hsl(var(--primary)/0.15)] ${
+      ref={(el) => {
+        // @ts-ignore
+        ref.current = el;
+        // @ts-ignore
+        glowRef.current = el;
+      }}
+      className={`relative glass rounded-[1.5rem] hover:-translate-y-2 transition-all duration-700 ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       }`}
       style={{ 
         transitionDelay: `${index * 100}ms`,
         opacity,
-        transform: `translateY(${translateY}px)`
+        transform: `translateY(${translateY}px)`,
+        boxShadow: `0 0 ${40 * glowIntensity}px ${8 * glowIntensity}px hsl(var(--primary) / ${0.2 * glowIntensity}), 0 0 ${80 * glowIntensity}px ${16 * glowIntensity}px hsl(var(--primary) / ${0.1 * glowIntensity})`
       }}
     >
       <div className="pt-8 pb-6 px-6 text-center">

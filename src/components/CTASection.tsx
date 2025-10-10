@@ -2,22 +2,30 @@ import { Button } from "@/components/ui/button";
 import { Calendar, Mail } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { useScrollFade } from "@/hooks/use-scroll-fade";
+import { useScrollGlow } from "@/hooks/use-scroll-glow";
 
 const CTASection = () => {
   const { ref: animRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
   const { ref: fadeRef, opacity, translateY } = useScrollFade();
+  const { ref: glowRef, glowIntensity } = useScrollGlow();
 
   return (
     <section className="py-8" ref={animRef}>
       <div className="container mx-auto px-6">
         <div 
-          ref={fadeRef}
+          ref={(el) => {
+            // @ts-ignore
+            fadeRef.current = el;
+            // @ts-ignore
+            glowRef.current = el;
+          }}
           className={`glass rounded-[2rem] p-12 md:p-16 text-center max-w-4xl mx-auto transition-all duration-700 ${
             isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
           }`}
           style={{
             opacity,
-            transform: `translateY(${translateY}px) scale(${isVisible ? 1 : 0.95})`
+            transform: `translateY(${translateY}px) scale(${isVisible ? 1 : 0.95})`,
+            boxShadow: `0 0 ${50 * glowIntensity}px ${10 * glowIntensity}px hsl(var(--primary) / ${0.25 * glowIntensity}), 0 0 ${90 * glowIntensity}px ${18 * glowIntensity}px hsl(var(--primary) / ${0.12 * glowIntensity})`
           }}
         >
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-6">

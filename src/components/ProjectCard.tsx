@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useScrollFade } from "@/hooks/use-scroll-fade";
+import { useScrollGlow } from "@/hooks/use-scroll-glow";
 
 interface ProjectCardProps {
   name: string;
@@ -14,17 +15,24 @@ interface ProjectCardProps {
 
 const ProjectCard = ({ name, tags, image, link, isLive, index, isVisible }: ProjectCardProps) => {
   const { ref, opacity, translateY } = useScrollFade();
+  const { ref: glowRef, glowIntensity } = useScrollGlow();
 
   return (
     <div
-      ref={ref}
-      className={`glass overflow-hidden rounded-[1.5rem] hover:shadow-2xl transition-all duration-700 hover:-translate-y-2 relative ${
+      ref={(el) => {
+        // @ts-ignore
+        ref.current = el;
+        // @ts-ignore
+        glowRef.current = el;
+      }}
+      className={`glass overflow-hidden rounded-[1.5rem] hover:-translate-y-2 transition-all duration-700 relative ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       }`}
       style={{ 
         transitionDelay: `${index * 200}ms`,
         opacity,
-        transform: `translateY(${translateY}px)`
+        transform: `translateY(${translateY}px)`,
+        boxShadow: `0 0 ${40 * glowIntensity}px ${8 * glowIntensity}px hsl(var(--primary) / ${0.25 * glowIntensity}), 0 0 ${80 * glowIntensity}px ${16 * glowIntensity}px hsl(var(--primary) / ${0.12 * glowIntensity})`
       }}
     >
       {isLive && (

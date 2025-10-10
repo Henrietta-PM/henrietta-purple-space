@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useScrollFade } from "@/hooks/use-scroll-fade";
+import { useScrollGlow } from "@/hooks/use-scroll-glow";
 
 interface ProjectCardDetailedProps {
   name: string;
@@ -27,12 +28,22 @@ const ProjectCardDetailed = ({
   onToggle,
 }: ProjectCardDetailedProps) => {
   const { ref, opacity, translateY } = useScrollFade();
+  const { ref: glowRef, glowIntensity } = useScrollGlow();
 
   return (
     <div
-      ref={ref}
-      className="glass overflow-hidden rounded-[1.5rem] hover:shadow-2xl hover:shadow-primary/20 transition-all duration-350 relative flex flex-col"
-      style={{ opacity, transform: `translateY(${translateY}px)` }}
+      ref={(el) => {
+        // @ts-ignore
+        ref.current = el;
+        // @ts-ignore
+        glowRef.current = el;
+      }}
+      className="glass overflow-hidden rounded-[1.5rem] transition-all duration-350 relative flex flex-col"
+      style={{ 
+        opacity, 
+        transform: `translateY(${translateY}px)`,
+        boxShadow: `0 0 ${50 * glowIntensity}px ${10 * glowIntensity}px hsl(var(--primary) / ${0.25 * glowIntensity}), 0 0 ${90 * glowIntensity}px ${18 * glowIntensity}px hsl(var(--primary) / ${0.12 * glowIntensity})`
+      }}
     >
       {isLive && (
         <div className="absolute top-4 right-4 z-10 flex items-center gap-2 glass px-3 py-1.5 rounded-full">
