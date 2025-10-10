@@ -33,11 +33,12 @@ const JourneySection = () => {
         
         <div className="max-w-4xl mx-auto">
           <div className="relative">
-            {/* Vertical connecting line - stops at second-to-last step */}
+            {/* Vertical connecting line - stops at last circle */}
             <div 
-              className="absolute left-8 top-8 w-0.5 bg-gradient-to-b from-primary/20 via-primary/40 to-primary/20 hidden md:block" 
+              className="absolute left-8 w-0.5 bg-gradient-to-b from-primary/20 via-primary/40 to-primary/20 hidden md:block" 
               style={{ 
-                height: `calc(${((journeySteps.length - 1) / journeySteps.length) * 100}% - 2rem)` 
+                top: '4rem',
+                height: `calc(100% - ${8 + (journeySteps.length - 1) * 2}rem)`
               }}
             />
             

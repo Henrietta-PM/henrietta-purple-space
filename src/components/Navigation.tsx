@@ -27,7 +27,7 @@ const Navigation = () => {
               MyPvrpleSpace
             </Link>
             
-            <div className="flex items-center gap-0.5 glass px-1 py-1 rounded-full text-xs lg:text-sm relative">
+            <div className="flex items-center gap-0.5 glass px-1 py-1 rounded-full text-xs lg:text-sm">
               {navLinks.map((link) => {
                 const Icon = link.icon;
                 const isActive = location.pathname === link.path;
@@ -36,11 +36,10 @@ const Navigation = () => {
                     key={link.path}
                     to={link.path}
                     className={cn(
-                      "flex items-center gap-1 font-medium px-2 lg:px-2.5 py-1.5 rounded-full whitespace-nowrap relative z-10",
-                      "transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
+                      "flex items-center gap-1 font-medium transition-all duration-350 px-2 lg:px-2.5 py-1.5 rounded-full whitespace-nowrap",
                       isActive
-                        ? "text-white"
-                        : "text-primary-visible hover:text-white"
+                        ? "text-white bg-primary/80 backdrop-blur-md border-0.5 border-primary/40 shadow-[0_12px_48px_0_rgba(0,0,0,0.08),0_4px_24px_0_rgba(0,0,0,0.04),inset_0_2px_4px_0_rgba(255,255,255,0.12)]"
+                        : "text-primary-visible hover:text-white hover:bg-primary/20"
                     )}
                   >
                     <Icon className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
@@ -48,14 +47,6 @@ const Navigation = () => {
                   </Link>
                 );
               })}
-              {/* Liquid morphing background */}
-              <div 
-                className="absolute top-1 bottom-1 rounded-full bg-primary/80 backdrop-blur-md border border-primary/40 shadow-[0_12px_48px_0_rgba(0,0,0,0.08),0_4px_24px_0_rgba(0,0,0,0.04),inset_0_2px_4px_0_rgba(255,255,255,0.12)] transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
-                style={{
-                  left: `${navLinks.findIndex(link => link.path === location.pathname) * (100 / navLinks.length) + 0.5}%`,
-                  width: `calc(${100 / navLinks.length}% - 0.25rem)`,
-                }}
-              />
               
               <div className="h-5 w-px bg-foreground dark:bg-white mx-0.5" />
               
@@ -81,7 +72,7 @@ const Navigation = () => {
            style={{
              borderRadius: '2rem',
            }}>
-        <div className="flex items-center justify-around py-2 px-1 relative">
+        <div className="flex items-center justify-around py-2 px-1">
           {navLinks.map((link) => {
             const Icon = link.icon;
             const isActive = location.pathname === link.path;
@@ -90,10 +81,9 @@ const Navigation = () => {
                 key={link.path}
                 to={link.path}
                 className={cn(
-                  "flex flex-col items-center gap-0.5 px-2 py-1.5 rounded-[1.25rem] min-w-0 relative z-10",
-                  "transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
+                  "flex flex-col items-center gap-0.5 px-2 py-1.5 rounded-[1.25rem] transition-all min-w-0",
                   isActive
-                    ? "text-white"
+                    ? "text-white bg-primary/80 shadow-lg"
                     : "text-primary-visible hover:text-white"
                 )}
               >
@@ -102,14 +92,6 @@ const Navigation = () => {
               </Link>
             );
           })}
-          {/* Liquid morphing background */}
-          <div 
-            className="absolute top-2 bottom-2 rounded-[1.25rem] bg-primary/80 shadow-lg transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
-            style={{
-              left: `calc(${navLinks.findIndex(link => link.path === location.pathname) * (100 / (navLinks.length + 1))}% + 0.5rem)`,
-              width: `calc(${100 / (navLinks.length + 1)}% - 0.5rem)`,
-            }}
-          />
           
           <div className="h-8 w-px bg-foreground dark:bg-white mx-0.5" />
           
