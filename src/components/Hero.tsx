@@ -14,7 +14,7 @@ const Hero = () => {
   const [currentImage, setCurrentImage] = useState(0);
   const [scrollOpacity, setScrollOpacity] = useState(1);
   const [isLoaded, setIsLoaded] = useState(false);
-  const words = ["Build", "Manage"];
+  const words = ["Build", "Lead"];
   const heroImages = [heroImage1, heroImage2, heroImage4, heroImage5];
 
   useEffect(() => {
@@ -125,7 +125,7 @@ const Hero = () => {
                   {word}
                 </span>
               ))}
-              <span className="invisible whitespace-nowrap">Manage</span>
+              <span className="invisible whitespace-nowrap">Lead</span>
             </span>{" "}
             Products{" "}
             <br className="hidden md:block" />
