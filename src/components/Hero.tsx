@@ -126,8 +126,7 @@ const Hero = () => {
                 </span>
               ))}
               <span className="invisible whitespace-nowrap">Lead</span>
-            </span>
-            <span className="inline-block w-3 md:w-4"></span>
+            </span>{" "}{" "}
             Products{" "}
             <br className="hidden md:block" />
             <span className="block md:inline">The Digital Way.</span>
