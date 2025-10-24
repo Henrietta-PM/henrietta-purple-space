@@ -92,7 +92,7 @@ const Letter = () => {
                         </p>
 
                         <p className="text-left mt-8">
-                          <span className="text-xl md:text-2xl text-primary-visible">Sincerely,</span>
+                          Sincerely,
                           <br />
                           <span className="font-handwritten text-2xl md:text-3xl text-primary-visible">Henrietta</span>
                         </p>
