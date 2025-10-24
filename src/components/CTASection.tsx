@@ -51,7 +51,7 @@ const CTASection = () => {
               size="lg"
               className="rounded-full sm:rounded-[2rem] gap-2 w-11 sm:w-auto px-0 sm:px-4 flex-shrink-0"
             >
-              <a href="mailto:onwunemehenrietta7@gmail.com" className="flex items-center gap-2">
+              <a href="mailto:mypvrplespace@gmail.com" className="flex items-center gap-2">
                 <Mail className="w-5 h-5" />
                 <span className="hidden sm:inline">Send Mail</span>
               </a>

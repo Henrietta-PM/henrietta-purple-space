@@ -194,7 +194,7 @@ const Projects = () => {
                       </a>
                     </Button>
                     <Button asChild variant="secondary" size="sm" className="rounded-full gap-2 w-9 sm:w-auto px-0 sm:px-3">
-                      <a href="mailto:onwunemehenrietta7@gmail.com" className="flex items-center gap-2">
+                      <a href="mailto:mypvrplespace@gmail.com" className="flex items-center gap-2">
                         <Mail className="w-4 h-4" />
                         <span className="hidden sm:inline">Send Mail</span>
                       </a>
