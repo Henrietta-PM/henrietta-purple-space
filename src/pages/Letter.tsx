@@ -91,10 +91,10 @@ const Letter = () => {
                           I would be honored to bring this drive to your team. Let us begin the journey together.
                         </p>
 
-                        <p className="text-left mt-8 font-handwritten text-xl md:text-2xl text-primary-visible">
-                          Sincerely,
+                        <p className="text-left mt-8">
+                          <span className="text-xl md:text-2xl text-primary-visible">Sincerely,</span>
                           <br />
-                          <span className="font-handwritten text-2xl md:text-3xl">Henrietta</span>
+                          <span className="font-handwritten text-2xl md:text-3xl text-primary-visible">Henrietta</span>
                         </p>
                       </div>
                     </div>
