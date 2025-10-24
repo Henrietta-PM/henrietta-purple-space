@@ -49,7 +49,7 @@ const Letter = () => {
               )}
 
               {isOpen && (
-                <div className="animate-slide-up">
+                <div className="animate-slide-up cursor-pointer" onClick={() => setIsOpen(false)}>
                   <div className="glass p-8 md:p-12 rounded-[2rem] shadow-2xl">
                     <div className="mb-8 text-center">
                       <button
