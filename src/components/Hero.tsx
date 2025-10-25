@@ -23,7 +23,7 @@ const Hero = () => {
 
     const wordInterval = setInterval(() => {
       setCurrentWord((prev) => (prev + 1) % words.length);
-    }, 3000);
+    }, 4500);
     
     const imageInterval = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % heroImages.length);
@@ -137,17 +137,28 @@ const Hero = () => {
         <p className="text-xs md:text-lg xl:text-xl text-foreground/90 dark:text-white/95 mb-8 md:mb-12 leading-relaxed font-medium max-w-2xl mx-auto px-4">
           👋 Hi, I'm Henrietta.
           <br />
-          <span className="hidden md:inline">Product management for me, is about people, their needs, <br />and the paths we create to meet them.</span>
-          <span className="md:hidden">Product management for me, is about people, their needs, and the paths we create to meet them.</span>
+          <span className="hidden md:inline">Product management for me, is about people, their needs, <br />and the paths we create to meet them. I've Shipped 3+ MVPs with up to 85% faster time to market.</span>
+          <span className="md:hidden">Product management for me, is about people, their needs, and the paths we create to meet them. I've Shipped 3+ MVPs with up to 85% faster time to market.</span>
         </p>
 
         {/* Bottom Action Buttons */}
         <div className="flex flex-row gap-2 md:gap-4 justify-center items-center">
           <Button 
             asChild 
-            variant="default"
+            variant="default" 
+            size="lg"
+            className="text-xs md:text-base px-4 md:px-8 h-10 md:h-12 flex-shrink-0 whitespace-nowrap gap-2"
+          >
+            <a href="https://calendar.app.google/aKsp6pywYzCAS6Nr9" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+              <Calendar className="w-4 h-4 md:w-5 md:h-5" />
+              Hire
+            </a>
+          </Button>
+          <Button 
+            asChild 
+            variant="outline"
             size="lg" 
-            className="gap-2 text-xs md:text-base px-3 md:px-6 h-10 md:h-12 flex-shrink min-w-0"
+            className="gap-2 text-xs md:text-base px-3 md:px-6 h-10 md:h-12 flex-shrink min-w-0 glass border-white/10 dark:border-white/10"
           >
             <Link to="/cv" className="flex items-center gap-2">
               <img 
@@ -157,17 +168,6 @@ const Hero = () => {
               />
               <span className="whitespace-nowrap">About - Henrietta O.</span>
             </Link>
-          </Button>
-          <Button 
-            asChild 
-            variant="secondary" 
-            size="lg"
-            className="text-xs md:text-base px-4 md:px-8 h-10 md:h-12 flex-shrink-0 whitespace-nowrap gap-2"
-          >
-            <a href="https://calendar.app.google/aKsp6pywYzCAS6Nr9" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-              <Calendar className="w-4 h-4 md:w-5 md:h-5" />
-              Hire
-            </a>
           </Button>
         </div>
       </div>
