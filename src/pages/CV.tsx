@@ -10,13 +10,24 @@ import FloatingActionButton from "@/components/FloatingActionButton";
 
 const timelineNodes = [
   {
+    title: "StatWellMD",
+    role: "Product Manager",
+    dates: "Sep 2025 – Current",
+    highlights: [
+      "Defined product scope, PRD, and technical documentation, driving development of an EHR-integrated telehealth MVP within 1 month",
+      "Designed the entire platform using Cursor AI by prompting user flows from documentation to HTML and Tailwind CSS, reducing development time by 85%",
+      "Ensured alignment between technical teams and stakeholders to maintain product vision and roadmap coherence, resulting in a 75% faster time to market",
+    ],
+  },
+  {
     title: "ProxyMedicine",
     role: "Team Lead / Product Manager",
-    dates: "Feb 2025 – Current",
+    dates: "Feb 2025 – Aug 2025",
     highlights: [
-      "Led development of AI-powered telehealth platform, increasing patient satisfaction by 60%",
-      "Facilitated product roadmap with defined milestones, resulting in 25% faster time to market",
-      "Conducted 5 user interviews per week to inform product decisions",
+      "Led development and launch of an AI-powered telehealth platform, increasing patient satisfaction by 60%",
+      "Directed the product launch process, contributing to the successful sale of the company's IP valued at $600,000",
+      "Facilitated the product roadmap with defined milestones, resulting in a 25% faster time to market",
+      "Conducted 5+ user interviews weekly to inform data-driven product decisions",
     ],
   },
   {
