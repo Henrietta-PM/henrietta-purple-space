@@ -7,9 +7,10 @@ interface CVTimelineNodeProps {
   dates: string;
   highlights: string[];
   index: number;
+  url?: string;
 }
 
-const CVTimelineNode = ({ title, role, dates, highlights, index }: CVTimelineNodeProps) => {
+const CVTimelineNode = ({ title, role, dates, highlights, index, url }: CVTimelineNodeProps) => {
   const { ref, opacity, translateY } = useScrollFade();
   const { ref: glowRef, glowIntensity } = useScrollGlow();
 
@@ -44,7 +45,20 @@ const CVTimelineNode = ({ title, role, dates, highlights, index }: CVTimelineNod
               boxShadow: `0 0 ${50 * glowIntensity}px ${10 * glowIntensity}px hsl(var(--primary) / ${0.25 * glowIntensity}), 0 0 ${90 * glowIntensity}px ${18 * glowIntensity}px hsl(var(--primary) / ${0.12 * glowIntensity}), 0 0 ${120 * glowIntensity}px ${24 * glowIntensity}px hsl(var(--primary) / ${0.08 * glowIntensity})`
             }}
           >
-            <h3 className="text-2xl font-display font-bold mb-1">{title}</h3>
+            <h3 className="text-2xl font-display font-bold mb-1">
+              {url ? (
+                <a 
+                  href={url.startsWith('http') ? url : `https://${url}`} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="underline hover:text-primary transition-colors"
+                >
+                  {title}
+                </a>
+              ) : (
+                title
+              )}
+            </h3>
             <p className="text-primary font-semibold mb-2 text-sm">{role}</p>
             <p className="text-xs text-muted-foreground mb-4">{dates}</p>
             <ul

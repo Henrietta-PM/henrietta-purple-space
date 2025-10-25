@@ -13,6 +13,7 @@ const timelineNodes = [
     title: "StatWellMD",
     role: "Product Manager",
     dates: "Sep 2025 – Current",
+    url: "www.statwellmd.com",
     highlights: [
       "Defined product scope, PRD, and technical documentation, driving development of an EHR-integrated telehealth MVP within 1 month",
       "Designed the entire platform using Cursor AI by prompting user flows from documentation to HTML and Tailwind CSS, reducing development time by 85%",
@@ -23,6 +24,7 @@ const timelineNodes = [
     title: "ProxyMedicine",
     role: "Team Lead / Product Manager",
     dates: "Feb 2025 – Aug 2025",
+    url: "www.prxy.health",
     highlights: [
       "Led development and launch of an AI-powered telehealth platform, increasing patient satisfaction by 60%",
       "Directed the product launch process, contributing to the successful sale of the company's IP valued at $600,000",
@@ -34,6 +36,7 @@ const timelineNodes = [
     title: "Bloomie",
     role: "Product Manager",
     dates: "Nov 2024 – May 2025",
+    url: "learn.bloomie.com",
     highlights: [
       "Delivered Bloomie AI MVP core features, adopted by 80% of users daily",
       "Created detailed PRDs and user flows, accelerating development speed by 20%",
@@ -54,6 +57,7 @@ const timelineNodes = [
     title: "Umbaji",
     role: "Project Manager",
     dates: "May 2023 – Feb 2024",
+    url: "https://www.umbaji.org/lang/en",
     highlights: [
       "Spearheaded 15+ project kick-off meetings, reducing project delays by 2 weeks",
       "Managed cross-functional team, achieving 84% average efficiency rate",
@@ -64,6 +68,7 @@ const timelineNodes = [
     title: "Syncu",
     role: "Team Lead / Product Manager",
     dates: "Jan 2024 – Current",
+    url: "https://www.linkedin.com/company/sync-u/",
     highlights: [
       "Scaled Syncu community to 250+ members",
       "Facilitated 10+ successful product collaborations",
@@ -74,6 +79,7 @@ const timelineNodes = [
     title: "CareerPASS",
     role: "Team Lead / Product Manager",
     dates: "Mar 2024 – Apr 2024",
+    url: "https://career-pass.vercel.app/",
     highlights: [
       "Led end-to-end development of CareerPASS psychometric platform",
       "Integrated user feedback to enhance assessment algorithm precision",
@@ -212,6 +218,7 @@ const CV = () => {
                   dates={node.dates}
                   highlights={node.highlights}
                   index={index}
+                  url={node.url}
                 />
               ))}
             </div>
