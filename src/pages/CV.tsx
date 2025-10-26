@@ -23,7 +23,7 @@ const timelineNodes = [
   {
     title: "ProxyMedicine",
     role: "Team Lead / Product Manager",
-    dates: "Feb 2025 – Aug 2025",
+    dates: "Feb 2025 – Current",
     url: "www.prxy.health",
     highlights: [
       "Led development and launch of an AI-powered telehealth platform, increasing patient satisfaction by 60%",
