@@ -19,7 +19,7 @@ const Contact = () => {
       <Navigation />
       <main className="pt-40 pb-16">
         <div className="container mx-auto px-6">
-          <div 
+          <div
             ref={headerRef as any}
             className="mb-12"
             style={{ opacity: headerOpacity, transform: `translateY(${headerTranslateY}px)` }}
@@ -27,9 +27,7 @@ const Contact = () => {
             <h1 className="text-5xl md:text-6xl font-display font-bold mb-4">
               Let's Build <span className="font-handwritten text-primary-visible">Together</span>
             </h1>
-            <p className="text-sm text-muted-foreground max-w-2xl">
-              Ready to collaborate? Let's grab a cup of coffee.
-            </p>
+            <p className="text-sm text-muted-foreground max-w-2xl">Ready to collaborate? Let's grab a cup of coffee.</p>
           </div>
 
           <div className="max-w-2xl mx-auto space-y-8">
@@ -52,7 +50,7 @@ const Contact = () => {
 
               <div className="mt-8">
                 <Button asChild size="lg" className="w-full rounded-full gap-2">
-                  <a href="https://calendar.app.google/aKsp6pywYzCAS6Nr9" target="_blank" rel="noopener noreferrer">
+                  <a href="https://calendar.app.google/Uoo3usUMiJsBYdTE6" target="_blank" rel="noopener noreferrer">
                     <Calendar className="w-5 h-5" />
                     Hire Me
                   </a>
@@ -68,8 +66,8 @@ const Contact = () => {
                 <SocialCard href="https://x.com/henrietta_bby" icon={Twitter} label="Twitter" />
                 <SocialCard href="https://www.instagram.com/henriettaofpm" icon={Instagram} label="Instagram" />
               </div>
-              
-              <Button 
+
+              <Button
                 ref={buttonRef as any}
                 onClick={() => setShowHeartModal(true)}
                 variant="outline"
