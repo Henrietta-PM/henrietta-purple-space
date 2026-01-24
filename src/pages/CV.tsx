@@ -137,22 +137,26 @@ const CV = () => {
   const { ref: headerRef, opacity: headerOpacity, translateY: headerTranslateY } = useScrollFade();
   const { ref: summaryRef, opacity: summaryOpacity, translateY: summaryTranslateY } = useScrollFade();
   const { ref: skillsHeaderRef, opacity: skillsHeaderOpacity, translateY: skillsHeaderTranslateY } = useScrollFade();
-  const { ref: timelineHeaderRef, opacity: timelineHeaderOpacity, translateY: timelineHeaderTranslateY } = useScrollFade();
+  const {
+    ref: timelineHeaderRef,
+    opacity: timelineHeaderOpacity,
+    translateY: timelineHeaderTranslateY,
+  } = useScrollFade();
 
   return (
     <div className="min-h-screen pb-20 md:pb-0">
       <Navigation />
       <main className="pt-40 pb-16">
         <div className="container mx-auto px-6">
-          <div 
+          <div
             ref={headerRef as any}
             className="mb-12 flex flex-col md:flex-row md:items-center md:justify-between gap-6"
             style={{ opacity: headerOpacity, transform: `translateY(${headerTranslateY}px)` }}
           >
             <div className="flex items-center gap-6">
-              <img 
-                src={portraitImage} 
-                alt="Henrietta Onwuneme" 
+              <img
+                src={portraitImage}
+                alt="Henrietta Onwuneme"
                 className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover ring-4 ring-primary/20"
               />
               <div>
@@ -165,7 +169,7 @@ const CV = () => {
               </div>
             </div>
             <Button asChild size="lg" className="gap-2 w-full md:w-auto">
-              <a href="https://calendar.app.google/aKsp6pywYzCAS6Nr9" target="_blank" rel="noopener noreferrer">
+              <a href="https://calendar.app.google/Uoo3usUMiJsBYdTE6" target="_blank" rel="noopener noreferrer">
                 <Calendar className="w-5 h-5" />
                 Hire Henrietta
               </a>
@@ -173,26 +177,34 @@ const CV = () => {
           </div>
 
           <div className="max-w-4xl mx-auto mb-16">
-            <div 
+            <div
               ref={summaryRef as any}
               className="glass p-8 rounded-[1.5rem]"
               style={{ opacity: summaryOpacity, transform: `translateY(${summaryTranslateY}px)` }}
             >
               <h2 className="text-3xl font-display font-bold mb-4">Professional Summary</h2>
               <ul className="text-muted-foreground leading-relaxed space-y-2 list-disc list-inside">
-                <li>Product Manager with 2+ years of experience leading the launch of AI-driven products across 5+ product lines, including telehealth, SaaS, and EdTech.</li>
-                <li>Skilled in leveraging AI and agile practices to drive cross-functional collaboration and reduce product development delays by 15%.</li>
+                <li>
+                  Product Manager with 2+ years of experience leading the launch of AI-driven products across 5+ product
+                  lines, including telehealth, SaaS, and EdTech.
+                </li>
+                <li>
+                  Skilled in leveraging AI and agile practices to drive cross-functional collaboration and reduce
+                  product development delays by 15%.
+                </li>
                 <li>Holds a BSc in Architecture, providing a solid foundation in human-centered design.</li>
               </ul>
             </div>
           </div>
 
           <div className="max-w-4xl mx-auto mb-16">
-            <h2 
+            <h2
               ref={skillsHeaderRef as any}
               className="text-3xl font-display font-bold mb-6"
               style={{ opacity: skillsHeaderOpacity, transform: `translateY(${skillsHeaderTranslateY}px)` }}
-            >Skills</h2>
+            >
+              Skills
+            </h2>
             <div className="space-y-8">
               <CVSkillCategory title="Soft Skills" skills={skillCategories.softSkills} />
               <CVSkillCategory title="Technical Skills" skills={skillCategories.technicalSkills} />
@@ -201,11 +213,13 @@ const CV = () => {
           </div>
 
           <div className="max-w-4xl mx-auto">
-            <h2 
+            <h2
               ref={timelineHeaderRef as any}
               className="text-3xl font-display font-bold mb-8"
               style={{ opacity: timelineHeaderOpacity, transform: `translateY(${timelineHeaderTranslateY}px)` }}
-            >Experience Timeline</h2>
+            >
+              Experience Timeline
+            </h2>
             <div className="relative">
               {/* Timeline line */}
               <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-primary/30" />
