@@ -127,7 +127,7 @@ const Projects = () => {
       <Navigation />
       <main className="pt-40 pb-16">
         <div className="container mx-auto px-6">
-          <div 
+          <div
             ref={headerRef as any}
             className="mb-12"
             style={{ opacity: headerOpacity, transform: `translateY(${headerTranslateY}px)` }}
@@ -143,24 +143,26 @@ const Projects = () => {
           {/* Live Projects Grid */}
           <div className="mb-16">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto items-start">
-              {projectsData.filter(p => p.isLive).map((project, index) => (
-                <ProjectCardDetailed
-                  key={`live-${project.name}-${index}`}
-                  name={project.name}
-                  tags={project.tags}
-                  image={project.image}
-                  link={project.link}
-                  isLive={project.isLive}
-                  overview={project.overview}
-                  responsibilities={project.responsibilities}
-                  achievements={project.achievements}
-                  expandedProject={expandedProject}
-                  onToggle={toggleProject}
-                />
-              ))}
-              
+              {projectsData
+                .filter((p) => p.isLive)
+                .map((project, index) => (
+                  <ProjectCardDetailed
+                    key={`live-${project.name}-${index}`}
+                    name={project.name}
+                    tags={project.tags}
+                    image={project.image}
+                    link={project.link}
+                    isLive={project.isLive}
+                    overview={project.overview}
+                    responsibilities={project.responsibilities}
+                    achievements={project.achievements}
+                    expandedProject={expandedProject}
+                    onToggle={toggleProject}
+                  />
+                ))}
+
               {/* Empty Card for Hire */}
-              <div 
+              <div
                 ref={hireCardRef}
                 className="border-2 border-dashed border-border overflow-hidden rounded-[1.5rem] hover:shadow-2xl hover:shadow-primary/20 transition-all duration-350 flex flex-col"
                 style={{ opacity: hireOpacity, transform: `translateY(${hireTranslateY}px)` }}
@@ -188,12 +190,17 @@ const Projects = () => {
                   </p>
                   <div className="flex flex-wrap gap-3 mt-auto justify-center">
                     <Button asChild size="sm" className="gap-2 rounded-full">
-                      <a href="https://calendar.app.google/aKsp6pywYzCAS6Nr9" target="_blank" rel="noopener noreferrer">
+                      <a href="https://calendar.app.google/Uoo3usUMiJsBYdTE6" target="_blank" rel="noopener noreferrer">
                         <Calendar className="w-4 h-4" />
                         Hire Henrietta
                       </a>
                     </Button>
-                    <Button asChild variant="secondary" size="sm" className="rounded-full gap-2 w-9 sm:w-auto px-0 sm:px-3">
+                    <Button
+                      asChild
+                      variant="secondary"
+                      size="sm"
+                      className="rounded-full gap-2 w-9 sm:w-auto px-0 sm:px-3"
+                    >
                       <a href="mailto:mypvrplespace@gmail.com" className="flex items-center gap-2">
                         <Mail className="w-4 h-4" />
                         <span className="hidden sm:inline">Send Mail</span>
@@ -206,7 +213,7 @@ const Projects = () => {
           </div>
 
           {/* Side Projects Section */}
-          <div 
+          <div
             ref={sideHeaderRef as any}
             className="my-12"
             style={{ opacity: sideHeaderOpacity, transform: `translateY(${sideHeaderTranslateY}px)` }}
@@ -219,20 +226,22 @@ const Projects = () => {
 
           {/* Side Projects Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto items-start">
-            {projectsData.filter(p => !p.isLive).map((project, index) => (
-              <ProjectCardDetailed
-                key={`side-${project.name}-${index}`}
-                name={project.name}
-                tags={project.tags}
-                image={project.image}
-                link={project.link}
-                overview={project.overview}
-                responsibilities={project.responsibilities}
-                achievements={project.achievements}
-                expandedProject={expandedProject}
-                onToggle={toggleProject}
-              />
-            ))}
+            {projectsData
+              .filter((p) => !p.isLive)
+              .map((project, index) => (
+                <ProjectCardDetailed
+                  key={`side-${project.name}-${index}`}
+                  name={project.name}
+                  tags={project.tags}
+                  image={project.image}
+                  link={project.link}
+                  overview={project.overview}
+                  responsibilities={project.responsibilities}
+                  achievements={project.achievements}
+                  expandedProject={expandedProject}
+                  onToggle={toggleProject}
+                />
+              ))}
           </div>
         </div>
       </main>
