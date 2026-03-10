@@ -4,7 +4,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type",
+    "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
 const handler = async (req: Request): Promise<Response> => {
@@ -18,9 +18,16 @@ const handler = async (req: Request): Promise<Response> => {
     const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
     const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
     const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
-    
+
     if (!RESEND_API_KEY || !SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
-      throw new Error("Required environment variables not configured");
+      console.error("Required environment variables not configured");
+      return new Response(
+        JSON.stringify({ error: "An internal error occurred. Please try again later." }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
     }
 
     const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
@@ -38,13 +45,11 @@ const handler = async (req: Request): Promise<Response> => {
 
     const totalHearts = hearts?.length || 0;
 
-    // Note: We can't get location from stored hearts, so we'll need to add a location column
-    // For now, we'll just report the total
     const emailResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${RESEND_API_KEY}`,
+        Authorization: `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
         from: "Portfolio <onboarding@resend.dev>",
@@ -62,9 +67,6 @@ const handler = async (req: Request): Promise<Response> => {
             </div>
             <p style="font-size: 14px; color: #666;">
               Report period: ${sevenDaysAgo.toLocaleDateString()} - ${new Date().toLocaleDateString()}
-            </p>
-            <p style="font-size: 12px; color: #999; margin-top: 20px;">
-              Note: Location tracking will be available once the hearts table is updated to store location data.
             </p>
           </div>
         `,
@@ -84,7 +86,7 @@ const handler = async (req: Request): Promise<Response> => {
   } catch (error: any) {
     console.error("Error in weekly-heart-report function:", error);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: "An internal error occurred. Please try again later." }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },
