@@ -7,7 +7,7 @@ import heroImage2 from "@/assets/henrietta-hero-2.jpg";
 import heroImage4 from "@/assets/henrietta-hero-4.jpg";
 import heroImage5 from "@/assets/henrietta-hero-5.jpg";
 import portraitImage from "@/assets/henrietta-portrait.jpg";
-import bloomieLogoFeatured from "@/assets/bloomie-logo-featured.png";
+import targettLogoFeatured from "@/assets/targett-logo-featured.png";
 
 const Hero = () => {
   const [currentWord, setCurrentWord] = useState(0);
@@ -93,11 +93,11 @@ const Hero = () => {
             className="px-2 md:px-3 py-1 md:py-1.5 text-xs md:text-sm font-medium hover:bg-primary/10 rounded-full transition-all flex items-center gap-1.5 md:gap-2"
           >
             <img
-              src={bloomieLogoFeatured}
-              alt="Bloomie"
+              src={targettLogoFeatured}
+              alt="Targett"
               className="w-5 h-5 md:w-6 md:h-6 object-contain flex-shrink-0"
             />
-            <span className="text-xs md:text-sm font-bold text-foreground dark:text-white">Bloomie</span>
+            <span className="text-xs md:text-sm font-bold text-foreground dark:text-white">Targett</span>
             <div className="w-px h-3 md:h-4 bg-foreground/20 dark:bg-white/20"></div>
             <span className="text-[8px] md:text-[10px] text-foreground/70 dark:text-white/60 font-normal">
               Featured work

@@ -2,22 +2,22 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import ProjectCard from "./ProjectCard";
-import bloomieImage from "@/assets/bloomie-logo.png";
+import targettImage from "@/assets/targett-preview-new.png";
 import proxyImage from "@/assets/proxy-preview.jpg";
 
 const projects = [
+  {
+    name: "Targett",
+    tags: ["AI Search", "SEO"],
+    image: targettImage,
+    link: "https://www.targett.app",
+    isLive: true,
+  },
   {
     name: "ProxyMedicine",
     tags: ["Telehealth", "HealthTech"],
     image: proxyImage,
     link: "https://www.prxy.health",
-    isLive: true,
-  },
-  {
-    name: "Bloomie AI",
-    tags: ["EdTech"],
-    image: bloomieImage,
-    link: "https://learn.bloomie.com",
     isLive: true,
   },
 ];
