@@ -9,7 +9,8 @@ import { useScrollFade } from "@/hooks/use-scroll-fade";
 import proxyImage from "@/assets/proxy-preview.jpg";
 import syncuImage from "@/assets/syncu-preview.png";
 import careerpassImage from "@/assets/careerpass-preview.png";
-import targettImage from "@/assets/targett-preview.png";
+import targettImage from "@/assets/targett-preview-new.png";
+import nyscImage from "@/assets/nysc-preview.png";
 import FloatingActionButton from "@/components/FloatingActionButton";
 
 const projectsData = [
