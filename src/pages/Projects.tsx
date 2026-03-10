@@ -96,19 +96,42 @@ const projectsData = [
   },
   {
     name: "Targett",
-    tags: ["AI Travel"],
+    tags: ["AI Search", "SEO"],
     link: "https://www.targett.app",
     image: targettImage,
+    isLive: true,
     overview:
-      "Targett is a concept-stage AI-powered trip planner that generates personalized travel itineraries using user preferences, budgets, and real-time data.",
+      "Targett is an AI-powered search optimization platform that helps businesses improve their visibility across AI search engines like ChatGPT, Perplexity, and Google AI Overviews.",
     responsibilities: [
-      "Developed concept and initial roadmap for MVP.",
-      "Outlined AI integration for itinerary generation and budget optimization.",
-      "Created early prototype designs to visualize product flow.",
+      "Defined product vision and roadmap for AI search optimization tooling.",
+      "Led end-to-end product development from concept to launch.",
+      "Designed the PRD framework covering brand tracking, competitor analysis, and AI-optimized content generation.",
+      "Coordinated cross-functional efforts across engineering, design, and marketing.",
     ],
     achievements: [
-      "Established proof of concept and roadmap for potential MVP.",
-      "Produced prototype that demonstrates AI itinerary generation workflow.",
+      "Launched MVP with full AI search tracking and optimization features.",
+      "Built a platform covering 6+ major AI search engines.",
+      "Delivered actionable insights for businesses to improve AI search visibility.",
+    ],
+  },
+  {
+    name: "NYSC Attendance System",
+    tags: ["GovTech", "Attendance"],
+    link: "#",
+    image: nyscImage,
+    isLive: true,
+    overview:
+      "A QR-based attendance and check-in management system for NYSC corps members, enabling real-time tracking, admin dashboards, and streamlined reporting for community development service.",
+    responsibilities: [
+      "Scoped and managed the full product lifecycle from ideation to deployment.",
+      "Designed user flows for QR-based check-in and admin management.",
+      "Created PRDs and coordinated development sprints.",
+      "Led testing and iteration cycles based on user feedback.",
+    ],
+    achievements: [
+      "Deployed a fully functional attendance system for NYSC operations.",
+      "Streamlined attendance tracking with QR code-based check-ins.",
+      "Reduced manual attendance processing time significantly.",
     ],
   },
 ];
