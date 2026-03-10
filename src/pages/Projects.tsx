@@ -129,9 +129,10 @@ const projectsData = [
       "Led testing and iteration cycles based on user feedback.",
     ],
     achievements: [
-      "Deployed a fully functional attendance system for NYSC operations.",
-      "Streamlined attendance tracking with QR code-based check-ins.",
-      "Reduced manual attendance processing time significantly.",
+      "Scaled the platform to 4,600+ registered users.",
+      "Achieved 600+ average daily active users consistently.",
+      "Managed live iterations and real-time problem solving during active deployment.",
+      "Streamlined attendance tracking with QR code-based check-ins, significantly reducing manual processing time.",
     ],
   },
 ];
