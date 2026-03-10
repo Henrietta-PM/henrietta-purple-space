@@ -7,7 +7,7 @@ import heroImage2 from "@/assets/henrietta-hero-2.jpg";
 import heroImage4 from "@/assets/henrietta-hero-4.jpg";
 import heroImage5 from "@/assets/henrietta-hero-5.jpg";
 import portraitImage from "@/assets/henrietta-portrait.jpg";
-import bloomieLogoFeatured from "@/assets/bloomie-logo-featured.png";
+import targettLogoFeatured from "@/assets/targett-logo-featured.png";
 
 const Hero = () => {
   const [currentWord, setCurrentWord] = useState(0);
