@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Calendar, Lightbulb, Mail } from "lucide-react";
 import bloomieImage from "@/assets/bloomie-logo.png";
-import vibestackImage from "@/assets/vibestack-logo.png";
+import vibestackImage from "@/assets/vibestack-preview.jpg";
 import ProjectCardDetailed from "@/components/ProjectCardDetailed";
 import { useScrollFade } from "@/hooks/use-scroll-fade";
 import proxyImage from "@/assets/proxy-preview.jpg";

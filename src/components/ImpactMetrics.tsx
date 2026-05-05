@@ -7,9 +7,9 @@ interface Metric {
 }
 
 const metrics: Metric[] = [
-  { value: "3+", label: "MVPs Launched" },
+  { value: "5+", label: "MVPs Launched" },
   { value: "85%", label: "Dev Time Saved" },
-  { value: "$600K", label: "IP Value" }
+  { value: "$1.2M", label: "IP Value" }
 ];
 
 const ImpactMetrics = () => {
