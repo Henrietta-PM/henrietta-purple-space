@@ -50,7 +50,7 @@ const Contact = () => {
 
               <div className="mt-8">
                 <Button asChild size="lg" className="w-full rounded-full gap-2">
-                  <a href="https://calendar.app.google/Uoo3usUMiJsBYdTE6" target="_blank" rel="noopener noreferrer">
+                  <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0-cnVzPiLTaFZxONxktqco1arCt2ig3jR_1p-8RPMA0ltvrx-ylhfoPWZsR_9vMT4GGcu-yH-Q?gv=true" target="_blank" rel="noopener noreferrer">
                     <Calendar className="w-5 h-5" />
                     Hire Me
                   </a>
