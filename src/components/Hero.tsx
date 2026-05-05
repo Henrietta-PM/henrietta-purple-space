@@ -187,16 +187,16 @@ const Hero = () => {
         </div>
 
         {/* Letter inline link */}
-        <div className="mt-5 md:mt-6 flex justify-center">
+        <div className="mt-5 md:mt-6 flex justify-center px-4">
           <Link
             to="/letter"
-            className="group inline-flex items-center gap-1.5 text-[11px] md:text-sm text-foreground/70 dark:text-white/70 hover:text-primary-visible transition-colors"
+            className="group inline-flex items-start sm:items-center gap-1.5 text-xs md:text-sm text-foreground/70 dark:text-white/70 hover:text-primary-visible transition-colors text-center max-w-[20rem] sm:max-w-none leading-snug"
           >
-            <span>✉️</span>
-            <span>
+            <span className="flex-shrink-0">✉️</span>
+            <span className="text-balance">
               Read a letter from <span className="font-handwritten text-primary-visible underline-offset-4 group-hover:underline">Henrietta</span> to you, my potential team/employer
+              <span className="inline-block ml-1 group-hover:translate-x-0.5 transition-transform">→</span>
             </span>
-            <span className="group-hover:translate-x-0.5 transition-transform">→</span>
           </Link>
         </div>
       </div>
