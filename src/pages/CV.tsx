@@ -169,7 +169,7 @@ const CV = () => {
               </div>
             </div>
             <Button asChild size="lg" className="gap-2 w-full md:w-auto">
-              <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0-cnVzPiLTaFZxONxktqco1arCt2ig3jR_1p-8RPMA0ltvrx-ylhfoPWZsR_9vMT4GGcu-yH-Q?gv=true" target="_blank" rel="noopener noreferrer">
+              <a href="https://calendar.app.google/qo1L4Dw9StHhtvms6" target="_blank" rel="noopener noreferrer">
                 <Calendar className="w-5 h-5" />
                 Hire Henrietta
               </a>
@@ -185,7 +185,7 @@ const CV = () => {
               <h2 className="text-3xl font-display font-bold mb-4">Professional Summary</h2>
               <ul className="text-muted-foreground leading-relaxed space-y-2 list-disc list-inside">
                 <li>
-                  Product Manager with 2+ years of experience leading the launch of AI-driven products across 5+ product
+                  Product Manager with 3+ years of experience leading the launch of AI-driven products across 5+ product
                   lines, including telehealth, SaaS, and EdTech.
                 </li>
                 <li>
