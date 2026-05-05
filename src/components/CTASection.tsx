@@ -40,7 +40,7 @@ const CTASection = () => {
               size="lg"
               className="rounded-[2rem] px-4 sm:px-8 gap-2 text-sm sm:text-base"
             >
-              <a href="https://calendar.app.google/qo1L4Dw9StHhtvms6" target="_blank" rel="noopener noreferrer">
+              <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0-cnVzPiLTaFZxONxktqco1arCt2ig3jR_1p-8RPMA0ltvrx-ylhfoPWZsR_9vMT4GGcu-yH-Q?gv=true" target="_blank" rel="noopener noreferrer">
                 <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
                 <span className="whitespace-nowrap">Hire Henrietta</span>
               </a>

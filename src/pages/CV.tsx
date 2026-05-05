@@ -169,7 +169,7 @@ const CV = () => {
               </div>
             </div>
             <Button asChild size="lg" className="gap-2 w-full md:w-auto">
-              <a href="https://calendar.app.google/qo1L4Dw9StHhtvms6" target="_blank" rel="noopener noreferrer">
+              <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0-cnVzPiLTaFZxONxktqco1arCt2ig3jR_1p-8RPMA0ltvrx-ylhfoPWZsR_9vMT4GGcu-yH-Q?gv=true" target="_blank" rel="noopener noreferrer">
                 <Calendar className="w-5 h-5" />
                 Hire Henrietta
               </a>
