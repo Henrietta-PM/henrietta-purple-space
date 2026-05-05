@@ -102,9 +102,9 @@ const projectsData = [
     image: vibestackImage,
     isLive: true,
     overview:
-      "VibeStack is a design-system generator for vibe coders. In one prompt, it mixes 200k+ icons, curated palettes, font pairings, atmospheres, and layout styles into a cohesive theme you can drop into any AI-built app — so prototypes stop looking generic.",
+      "VibeStack is a design-system generator for vibe coders. In one prompt, it mixes 200k+ icons, curated palettes, font pairings, atmospheres, and layout styles into a cohesive theme you can drop into any AI-built app, so prototypes stop looking generic.",
     responsibilities: [
-      "Planned and shipped the product end-to-end on Lovable — scoping, design, build, and launch.",
+      "Planned and shipped the product end-to-end on Lovable, scoping, design, build, and launch.",
       "Connected the full stack: authentication, Stripe payments, Resend transactional emails, and product analytics.",
       "Designed the prompt-to-theme engine covering icon packs (Lucide, Phosphor, Tabler), palettes, fonts, and atmospheres.",
       "Built live theme previews so users can see styles applied to a real UI before exporting.",
@@ -126,7 +126,7 @@ const projectsData = [
       "Targett is an AI-powered search optimization platform that helps businesses improve their visibility across AI search engines like ChatGPT, Perplexity, and Google AI Overviews. Planned and built end-to-end on Lovable with Stripe payments, Resend emails, and analytics fully integrated.",
     responsibilities: [
       "Defined product vision and roadmap for AI search optimization tooling.",
-      "Led end-to-end product development on Lovable — from concept to launch.",
+      "Led end-to-end product development on Lovable, from concept to launch.",
       "Designed the PRD framework covering brand tracking, competitor analysis, and AI-optimized content generation.",
       "Connected Stripe payments, Resend transactional emails, and product analytics into the platform.",
       "Coordinated cross-functional efforts across engineering, design, and marketing.",
