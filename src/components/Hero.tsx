@@ -160,7 +160,7 @@ const Hero = () => {
             className="text-xs md:text-base px-4 md:px-8 h-10 md:h-12 flex-shrink-0 whitespace-nowrap gap-2"
           >
             <a
-              href="https://calendar.app.google/huCPxAdY72xxtChe6"
+              href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0-cnVzPiLTaFZxONxktqco1arCt2ig3jR_1p-8RPMA0ltvrx-ylhfoPWZsR_9vMT4GGcu-yH-Q"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2"
@@ -190,9 +190,8 @@ const Hero = () => {
         <div className="mt-5 md:mt-6 flex justify-center px-4">
           <Link
             to="/letter"
-            className="group inline-flex items-start sm:items-center gap-1.5 text-xs md:text-sm text-foreground/70 dark:text-white/70 hover:text-primary-visible transition-colors text-center max-w-[20rem] sm:max-w-none leading-snug"
+            className="group inline-block text-xs md:text-sm text-foreground/70 dark:text-white/70 hover:text-primary-visible transition-colors text-center max-w-[18rem] sm:max-w-none leading-snug"
           >
-            <span className="flex-shrink-0">✉️</span>
             <span className="text-balance">
               Read a letter from <span className="font-handwritten text-primary-visible underline-offset-4 group-hover:underline">Henrietta</span> to you, my potential team/employer
               <span className="inline-block ml-1 group-hover:translate-x-0.5 transition-transform">→</span>
