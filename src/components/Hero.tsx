@@ -33,8 +33,8 @@ const Hero = () => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       const windowHeight = window.innerHeight;
-      const fadeStart = 0;
-      const fadeEnd = windowHeight * 0.6;
+      const fadeStart = windowHeight * 0.5;
+      const fadeEnd = windowHeight * 1.1;
 
       if (scrollPosition <= fadeStart) {
         setScrollOpacity(1);
@@ -160,7 +160,7 @@ const Hero = () => {
             className="text-xs md:text-base px-4 md:px-8 h-10 md:h-12 flex-shrink-0 whitespace-nowrap gap-2"
           >
             <a
-              href="https://calendar.app.google/qo1L4Dw9StHhtvms6"
+              href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0-cnVzPiLTaFZxONxktqco1arCt2ig3jR_1p-8RPMA0ltvrx-ylhfoPWZsR_9vMT4GGcu-yH-Q?gv=true"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2"
@@ -186,17 +186,17 @@ const Hero = () => {
           </Button>
         </div>
 
-        {/* Letter card */}
-        <div className="mt-8 md:mt-10 flex justify-center">
+        {/* Letter inline link */}
+        <div className="mt-5 md:mt-6 flex justify-center">
           <Link
             to="/letter"
-            className="group inline-flex items-center gap-3 glass border border-primary/20 rounded-full px-4 md:px-5 py-2 md:py-2.5 hover:bg-primary/10 transition-all max-w-[92%]"
+            className="group inline-flex items-center gap-1.5 text-[11px] md:text-sm text-foreground/70 dark:text-white/70 hover:text-primary-visible transition-colors"
           >
-            <span className="text-base md:text-lg">✉️</span>
-            <span className="text-[11px] md:text-sm text-foreground/90 dark:text-white/90 font-medium text-left leading-snug">
-              A letter from <span className="font-handwritten text-primary-visible">Henrietta</span> to you, my potential team / employer
+            <span>✉️</span>
+            <span>
+              Read a <span className="font-handwritten text-primary-visible underline-offset-4 group-hover:underline">letter</span> from Henrietta to you
             </span>
-            <span className="text-primary-visible text-sm md:text-base group-hover:translate-x-0.5 transition-transform">→</span>
+            <span className="group-hover:translate-x-0.5 transition-transform">→</span>
           </Link>
         </div>
       </div>
