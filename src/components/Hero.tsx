@@ -160,7 +160,7 @@ const Hero = () => {
             className="text-xs md:text-base px-4 md:px-8 h-10 md:h-12 flex-shrink-0 whitespace-nowrap gap-2"
           >
             <a
-              href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0-cnVzPiLTaFZxONxktqco1arCt2ig3jR_1p-8RPMA0ltvrx-ylhfoPWZsR_9vMT4GGcu-yH-Q?gv=true"
+              href="https://calendar.app.google/huCPxAdY72xxtChe6"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2"
