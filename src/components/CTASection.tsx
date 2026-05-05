@@ -12,7 +12,7 @@ const CTASection = () => {
   return (
     <section className="py-8" ref={animRef}>
       <div className="container mx-auto px-6">
-        <div 
+        <div
           ref={(el) => {
             // @ts-ignore
             fadeRef.current = el;
@@ -20,26 +20,20 @@ const CTASection = () => {
             glowRef.current = el;
           }}
           className={`glass rounded-[2rem] p-12 md:p-16 text-center max-w-4xl mx-auto transition-all duration-700 ${
-            isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+            isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
           }`}
           style={{
             opacity,
             transform: `translateY(${translateY}px) scale(${isVisible ? 1 : 0.95})`,
-            boxShadow: `0 0 ${50 * glowIntensity}px ${10 * glowIntensity}px hsl(var(--primary) / ${0.25 * glowIntensity}), 0 0 ${90 * glowIntensity}px ${18 * glowIntensity}px hsl(var(--primary) / ${0.12 * glowIntensity})`
+            boxShadow: `0 0 ${50 * glowIntensity}px ${10 * glowIntensity}px hsl(var(--primary) / ${0.25 * glowIntensity}), 0 0 ${90 * glowIntensity}px ${18 * glowIntensity}px hsl(var(--primary) / ${0.12 * glowIntensity})`,
           }}
         >
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-6">
             Hire <span className="font-handwritten text-primary-visible">Henrietta?</span>
           </h2>
-          <p className="text-sm text-muted-foreground mb-8">
-            Hi Henrietta, I am interested in working with you!
-          </p>
+          <p className="text-sm text-muted-foreground mb-8">Hi Henrietta, I am interested in working with you!</p>
           <div className="flex gap-3 justify-center">
-            <Button
-              asChild
-              size="lg"
-              className="rounded-[2rem] px-4 sm:px-8 gap-2 text-sm sm:text-base"
-            >
+            <Button asChild size="lg" className="rounded-[2rem] px-4 sm:px-8 gap-2 text-sm sm:text-base">
               <a href="https://calendar.app.google/qo1L4Dw9StHhtvms6" target="_blank" rel="noopener noreferrer">
                 <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
                 <span className="whitespace-nowrap">Hire Henrietta</span>
