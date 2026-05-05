@@ -46,9 +46,9 @@ const ProjectCardDetailed = ({
       }}
     >
       {isLive && (
-        <div className="absolute top-4 right-4 z-10 flex items-center gap-2 glass px-3 py-1.5 rounded-full">
-          <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-          <span className="text-xs font-medium text-foreground">Live</span>
+        <div className="thumbnail-badge absolute top-4 right-4 z-10 flex items-center gap-2 px-3 py-1.5 rounded-full">
+          <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+          <span className="text-xs font-semibold">Live</span>
         </div>
       )}
       {image && (
@@ -118,7 +118,7 @@ const ProjectCardDetailed = ({
             {expandedProject === name ? "See Less" : "View Details"}
           </Button>
           {link && (
-            <Button asChild variant="ghost" size="sm" className="rounded-full hover:bg-primary/20 hover:text-black dark:hover:text-white">
+            <Button asChild variant="ghost" size="sm" className="rounded-full hover:bg-primary/20 hover:text-foreground">
               <a href={link} target="_blank" rel="noopener noreferrer">
                 Visit Site →
               </a>
