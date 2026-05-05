@@ -4,8 +4,16 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import ProjectCard from "./ProjectCard";
 import targettImage from "@/assets/targett-preview-new.png";
 import proxyImage from "@/assets/proxy-preview.jpg";
+import vibestackImage from "@/assets/vibestack-logo.png";
 
 const projects = [
+  {
+    name: "VibeStack",
+    tags: ["AI Design", "DevTools"],
+    image: vibestackImage,
+    link: "https://vibestacks.pro",
+    isLive: true,
+  },
   {
     name: "Targett",
     tags: ["AI Search", "SEO"],
