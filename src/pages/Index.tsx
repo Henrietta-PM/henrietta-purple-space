@@ -15,13 +15,15 @@ const Index = () => {
     <div className="min-h-screen pb-20 md:pb-0">
       <Navigation />
       <Hero />
-      <ImpactMetrics />
-      <Testimonials />
-      <HowIWork />
-      <FeaturedProjects />
-      <JourneySection />
-      <Skills />
-      <CTASection />
+      <div className="space-y-16 md:space-y-24">
+        <ImpactMetrics />
+        <Testimonials />
+        <HowIWork />
+        <FeaturedProjects />
+        <JourneySection />
+        <Skills />
+        <CTASection />
+      </div>
       <Footer />
       <FloatingActionButton />
     </div>

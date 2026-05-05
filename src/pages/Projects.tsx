@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Calendar, Lightbulb, Mail } from "lucide-react";
 import bloomieImage from "@/assets/bloomie-logo.png";
-import vibestackImage from "@/assets/vibestack-logo.png";
+import vibestackImage from "@/assets/vibestack-preview.jpg";
 import ProjectCardDetailed from "@/components/ProjectCardDetailed";
 import { useScrollFade } from "@/hooks/use-scroll-fade";
 import proxyImage from "@/assets/proxy-preview.jpg";
@@ -238,7 +238,7 @@ const Projects = () => {
                   </p>
                   <div className="flex flex-wrap gap-3 mt-auto justify-center">
                     <Button asChild size="sm" className="gap-2 rounded-full">
-                      <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0-cnVzPiLTaFZxONxktqco1arCt2ig3jR_1p-8RPMA0ltvrx-ylhfoPWZsR_9vMT4GGcu-yH-Q?gv=true" target="_blank" rel="noopener noreferrer">
+                      <a href="https://calendar.app.google/qo1L4Dw9StHhtvms6" target="_blank" rel="noopener noreferrer">
                         <Calendar className="w-4 h-4" />
                         Hire Henrietta
                       </a>
