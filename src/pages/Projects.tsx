@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Calendar, Lightbulb, Mail } from "lucide-react";
 import bloomieImage from "@/assets/bloomie-logo.png";
+import vibestackImage from "@/assets/vibestack-logo.png";
 import ProjectCardDetailed from "@/components/ProjectCardDetailed";
 import { useScrollFade } from "@/hooks/use-scroll-fade";
 import proxyImage from "@/assets/proxy-preview.jpg";
@@ -95,17 +96,39 @@ const projectsData = [
     ],
   },
   {
-    name: "Targett",
-    tags: ["AI Search", "SEO"],
-    link: "https://www.targett.app",
-    image: targettImage,
+    name: "VibeStack",
+    tags: ["AI Design", "DevTools"],
+    link: "https://vibestacks.pro",
+    image: vibestackImage,
     isLive: true,
     overview:
-      "Targett is an AI-powered search optimization platform that helps businesses improve their visibility across AI search engines like ChatGPT, Perplexity, and Google AI Overviews.",
+      "VibeStack is a design-system generator for vibe coders. In one prompt, it mixes 200k+ icons, curated palettes, font pairings, atmospheres, and layout styles into a cohesive theme you can drop into any AI-built app — so prototypes stop looking generic.",
+    responsibilities: [
+      "Planned and shipped the product end-to-end on Lovable — scoping, design, build, and launch.",
+      "Connected the full stack: authentication, Stripe payments, Resend transactional emails, and product analytics.",
+      "Designed the prompt-to-theme engine covering icon packs (Lucide, Phosphor, Tabler), palettes, fonts, and atmospheres.",
+      "Built live theme previews so users can see styles applied to a real UI before exporting.",
+      "Owned the GTM motion: landing page, pricing, and onboarding flows.",
+    ],
+    achievements: [
+      "Took the product from idea to live, paying-ready launch solo using Lovable.",
+      "Integrated payments, emails, and analytics without a separate engineering team.",
+      "Curated 6 palettes, 6 font pairings, 5 atmospheres, and 200k+ icons into a single picker.",
+    ],
+  },
+  {
+    name: "Targett",
+    tags: ["AI Search", "SEO"],
+    image: targettImage,
+    link: "https://www.targett.app",
+    isLive: true,
+    overview:
+      "Targett is an AI-powered search optimization platform that helps businesses improve their visibility across AI search engines like ChatGPT, Perplexity, and Google AI Overviews. Planned and built end-to-end on Lovable with Stripe payments, Resend emails, and analytics fully integrated.",
     responsibilities: [
       "Defined product vision and roadmap for AI search optimization tooling.",
-      "Led end-to-end product development from concept to launch.",
+      "Led end-to-end product development on Lovable — from concept to launch.",
       "Designed the PRD framework covering brand tracking, competitor analysis, and AI-optimized content generation.",
+      "Connected Stripe payments, Resend transactional emails, and product analytics into the platform.",
       "Coordinated cross-functional efforts across engineering, design, and marketing.",
     ],
     achievements: [
