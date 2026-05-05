@@ -194,7 +194,7 @@ const Hero = () => {
           >
             <span>✉️</span>
             <span>
-              Read a <span className="font-handwritten text-primary-visible underline-offset-4 group-hover:underline">letter</span> from Henrietta to you
+              Read a letter from <span className="font-handwritten text-primary-visible underline-offset-4 group-hover:underline">Henrietta</span> to you, my potential team/employer
             </span>
             <span className="group-hover:translate-x-0.5 transition-transform">→</span>
           </Link>
