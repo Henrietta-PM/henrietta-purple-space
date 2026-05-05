@@ -190,10 +190,10 @@ const Hero = () => {
         <div className="mt-5 md:mt-6 flex justify-center px-4">
           <Link
             to="/letter"
-            className="group inline-flex items-start sm:items-center gap-1.5 text-xs md:text-sm text-foreground/70 dark:text-white/70 hover:text-primary-visible transition-colors text-center max-w-[20rem] sm:max-w-none leading-snug"
+            className="group inline-grid grid-cols-[auto_1fr] items-start gap-x-1.5 text-xs md:text-sm text-foreground/70 dark:text-white/70 hover:text-primary-visible transition-colors text-left sm:text-center max-w-[18rem] sm:max-w-none leading-snug"
           >
-            <span className="flex-shrink-0">✉️</span>
-            <span className="text-balance">
+            <span className="leading-snug">✉️</span>
+            <span className="min-w-0 text-balance">
               Read a letter from <span className="font-handwritten text-primary-visible underline-offset-4 group-hover:underline">Henrietta</span> to you, my potential team/employer
               <span className="inline-block ml-1 group-hover:translate-x-0.5 transition-transform">→</span>
             </span>
