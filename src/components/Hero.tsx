@@ -185,20 +185,6 @@ const Hero = () => {
             </Link>
           </Button>
         </div>
-
-        {/* Letter card */}
-        <div className="mt-8 md:mt-10 flex justify-center">
-          <Link
-            to="/letter"
-            className="group inline-flex items-center gap-3 glass border border-primary/20 rounded-full px-4 md:px-5 py-2 md:py-2.5 hover:bg-primary/10 transition-all max-w-[92%]"
-          >
-            <span className="text-base md:text-lg">✉️</span>
-            <span className="text-[11px] md:text-sm text-foreground/90 dark:text-white/90 font-medium text-left leading-snug">
-              A letter from <span className="font-handwritten text-primary-visible">Henrietta</span> to you, my potential team / employer
-            </span>
-            <span className="text-primary-visible text-sm md:text-base group-hover:translate-x-0.5 transition-transform">→</span>
-          </Link>
-        </div>
       </div>
     </section>
   );
