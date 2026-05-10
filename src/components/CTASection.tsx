@@ -3,6 +3,7 @@ import { Calendar, Mail } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { useScrollFade } from "@/hooks/use-scroll-fade";
 import { useScrollGlow } from "@/hooks/use-scroll-glow";
+import { HIRE_CALENDAR_URL, openHireCalendar } from "@/lib/booking";
 
 const CTASection = () => {
   const { ref: animRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
@@ -40,7 +41,7 @@ const CTASection = () => {
               size="lg"
               className="rounded-[2rem] px-4 sm:px-8 gap-2 text-sm sm:text-base"
             >
-              <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0-cnVzPiLTaFZxONxktqco1arCt2ig3jR_1p-8RPMA0ltvrx-ylhfoPWZsR_9vMT4GGcu-yH-Q" target="_blank" rel="noopener noreferrer">
+              <a href={HIRE_CALENDAR_URL} target="_blank" rel="noopener noreferrer" onClick={openHireCalendar}>
                 <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
                 <span className="whitespace-nowrap">Hire Henrietta</span>
               </a>
