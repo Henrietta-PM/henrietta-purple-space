@@ -13,6 +13,7 @@ import careerpassImage from "@/assets/careerpass-preview.png";
 import targettImage from "@/assets/targett-preview-new.png";
 import nyscImage from "@/assets/nysc-preview.png";
 import FloatingActionButton from "@/components/FloatingActionButton";
+import { HIRE_CALENDAR_URL, openHireCalendar } from "@/lib/booking";
 
 const projectsData = [
   {
@@ -238,7 +239,7 @@ const Projects = () => {
                   </p>
                   <div className="flex flex-wrap gap-3 mt-auto justify-center">
                     <Button asChild size="sm" className="gap-2 rounded-full">
-                      <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0-cnVzPiLTaFZxONxktqco1arCt2ig3jR_1p-8RPMA0ltvrx-ylhfoPWZsR_9vMT4GGcu-yH-Q" target="_blank" rel="noopener noreferrer">
+                      <a href={HIRE_CALENDAR_URL} target="_blank" rel="noopener noreferrer" onClick={openHireCalendar}>
                         <Calendar className="w-4 h-4" />
                         Hire Henrietta
                       </a>
