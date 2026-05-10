@@ -8,6 +8,7 @@ import heroImage4 from "@/assets/henrietta-hero-4.jpg";
 import heroImage5 from "@/assets/henrietta-hero-5.jpg";
 import portraitImage from "@/assets/henrietta-portrait.jpg";
 import vibestackLogo from "@/assets/vibestack-logo.png";
+import { HIRE_CALENDAR_URL, openHireCalendar } from "@/lib/booking";
 
 const Hero = () => {
   const [currentWord, setCurrentWord] = useState(0);
@@ -160,10 +161,11 @@ const Hero = () => {
             className="text-xs md:text-base px-4 md:px-8 h-10 md:h-12 flex-shrink-0 whitespace-nowrap gap-2"
           >
             <a
-              href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0-cnVzPiLTaFZxONxktqco1arCt2ig3jR_1p-8RPMA0ltvrx-ylhfoPWZsR_9vMT4GGcu-yH-Q"
+              href={HIRE_CALENDAR_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2"
+              onClick={openHireCalendar}
             >
               <Calendar className="w-4 h-4 md:w-5 md:h-5" />
               Hire
