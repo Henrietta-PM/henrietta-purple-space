@@ -8,6 +8,7 @@ import ContactCard from "@/components/ContactCard";
 import SocialCard from "@/components/SocialCard";
 import { useScrollFade } from "@/hooks/use-scroll-fade";
 import FloatingActionButton from "@/components/FloatingActionButton";
+import { HIRE_CALENDAR_URL, openHireCalendar } from "@/lib/booking";
 
 const Contact = () => {
   const [showHeartModal, setShowHeartModal] = useState(false);
@@ -50,7 +51,7 @@ const Contact = () => {
 
               <div className="mt-8">
                 <Button asChild size="lg" className="w-full rounded-full gap-2">
-                  <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0-cnVzPiLTaFZxONxktqco1arCt2ig3jR_1p-8RPMA0ltvrx-ylhfoPWZsR_9vMT4GGcu-yH-Q" target="_blank" rel="noopener noreferrer">
+                  <a href={HIRE_CALENDAR_URL} target="_blank" rel="noopener noreferrer" onClick={openHireCalendar}>
                     <Calendar className="w-5 h-5" />
                     Hire Me
                   </a>
