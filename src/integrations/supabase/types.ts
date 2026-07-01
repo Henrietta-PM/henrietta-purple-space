@@ -29,6 +29,21 @@ export type Database = {
         }
         Relationships: []
       }
+      rate_limits: {
+        Row: {
+          ip: string
+          last_called_at: string
+        }
+        Insert: {
+          ip: string
+          last_called_at?: string
+        }
+        Update: {
+          ip?: string
+          last_called_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
