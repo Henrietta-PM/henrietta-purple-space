@@ -144,7 +144,7 @@ const projectsData = [
     tags: ["AI Search", "SEO"],
     image: targettImage,
     link: "https://www.targett.app",
-    isLive: true,
+    isLive: false,
     overview:
       "Targett is an AI-powered search optimization platform that helps businesses improve their visibility across AI search engines like ChatGPT, Perplexity, and Google AI Overviews. Planned and built end-to-end on Lovable with Stripe payments, Resend emails, and analytics fully integrated.",
     responsibilities: [
