@@ -3,31 +3,51 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import ProjectCardDetailed from "./ProjectCardDetailed";
-import bloomieImage from "@/assets/bloomie-logo.png";
 import proxyImage from "@/assets/proxy-preview.jpg";
-import syncuImage from "@/assets/syncu-preview.png";
-import careerpassImage from "@/assets/careerpass-preview.png";
+import sallyImage from "@/assets/sally-preview.jpg";
+import targettImage from "@/assets/targett-preview-new.png";
 
 const projects = [
   {
-    name: "Bloomie AI",
-    tags: ["EdTech"],
-    link: "https://learn.bloomie.com",
-    image: bloomieImage,
+    name: "Sally",
+    tags: ["AI", "Personal Branding"],
+    link: "https://heysally.app",
+    image: sallyImage,
     isLive: true,
     overview:
-      "Bloomie AI is a personalized learning platform for children, using AI to deliver adaptive lessons and engaging progress dashboards.",
+      "Sally is an AI personal brand manager. You share your day with a quick voice note or a line of text, and Sally turns it into on-brand posts that sound like you, then schedules and publishes them across LinkedIn and TikTok so you stay consistently visible.",
     responsibilities: [
-      "Defined MVP scope and prioritized features for initial launch.",
-      "Wrote PRDs and broke user stories into actionable tasks for development.",
-      "Conducted A/B tests on onboarding flows and content delivery methods.",
-      "Led UX research sessions to ensure usability for children and parents.",
-      "Collaborated with data analysts to design engagement and retention tracking metrics.",
+      "Planned and shipped the product end-to-end on Lovable: scoping, design, build, and launch.",
+      "Connected the full stack: authentication, Stripe payments, Resend transactional emails, and product analytics.",
+      "Designed the voice-to-post engine that learns each user's tone and generates platform-tuned drafts.",
+      "Built approval and autopilot flows so users can review every draft or let Sally run on its own.",
+      "Owned the GTM motion: landing page, tiered pricing, and onboarding flows.",
     ],
     achievements: [
-      "Achieved 80% daily adoption rates within the first 3 months.",
-      "Improved retention by 45% through iterative testing and refinement.",
-      "Established scalable frameworks for future content and AI personalization.",
+      "Took the product from idea to live, paying-ready launch solo using Lovable.",
+      "Integrated payments, emails, and analytics without a separate engineering team.",
+      "Shipped smart scheduling and autopilot posting across LinkedIn and TikTok.",
+    ],
+  },
+  {
+    name: "Targett",
+    tags: ["AI Search", "SEO"],
+    link: "https://www.targett.app",
+    image: targettImage,
+    isLive: true,
+    overview:
+      "Targett is an AI-powered search optimization platform that helps businesses improve their visibility across AI search engines like ChatGPT, Perplexity, and Google AI Overviews. Planned and built end-to-end on Lovable with Stripe payments, Resend emails, and analytics fully integrated.",
+    responsibilities: [
+      "Defined product vision and roadmap for AI search optimization tooling.",
+      "Led end-to-end product development on Lovable, from concept to launch.",
+      "Designed the PRD framework covering brand tracking, competitor analysis, and AI-optimized content generation.",
+      "Connected Stripe payments, Resend transactional emails, and product analytics into the platform.",
+      "Coordinated cross-functional efforts across engineering, design, and marketing.",
+    ],
+    achievements: [
+      "Launched MVP with full AI search tracking and optimization features.",
+      "Built a platform covering 6+ major AI search engines.",
+      "Delivered actionable insights for businesses to improve AI search visibility.",
     ],
   },
   {
