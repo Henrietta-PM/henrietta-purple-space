@@ -7,7 +7,7 @@ import heroImage2 from "@/assets/henrietta-hero-2.jpg";
 import heroImage4 from "@/assets/henrietta-hero-4.jpg";
 import heroImage5 from "@/assets/henrietta-hero-5.jpg";
 import portraitImage from "@/assets/henrietta-portrait.jpg";
-import sallyLogo from "@/assets/sally-logo.png";
+import bloomieLogo from "@/assets/bloomie-logo.png";
 import { HIRE_CALENDAR_URL, openHireCalendar } from "@/lib/booking";
 
 const Hero = () => {
