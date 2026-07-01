@@ -22,7 +22,7 @@ const projectsData = [
     tags: ["AI", "Personal Branding"],
     link: "https://heysally.app",
     image: sallyImage,
-    isLive: true,
+    isLive: false,
     overview:
       "Sally is an AI personal brand manager. You share your day with a quick voice note or a line of text, and Sally turns it into on-brand posts that sound like you, then schedules and publishes them across LinkedIn and TikTok so you stay consistently visible.",
     responsibilities: [
