@@ -81,44 +81,6 @@ const projectsData = [
     ],
   },
   {
-    name: "Syncu",
-    tags: ["Community", "Collaboration"],
-    link: "https://www.linkedin.com/company/sync-u/",
-    image: syncuImage,
-    overview:
-      "Syncu is a community platform that connects tech professionals to collaborate on product ideas. It enables hands-on experience, real-time portfolio building, and project-based team formation.",
-    responsibilities: [
-      "Designed platform vision and roadmap to support collaborative projects.",
-      "Grew the community to 250+ members through outreach and engagement.",
-      "Facilitated 10+ collaborations by connecting professionals with aligned goals.",
-      "Oversaw waitlist operations, managing 530+ potential users.",
-    ],
-    achievements: [
-      "Built and scaled a community of 250+ members.",
-      "Enabled 10+ active product collaborations.",
-      "Grew waitlist to 530+ users within launch window.",
-    ],
-  },
-  {
-    name: "CareerPASS",
-    tags: ["Psychometrics", "Career Guidance"],
-    link: "https://career-pass.vercel.app/",
-    image: careerpassImage,
-    overview:
-      "CareerPASS is a psychometric analysis and career recommendation platform. It helps students discover career paths aligned with their strengths through personality and skill assessments.",
-    responsibilities: [
-      "Scoped and managed end-to-end development of the MVP within 8 weeks.",
-      "Created PRDs and coordinated efforts across data analysts, developers, and designers.",
-      "Implemented Trello workflows to track deliverables and dependencies.",
-      "Oversaw integration of psychometric models into the platform.",
-    ],
-    achievements: [
-      "Delivered MVP on time with full functionality within 8 weeks.",
-      "Selected as a Top 5 project at a major career showcase.",
-      "Enabled 1,000+ students to access career assessments during pilot.",
-    ],
-  },
-  {
     name: "VibeStack",
     tags: ["AI Design", "DevTools"],
     link: "https://vibestacks.pro",
@@ -175,10 +137,48 @@ const projectsData = [
       "Led testing and iteration cycles based on user feedback.",
     ],
     achievements: [
-      "Scaled the platform to 4,600+ registered users.",
-      "Achieved 600+ average daily active users consistently.",
+      "Over 45,000 check-ins made through the platform.",
+      "Over 6,000 users have used the product in 6 months.",
       "Managed live iterations and real-time problem solving during active deployment.",
       "Streamlined attendance tracking with QR code-based check-ins, significantly reducing manual processing time.",
+    ],
+  },
+  {
+    name: "Syncu",
+    tags: ["Community", "Collaboration"],
+    link: "https://www.linkedin.com/company/sync-u/",
+    image: syncuImage,
+    overview:
+      "Syncu is a community platform that connects tech professionals to collaborate on product ideas. It enables hands-on experience, real-time portfolio building, and project-based team formation.",
+    responsibilities: [
+      "Designed platform vision and roadmap to support collaborative projects.",
+      "Grew the community to 250+ members through outreach and engagement.",
+      "Facilitated 10+ collaborations by connecting professionals with aligned goals.",
+      "Oversaw waitlist operations, managing 530+ potential users.",
+    ],
+    achievements: [
+      "Built and scaled a community of 250+ members.",
+      "Enabled 10+ active product collaborations.",
+      "Grew waitlist to 530+ users within launch window.",
+    ],
+  },
+  {
+    name: "CareerPASS",
+    tags: ["Psychometrics", "Career Guidance"],
+    link: "https://career-pass.vercel.app/",
+    image: careerpassImage,
+    overview:
+      "CareerPASS is a psychometric analysis and career recommendation platform. It helps students discover career paths aligned with their strengths through personality and skill assessments.",
+    responsibilities: [
+      "Scoped and managed end-to-end development of the MVP within 8 weeks.",
+      "Created PRDs and coordinated efforts across data analysts, developers, and designers.",
+      "Implemented Trello workflows to track deliverables and dependencies.",
+      "Oversaw integration of psychometric models into the platform.",
+    ],
+    achievements: [
+      "Delivered MVP on time with full functionality within 8 weeks.",
+      "Selected as a Top 5 project at a major career showcase.",
+      "Enabled 1,000+ students to access career assessments during pilot.",
     ],
   },
 ];
