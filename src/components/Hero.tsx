@@ -7,7 +7,7 @@ import heroImage2 from "@/assets/henrietta-hero-2.jpg";
 import heroImage4 from "@/assets/henrietta-hero-4.jpg";
 import heroImage5 from "@/assets/henrietta-hero-5.jpg";
 import portraitImage from "@/assets/henrietta-portrait.jpg";
-import sallyLogo from "@/assets/sally-logo.png";
+import bloomieLogo from "@/assets/bloomie-logo.png";
 import { HIRE_CALENDAR_URL, openHireCalendar } from "@/lib/booking";
 
 const Hero = () => {
@@ -94,11 +94,11 @@ const Hero = () => {
             className="px-2 md:px-3 py-1 md:py-1.5 text-xs md:text-sm font-medium hover:bg-primary/10 rounded-full transition-all flex items-center gap-1.5 md:gap-2"
           >
             <img
-              src={sallyLogo}
-              alt="Sally"
+              src={bloomieLogo}
+              alt="Bloomie AI"
               className="w-5 h-5 md:w-6 md:h-6 object-contain flex-shrink-0 rounded"
             />
-            <span className="text-xs md:text-sm font-bold text-foreground dark:text-white">Sally</span>
+            <span className="text-xs md:text-sm font-bold text-foreground dark:text-white">Bloomie AI</span>
             <div className="w-px h-3 md:h-4 bg-foreground/20 dark:bg-white/20"></div>
             <span className="text-[8px] md:text-[10px] text-foreground/70 dark:text-white/60 font-normal">
               Featured work

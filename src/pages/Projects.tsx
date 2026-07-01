@@ -22,7 +22,7 @@ const projectsData = [
     tags: ["AI", "Personal Branding"],
     link: "https://heysally.app",
     image: sallyImage,
-    isLive: true,
+    isLive: false,
     overview:
       "Sally is an AI personal brand manager. You share your day with a quick voice note or a line of text, and Sally turns it into on-brand posts that sound like you, then schedules and publishes them across LinkedIn and TikTok so you stay consistently visible.",
     responsibilities: [
@@ -123,7 +123,7 @@ const projectsData = [
     tags: ["AI Design", "DevTools"],
     link: "https://vibestacks.pro",
     image: vibestackImage,
-    isLive: true,
+    isLive: false,
     overview:
       "VibeStack is a design-system generator for vibe coders. In one prompt, it mixes 200k+ icons, curated palettes, font pairings, atmospheres, and layout styles into a cohesive theme you can drop into any AI-built app, so prototypes stop looking generic.",
     responsibilities: [
@@ -144,7 +144,7 @@ const projectsData = [
     tags: ["AI Search", "SEO"],
     image: targettImage,
     link: "https://www.targett.app",
-    isLive: true,
+    isLive: false,
     overview:
       "Targett is an AI-powered search optimization platform that helps businesses improve their visibility across AI search engines like ChatGPT, Perplexity, and Google AI Overviews. Planned and built end-to-end on Lovable with Stripe payments, Resend emails, and analytics fully integrated.",
     responsibilities: [
@@ -165,7 +165,7 @@ const projectsData = [
     tags: ["GovTech", "Attendance"],
     link: "#",
     image: nyscImage,
-    isLive: true,
+    isLive: false,
     overview:
       "A QR-based attendance and check-in management system for NYSC corps members, enabling real-time tracking, admin dashboards, and streamlined reporting for community development service.",
     responsibilities: [
