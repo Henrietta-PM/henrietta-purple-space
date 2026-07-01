@@ -6,8 +6,30 @@ import ProjectCardDetailed from "./ProjectCardDetailed";
 import targettImage from "@/assets/targett-preview-new.png";
 import proxyImage from "@/assets/proxy-preview.jpg";
 import vibestackImage from "@/assets/vibestack-preview.jpg";
+import sallyImage from "@/assets/sally-preview.jpg";
 
 const projects = [
+  {
+    name: "Sally",
+    tags: ["AI", "Personal Branding"],
+    image: sallyImage,
+    link: "https://heysally.app",
+    isLive: true,
+    overview:
+      "Sally is an AI personal brand manager. You share your day with a quick voice note or a line of text, and Sally turns it into on-brand posts that sound like you, then schedules and publishes them across LinkedIn and TikTok so you stay consistently visible.",
+    responsibilities: [
+      "Planned and shipped the product end-to-end on Lovable: scoping, design, build, and launch.",
+      "Connected the full stack: authentication, Stripe payments, Resend transactional emails, and product analytics.",
+      "Designed the voice-to-post engine that learns each user's tone and generates platform-tuned drafts.",
+      "Built approval and autopilot flows so users can review every draft or let Sally run on its own.",
+      "Owned the GTM motion: landing page, tiered pricing, and onboarding flows.",
+    ],
+    achievements: [
+      "Took the product from idea to live, paying-ready launch solo using Lovable.",
+      "Integrated payments, emails, and analytics without a separate engineering team.",
+      "Shipped smart scheduling and autopilot posting across LinkedIn and TikTok.",
+    ],
+  },
   {
     name: "VibeStack",
     tags: ["AI Design", "DevTools"],
