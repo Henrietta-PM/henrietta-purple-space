@@ -165,7 +165,7 @@ const projectsData = [
     tags: ["GovTech", "Attendance"],
     link: "#",
     image: nyscImage,
-    isLive: true,
+    isLive: false,
     overview:
       "A QR-based attendance and check-in management system for NYSC corps members, enabling real-time tracking, admin dashboards, and streamlined reporting for community development service.",
     responsibilities: [
