@@ -7,28 +7,8 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-// In-memory rate limiting by IP
-const rateLimitMap = new Map<string, number>();
-const RATE_LIMIT_WINDOW_MS = 60_000; // 1 minute
-const MAX_REQUESTS_PER_WINDOW = 1;
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const lastRequest = rateLimitMap.get(ip);
-  if (lastRequest && now - lastRequest < RATE_LIMIT_WINDOW_MS) {
-    return true;
-  }
-  rateLimitMap.set(ip, now);
-  // Clean up old entries periodically
-  if (rateLimitMap.size > 1000) {
-    for (const [key, timestamp] of rateLimitMap) {
-      if (now - timestamp > RATE_LIMIT_WINDOW_MS) {
-        rateLimitMap.delete(key);
-      }
-    }
-  }
-  return false;
-}
+// Persistent DB-backed rate limiting (survives cold starts / multiple instances)
+const RATE_LIMIT_WINDOW_SECONDS = 60; // 1 minute per IP
 
 const handler = async (req: Request): Promise<Response> => {
   if (req.method === "OPTIONS") {
@@ -36,13 +16,54 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    // Rate limit by IP
+    const supabaseAdmin = createClient(
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
+    );
+
+    // Persistent rate limit by IP
     const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
-    if (isRateLimited(ip)) {
+
+    const { data: existing, error: lookupError } = await supabaseAdmin
+      .from("rate_limits")
+      .select("last_called_at")
+      .eq("ip", ip)
+      .maybeSingle();
+
+    if (lookupError) {
+      console.error("Rate limit lookup error:", lookupError);
+      return new Response(
+        JSON.stringify({ error: "An internal error occurred. Please try again later." }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    if (
+      existing?.last_called_at &&
+      Date.now() - new Date(existing.last_called_at).getTime() < RATE_LIMIT_WINDOW_SECONDS * 1000
+    ) {
       return new Response(
         JSON.stringify({ error: "Too many requests. Please try again later." }),
         {
           status: 429,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    const { error: upsertError } = await supabaseAdmin
+      .from("rate_limits")
+      .upsert({ ip, last_called_at: new Date().toISOString() }, { onConflict: "ip" });
+
+    if (upsertError) {
+      console.error("Rate limit upsert error:", upsertError);
+      return new Response(
+        JSON.stringify({ error: "An internal error occurred. Please try again later." }),
+        {
+          status: 500,
           headers: { "Content-Type": "application/json", ...corsHeaders },
         }
       );
