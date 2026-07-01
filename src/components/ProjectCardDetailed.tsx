@@ -1,6 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { useScrollFade } from "@/hooks/use-scroll-fade";
 import { useScrollGlow } from "@/hooks/use-scroll-glow";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 
 interface ProjectCardDetailedProps {
   name: string;
@@ -11,8 +18,8 @@ interface ProjectCardDetailedProps {
   overview: string;
   responsibilities: string[];
   achievements: string[];
-  expandedProject: string | null;
-  onToggle: (name: string) => void;
+  expandedProject?: string | null;
+  onToggle?: (name: string) => void;
 }
 
 const ProjectCardDetailed = ({
@@ -24,8 +31,6 @@ const ProjectCardDetailed = ({
   overview,
   responsibilities,
   achievements,
-  expandedProject,
-  onToggle,
 }: ProjectCardDetailedProps) => {
   const { ref, opacity, translateY } = useScrollFade();
   const { ref: glowRef, glowIntensity } = useScrollGlow();
@@ -39,10 +44,10 @@ const ProjectCardDetailed = ({
         glowRef.current = el;
       }}
       className="glass overflow-hidden rounded-[1.5rem] transition-all duration-350 relative flex flex-col"
-      style={{ 
-        opacity, 
+      style={{
+        opacity,
         transform: `translateY(${translateY}px)`,
-        boxShadow: `0 0 ${50 * glowIntensity}px ${10 * glowIntensity}px hsl(var(--primary) / ${0.25 * glowIntensity}), 0 0 ${90 * glowIntensity}px ${18 * glowIntensity}px hsl(var(--primary) / ${0.12 * glowIntensity})`
+        boxShadow: `0 0 ${50 * glowIntensity}px ${10 * glowIntensity}px hsl(var(--primary) / ${0.25 * glowIntensity}), 0 0 ${90 * glowIntensity}px ${18 * glowIntensity}px hsl(var(--primary) / ${0.12 * glowIntensity})`,
       }}
     >
       {isLive && (
@@ -72,52 +77,85 @@ const ProjectCardDetailed = ({
           ))}
         </div>
         <h3 className="text-3xl font-display font-bold mb-4">{name}</h3>
-        <p
-          className={`text-muted-foreground mb-6 leading-relaxed text-sm ${
-            expandedProject !== name ? "line-clamp-3" : ""
-          }`}
-        >
+        <p className="text-muted-foreground mb-6 leading-relaxed text-sm line-clamp-3">
           {overview}
         </p>
 
-        {expandedProject === name && (
-          <div className="animate-slide-up space-y-6 mb-6">
-            <div>
-              <h4 className="text-xl font-display font-bold mb-3">
-                Responsibilities
-              </h4>
-              <ul className="list-disc list-inside space-y-2 text-muted-foreground text-sm">
-                {responsibilities.map((resp, respIndex) => (
-                  <li key={respIndex}>{resp}</li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-xl font-display font-bold mb-3">
-                Achievements
-              </h4>
-              <ul className="list-disc list-inside space-y-2 text-muted-foreground text-sm">
-                {achievements.map((ach, achIndex) => (
-                  <li key={achIndex}>{ach}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        )}
-
         <div className="flex flex-wrap gap-3 mt-auto">
-          <Button
-            onClick={(e) => {
-              e.stopPropagation();
-              onToggle(name);
-            }}
-            variant="default"
-            size="sm"
-            className="rounded-full"
-          >
-            {expandedProject === name ? "See Less" : "View Details"}
-          </Button>
-          {link && (
+          <Drawer>
+            <DrawerTrigger asChild>
+              <Button variant="default" size="sm" className="rounded-full">
+                View Details
+              </Button>
+            </DrawerTrigger>
+            <DrawerContent className="max-h-[90vh]">
+              <div className="mx-auto w-full max-w-3xl overflow-y-auto px-6 pb-10">
+                <DrawerHeader className="px-0">
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {tags.map((tag, tagIndex) => (
+                      <span
+                        key={tagIndex}
+                        className="text-xs px-3 py-1 rounded-full glass text-foreground border border-border"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <DrawerTitle className="text-3xl md:text-4xl font-display font-bold text-left">
+                    {name}
+                  </DrawerTitle>
+                </DrawerHeader>
+
+                {image && (
+                  <div className="aspect-video overflow-hidden bg-muted rounded-2xl mb-6">
+                    <img
+                      src={image}
+                      alt={name}
+                      className="w-full h-full object-cover object-top"
+                    />
+                  </div>
+                )}
+
+                <p className="text-muted-foreground mb-8 leading-relaxed">
+                  {overview}
+                </p>
+
+                <div className="space-y-8">
+                  <div>
+                    <h4 className="text-xl font-display font-bold mb-3">
+                      Responsibilities
+                    </h4>
+                    <ul className="list-disc list-inside space-y-2 text-muted-foreground text-sm">
+                      {responsibilities.map((resp, respIndex) => (
+                        <li key={respIndex}>{resp}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-display font-bold mb-3">
+                      Achievements
+                    </h4>
+                    <ul className="list-disc list-inside space-y-2 text-muted-foreground text-sm">
+                      {achievements.map((ach, achIndex) => (
+                        <li key={achIndex}>{ach}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {link && link !== "#" && (
+                  <div className="mt-8">
+                    <Button asChild variant="default" size="sm" className="rounded-full">
+                      <a href={link} target="_blank" rel="noopener noreferrer">
+                        Visit Site →
+                      </a>
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </DrawerContent>
+          </Drawer>
+          {link && link !== "#" && (
             <Button asChild variant="ghost" size="sm" className="rounded-full hover:bg-primary/20 hover:text-foreground">
               <a href={link} target="_blank" rel="noopener noreferrer">
                 Visit Site →
