@@ -123,7 +123,7 @@ const projectsData = [
     tags: ["AI Design", "DevTools"],
     link: "https://vibestacks.pro",
     image: vibestackImage,
-    isLive: true,
+    isLive: false,
     overview:
       "VibeStack is a design-system generator for vibe coders. In one prompt, it mixes 200k+ icons, curated palettes, font pairings, atmospheres, and layout styles into a cohesive theme you can drop into any AI-built app, so prototypes stop looking generic.",
     responsibilities: [
