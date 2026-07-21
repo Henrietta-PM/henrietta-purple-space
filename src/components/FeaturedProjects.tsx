@@ -32,7 +32,7 @@ const projects = [
   {
     name: "Targett",
     tags: ["AI Search", "SEO"],
-    link: "https://www.targett.app",
+    link: "https://targett-ai.lovable.app",
     image: targettImage,
     isLive: true,
     overview:
