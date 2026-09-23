@@ -33,6 +33,10 @@ const Letter = () => {
                 <div
                   ref={envelopeRef as any}
                   onClick={() => setIsOpen(true)}
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Open the letter from Henrietta"
+                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setIsOpen(true); } }}
                   className="cursor-pointer group"
                   style={{ opacity: envelopeOpacity, transform: `translateY(${envelopeTranslateY}px)` }}
                 >
