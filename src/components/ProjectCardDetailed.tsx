@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { X } from "lucide-react";
 import { useScrollFade } from "@/hooks/use-scroll-fade";
 import { useScrollGlow } from "@/hooks/use-scroll-glow";
 import {
@@ -7,6 +8,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
+  DrawerClose,
 } from "@/components/ui/drawer";
 
 interface ProjectCardDetailedProps {
@@ -89,6 +91,16 @@ const ProjectCardDetailed = ({
               </Button>
             </DrawerTrigger>
             <DrawerContent className="max-h-[90vh]">
+              <DrawerClose asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  aria-label="Close"
+                  className="hidden md:inline-flex absolute top-4 right-4 z-20 rounded-full"
+                >
+                  <X className="w-5 h-5" />
+                </Button>
+              </DrawerClose>
               <div className="mx-auto w-full max-w-3xl overflow-y-auto px-6 pb-10 flow-root">
                 {image && (
                   <div className="hidden md:block float-right ml-8 mb-4 mt-4 w-64 lg:w-72 aspect-square overflow-hidden bg-muted rounded-3xl">
