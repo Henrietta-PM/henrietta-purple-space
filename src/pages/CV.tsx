@@ -17,7 +17,7 @@ const timelineNodes = [
     highlights: [
       "Lead product strategy and delivery for AI-enabled healthcare and SaaS products across executives, clinicians, designers, engineers, and marketers",
       "Defined PRDs, user stories, acceptance criteria, and release plans for ProxyMedicine, StatWellMD, and Bloomie AI, enabling on-time launches of all three",
-      "Found ~80% of traffic was mobile, redesigned acquisition and onboarding, growing monthly consultations from ~25 to 70 and daily paying users from 0-1 to 3-5",
+      "Found ~80% of traffic was mobile, redesigned acquisition and onboarding, growing monthly consultations from ~25 to 112 and daily paying users from 0-1 to 5-9",
       "Designed an internal AI-powered SEO workflow that increased organic search clicks by 36%",
       "Contributed to healthcare IP later licensed for $120,000, forming the foundation of StatWellMD",
     ],
