@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Linkedin, Twitter, Instagram } from "lucide-react";
 
 const Footer = () => {
@@ -8,6 +9,9 @@ const Footer = () => {
           <p className="text-sm text-muted-foreground">
             © 2025 Henrietta Onwuneme. All rights reserved.
           </p>
+          <Link to="/portfolio-guide" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+            PM Portfolio Guide
+          </Link>
           
           <div className="flex gap-6">
             <a

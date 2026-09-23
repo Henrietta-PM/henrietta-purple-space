@@ -9,6 +9,7 @@
 - [CV](/cv): Professional summary, skills, tools, and experience timeline.
 - [Letter](/letter): A personal letter to a potential team or employer.
 - [Contact](/contact): Ways to get in touch and book a call.
+- [Portfolio Guide](/portfolio-guide): Product manager portfolio examples and tips using real case studies.
 
 ## Optional
 

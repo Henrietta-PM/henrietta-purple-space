@@ -68,6 +68,18 @@ const pages: Record<string, PageMeta> = {
     description:
       "Get in touch with Henrietta Onwuneme to discuss product roles, collaborations, or book a call.",
   },
+  "/portfolio-guide": {
+    title: "Product Manager Portfolio Examples | Henrietta Onwuneme",
+    description:
+      "Product manager portfolio examples and tips, with real case studies on outcomes, discovery insights, ownership, and side projects.",
+    schema: {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: "Product Manager Portfolio Examples",
+      author: person,
+      url: `${BASE_URL}/portfolio-guide`,
+    },
+  },
   "/shop": {
     title: "Shop | Henrietta Onwuneme",
     description: "Digital products and resources created by Henrietta Onwuneme, Product Manager.",
