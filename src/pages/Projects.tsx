@@ -207,7 +207,7 @@ const Projects = () => {
             style={{ opacity: headerOpacity, transform: `translateY(${headerTranslateY}px)` }}
           >
             <h1 className="text-5xl md:text-6xl font-display font-bold mb-4">
-              <span className="font-handwritten text-primary-visible">Projects</span>
+              Product <span className="font-handwritten text-primary-visible">Projects</span>
             </h1>
             <p className="text-sm text-muted-foreground max-w-2xl">
               A collection of products I've built and nurtured across EdTech, HealthTech, and beyond

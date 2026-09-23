@@ -52,6 +52,7 @@ const Navigation = () => {
               
               <Button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                aria-label="Toggle dark mode"
                 size="icon"
                 className="w-8 h-8 lg:w-9 lg:h-9 rounded-full hover:bg-primary/20 transition-all"
                 variant="ghost"
@@ -97,6 +98,7 @@ const Navigation = () => {
           
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                aria-label="Toggle dark mode"
             className="flex items-center justify-center px-1 py-1.5 rounded-[1.25rem] transition-all text-primary-visible hover:text-white flex-shrink-0"
           >
             {theme === "dark" ? (

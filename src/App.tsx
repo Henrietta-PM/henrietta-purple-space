@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import AnnouncementBanner from "./components/AnnouncementBanner";
 import ScrollToTop from "./components/ScrollToTop";
+import RouteSeo from "./components/RouteSeo";
 import Index from "./pages/Index";
 import Projects from "./pages/Projects";
 import CV from "./pages/CV";
@@ -24,6 +25,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
+          <RouteSeo />
           <AnnouncementBanner />
           <Routes>
             <Route path="/" element={<Index />} />

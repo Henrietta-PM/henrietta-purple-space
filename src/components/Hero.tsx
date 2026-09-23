@@ -64,7 +64,7 @@ const Hero = () => {
           <img
             key={index}
             src={image}
-            alt={`Henrietta Hero ${index + 1}`}
+            alt={`Henrietta Onwuneme portrait ${index + 1}`}
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
               index === currentImage ? "opacity-100" : "opacity-0"
             }`}
@@ -95,7 +95,7 @@ const Hero = () => {
           >
             <img
               src={sallyLogo}
-              alt="Sally"
+              alt="Sally app logo"
               className="w-5 h-5 md:w-6 md:h-6 object-contain flex-shrink-0 rounded"
             />
             <span className="text-xs md:text-sm font-bold text-foreground dark:text-white">Sally</span>
@@ -180,7 +180,7 @@ const Hero = () => {
             <Link to="/cv" className="flex items-center gap-2">
               <img
                 src={portraitImage}
-                alt="Henrietta"
+                alt="Henrietta Onwuneme portrait"
                 className="w-6 h-6 md:w-8 md:h-8 rounded-full object-cover flex-shrink-0 -ml-1"
               />
               <span className="whitespace-nowrap">About - Henrietta O.</span>

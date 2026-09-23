@@ -1,0 +1,15 @@
+# Henrietta Onwuneme, Product Manager
+
+> Portfolio of Henrietta Onwuneme, a Product Manager with 3+ years delivering AI-enabled healthcare, SaaS, and EdTech products from discovery through launch.
+
+## Pages
+
+- [Home](/): Overview, impact metrics, featured work, and how Henrietta works.
+- [Projects](/projects): Case studies including ProxyMedicine, Bloomie AI, Sally, Targett, VibeStack, and a public-sector attendance platform.
+- [CV](/cv): Professional summary, skills, tools, and experience timeline.
+- [Letter](/letter): A personal letter to a potential team or employer.
+- [Contact](/contact): Ways to get in touch and book a call.
+
+## Optional
+
+- [Shop](/shop): Digital products and resources.
