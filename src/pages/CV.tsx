@@ -113,6 +113,7 @@ const skillCategories = {
     "Data-driven Decisions",
     "Strategic Thinking",
     "Communication",
+    "Stakeholder Management",
     "Problem Solving",
     "Creative Eyesight",
   ],
@@ -130,6 +131,14 @@ const skillCategories = {
     "Data Analytics",
     "Agile Frameworks",
     "Scrum Methodologies",
+    "Product Discovery",
+    "Backlog Prioritization",
+    "Acceptance Criteria",
+    "Sprint Planning",
+    "Funnel Optimization",
+    "SEO",
+    "Prompt Engineering",
+    "AI Product Development",
   ],
   tools: [
     "Figma",
@@ -143,6 +152,8 @@ const skillCategories = {
     "CursorAI",
     "GitHub",
     "Whimsical",
+    "Claude",
+    "Lovable",
   ],
 };
 
