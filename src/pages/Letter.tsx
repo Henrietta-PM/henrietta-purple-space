@@ -20,7 +20,7 @@ const Letter = () => {
             style={{ opacity: headerOpacity, transform: `translateY(${headerTranslateY}px)` }}
           >
             <h1 className="text-5xl md:text-6xl font-display font-bold mb-4">
-              <span className="font-handwritten text-primary-visible">Letter</span>
+              A <span className="font-handwritten text-primary-visible">Letter</span> to My Future Team
             </h1>
             <p className="text-sm text-muted-foreground max-w-2xl">
               To my next team and Employer
@@ -33,6 +33,10 @@ const Letter = () => {
                 <div
                   ref={envelopeRef as any}
                   onClick={() => setIsOpen(true)}
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Open the letter from Henrietta"
+                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setIsOpen(true); } }}
                   className="cursor-pointer group"
                   style={{ opacity: envelopeOpacity, transform: `translateY(${envelopeTranslateY}px)` }}
                 >

@@ -13,6 +13,7 @@ const FloatingActionButton = () => {
       <div className={`fixed ${isMobile ? 'bottom-24 right-6' : 'bottom-8 right-8'} z-[9999]`}>
         <Button
           onClick={() => setShowHeartModal(true)}
+          aria-label="Send Henrietta a heart"
           size="icon"
           className="w-14 h-14 rounded-full glass shadow-xl hover:shadow-2xl transition-all duration-300 active:scale-95"
         >
