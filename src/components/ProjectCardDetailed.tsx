@@ -89,7 +89,16 @@ const ProjectCardDetailed = ({
               </Button>
             </DrawerTrigger>
             <DrawerContent className="max-h-[90vh]">
-              <div className="mx-auto w-full max-w-3xl overflow-y-auto px-6 pb-10">
+              <div className="mx-auto w-full max-w-3xl overflow-y-auto px-6 pb-10 flow-root">
+                {image && (
+                  <div className="hidden md:block float-right ml-8 mb-4 mt-4 w-64 lg:w-72 aspect-square overflow-hidden bg-muted rounded-3xl">
+                    <img
+                      src={image}
+                      alt={name}
+                      className="w-full h-full object-cover object-top"
+                    />
+                  </div>
+                )}
                 <DrawerHeader className="px-0">
                   <div className="flex flex-wrap gap-2 mb-3">
                     {tags.map((tag, tagIndex) => (
@@ -107,7 +116,7 @@ const ProjectCardDetailed = ({
                 </DrawerHeader>
 
                 {image && (
-                  <div className="aspect-video overflow-hidden bg-muted rounded-2xl mb-6">
+                  <div className="md:hidden aspect-video overflow-hidden bg-muted rounded-2xl mb-6">
                     <img
                       src={image}
                       alt={name}
