@@ -11,6 +11,18 @@ import { HIRE_CALENDAR_URL, openHireCalendar } from "@/lib/booking";
 
 const timelineNodes = [
   {
+    title: "Demz Analytics",
+    role: "Product Manager",
+    dates: "2024 – Present",
+    highlights: [
+      "Lead product strategy and delivery for AI-enabled healthcare and SaaS products across executives, clinicians, designers, engineers, and marketers",
+      "Defined PRDs, user stories, acceptance criteria, and release plans for ProxyMedicine, StatWellMD, and Bloomie AI, enabling on-time launches of all three",
+      "Found ~80% of traffic was mobile, redesigned acquisition and onboarding, growing monthly consultations from ~25 to 70 and daily paying users from 0-1 to 3-5",
+      "Designed an internal AI-powered SEO workflow that increased organic search clicks by 36%",
+      "Contributed to healthcare IP later licensed for $120,000, forming the foundation of StatWellMD",
+    ],
+  },
+  {
     title: "StatWellMD",
     role: "Product Manager",
     dates: "Sep 2025 – Current",
@@ -27,8 +39,8 @@ const timelineNodes = [
     dates: "Feb 2025 – Current",
     url: "www.prxy.health",
     highlights: [
-      "Led development and launch of an AI-powered telehealth platform, increasing patient satisfaction by 60%",
-      "Directed the product launch process, contributing to the successful sale of the company's IP valued at $600,000",
+      "Led development and launch of an AI-powered telehealth platform supporting 500+ patients and 310+ completed encounters, increasing patient satisfaction by 60%",
+      "Directed the product launch process, contributing to healthcare IP later licensed for $120,000",
       "Facilitated the product roadmap with defined milestones, resulting in a 25% faster time to market",
       "Conducted 5+ user interviews weekly to inform data-driven product decisions",
     ],
@@ -186,12 +198,16 @@ const CV = () => {
               <h2 className="text-3xl font-display font-bold mb-4">Professional Summary</h2>
               <ul className="text-muted-foreground leading-relaxed space-y-2 list-disc list-inside">
                 <li>
-                  Product Manager with 3+ years of experience leading the launch of AI-driven products across 5+ product
-                  lines, including telehealth, SaaS, and EdTech.
+                  Product Manager with 3+ years of experience delivering AI-enabled healthcare and SaaS products from
+                  discovery through launch, across 5+ product lines including telehealth, SaaS, and EdTech.
                 </li>
                 <li>
-                  Skilled in leveraging AI and agile practices to drive cross-functional collaboration and reduce
-                  product development delays by 15%.
+                  Skilled in customer discovery, roadmap planning, user stories, backlog prioritization, cross-functional
+                  delivery, and analytics-driven product improvement.
+                </li>
+                <li>
+                  Experienced with AI tools including Claude, ChatGPT, Cursor, and Lovable, turning user feedback and data
+                  into clear requirements and practical product improvements.
                 </li>
                 <li>Holds a BSc in Architecture, providing a solid foundation in human-centered design.</li>
               </ul>

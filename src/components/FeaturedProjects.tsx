@@ -45,9 +45,10 @@ const projects = [
       "Coordinated cross-functional efforts across engineering, design, and marketing.",
     ],
     achievements: [
-      "Launched MVP with full AI search tracking and optimization features.",
+      "Onboarded 50+ users actively running AI discoverability audits.",
+      "Increased AI discoverability score from 44 to 98 in two weeks.",
+      "Reduced optimization work from days to minutes through automated audits and recommendations.",
       "Built a platform covering 6+ major AI search engines.",
-      "Delivered actionable insights for businesses to improve AI search visibility.",
     ],
   },
   {
@@ -66,6 +67,8 @@ const projects = [
       "Scoped and coordinated delivery of admin portal modules including billing, upsell prompts, and meeting transcript reviews.",
     ],
     achievements: [
+      "Supported 500+ patients, including 387 urgent-care users, 233 weight-loss patients, and 310+ completed encounters.",
+      "Grew monthly consultations from about 25 to 70 and daily paying users from 0-1 to 3-5 by redesigning the mobile onboarding journey.",
       "Increased patient satisfaction by 60% within the first quarter of launch.",
       "Delivered roadmap 25% faster than initial estimates.",
       "Reduced reported defects by 15% by strengthening PRD clarity and QA processes.",
