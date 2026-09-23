@@ -68,7 +68,7 @@ const projects = [
     ],
     achievements: [
       "Supported 500+ patients, including 387 urgent-care users, 233 weight-loss patients, and 310+ completed encounters.",
-      "Grew monthly consultations from about 25 to 70 and daily paying users from 0-1 to 3-5 by redesigning the mobile onboarding journey.",
+      "Grew monthly consultations from about 25 to 112 and daily paying users from 0-1 to 5-9 by redesigning the mobile onboarding journey.",
       "Increased patient satisfaction by 60% within the first quarter of launch.",
       "Delivered roadmap 25% faster than initial estimates.",
       "Reduced reported defects by 15% by strengthening PRD clarity and QA processes.",
