@@ -103,7 +103,7 @@ const ProjectCardDetailed = ({
               </DrawerClose>
               <div className="mx-auto w-full max-w-3xl overflow-y-auto px-6 pb-10 flow-root">
                 {image && (
-                  <div className="hidden md:block float-right ml-8 mb-4 mt-4 w-64 lg:w-72 aspect-square overflow-hidden bg-muted rounded-3xl">
+                  <div className="hidden md:block float-right ml-8 mb-4 mt-14 w-72 lg:w-80 aspect-video overflow-hidden bg-muted rounded-2xl">
                     <img
                       src={image}
                       alt={name}
