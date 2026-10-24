@@ -137,49 +137,32 @@ const ProjectCardDetailed = ({
                   </div>
                 )}
 
-                {caseStudy ? (
-                  <div className="space-y-8">
-                    <CaseSection title="What it is" paragraphs={[overview]} />
-                    <CaseSection title="The problem" paragraphs={caseStudy.problem} />
-                    <CaseSection title="What I did" paragraphs={caseStudy.whatIDid} />
-                    <CaseSection title="The strategy" paragraphs={caseStudy.strategy} />
-                    <div>
-                      <h4 className="text-xl font-display font-bold mb-3">Outcome</h4>
-                      <ul className="list-disc list-inside space-y-2 text-muted-foreground text-sm">
-                        {caseStudy.outcome.map((item) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
-                    </div>
-                    <CaseSection title="Stack and tools" paragraphs={[caseStudy.stack]} />
+                <p className="text-muted-foreground mb-8 leading-relaxed">
+                  {overview}
+                </p>
+
+                <div className="space-y-8">
+                  <div>
+                    <h4 className="text-xl font-display font-bold mb-3">
+                      Responsibilities
+                    </h4>
+                    <ul className="list-disc list-inside space-y-2 text-muted-foreground text-sm">
+                      {responsibilities.map((resp, respIndex) => (
+                        <li key={respIndex}>{resp}</li>
+                      ))}
+                    </ul>
                   </div>
-                ) : (
-                  <>
-                    <p className="text-muted-foreground mb-8 leading-relaxed">{overview}</p>
-                    <div className="space-y-8">
-                      {responsibilities && responsibilities.length > 0 && (
-                        <div>
-                          <h4 className="text-xl font-display font-bold mb-3">Responsibilities</h4>
-                          <ul className="list-disc list-inside space-y-2 text-muted-foreground text-sm">
-                            {responsibilities.map((resp) => (
-                              <li key={resp}>{resp}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                      {achievements && achievements.length > 0 && (
-                        <div>
-                          <h4 className="text-xl font-display font-bold mb-3">Achievements</h4>
-                          <ul className="list-disc list-inside space-y-2 text-muted-foreground text-sm">
-                            {achievements.map((ach) => (
-                              <li key={ach}>{ach}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    </div>
-                  </>
-                )}
+                  <div>
+                    <h4 className="text-xl font-display font-bold mb-3">
+                      Achievements
+                    </h4>
+                    <ul className="list-disc list-inside space-y-2 text-muted-foreground text-sm">
+                      {achievements.map((ach, achIndex) => (
+                        <li key={achIndex}>{ach}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
 
                 {link && link !== "#" && (
                   <div className="mt-8">
