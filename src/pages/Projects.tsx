@@ -1,200 +1,18 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
 import { Calendar, Lightbulb, Mail } from "lucide-react";
-import bloomieImage from "@/assets/bloomie-logo.png";
-import vibestackImage from "@/assets/vibestack-preview.jpg";
-import sallyImage from "@/assets/sally-preview.jpg";
 import ProjectCardDetailed from "@/components/ProjectCardDetailed";
 import { useScrollFade } from "@/hooks/use-scroll-fade";
-import proxyImage from "@/assets/proxy-preview.jpg";
-import syncuImage from "@/assets/syncu-preview.png";
-import careerpassImage from "@/assets/careerpass-preview.png";
-import targettImage from "@/assets/targett-preview-new.png";
-import nyscImage from "@/assets/nysc-preview.png";
+import { projectsData } from "@/data/projects";
 import FloatingActionButton from "@/components/FloatingActionButton";
 import { HIRE_CALENDAR_URL, openHireCalendar } from "@/lib/booking";
 
-const projectsData = [
-  {
-    name: "Sally",
-    tags: ["AI", "Personal Branding"],
-    link: "https://heysally.app",
-    image: sallyImage,
-    isLive: false,
-    overview:
-      "Sally is an AI personal brand manager. You share your day with a quick voice note or a line of text, and Sally turns it into on-brand posts that sound like you, then schedules and publishes them across LinkedIn and TikTok so you stay consistently visible.",
-    responsibilities: [
-      "Planned and shipped the product end-to-end on Lovable: scoping, design, build, and launch.",
-      "Connected the full stack: authentication, Stripe payments, Resend transactional emails, and product analytics.",
-      "Designed the voice-to-post engine that learns each user's tone and generates platform-tuned drafts.",
-      "Built approval and autopilot flows so users can review every draft or let Sally run on its own.",
-      "Owned the GTM motion: landing page, tiered pricing, and onboarding flows.",
-    ],
-    achievements: [
-      "Took the product from idea to live, paying-ready launch solo using Lovable.",
-      "Integrated payments, emails, and analytics without a separate engineering team.",
-      "Shipped smart scheduling and autopilot posting across LinkedIn and TikTok.",
-    ],
-  },
-  {
-    name: "Bloomie AI",
-    tags: ["EdTech"],
-    link: "https://learn.bloomie.com",
-    image: bloomieImage,
-    isLive: true,
-    overview:
-      "Bloomie AI is a personalized learning platform for children, using AI to deliver adaptive lessons and engaging progress dashboards.",
-    responsibilities: [
-      "Defined MVP scope and prioritized features for initial launch.",
-      "Wrote PRDs and broke user stories into actionable tasks for development.",
-      "Conducted A/B tests on onboarding flows and content delivery methods.",
-      "Led UX research sessions to ensure usability for children and parents.",
-      "Collaborated with data analysts to design engagement and retention tracking metrics.",
-    ],
-    achievements: [
-      "Achieved 80% daily adoption rates within the first 3 months.",
-      "Improved retention by 45% through iterative testing and refinement.",
-      "Established scalable frameworks for future content and AI personalization.",
-    ],
-  },
-  {
-    name: "ProxyMedicine",
-    tags: ["Telehealth", "HealthTech"],
-    link: "https://www.prxy.health",
-    image: proxyImage,
-    isLive: true,
-    overview:
-      "ProxyMedicine is a telehealth platform that combines asynchronous care with AI-driven tools. It offers AI-powered diagnosis suggestions, prescription refills, weight loss tracking, and personalized diet/meal generation.",
-    responsibilities: [
-      "Created detailed PRDs and refined user flows for AI diagnosis, weight management, and meal generation features.",
-      "Collaborated with design team to ensure usability of patient dashboards and AI chatbot.",
-      "Led weekly user interviews to validate new features and prioritize backlog.",
-      "Worked closely with engineering to optimize delivery, reducing redundant workflows.",
-      "Scoped and coordinated delivery of admin portal modules including billing, upsell prompts, and meeting transcript reviews.",
-    ],
-    achievements: [
-      "Supported 500+ patients, including 387 urgent-care users, 233 weight-loss patients, and 310+ completed encounters.",
-      "Grew monthly consultations from about 25 to 112 and daily paying users from 0-1 to 5-9 by redesigning the mobile onboarding journey.",
-      "Increased patient satisfaction by 60% within the first quarter of launch.",
-      "Delivered roadmap 25% faster than initial estimates.",
-      "Reduced reported defects by 15% by strengthening PRD clarity and QA processes.",
-    ],
-  },
-  {
-    name: "VibeStack",
-    tags: ["AI Design", "DevTools"],
-    link: "https://vibestacks.pro",
-    image: vibestackImage,
-    isLive: false,
-    overview:
-      "VibeStack is a design-system generator for vibe coders. In one prompt, it mixes 200k+ icons, curated palettes, font pairings, atmospheres, and layout styles into a cohesive theme you can drop into any AI-built app, so prototypes stop looking generic.",
-    responsibilities: [
-      "Planned and shipped the product end-to-end on Lovable, scoping, design, build, and launch.",
-      "Connected the full stack: authentication, Stripe payments, Resend transactional emails, and product analytics.",
-      "Designed the prompt-to-theme engine covering icon packs (Lucide, Phosphor, Tabler), palettes, fonts, and atmospheres.",
-      "Built live theme previews so users can see styles applied to a real UI before exporting.",
-      "Owned the GTM motion: landing page, pricing, and onboarding flows.",
-    ],
-    achievements: [
-      "Took the product from idea to live, paying-ready launch solo using Lovable.",
-      "Integrated payments, emails, and analytics without a separate engineering team.",
-      "Curated 6 palettes, 6 font pairings, 5 atmospheres, and 200k+ icons into a single picker.",
-    ],
-  },
-  {
-    name: "Targett",
-    tags: ["AI Search", "SEO"],
-    image: targettImage,
-    link: "https://targett-ai.lovable.app",
-    isLive: false,
-    overview:
-      "Targett is an AI-powered search optimization platform that helps businesses improve their visibility across AI search engines like ChatGPT, Perplexity, and Google AI Overviews. Planned and built end-to-end on Lovable with Stripe payments, Resend emails, and analytics fully integrated.",
-    responsibilities: [
-      "Defined product vision and roadmap for AI search optimization tooling.",
-      "Led end-to-end product development on Lovable, from concept to launch.",
-      "Designed the PRD framework covering brand tracking, competitor analysis, and AI-optimized content generation.",
-      "Connected Stripe payments, Resend transactional emails, and product analytics into the platform.",
-      "Coordinated cross-functional efforts across engineering, design, and marketing.",
-    ],
-    achievements: [
-      "Onboarded 50+ users actively running AI discoverability audits.",
-      "Increased AI discoverability score from 44 to 98 in two weeks.",
-      "Reduced optimization work from days to minutes through automated audits and recommendations.",
-      "Built a platform covering 6+ major AI search engines.",
-    ],
-  },
-  {
-    name: "NYSC Attendance System",
-    tags: ["GovTech", "Attendance"],
-    link: "#",
-    image: nyscImage,
-    isLive: false,
-    overview:
-      "A QR-based attendance and check-in management system for NYSC corps members, enabling real-time tracking, admin dashboards, and streamlined reporting for community development service.",
-    responsibilities: [
-      "Scoped and managed the full product lifecycle from ideation to deployment.",
-      "Designed user flows for QR-based check-in and admin management.",
-      "Created PRDs and coordinated development sprints.",
-      "Led testing and iteration cycles based on user feedback.",
-    ],
-    achievements: [
-      "Over 45,000 check-ins made through the platform.",
-      "5,600+ registered users with approximately 2,800 daily active users.",
-      "Managed live iterations and real-time problem solving during active deployment.",
-      "Streamlined attendance tracking with QR code-based check-ins, significantly reducing manual processing time.",
-    ],
-  },
-  {
-    name: "Syncu",
-    tags: ["Community", "Collaboration"],
-    link: "https://www.linkedin.com/company/sync-u/",
-    image: syncuImage,
-    overview:
-      "Syncu is a community platform that connects tech professionals to collaborate on product ideas. It enables hands-on experience, real-time portfolio building, and project-based team formation.",
-    responsibilities: [
-      "Designed platform vision and roadmap to support collaborative projects.",
-      "Grew the community to 250+ members through outreach and engagement.",
-      "Facilitated 10+ collaborations by connecting professionals with aligned goals.",
-      "Oversaw waitlist operations, managing 530+ potential users.",
-    ],
-    achievements: [
-      "Built and scaled a community of 250+ members.",
-      "Enabled 10+ active product collaborations.",
-      "Grew waitlist to 530+ users within launch window.",
-    ],
-  },
-  {
-    name: "CareerPASS",
-    tags: ["Psychometrics", "Career Guidance"],
-    link: "https://career-pass.vercel.app/",
-    image: careerpassImage,
-    overview:
-      "CareerPASS is a psychometric analysis and career recommendation platform. It helps students discover career paths aligned with their strengths through personality and skill assessments.",
-    responsibilities: [
-      "Scoped and managed end-to-end development of the MVP within 8 weeks.",
-      "Created PRDs and coordinated efforts across data analysts, developers, and designers.",
-      "Implemented Trello workflows to track deliverables and dependencies.",
-      "Oversaw integration of psychometric models into the platform.",
-    ],
-    achievements: [
-      "Delivered MVP on time with full functionality within 8 weeks.",
-      "Selected as a Top 5 project at a major career showcase.",
-      "Enabled 1,000+ students to access career assessments during pilot.",
-    ],
-  },
-];
-
 const Projects = () => {
-  const [expandedProject, setExpandedProject] = useState<string | null>(null);
-  const { ref: headerRef, opacity: headerOpacity, translateY: headerTranslateY } = useScrollFade();
+    const { ref: headerRef, opacity: headerOpacity, translateY: headerTranslateY } = useScrollFade();
   const { ref: hireCardRef, opacity: hireOpacity, translateY: hireTranslateY } = useScrollFade();
   const { ref: sideHeaderRef, opacity: sideHeaderOpacity, translateY: sideHeaderTranslateY } = useScrollFade();
 
-  const toggleProject = (projectName: string) => {
-    setExpandedProject(expandedProject === projectName ? null : projectName);
-  };
 
   return (
     <div className="min-h-screen pb-20 md:pb-0">
@@ -216,23 +34,11 @@ const Projects = () => {
 
           {/* Live Projects Grid */}
           <div className="mb-16">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto items-start">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto items-stretch">
               {projectsData
                 .filter((p) => p.isLive)
                 .map((project, index) => (
-                  <ProjectCardDetailed
-                    key={`live-${project.name}-${index}`}
-                    name={project.name}
-                    tags={project.tags}
-                    image={project.image}
-                    link={project.link}
-                    isLive={project.isLive}
-                    overview={project.overview}
-                    responsibilities={project.responsibilities}
-                    achievements={project.achievements}
-                    expandedProject={expandedProject}
-                    onToggle={toggleProject}
-                  />
+                  <ProjectCardDetailed key={`live-${project.name}-${index}`} project={project} />
                 ))}
 
               {/* Empty Card for Hire */}
@@ -299,22 +105,11 @@ const Projects = () => {
           </div>
 
           {/* Side Projects Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto items-start">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto items-stretch">
             {projectsData
               .filter((p) => !p.isLive)
               .map((project, index) => (
-                <ProjectCardDetailed
-                  key={`side-${project.name}-${index}`}
-                  name={project.name}
-                  tags={project.tags}
-                  image={project.image}
-                  link={project.link}
-                  overview={project.overview}
-                  responsibilities={project.responsibilities}
-                  achievements={project.achievements}
-                  expandedProject={expandedProject}
-                  onToggle={toggleProject}
-                />
+                <ProjectCardDetailed key={`side-${project.name}-${index}`} project={project} />
               ))}
           </div>
         </div>

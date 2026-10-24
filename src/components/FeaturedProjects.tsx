@@ -1,88 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import ProjectCardDetailed from "./ProjectCardDetailed";
-import proxyImage from "@/assets/proxy-preview.jpg";
-import sallyImage from "@/assets/sally-preview.jpg";
-import targettImage from "@/assets/targett-preview-new.png";
-
-const projects = [
-  {
-    name: "Sally",
-    tags: ["AI", "Personal Branding"],
-    link: "https://heysally.app",
-    image: sallyImage,
-    isLive: true,
-    overview:
-      "Sally is an AI personal brand manager. You share your day with a quick voice note or a line of text, and Sally turns it into on-brand posts that sound like you, then schedules and publishes them across LinkedIn and TikTok so you stay consistently visible.",
-    responsibilities: [
-      "Planned and shipped the product end-to-end on Lovable: scoping, design, build, and launch.",
-      "Connected the full stack: authentication, Stripe payments, Resend transactional emails, and product analytics.",
-      "Designed the voice-to-post engine that learns each user's tone and generates platform-tuned drafts.",
-      "Built approval and autopilot flows so users can review every draft or let Sally run on its own.",
-      "Owned the GTM motion: landing page, tiered pricing, and onboarding flows.",
-    ],
-    achievements: [
-      "Took the product from idea to live, paying-ready launch solo using Lovable.",
-      "Integrated payments, emails, and analytics without a separate engineering team.",
-      "Shipped smart scheduling and autopilot posting across LinkedIn and TikTok.",
-    ],
-  },
-  {
-    name: "Targett",
-    tags: ["AI Search", "SEO"],
-    link: "https://targett-ai.lovable.app",
-    image: targettImage,
-    isLive: true,
-    overview:
-      "Targett is an AI-powered search optimization platform that helps businesses improve their visibility across AI search engines like ChatGPT, Perplexity, and Google AI Overviews. Planned and built end-to-end on Lovable with Stripe payments, Resend emails, and analytics fully integrated.",
-    responsibilities: [
-      "Defined product vision and roadmap for AI search optimization tooling.",
-      "Led end-to-end product development on Lovable, from concept to launch.",
-      "Designed the PRD framework covering brand tracking, competitor analysis, and AI-optimized content generation.",
-      "Connected Stripe payments, Resend transactional emails, and product analytics into the platform.",
-      "Coordinated cross-functional efforts across engineering, design, and marketing.",
-    ],
-    achievements: [
-      "Onboarded 50+ users actively running AI discoverability audits.",
-      "Increased AI discoverability score from 44 to 98 in two weeks.",
-      "Reduced optimization work from days to minutes through automated audits and recommendations.",
-      "Built a platform covering 6+ major AI search engines.",
-    ],
-  },
-  {
-    name: "ProxyMedicine",
-    tags: ["Telehealth", "HealthTech"],
-    link: "https://www.prxy.health",
-    image: proxyImage,
-    isLive: true,
-    overview:
-      "ProxyMedicine is a telehealth platform that combines asynchronous care with AI-driven tools. It offers AI-powered diagnosis suggestions, prescription refills, weight loss tracking, and personalized diet/meal generation.",
-    responsibilities: [
-      "Created detailed PRDs and refined user flows for AI diagnosis, weight management, and meal generation features.",
-      "Collaborated with design team to ensure usability of patient dashboards and AI chatbot.",
-      "Led weekly user interviews to validate new features and prioritize backlog.",
-      "Worked closely with engineering to optimize delivery, reducing redundant workflows.",
-      "Scoped and coordinated delivery of admin portal modules including billing, upsell prompts, and meeting transcript reviews.",
-    ],
-    achievements: [
-      "Supported 500+ patients, including 387 urgent-care users, 233 weight-loss patients, and 310+ completed encounters.",
-      "Grew monthly consultations from about 25 to 112 and daily paying users from 0-1 to 5-9 by redesigning the mobile onboarding journey.",
-      "Increased patient satisfaction by 60% within the first quarter of launch.",
-      "Delivered roadmap 25% faster than initial estimates.",
-      "Reduced reported defects by 15% by strengthening PRD clarity and QA processes.",
-    ],
-  },
-];
+import { featuredProjects as projects } from "@/data/projects";
 
 const FeaturedProjects = () => {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
-  const [expandedProject, setExpandedProject] = useState<string | null>(null);
 
-  const toggleProject = (name: string) => {
-    setExpandedProject(expandedProject === name ? null : name);
-  };
 
   return (
     <section className="py-8" ref={ref}>
@@ -100,21 +24,9 @@ const FeaturedProjects = () => {
             <Link to="/projects">View More Projects</Link>
           </Button>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl items-start">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl items-stretch">
           {projects.map((project) => (
-            <ProjectCardDetailed
-              key={project.name}
-              name={project.name}
-              tags={project.tags}
-              image={project.image}
-              link={project.link}
-              isLive={project.isLive}
-              overview={project.overview}
-              responsibilities={project.responsibilities}
-              achievements={project.achievements}
-              expandedProject={expandedProject}
-              onToggle={toggleProject}
-            />
+            <ProjectCardDetailed key={project.name} project={project} />
           ))}
         </div>
         <div className={`mt-12 text-center md:hidden transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
