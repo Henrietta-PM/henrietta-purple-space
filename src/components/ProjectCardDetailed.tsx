@@ -10,32 +10,33 @@ import {
   DrawerTrigger,
   DrawerClose,
 } from "@/components/ui/drawer";
+import type { Project } from "@/data/projects";
 
 interface ProjectCardDetailedProps {
-  name: string;
-  tags: string[];
-  image?: string;
-  link?: string;
-  isLive?: boolean;
-  overview: string;
-  responsibilities: string[];
-  achievements: string[];
-  expandedProject?: string | null;
-  onToggle?: (name: string) => void;
+  project: Project;
 }
 
-const ProjectCardDetailed = ({
-  name,
-  tags,
-  image,
-  link,
-  isLive,
-  overview,
-  responsibilities,
-  achievements,
-}: ProjectCardDetailedProps) => {
+const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <section>
+    <h4 className="text-xl font-display font-bold mb-3">{title}</h4>
+    {children}
+  </section>
+);
+
+const BulletList = ({ items }: { items: string[] }) => (
+  <ul className="list-disc list-inside space-y-2 text-muted-foreground text-sm">
+    {items.map((item, i) => (
+      <li key={i}>{item}</li>
+    ))}
+  </ul>
+);
+
+const ProjectCardDetailed = ({ project }: ProjectCardDetailedProps) => {
+  const { name, tags, image, link, isLive, overview, problem, whatIDid, strategy, outcome, stack, responsibilities, achievements } =
+    project;
   const { ref, opacity, translateY } = useScrollFade();
   const { ref: glowRef, glowIntensity } = useScrollGlow();
+  const hasLink = link && link !== "#";
 
   return (
     <div
@@ -45,7 +46,7 @@ const ProjectCardDetailed = ({
         // @ts-ignore
         glowRef.current = el;
       }}
-      className="glass overflow-hidden rounded-[1.5rem] transition-all duration-350 relative flex flex-col"
+      className="glass overflow-hidden rounded-[1.5rem] transition-all duration-350 relative flex flex-col h-full"
       style={{
         opacity,
         transform: `translateY(${translateY}px)`,
@@ -60,28 +61,24 @@ const ProjectCardDetailed = ({
       )}
       {image && (
         <div className="aspect-video overflow-hidden bg-muted">
-          <img
-            src={image}
-            alt={name}
-            className="w-full h-full object-cover object-top"
-          />
+          <img src={image} alt={`${name} preview`} className="w-full h-full object-cover object-top" />
         </div>
       )}
-      <div className="p-6 md:p-8 flex flex-col flex-1">
-        <div className="flex flex-wrap gap-2 mb-3">
+      <div className="p-6 md:p-8 flex flex-col flex-1 min-w-0">
+        <div className="flex flex-nowrap gap-2 mb-3 overflow-hidden">
           {tags.map((tag, tagIndex) => (
             <span
               key={tagIndex}
-              className="text-xs px-3 py-1 rounded-full glass text-foreground border border-border"
+              className="text-xs px-3 py-1 rounded-full glass text-foreground border border-border whitespace-nowrap"
             >
               {tag}
             </span>
           ))}
         </div>
-        <h3 className="text-3xl font-display font-bold mb-4">{name}</h3>
-        <p className="text-muted-foreground mb-6 leading-relaxed text-sm line-clamp-3">
-          {overview}
-        </p>
+        <h3 className="text-3xl font-display font-bold mb-4 truncate" title={name}>
+          {name}
+        </h3>
+        <p className="text-muted-foreground mb-6 leading-relaxed text-sm line-clamp-3">{overview}</p>
 
         <div className="flex flex-wrap gap-3 mt-auto">
           <Drawer>
@@ -104,11 +101,7 @@ const ProjectCardDetailed = ({
               <div className="mx-auto w-full max-w-3xl overflow-y-auto px-6 pb-10 flow-root">
                 {image && (
                   <div className="hidden md:block float-right ml-8 mb-4 mt-14 w-72 lg:w-80 aspect-video overflow-hidden bg-muted rounded-2xl">
-                    <img
-                      src={image}
-                      alt={name}
-                      className="w-full h-full object-cover object-top"
-                    />
+                    <img src={image} alt={`${name} preview`} className="w-full h-full object-cover object-top" />
                   </div>
                 )}
                 <DrawerHeader className="px-0">
@@ -122,49 +115,63 @@ const ProjectCardDetailed = ({
                       </span>
                     ))}
                   </div>
-                  <DrawerTitle className="text-3xl md:text-4xl font-display font-bold text-left">
-                    {name}
-                  </DrawerTitle>
+                  <DrawerTitle className="text-3xl md:text-4xl font-display font-bold text-left">{name}</DrawerTitle>
                 </DrawerHeader>
 
                 {image && (
                   <div className="md:hidden aspect-video overflow-hidden bg-muted rounded-2xl mb-6">
-                    <img
-                      src={image}
-                      alt={name}
-                      className="w-full h-full object-cover object-top"
-                    />
+                    <img src={image} alt={`${name} preview`} className="w-full h-full object-cover object-top" />
                   </div>
                 )}
 
-                <p className="text-muted-foreground mb-8 leading-relaxed">
-                  {overview}
-                </p>
-
                 <div className="space-y-8">
-                  <div>
-                    <h4 className="text-xl font-display font-bold mb-3">
-                      Responsibilities
-                    </h4>
-                    <ul className="list-disc list-inside space-y-2 text-muted-foreground text-sm">
-                      {responsibilities.map((resp, respIndex) => (
-                        <li key={respIndex}>{resp}</li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-display font-bold mb-3">
-                      Achievements
-                    </h4>
-                    <ul className="list-disc list-inside space-y-2 text-muted-foreground text-sm">
-                      {achievements.map((ach, achIndex) => (
-                        <li key={achIndex}>{ach}</li>
-                      ))}
-                    </ul>
-                  </div>
+                  <Section title="What it is">
+                    <p className="text-muted-foreground leading-relaxed text-sm">{overview}</p>
+                  </Section>
+                  {problem && (
+                    <Section title="The problem">
+                      <p className="text-muted-foreground leading-relaxed text-sm">{problem}</p>
+                    </Section>
+                  )}
+                  {whatIDid && (
+                    <Section title="What I did">
+                      <p className="text-muted-foreground leading-relaxed text-sm">{whatIDid}</p>
+                    </Section>
+                  )}
+                  {responsibilities && responsibilities.length > 0 && (
+                    <Section title="What I did">
+                      <BulletList items={responsibilities} />
+                    </Section>
+                  )}
+                  {strategy && strategy.length > 0 && (
+                    <Section title="The strategy">
+                      <div className="space-y-4">
+                        {strategy.map((para, i) => (
+                          <p key={i} className="text-muted-foreground leading-relaxed text-sm">
+                            {para}
+                          </p>
+                        ))}
+                      </div>
+                    </Section>
+                  )}
+                  {outcome && outcome.length > 0 && (
+                    <Section title="Outcome">
+                      <BulletList items={outcome} />
+                    </Section>
+                  )}
+                  {achievements && achievements.length > 0 && (
+                    <Section title="Outcome">
+                      <BulletList items={achievements} />
+                    </Section>
+                  )}
+                  {stack && (
+                    <Section title="Stack and tools">
+                      <p className="text-muted-foreground leading-relaxed text-sm">{stack}</p>
+                    </Section>
+                  )}
                 </div>
 
-                {link && link !== "#" && (
+                {hasLink && (
                   <div className="mt-8">
                     <Button asChild variant="default" size="sm" className="rounded-full">
                       <a href={link} target="_blank" rel="noopener noreferrer">
@@ -176,7 +183,7 @@ const ProjectCardDetailed = ({
               </div>
             </DrawerContent>
           </Drawer>
-          {link && link !== "#" && (
+          {hasLink && (
             <Button asChild variant="ghost" size="sm" className="rounded-full hover:bg-primary/20 hover:text-foreground">
               <a href={link} target="_blank" rel="noopener noreferrer">
                 Visit Site →
