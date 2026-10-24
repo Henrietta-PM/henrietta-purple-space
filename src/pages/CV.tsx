@@ -33,7 +33,7 @@ const timelineNodes = [
     highlights: [
       "Defined product scope, PRD, and technical documentation, driving development of an EHR-integrated telehealth MVP within 1 month",
       "Designed the entire platform using Cursor AI by prompting user flows from documentation to HTML and Tailwind CSS, reducing development time by 85%",
-      "Ensured alignment between technical teams and stakeholders to maintain product vision and roadmap coherence, resulting in a 75% faster time to market",
+      "Replicated and adapted the ProxyMedicine codebase to launch StatWellMD 70% faster, keeping technical teams and stakeholders aligned on the product vision and roadmap",
     ],
   },
   {
@@ -54,7 +54,7 @@ const timelineNodes = [
     dates: "Nov 2024 – May 2025",
     url: "learn.bloomie.com",
     highlights: [
-      "Delivered Bloomie AI MVP core features, adopted by 80% of users daily",
+      "Delivered Bloomie AI MVP core features, with 80% overall adoption of the AI tool",
       "Created detailed PRDs and user flows, accelerating development speed by 20%",
       "Drove data-informed product enhancements through A/B testing, boosting retention by 45%",
     ],
