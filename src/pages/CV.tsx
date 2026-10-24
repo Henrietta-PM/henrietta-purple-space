@@ -1,8 +1,9 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "lucide-react";
+import { Calendar, Download } from "lucide-react";
 import portraitImage from "@/assets/henrietta-portrait.jpg";
+import cvAsset from "@/assets/henrietta-cv.pdf.asset.json";
 import CVTimelineNode from "@/components/CVTimelineNode";
 import CVSkillCategory from "@/components/CVSkillCategory";
 import { useScrollFade } from "@/hooks/use-scroll-fade";
@@ -13,10 +14,12 @@ const timelineNodes = [
   {
     title: "Demz Analytics",
     role: "Product Manager",
-    dates: "2024 – Present",
+    dates: "May 2024 - Present",
     highlights: [
       "Lead product strategy and delivery for AI-enabled healthcare and SaaS products across executives, clinicians, designers, engineers, and marketers",
       "Defined PRDs, user stories, acceptance criteria, and release plans for ProxyMedicine, StatWellMD, and Bloomie AI, enabling on-time launches of all three",
+      "Defined and shipped LLM-powered clinical features, keeping workflows LegitScript compliant and HIPAA aligned alongside legal",
+      "Deployed AI agents into patient onboarding and moved identity verification and health-profile completion to immediately after checkout, improving completion and reducing clinician review delays",
       "Found about 80% of traffic was mobile, rebuilt acquisition and onboarding mobile first, and grew monthly consultations from about 52 to about 2x in month 1 and 2.5x within 2 months",
       "Designed an internal AI-powered SEO workflow that increased organic search clicks by 36%",
       "Contributed to healthcare IP later licensed for $120,000, forming the foundation of StatWellMD",
@@ -104,8 +107,8 @@ const timelineNodes = [
 const selectedWork = [
   { name: "Targett", line: "Raised an AI discoverability score from 44 to 98 in two weeks, with 50+ users onboarded through consultative discovery." },
   { name: "NYSC Attendance System", line: "Replaced a paper clearance process for a public-sector agency. 6,700+ registered users and about 3,200 daily active users." },
-  { name: "Sally", line: "AI personal brand manager with live LinkedIn and TikTok publishing. Launched June 2026 with zero ad spend." },
-  { name: "VibeStack", line: "Design-system generator for AI-built apps, shipped from zero to live solo." },
+  { name: "Sally", line: "AI personal brand manager with live LinkedIn and TikTok publishing. Launched June 2026 with zero ad spend. Scoped and shipped Paddle billing and Resend lifecycle email, and specified a pgvector long-term memory layer and an MCP server for external AI agents." },
+  { name: "VibeStack", line: "Design-system generator and prompt workspace for AI-built apps, shipped from zero to live solo using AI agents for prototyping, research and production code." },
 ];
 
 const skillCategories = {
@@ -140,6 +143,13 @@ const skillCategories = {
     "SEO",
     "Prompt Engineering",
     "AI Product Development",
+    "AI Product Strategy",
+    "AI Use-case Pipelines",
+    "LLM Feature Definition",
+    "Context Engineering",
+    "RAG",
+    "AI Agent Workflows",
+    "AI Production Deployment",
   ],
   tools: [
     "Figma",
@@ -155,6 +165,9 @@ const skillCategories = {
     "Whimsical",
     "Claude",
     "Lovable",
+    "Linear",
+    "Supabase",
+    "Mixpanel",
   ],
 };
 
@@ -193,12 +206,20 @@ const CV = () => {
                 </p>
               </div>
             </div>
-            <Button asChild size="lg" className="gap-2 w-full md:w-auto">
-              <a href={HIRE_CALENDAR_URL} target="_blank" rel="noopener noreferrer" onClick={openHireCalendar}>
-                <Calendar className="w-5 h-5" />
-                Hire Henrietta
-              </a>
-            </Button>
+            <div className="flex flex-col gap-3 md:items-end">
+              <Button asChild size="lg" className="gap-2 w-full md:w-auto">
+                <a href={HIRE_CALENDAR_URL} target="_blank" rel="noopener noreferrer" onClick={openHireCalendar}>
+                  <Calendar className="w-5 h-5" />
+                  Hire Henrietta
+                </a>
+              </Button>
+              <Button asChild variant="outline" className="gap-2 w-full md:w-auto">
+                <a href={cvAsset.url} download="Henrietta_Onwuneme_Product_Manager_CV.pdf">
+                  <Download className="w-4 h-4" />
+                  Download CV
+                </a>
+              </Button>
+            </div>
           </div>
 
           <div className="max-w-4xl mx-auto mb-16">
@@ -263,6 +284,18 @@ const CV = () => {
               <p className="text-primary font-semibold text-sm mb-1">BSc Architecture</p>
               <p className="text-xs text-muted-foreground mb-3">Jul 2018 – Jul 2024</p>
               <p className="text-sm text-muted-foreground">Strong foundation in human-centered design.</p>
+            </div>
+            <div className="mt-6 space-y-4">
+              <div>
+                <h3 className="text-xl font-display font-bold mb-1">Women Techsters Fellowship (Tech4Dev)</h3>
+                <p className="text-primary font-semibold text-sm mb-1">Product Management Fellowship</p>
+                <p className="text-xs text-muted-foreground">Oct 2023 - Oct 2024</p>
+              </div>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>Google Project Management Certificate (Coursera)</li>
+                <li>Alison Diploma in Project Management</li>
+                <li>ALX Virtual Assistant (Honours)</li>
+              </ul>
             </div>
           </div>
 
