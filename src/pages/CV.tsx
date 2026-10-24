@@ -41,7 +41,7 @@ const timelineNodes = [
     highlights: [
       "Took an AI-enabled telehealth platform from concept to production, scaling to 1,400 patients, 1,072 refill requests and 15 to 25 encounters daily",
       "Directed the product launch process, contributing to healthcare IP later licensed for $120,000",
-      "Facilitated the product roadmap with defined milestones, resulting in a 25% faster time to market",
+      "Planned subscription and pricing changes directly with engineering, driving a 35% increase in conversion",
       "Conducted 5+ user interviews weekly to inform data-driven product decisions",
     ],
   },
