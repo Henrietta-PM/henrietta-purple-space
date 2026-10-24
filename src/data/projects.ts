@@ -130,7 +130,7 @@ export const projectsData: Project[] = [
     image: vibestackImage,
     isLive: false,
     overview:
-      "VibeStack is a design-system generator for vibe coders. In one prompt it mixes 200k+ icons, curated palettes, font pairings, atmospheres and layout styles into a cohesive theme you can drop into any AI-built app, so prototypes stop looking generic.",
+      "VibeStack is a design-system generator and prompt workspace for vibe coders. In one prompt it mixes 200k+ icons, curated palettes, font pairings, atmospheres and layout styles into a cohesive theme you can drop into any AI-built app, so prototypes stop looking generic.",
     problem:
       "AI-built apps all look the same. The tools generate working code and default styling, so every prototype arrives wearing the same clothes.",
     whatIDid: "I shipped it from zero to live on my own.",
