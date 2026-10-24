@@ -1,0 +1,3 @@
+- [ ] Add and verify the uploaded CV download.
+- [ ] Add nonconflicting CV and project details without removing existing experience.
+- [ ] Ask Henrietta about conflicting metrics and contact details before changing them.
