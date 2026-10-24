@@ -1,0 +1,3 @@
+- [x] Add the uploaded CV download. Hosted PDF verified; local preview does not serve the asset gateway.
+- [x] Add nonconflicting CV and project details without removing existing experience.
+- [ ] Resolve StatWell speed, Bloomie daily adoption and contact email conflicts, waiting for Henrietta's confirmation.
