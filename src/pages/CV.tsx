@@ -229,13 +229,20 @@ const CV = () => {
               style={{ opacity: summaryOpacity, transform: `translateY(${summaryTranslateY}px)` }}
             >
               <h2 className="text-3xl font-display font-bold mb-4">Professional Overview</h2>
-              <p className="text-muted-foreground leading-relaxed">
-                Product Manager with 3+ years taking AI-enabled healthcare and SaaS products from discovery to
-                production. Owns the AI use-case pipeline, the PRDs and acceptance criteria behind LLM features, and
-                delivery alongside clinicians, engineers and designers. Launched three products, scaled a US telehealth
-                platform to 1,400 patients and 15 to 25 encounters daily, and contributed to healthcare IP licensed for
-                $120,000.
-              </p>
+              <ul className="list-disc space-y-4 pl-5 text-muted-foreground leading-relaxed marker:text-primary-visible">
+                <li className="pl-1">
+                  Product Manager with 3+ years taking AI-enabled healthcare and SaaS products from discovery to
+                  production.
+                </li>
+                <li className="pl-1">
+                  Owns the AI use-case pipeline, the PRDs and acceptance criteria behind LLM features, and
+                  delivery alongside clinicians, engineers and designers.
+                </li>
+                <li className="pl-1">
+                  Launched three products, scaled a US telehealth platform to 1,400 patients and 15 to 25 encounters
+                  daily, and contributed to healthcare IP licensed for $120,000.
+                </li>
+              </ul>
             </div>
           </div>
 
