@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowLeft, ArrowUpRight, Briefcase, Calendar, Download, FileText, Home, Mail, ShoppingBag, StickyNote, type LucideIcon } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Briefcase, Calendar, Download, FileText, Heart, Home, Mail, ShoppingBag, StickyNote, type LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { featuredProjects, projectsData, type Project } from "@/data/projects";
 import cvAsset from "@/assets/henrietta-cv.pdf.asset.json";
@@ -8,7 +8,7 @@ import prdTemplateOverview from "@/assets/prd-template-overview.png";
 import { HIRE_CALENDAR_URL, openHireCalendar } from "@/lib/booking";
 
 export type AppId = "projects" | "cv" | "letter" | "contact" | "shop";
-export type LauncherId = AppId | "hire" | "home";
+export type LauncherId = AppId | "hire" | "home" | "love";
 
 export interface Launcher {
   id: LauncherId;
@@ -23,6 +23,7 @@ export const launchers: Launcher[] = [
   { id: "letter", name: "Letter", icon: StickyNote, tone: "letter" },
   { id: "contact", name: "Contact", icon: Mail, tone: "contact" },
   { id: "shop", name: "Shop", icon: ShoppingBag, tone: "shop" },
+  { id: "love", name: "Love", icon: Heart, tone: "love" },
   { id: "hire", name: "Hire Me", icon: Calendar, tone: "hire" },
   { id: "home", name: "Portfolio", icon: Home, tone: "home" },
 ];

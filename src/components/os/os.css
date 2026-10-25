@@ -12,6 +12,7 @@
 .os-icon-contact { background:linear-gradient(160deg, hsl(var(--os-icon-contact) / .75), hsl(var(--os-icon-contact))); }
 .os-icon-shop { background:linear-gradient(160deg, hsl(var(--os-icon-shop) / .75), hsl(var(--os-icon-shop))); }
 .os-icon-hire { background:linear-gradient(160deg, hsl(var(--os-icon-hire) / .7), hsl(var(--os-icon-hire))); }
+.os-icon-love { background:linear-gradient(160deg, hsl(var(--os-icon-love) / .7), hsl(var(--os-icon-love))); }
 .os-icon-home { background:linear-gradient(160deg, hsl(var(--os-icon-home) / .75), hsl(var(--os-icon-home))); }
 
 /* Mac */
