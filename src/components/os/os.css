@@ -387,3 +387,8 @@ button.mw:hover { transform:translateY(-2px); }
 .os-notes .os-notes-lines { left:8%; right:8%; top:46%; bottom:8%; background:repeating-linear-gradient(180deg, hsl(0 0% 82%) 0 1.5px, transparent 1.5px 22%); }
 .os-notes .os-notes-lines { top:44%; bottom:6%; background:linear-gradient(180deg, hsl(0 0% 80%) 0 2px, transparent 2px) 0 0 / 100% 25% repeat-y; }
 .ios-app-header { justify-content:flex-end !important; min-height:40px; } .ios-app-body .os-detail-bar { position:sticky; top:0; }
+.ios-home-zone { position:absolute; z-index:30; left:0; right:0; bottom:0; height:34px; display:flex; align-items:flex-end; justify-content:center; padding-bottom:8px; touch-action:none; }
+.ios-home-zone .ios-home-indicator { position:static; transform:none; }
+.ios-home-hint { position:absolute; z-index:30; left:50%; bottom:40px; transform:translateX(-50%); white-space:nowrap; padding:7px 14px; border-radius:999px; font-size:13px; color:hsl(var(--os-on-dark)); background:hsl(240 10% 12% / .8); backdrop-filter:blur(20px); }
+.ios-app-screen .os-action-bar { padding-bottom:34px; }
+.ios-home-hint { left:0; right:0; margin:0 auto; width:max-content; transform:none; }

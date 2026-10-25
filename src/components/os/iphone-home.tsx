@@ -23,6 +23,15 @@ export function IphoneHome() {
   const [page, setPage] = useState(0);
   const [projectName, setProjectName] = useState<string | undefined>();
   const pagesRef = useRef<HTMLDivElement>(null);
+  const [showHint, setShowHint] = useState(false);
+  const goHome = () => { setOpen(null); setProjectName(undefined); };
+  useEffect(() => {
+    if (!open || sessionStorage.getItem("os-home-hint")) return;
+    sessionStorage.setItem("os-home-hint", "1");
+    setShowHint(true);
+    const timer = window.setTimeout(() => setShowHint(false), 3500);
+    return () => window.clearTimeout(timer);
+  }, [open]);
   const { theme, toggle: toggleTheme } = useOsTheme();
   const { data: weather } = useQuery({ queryKey: ["lagos-weather"], queryFn: fetchLagosWeather, staleTime: 30 * 60 * 1000, retry: 1 });
   const sky = describe(weather?.code ?? 2);
@@ -144,7 +153,18 @@ export function IphoneHome() {
             <div className="ios-app-body">
               <AppContent id={open} compact projectName={open === "projects" ? projectName : undefined} />
             </div>
-            <button className="ios-home-indicator" aria-label="Go to home screen" onClick={() => { setOpen(null); setProjectName(undefined); }} />
+            {showHint && <motion.span className="ios-home-hint" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>Swipe up or tap the bar to go home</motion.span>}
+            <motion.button
+              className="ios-home-zone"
+              aria-label="Go to home screen"
+              drag="y"
+              dragConstraints={{ top: 0, bottom: 0 }}
+              dragElastic={{ top: 0.6, bottom: 0 }}
+              onDragEnd={(_, info) => { if (info.offset.y < -30) goHome(); }}
+              onClick={goHome}
+            >
+              <span className="ios-home-indicator" />
+            </motion.button>
           </motion.section>
         )}
       </AnimatePresence>
