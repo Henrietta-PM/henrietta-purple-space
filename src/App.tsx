@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { lazy, Suspense } from "react";
 import AnnouncementBanner from "./components/AnnouncementBanner";
@@ -18,7 +18,7 @@ import PortfolioGuide from "./pages/PortfolioGuide";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
-const Museum = lazy(() => import("./pages/Museum").then((module) => ({ default: module.Museum })));
+const Space = lazy(() => import("./pages/Space").then((module) => ({ default: module.Space })));
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -38,7 +38,8 @@ const App = () => (
             <Route path="/contact" element={<Contact />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/portfolio-guide" element={<PortfolioGuide />} />
-            <Route path="/museum" element={<Suspense fallback={<div className="min-h-screen grid place-items-center text-foreground">Preparing the museum...</div>}><Museum /></Suspense>} />
+            <Route path="/space" element={<Suspense fallback={<div className="min-h-screen" />}><Space /></Suspense>} />
+            <Route path="/museum" element={<Navigate to="/space" replace />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
