@@ -1,7 +1,8 @@
 import { Suspense, useEffect, useMemo, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Environment, Html, Image, Lightformer, useTexture, useGLTF } from '@react-three/drei';
-import { Group, Mesh, Vector3 } from 'three';
+import { Group, Mesh, Vector3, Matrix4 } from 'three';
+import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import stoneAsset from '@/assets/museum/stone.jpg.asset.json';
 import grassAsset from '@/assets/museum/grass.jpg.asset.json';
 import woodAsset from '@/assets/museum/wood.jpg.asset.json';
@@ -23,7 +24,7 @@ interface SceneProps {
 }
 
 function Box({ position, size, color, map, metalness = 0, roughness = 0.8 }: { position: [number, number, number]; size: [number, number, number]; color: string; map?: ReturnType<typeof repeatTexture>; metalness?: number; roughness?: number }) {
-  return <mesh position={position} castShadow receiveShadow><boxGeometry args={size} /><meshStandardMaterial color={color} map={map} metalness={metalness} roughness={roughness} /></mesh>;
+  return <mesh position={position} castShadow receiveShadow userData={{ museumStatic: true }}><boxGeometry args={size} /><meshStandardMaterial color={color} map={map} metalness={metalness} roughness={roughness} /></mesh>;
 }
 
 function PavilionBuilding({ pavilion, palette, selected, phase, reduced, onSelect, onDoorOpen, maps }: { pavilion: Pavilion; palette: MuseumPalette; selected: boolean; phase: TourPhase; reduced: boolean; onSelect: SceneProps['onSelect']; onDoorOpen: () => void; maps: { stone: ReturnType<typeof repeatTexture>; wood: ReturnType<typeof repeatTexture> } }) {
@@ -52,7 +53,7 @@ function PavilionBuilding({ pavilion, palette, selected, phase, reduced, onSelec
         {[0, 1, 2].map((index) => <Box key={index} position={[side * (1 + index * (w / 2 - 1) / 2), 1.9, d / 2]} size={[0.055, 3.6, 0.08]} color={palette.metal} metalness={0.7} />)}
       </group>)}
       <Box position={[0, 3.4, d / 2 + 0.06]} size={[w, 0.1, 0.1]} color={palette.metal} />
-      <group ref={hinge} position={[-0.9, 0.22, d / 2 + 0.07]}>
+      <group ref={hinge} position={[-0.9, 0.22, d / 2 + 0.07]} userData={{ museumDynamic: true }}>
         <Box position={[0.9, 1.5, 0]} size={[1.8, 3, 0.08]} color={palette.wood} map={maps.wood} />
         <Box position={[1.55, 1.4, 0.1]} size={[0.045, 0.48, 0.08]} color={palette.metal} metalness={0.8} />
       </group>
@@ -118,10 +119,39 @@ function Landscape({ palette, maps }: { palette: MuseumPalette; maps: { grass: R
 }
 
 function TexturedCampus(props: SceneProps & { palette: MuseumPalette }) {
+  const root = useRef<Group>(null);
   const textures = useTexture([stoneAsset.url, grassAsset.url, woodAsset.url].map(museumAssetUrl));
   const maps = useMemo(() => ({ stone: repeatTexture(textures[0], 5), grass: repeatTexture(textures[1], 35), wood: repeatTexture(textures[2], 2) }), [textures]);
   useEffect(() => () => { Object.values(maps).forEach((map) => map.dispose()); }, [maps]);
-  return <><Landscape palette={props.palette} maps={maps} />{pavilions.map((pavilion) => <PavilionBuilding key={pavilion.id} pavilion={pavilion} palette={props.palette} selected={props.selected?.id === pavilion.id} phase={props.phase} reduced={props.reduced} onSelect={props.onSelect} onDoorOpen={props.onDoorOpen} maps={maps} />)}</>;
+  useEffect(() => {
+    const group = root.current;
+    if (!group) return;
+    group.updateWorldMatrix(true, true);
+    const inverse = new Matrix4().copy(group.matrixWorld).invert();
+    const buckets = new Map<string, Mesh[]>();
+    group.traverse((object) => {
+      if (!(object instanceof Mesh) || !object.userData.museumStatic || Array.isArray(object.material)) return;
+      let ancestor = object.parent;
+      while (ancestor && ancestor !== group) { if (ancestor.userData.museumDynamic) return; ancestor = ancestor.parent; }
+      const material = object.material as import('three').MeshStandardMaterial;
+      const key = `${material.color.getHex()}-${material.map?.uuid}-${material.roughness}-${material.metalness}`;
+      const bucket = buckets.get(key) || [];
+      bucket.push(object); buckets.set(key, bucket);
+    });
+    const merged: Mesh[] = [];
+    buckets.forEach((meshes) => {
+      const geometries = meshes.map((mesh) => mesh.geometry.clone().applyMatrix4(new Matrix4().multiplyMatrices(inverse, mesh.matrixWorld)));
+      const geometry = mergeGeometries(geometries);
+      geometries.forEach((item) => item.dispose());
+      if (!geometry) return;
+      const mesh = new Mesh(geometry, meshes[0].material);
+      mesh.castShadow = true; mesh.receiveShadow = true;
+      meshes.forEach((item) => { item.visible = false; });
+      group.add(mesh); merged.push(mesh);
+    });
+    return () => { merged.forEach((mesh) => { group.remove(mesh); mesh.geometry.dispose(); }); buckets.forEach((meshes) => meshes.forEach((mesh) => { mesh.visible = true; })); };
+  }, [maps]);
+  return <group ref={root}><Landscape palette={props.palette} maps={maps} />{pavilions.map((pavilion) => <PavilionBuilding key={pavilion.id} pavilion={pavilion} palette={props.palette} selected={props.selected?.id === pavilion.id} phase={props.phase} reduced={props.reduced} onSelect={props.onSelect} onDoorOpen={props.onDoorOpen} maps={maps} />)}</group>;
 }
 
 function Planting() {
@@ -143,7 +173,7 @@ export function MuseumScene(props: SceneProps) {
   return <>
     <color attach="background" args={[palette.sky]} /><fog attach="fog" args={[palette.sky, 80, 170]} />
     <hemisphereLight args={[palette.paper, palette.grass, 1.5]} />
-    <directionalLight position={[-30, 40, 25]} intensity={2.5} castShadow shadow-mapSize-width={2048} shadow-mapSize-height={2048} shadow-camera-left={-45} shadow-camera-right={45} shadow-camera-top={45} shadow-camera-bottom={-45} shadow-bias={-0.0003} />
+    <directionalLight position={[-30, 40, 25]} intensity={2.5} castShadow shadow-mapSize-width={1024} shadow-mapSize-height={1024} shadow-camera-left={-45} shadow-camera-right={45} shadow-camera-top={45} shadow-camera-bottom={-45} shadow-bias={-0.0003} />
     <Environment resolution={128}><Lightformer intensity={2} position={[0, 20, 0]} rotation-x={-Math.PI / 2} scale={[80, 80, 1]} /><Lightformer intensity={1} color={palette.sky} position={[30, 5, 0]} rotation-y={-Math.PI / 2} scale={[40, 20, 1]} /></Environment>
     <mesh rotation-x={-Math.PI / 2} position-y={-0.08}><planeGeometry args={[180, 180]} /><meshStandardMaterial color={palette.grass} /></mesh>
     <Suspense fallback={<Html center><div className="museum-loading">Preparing the grounds...</div></Html>}><TexturedCampus {...props} palette={palette} /></Suspense>
