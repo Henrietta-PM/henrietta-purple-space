@@ -379,3 +379,9 @@ button.mw:hover { transform:translateY(-2px); }
 .ios-app-glass .ios-home-indicator { background:hsl(var(--os-on-dark)); }
 .ios-app-glass .os-finder-main { background:hsl(var(--os-window)); color:hsl(var(--os-ink)); min-height:100%; border-radius:20px 20px 0 0; }
 .os-lib-logo { background:hsl(0 0% 100%); } .os-lib-logo img { object-fit:contain !important; padding:14%; }
+
+/* Apple Notes icon refinement */
+.os-notes { background:linear-gradient(180deg, hsl(0 0% 100%), hsl(40 20% 96%)) !important; }
+.os-notes .os-notes-top { height:27%; background:linear-gradient(180deg, hsl(47 100% 64%), hsl(43 100% 54%)); box-shadow:0 1px 0 hsl(40 60% 40% / .25); }
+.os-notes .os-notes-top::after { content:""; position:absolute; left:0; right:0; bottom:-12%; height:4%; background:repeating-linear-gradient(90deg, hsl(0 0% 70%) 0 6%, transparent 6% 10%); opacity:.7; }
+.os-notes .os-notes-lines { left:8%; right:8%; top:46%; bottom:8%; background:repeating-linear-gradient(180deg, hsl(0 0% 82%) 0 1.5px, transparent 1.5px 22%); }
