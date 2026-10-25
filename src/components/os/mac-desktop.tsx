@@ -7,7 +7,6 @@ import portrait from "@/assets/henrietta-portrait.jpg";
 import { HIRE_CALENDAR_URL } from "@/lib/booking";
 import { AppContent, AppIcon, appTitles, launchers, type AppId, type LauncherId } from "./os-apps";
 import { useClock } from "./use-clock";
-import HeartModal from "@/components/HeartModal";
 import MacWidgets from "./mac-widgets";
 
 interface WindowState {
@@ -23,6 +22,7 @@ const windowSizes: Record<AppId, { w: number; h: number }> = {
   letter: { w: 560, h: 560 },
   contact: { w: 440, h: 420 },
   shop: { w: 640, h: 460 },
+  love: { w: 420, h: 560 },
 };
 
 function MacWindow({ win, index, focused, bounds, onFocus, onClose, onMinimize, onMaximize }: {
@@ -67,7 +67,6 @@ function MacWindow({ win, index, focused, bounds, onFocus, onClose, onMinimize, 
 export function MacDesktop() {
   const navigate = useNavigate();
   const now = useClock();
-  const [loveOpen, setLoveOpen] = useState(false);
   const bounds = useRef<HTMLDivElement>(null);
   const [windows, setWindows] = useState<WindowState[]>([{ id: "projects", z: 1, minimized: false, maximized: false }]);
   const topZ = windows.reduce((max, win) => Math.max(max, win.z), 0);
@@ -82,7 +81,6 @@ export function MacDesktop() {
 
   const launch = (id: LauncherId) => {
     if (id === "home") return navigate("/");
-    if (id === "love") return setLoveOpen(true);
     if (id === "hire") {
       window.open(HIRE_CALENDAR_URL, "_blank", "noopener,noreferrer");
       return;
@@ -157,7 +155,6 @@ export function MacDesktop() {
           );
         })}
       </nav>
-      <HeartModal isOpen={loveOpen} onClose={() => setLoveOpen(false)} />
     </div>
   );
 }
