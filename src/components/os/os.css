@@ -141,3 +141,24 @@
 .ios-home-indicator.light { background:hsl(var(--os-on-dark)); }
 .ios-unlock > span:first-child { display:flex; flex-direction:column; align-items:center; gap:2px; }
 .ios-unlock svg { width:22px; height:22px; }
+
+.os-icon-contact { background:linear-gradient(180deg, hsl(199 95% 62%), hsl(214 95% 52%)); }
+.os-cal { background:hsl(0 0% 100%); color:hsl(var(--os-ink)); display:flex; flex-direction:column; justify-content:flex-start; padding-top:12%; gap:0; }
+.os-cal-day { font-size:.22em; }
+.os-icon-sm.os-cal { font-size:36px; } .os-icon-md.os-cal { font-size:48px; } .os-icon-lg.os-cal { font-size:56px; }
+.os-cal-day { font-size:.2em; font-weight:600; color:hsl(var(--os-close)); line-height:1; }
+.os-cal-date { font-size:.5em; font-weight:300; line-height:1.05; }
+.os-notes { background:hsl(0 0% 100%); overflow:hidden; position:relative; display:block; }
+.os-notes-top { position:absolute; left:0; right:0; top:0; height:30%; background:linear-gradient(180deg, hsl(48 100% 62%), hsl(44 98% 54%)); }
+.os-notes-lines { position:absolute; left:12%; right:12%; top:42%; bottom:12%; background:repeating-linear-gradient(180deg, hsl(var(--os-line)) 0 1px, transparent 1px 18%); }
+.os-img-icon { background:hsl(0 0% 100%); overflow:hidden; }
+.os-img-icon img { width:100%; height:100%; object-fit:cover; }
+.os-back { display:inline-flex; align-items:center; gap:2px; font-size:16px; color:hsl(var(--os-icon-projects)); margin-left:-6px; }
+.os-back svg { width:22px; height:22px; }
+.os-action-bar { position:sticky; bottom:0; margin:16px -18px -40px; padding:12px 18px 34px; background:linear-gradient(180deg, hsl(var(--os-window) / 0), hsl(var(--os-window)) 30%); z-index:3; }
+.ios-app-body .os-preview, .ios-app-body .os-contact { min-height:100%; }
+.ios-app-body .os-preview-frame { min-height:60vh; border-radius:12px; margin:0 12px; width:auto; }
+.ios-app-body .os-detail-section h3 { font-size:13px; text-transform:uppercase; letter-spacing:.04em; }
+.ios-app-body .os-detail-section { background:hsl(var(--os-titlebar)); border-radius:14px; padding:14px; }
+.ios-app-header { position:sticky; top:0; }
+.ios-app-header button { display:none; }
