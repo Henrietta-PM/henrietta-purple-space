@@ -409,3 +409,10 @@ button.mw:hover { transform:translateY(-2px); }
 .ios-app-body .os-detail-section { background:transparent !important; border-radius:0 !important; padding:14px 0 !important; border-top:1px solid hsl(var(--os-line)); }
 .ios-app-body .os-detail-section h3 { font-size:18px !important; text-transform:none !important; letter-spacing:0 !important; color:hsl(var(--os-ink)) !important; font-weight:700; margin-bottom:6px; }
 .ios-app-body .os-detail-section p { font-size:15px; line-height:1.55; color:hsl(var(--os-ink-soft)); }
+.ios-app-body .os-finder-main { overflow:visible; }
+.ios-app-body .os-action-bar { position:sticky; bottom:0; z-index:5; }
+.os-toggle { background:hsl(0 0% 100% / .2); backdrop-filter:blur(20px) saturate(1.8); -webkit-backdrop-filter:blur(20px) saturate(1.8); border:1px solid hsl(0 0% 100% / .3); }
+.os-toggle.on { background:hsl(240 10% 12% / .55); }
+.os-toggle svg { width:46%; height:46%; }
+.ios-app-body:has(.os-action-bar) { padding-bottom:0; } .ios-app-body .os-action-bar { margin-bottom:0; background:linear-gradient(180deg, hsl(var(--os-window) / 0), hsl(var(--os-window)) 24px); }
+.ios-app-screen .ios-app-body .os-action-bar { padding-bottom:40px; }

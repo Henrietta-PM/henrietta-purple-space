@@ -102,6 +102,10 @@ export function IphoneHome() {
               <span>{launcher.name}</span>
             </motion.button>
           ))}
+          <motion.button className="ios-app" whileTap={{ scale: 0.88 }} onClick={toggleTheme} aria-label={theme === "dark" ? "Switch apps to light mode" : "Switch apps to dark mode"}>
+            <span className={`os-icon os-icon-lg os-toggle ${theme === "dark" ? "on" : ""}`} aria-hidden="true">{theme === "dark" ? <Moon /> : <Sun />}</span>
+            <span>{theme === "dark" ? "Dark Mode" : "Light Mode"}</span>
+          </motion.button>
         </div>
       </div>
       <div className="ios-home ios-page">
@@ -147,9 +151,6 @@ export function IphoneHome() {
             onDragEnd={(_, info) => { if (info.offset.y > 140) { setOpen(null); setProjectName(undefined); } }}
           >
             <StatusBar light={false} />
-            <header className="ios-app-header">
-              <button className="ios-theme" onClick={toggleTheme} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>{theme === "dark" ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}</button>
-            </header>
             <div className="ios-app-body">
               <AppContent id={open} compact projectName={open === "projects" ? projectName : undefined} />
             </div>
