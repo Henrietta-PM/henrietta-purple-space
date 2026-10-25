@@ -8,6 +8,7 @@ import { HIRE_CALENDAR_URL } from "@/lib/booking";
 import { AppContent, AppIcon, appTitles, launchers, type AppId, type LauncherId } from "./os-apps";
 import { useClock } from "./use-clock";
 import HeartModal from "@/components/HeartModal";
+import MacWidgets from "./mac-widgets";
 
 interface WindowState {
   id: AppId;
@@ -113,11 +114,7 @@ export function MacDesktop() {
       </nav>
 
       <div ref={bounds} className="mac-desktop">
-        <motion.div className="mac-widget" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
-          <span className="os-muted-on-dark">MyPvrpleSpace</span>
-          <h1>Henrietta <span className="font-handwritten">Onwuneme</span></h1>
-          <p>Product Manager. Open an app in the dock to explore my work.</p>
-        </motion.div>
+        <MacWidgets now={now} onLaunch={launch} />
 
         <div className="mac-desktop-icons">
           {launchers.filter((l) => l.id === "cv" || l.id === "letter").map((launcher) => (
