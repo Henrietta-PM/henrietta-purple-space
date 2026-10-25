@@ -57,7 +57,7 @@
  .museum-title h1 span { font-size:40px; }
  .museum-tools { right:12px; top:95px; }
  .museum-tools button { width:32px; height:32px; }
- .museum-label { font-size:9px; height:26px; padding:0 6px; }
+ .museum-shell .museum-label { font-size:9px; height:26px; padding:0 6px; max-width:94px; overflow:hidden; }
  .museum-footer { left:16px; right:16px; bottom:16px; justify-content:center; }
  .museum-credit { position:absolute; bottom:62px; left:0; font-size:9px; }
  .museum-credit span { font-size:8px; }

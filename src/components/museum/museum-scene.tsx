@@ -58,9 +58,9 @@ function PavilionBuilding({ pavilion, palette, selected, phase, reduced, onSelec
         <Box position={[1.55, 1.4, 0.1]} size={[0.045, 0.48, 0.08]} color={palette.metal} metalness={0.8} />
       </group>
       <Box position={[0, 3.25, d / 2 + 0.1]} size={[2.8, 0.5, 0.06]} color={palette.paper} />
-      <Html position={[0, 4.7, 1]} center zIndexRange={[15, 0]}>
+      {phase !== 'gallery' && <Html position={[0, 4.7, 1]} center zIndexRange={[15, 0]}>
         <Button variant="secondary" size="sm" className="museum-label" onClick={(event) => { event.stopPropagation(); onSelect(pavilion); }} aria-label={`Visit ${project.name}`}><span className="museum-label-number">{String(pavilion.id + 1).padStart(2, '0')}</span>{project.name}</Button>
-      </Html>
+      </Html>}
       <Suspense fallback={null}><Image url={project.image} position={[-1.25, 2.1, -d / 2 + 0.15]} scale={[w - 3, 2.5]} transparent={false} /></Suspense>
       <Box position={[w / 2 - 1.1, 0.6, 0]} size={[1, 1.1, 1]} color={palette.wall} />
       <mesh position={[w / 2 - 1.1, 1.45, 0]} rotation={[0.2, 0.4, 0.1]}><torusKnotGeometry args={[0.42, 0.12, 48, 8]} /><meshStandardMaterial color={palette.accent} metalness={0.5} roughness={0.25} /></mesh>
@@ -70,6 +70,7 @@ function PavilionBuilding({ pavilion, palette, selected, phase, reduced, onSelec
 }
 
 function CameraRig({ selected, phase, angle, reduced }: Pick<SceneProps, 'selected' | 'phase' | 'angle' | 'reduced'>) {
+  const initialized = useRef(false);
   const look = useRef(new Vector3(0, 0, -7));
   const { size } = useThree();
   useFrame(({ camera }, rawDelta) => {
@@ -83,11 +84,12 @@ function CameraRig({ selected, phase, angle, reduced }: Pick<SceneProps, 'select
       target = new Vector3(x - (inside ? 1.4 : 0), 1.9, z - 1.5);
     } else {
       const narrow = size.width < 700;
-      const framing = Math.max(1, size.height / size.width * 0.88);
+      const framing = Math.max(1.2, size.height / size.width * 1.05);
       destination = new Vector3(Math.sin(angle) * (narrow ? 52 : 44) * framing, (narrow ? 49 : 34) * framing, Math.cos(angle) * (narrow ? 55 : 42) * framing - 5);
       target = new Vector3(0, 0, -8);
     }
-    const blend = reduced ? 1 : 1 - Math.exp(-2.4 * Math.min(rawDelta, 0.25));
+    const blend = reduced || !initialized.current ? 1 : 1 - Math.exp(-2.4 * Math.min(rawDelta, 0.25));
+    initialized.current = true;
     if (camera.position.distanceTo(destination) < 0.04) camera.position.copy(destination); else camera.position.lerp(destination, blend);
     if (look.current.distanceTo(target) < 0.04) look.current.copy(target); else look.current.lerp(target, blend);
     camera.lookAt(look.current);
