@@ -6,7 +6,7 @@ import { useOsTheme } from "./use-os-theme";
 import { AnimatePresence, motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
-import { BatteryFull, ChevronLeft, Moon, Navigation, Search, Signal, Sun, Wifi } from "lucide-react";
+import { BatteryFull, ChevronLeft, Moon, Navigation, Signal, Sun, Wifi } from "lucide-react";
 import portrait from "@/assets/henrietta-portrait.jpg";
 import { HIRE_CALENDAR_URL } from "@/lib/booking";
 import { AppContent, AppIcon, appTitles, launchers, type AppId, type LauncherId } from "./os-apps";
@@ -121,7 +121,6 @@ export function IphoneHome() {
       </div>
 
       <div className="ios-dots" aria-hidden="true">{[0, 1].map((i) => <span key={i} className={page === i ? "on" : ""} />)}</div>
-      <button className="ios-search" onClick={() => launch("projects")}><Search aria-hidden="true" /> Search</button>
 
       <nav className="ios-dock" aria-label="Dock">
         {dockIds.map((id) => {
