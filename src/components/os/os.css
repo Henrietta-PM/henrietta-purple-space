@@ -162,3 +162,6 @@
 .ios-app-body .os-detail-section { background:hsl(var(--os-titlebar)); border-radius:14px; padding:14px; }
 .ios-app-header { position:sticky; top:0; }
 .ios-app-header { flex-direction:column; align-items:flex-start; gap:4px; background:hsl(var(--os-window) / .92); backdrop-filter:blur(20px); z-index:4; }
+.os-cal .os-cal-day, .os-cal .os-cal-date { display:block; color:hsl(var(--os-ink)); text-align:center; }
+.os-cal .os-cal-day { color:hsl(var(--os-close)); }
+.os-cal { display:flex !important; align-items:center; justify-content:center !important; padding-top:0 !important; }
