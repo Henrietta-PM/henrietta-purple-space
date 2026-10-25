@@ -7,16 +7,19 @@ import portrait from "@/assets/henrietta-portrait.jpg";
 import { HIRE_CALENDAR_URL } from "@/lib/booking";
 import { AppContent, AppIcon, appTitles, launchers, type AppId, type LauncherId } from "./os-apps";
 import { useClock } from "./use-clock";
+import HeartModal from "@/components/HeartModal";
 
-const dockIds: LauncherId[] = ["projects", "contact", "letter", "hire"];
+const dockIds: LauncherId[] = ["projects", "love", "letter", "hire"];
 
 export function IphoneHome() {
   const navigate = useNavigate();
   const now = useClock();
+  const [loveOpen, setLoveOpen] = useState(false);
   const [open, setOpen] = useState<AppId | null>(null);
 
   const launch = (id: LauncherId) => {
     if (id === "home") return navigate("/");
+    if (id === "love") return setLoveOpen(true);
     if (id === "hire") {
       window.open(HIRE_CALENDAR_URL, "_blank", "noopener,noreferrer");
       return;
@@ -100,6 +103,7 @@ export function IphoneHome() {
           </motion.section>
         )}
       </AnimatePresence>
+      <HeartModal isOpen={loveOpen} onClose={() => setLoveOpen(false)} />
     </div>
   );
 }
