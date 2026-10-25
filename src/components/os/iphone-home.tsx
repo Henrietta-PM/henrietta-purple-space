@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
-import { BatteryFull, Signal, Wifi } from "lucide-react";
+import { BatteryFull, ChevronLeft, Signal, Wifi } from "lucide-react";
 import portrait from "@/assets/henrietta-portrait.jpg";
 import { HIRE_CALENDAR_URL } from "@/lib/booking";
 import { AppContent, AppIcon, appTitles, launchers, type AppId, type LauncherId } from "./os-apps";
@@ -95,8 +95,8 @@ export function IphoneHome() {
           >
             <StatusBar light={false} />
             <header className="ios-app-header">
+              <button className="os-back" onClick={() => setOpen(null)}><ChevronLeft aria-hidden="true" /> Home</button>
               <h1>{open === "cv" ? "CV" : appTitles[open]}</h1>
-              <button onClick={() => setOpen(null)}>Done</button>
             </header>
             <div className="ios-app-body">
               <AppContent id={open} compact />
