@@ -415,3 +415,4 @@ button.mw:hover { transform:translateY(-2px); }
 .os-toggle.on { background:hsl(240 10% 12% / .55); }
 .os-toggle svg { width:46%; height:46%; }
 .ios-app-body:has(.os-action-bar) { padding-bottom:0; } .ios-app-body .os-action-bar { margin-bottom:0; background:linear-gradient(180deg, hsl(var(--os-window) / 0), hsl(var(--os-window)) 24px); }
+.ios-app-screen .ios-app-body .os-action-bar { padding-bottom:40px; }
