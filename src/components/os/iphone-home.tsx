@@ -135,17 +135,16 @@ export function IphoneHome() {
             drag="y"
             dragConstraints={{ top: 0, bottom: 0 }}
             dragElastic={{ top: 0, bottom: 0.4 }}
-            onDragEnd={(_, info) => { if (info.offset.y > 140) setOpen(null); }}
+            onDragEnd={(_, info) => { if (info.offset.y > 140) { setOpen(null); setProjectName(undefined); } }}
           >
             <StatusBar light={false} />
             <header className="ios-app-header">
-              <button className="os-back" onClick={() => { setOpen(null); setProjectName(undefined); }}><ChevronLeft aria-hidden="true" /> Home</button>
               <button className="ios-theme" onClick={toggleTheme} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>{theme === "dark" ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}</button>
             </header>
             <div className="ios-app-body">
               <AppContent id={open} compact projectName={open === "projects" ? projectName : undefined} />
             </div>
-            <button className="ios-home-indicator" aria-label="Go to home screen" onClick={() => setOpen(null)} />
+            <button className="ios-home-indicator" aria-label="Go to home screen" onClick={() => { setOpen(null); setProjectName(undefined); }} />
           </motion.section>
         )}
       </AnimatePresence>
