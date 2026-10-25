@@ -26,7 +26,7 @@ export const launchers: Launcher[] = [
   { id: "projects", name: "Projects", icon: Briefcase, tone: "projects" },
   { id: "cv", name: "CV", icon: FileText, tone: "cv" },
   { id: "letter", name: "Letter", icon: StickyNote, tone: "letter" },
-  { id: "contact", name: "Contact", icon: Mail, tone: "contact" },
+  { id: "contact", name: "Contacts", icon: Mail, tone: "contact" },
   { id: "shop", name: "Shop", icon: ShoppingBag, tone: "shop" },
   { id: "love", name: "Instagram", icon: Heart, tone: "love" },
   { id: "hire", name: "Hire Me", icon: Calendar, tone: "hire" },
@@ -349,6 +349,7 @@ export function AppContent({ id, compact = false }: { id: AppId; compact?: boole
 export function AppIcon({ launcher, size = "md" }: { launcher: Launcher; size?: "sm" | "md" | "lg" }) {
   if (launcher.id === "hire") return <CalendarIcon size={size} />;
   if (launcher.id === "letter") return <NotesIcon size={size} />;
+  if (launcher.id === "contact") return <span className={`os-icon os-icon-${size} os-contacts`} aria-hidden="true"><span className="os-contacts-head" /><span className="os-contacts-body" /><span className="os-contacts-tabs" /></span>;
   if (launcher.id === "love") return <span className={`os-icon os-icon-${size} os-insta`} aria-hidden="true"><Instagram /></span>;
   const Icon = launcher.icon;
   return (
