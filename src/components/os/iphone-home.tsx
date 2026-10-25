@@ -42,11 +42,11 @@ export function IphoneHome() {
       <StatusBar light />
 
       <div className="ios-home">
-        <motion.div className="ios-widget" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
+        <div className="ios-widget">
           <span>{format(now, "EEEE d MMMM")}</span>
           <strong>{format(now, "HH:mm")}</strong>
           <p>Henrietta <span className="font-handwritten">Onwuneme</span>, Product Manager</p>
-        </motion.div>
+        </div>
 
         <div className="ios-grid">
           {launchers.map((launcher, index) => (
