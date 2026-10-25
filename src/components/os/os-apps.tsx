@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react";
-import { ArrowUpRight, ChevronLeft, Briefcase, Calendar, Download, FileText, Globe, Heart, Home, ListChecks, Mail, MoreHorizontal, PenSquare, Search, Send, Share, ShoppingBag, StickyNote, User, type LucideIcon } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, Briefcase, Calendar, Download, FileText, Globe, Heart, Home, Instagram, ListChecks, Mail, MoreHorizontal, PenSquare, Search, Send, Share, ShoppingBag, StickyNote, User, type LucideIcon } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import HeartModal from "@/components/HeartModal";
@@ -28,7 +28,7 @@ export const launchers: Launcher[] = [
   { id: "letter", name: "Letter", icon: StickyNote, tone: "letter" },
   { id: "contact", name: "Contact", icon: Mail, tone: "contact" },
   { id: "shop", name: "Shop", icon: ShoppingBag, tone: "shop" },
-  { id: "love", name: "Love", icon: Heart, tone: "love" },
+  { id: "love", name: "Instagram", icon: Heart, tone: "love" },
   { id: "hire", name: "Hire Me", icon: Calendar, tone: "hire" },
   { id: "home", name: "Portfolio", icon: Home, tone: "home" },
 ];
@@ -39,7 +39,7 @@ export const appTitles: Record<AppId, string> = {
   letter: "Letter",
   contact: "Contact",
   shop: "Shop",
-  love: "Notifications",
+  love: "Instagram",
 };
 
 export const allProjects: Project[] = [...featuredProjects, ...projectsData].filter(
@@ -349,6 +349,7 @@ export function AppContent({ id, compact = false }: { id: AppId; compact?: boole
 export function AppIcon({ launcher, size = "md" }: { launcher: Launcher; size?: "sm" | "md" | "lg" }) {
   if (launcher.id === "hire") return <CalendarIcon size={size} />;
   if (launcher.id === "letter") return <NotesIcon size={size} />;
+  if (launcher.id === "love") return <span className={`os-icon os-icon-${size} os-insta`} aria-hidden="true"><Instagram /></span>;
   const Icon = launcher.icon;
   return (
     <span className={`os-icon os-icon-${launcher.tone} os-icon-${size}`} aria-hidden="true">

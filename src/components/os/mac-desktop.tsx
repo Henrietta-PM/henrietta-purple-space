@@ -2,7 +2,8 @@ import { useCallback, useRef, useState } from "react";
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
-import { Apple, BatteryFull, Wifi } from "lucide-react";
+import { Apple, BatteryFull, Moon, Sun, Wifi } from "lucide-react";
+import { useOsTheme } from "./use-os-theme";
 import portrait from "@/assets/henrietta-portrait.jpg";
 import { HIRE_CALENDAR_URL } from "@/lib/booking";
 import { AppContent, AppIcon, appTitles, launchers, type AppId, type LauncherId } from "./os-apps";
@@ -67,6 +68,7 @@ function MacWindow({ win, index, focused, bounds, onFocus, onClose, onMinimize, 
 export function MacDesktop() {
   const navigate = useNavigate();
   const now = useClock();
+  const { theme, toggle: toggleTheme } = useOsTheme();
   const bounds = useRef<HTMLDivElement>(null);
   const [windows, setWindows] = useState<WindowState[]>([{ id: "projects", z: 1, minimized: false, maximized: false }]);
   const topZ = windows.reduce((max, win) => Math.max(max, win.z), 0);
@@ -105,6 +107,7 @@ export function MacDesktop() {
           <button onClick={() => navigate("/")}>Classic portfolio</button>
         </div>
         <div className="mac-menubar-right">
+          <button onClick={toggleTheme} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>{theme === "dark" ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}</button>
           <Wifi aria-hidden="true" />
           <BatteryFull aria-hidden="true" />
           <span>{format(now, "EEE d MMM  HH:mm")}</span>
