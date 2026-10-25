@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react";
-import { ArrowUpRight, ChevronLeft, Briefcase, Calendar, Download, FileText, Globe, Heart, Home, Instagram, ListChecks, Mail, MoreHorizontal, PenSquare, Search, Send, Share, ShoppingBag, StickyNote, User, type LucideIcon } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, Briefcase, Calendar, Download, FileText, Globe, Heart, Home, Instagram, PenLine, ListChecks, Mail, MoreHorizontal, PenSquare, Search, Send, Share, ShoppingBag, StickyNote, User, type LucideIcon } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import HeartModal from "@/components/HeartModal";
@@ -7,6 +7,11 @@ import portrait from "@/assets/henrietta-portrait.jpg";
 import { Button } from "@/components/ui/button";
 import { featuredProjects, projectsData, type Project } from "@/data/projects";
 import cvAsset from "@/assets/henrietta-cv.pdf.asset.json";
+import sallyLogo from "@/assets/sally-logo.png";
+import targettLogo from "@/assets/targett-logo-featured.png";
+import vibestackLogo from "@/assets/vibestack-logo.png";
+import bloomieLogo from "@/assets/bloomie-logo-featured.png";
+import proxyIcon from "@/assets/proxymedicine-icon.png.asset.json";
 import prdTemplateComplete from "@/assets/prd-template-complete.png";
 import prdTemplateOverview from "@/assets/prd-template-overview.png";
 import { differenceInDays, differenceInHours, differenceInMinutes, format } from "date-fns";
@@ -100,9 +105,9 @@ function LibraryTile({ project, onOpen }: { project: Project; onOpen: (p: Projec
   );
 }
 
-function ProjectsApp({ compact }: { compact: boolean }) {
+function ProjectsApp({ compact, initial }: { compact: boolean; initial?: string }) {
   const [query, setQuery] = useState("");
-  const [selected, setSelected] = useState<Project | null>(null);
+  const [selected, setSelected] = useState<Project | null>(() => allProjects.find((p) => p.name === initial) ?? null);
 
   if (selected) {
     return (
@@ -335,9 +340,9 @@ function ShopApp() {
   );
 }
 
-export function AppContent({ id, compact = false }: { id: AppId; compact?: boolean }) {
+export function AppContent({ id, compact = false, projectName }: { id: AppId; compact?: boolean; projectName?: string }) {
   switch (id) {
-    case "projects": return <ProjectsApp compact={compact} />;
+    case "projects": return <ProjectsApp compact={compact} initial={projectName} />;
     case "cv": return <CvApp compact={compact} />;
     case "letter": return <LetterApp />;
     case "contact": return <ContactApp />;
@@ -349,6 +354,10 @@ export function AppContent({ id, compact = false }: { id: AppId; compact?: boole
 export function AppIcon({ launcher, size = "md" }: { launcher: Launcher; size?: "sm" | "md" | "lg" }) {
   if (launcher.id === "hire") return <CalendarIcon size={size} />;
   if (launcher.id === "letter") return <NotesIcon size={size} />;
+  if (launcher.id === "projects") return <span className={`os-icon os-icon-${size} os-files`} aria-hidden="true"><span className="os-files-folder" /></span>;
+  if (launcher.id === "shop") return <span className={`os-icon os-icon-${size} os-appstore`} aria-hidden="true"><AppStoreGlyph /></span>;
+  if (launcher.id === "home") return <span className={`os-icon os-icon-${size} os-safari`} aria-hidden="true"><span className="os-safari-dial"><span className="os-safari-needle" /></span></span>;
+  if (launcher.id === "cv") return <span className={`os-icon os-icon-${size} os-pages`} aria-hidden="true"><PenLine /></span>;
   if (launcher.id === "contact") return <span className={`os-icon os-icon-${size} os-contacts`} aria-hidden="true"><span className="os-contacts-head" /><span className="os-contacts-body" /><span className="os-contacts-tabs" /></span>;
   if (launcher.id === "love") return <span className={`os-icon os-icon-${size} os-insta`} aria-hidden="true"><Instagram /></span>;
   const Icon = launcher.icon;
@@ -380,4 +389,31 @@ export function NotesIcon({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
 
 export function ImageIcon({ src, size = "md" }: { src: string; size?: "sm" | "md" | "lg" }) {
   return <span className={`os-icon os-icon-${size} os-img-icon`} aria-hidden="true"><img src={src} alt="" /></span>;
+}
+
+function AppStoreGlyph() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+      <path d="M9.5 4.5 16.5 17" />
+      <path d="M14.5 4.5 7.5 17" />
+      <path d="M5 13.5h14" />
+    </svg>
+  );
+}
+
+const projectLogos: Record<string, string> = {
+  Sally: sallyLogo,
+  Targett: targettLogo,
+  VibeStack: vibestackLogo,
+  "Bloomie AI": bloomieLogo,
+  ProxyMedicine: proxyIcon.url,
+};
+
+export function ProjectIcon({ project, size = "md" }: { project: Project; size?: "sm" | "md" | "lg" }) {
+  const logo = projectLogos[project.name];
+  return (
+    <span className={`os-icon os-icon-${size} os-img-icon ${logo ? "os-logo-icon" : ""}`} aria-hidden="true">
+      <img src={logo ?? project.image} alt="" />
+    </span>
+  );
 }

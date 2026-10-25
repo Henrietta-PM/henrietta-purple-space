@@ -339,3 +339,26 @@ button.mw:hover { transform:translateY(-2px); }
 .os-contacts-tabs { position:absolute; right:0; top:0; bottom:0; width:12%; background:linear-gradient(180deg, hsl(4 85% 58%) 0 25%, hsl(36 95% 55%) 25% 50%, hsl(142 60% 45%) 50% 75%, hsl(211 90% 55%) 75%); }
 .ios-app-header { flex-direction:row !important; align-items:center !important; justify-content:space-between; min-height:44px; padding:6px 16px 8px; }
 .ios-app-header .ios-theme { position:static; }
+
+/* Home pages */
+.ios-pages { position:relative; z-index:2; display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; height:calc(100% - 210px); }
+.ios-pages::-webkit-scrollbar { display:none; }
+.ios-page { flex:0 0 100%; scroll-snap-align:start; }
+.ios-app-name { max-width:68px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.ios-dots { position:absolute; z-index:3; left:50%; bottom:160px; transform:translateX(-50%); display:flex; gap:7px; }
+.ios-dots span { width:7px; height:7px; border-radius:50%; background:hsl(0 0% 100% / .4); transition:background .2s; }
+.ios-dots span.on { background:hsl(0 0% 100%); }
+.os-logo-icon { background:hsl(0 0% 100%); }
+.os-logo-icon img { object-fit:contain !important; padding:14%; }
+
+/* Apple style icons */
+.os-files { position:relative; background:hsl(0 0% 100%); }
+.os-files-folder { position:absolute; left:16%; right:16%; top:28%; bottom:24%; border-radius:12%; background:linear-gradient(180deg, hsl(205 95% 62%), hsl(214 92% 52%)); }
+.os-files-folder::before { content:""; position:absolute; left:0; top:-12%; width:40%; height:20%; border-radius:30% 30% 0 0; background:hsl(205 95% 62%); }
+.os-appstore { background:linear-gradient(180deg, hsl(199 95% 60%), hsl(214 95% 50%)); }
+.os-appstore svg { width:58%; height:58%; filter:none; }
+.os-safari { background:hsl(0 0% 100%); }
+.os-safari-dial { position:relative; width:78%; height:78%; border-radius:50%; background:radial-gradient(circle, hsl(195 95% 60%), hsl(214 92% 50%)); }
+.os-safari-needle { position:absolute; left:50%; top:50%; width:12%; height:76%; transform:translate(-50%,-50%) rotate(45deg); background:linear-gradient(180deg, hsl(4 85% 56%) 50%, hsl(0 0% 100%) 50%); clip-path:polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+.os-pages { background:linear-gradient(180deg, hsl(32 98% 58%), hsl(22 95% 52%)); }
+.os-pages svg { width:52%; height:52%; }

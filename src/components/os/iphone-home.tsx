@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { allProjects } from "./os-apps";
+import { allProjects, ProjectIcon } from "./os-apps";
 import { describe, fetchLagosWeather } from "./mac-widgets";
 import { useOsTheme } from "./use-os-theme";
 import { AnimatePresence, motion } from "framer-motion";
@@ -20,6 +20,9 @@ export function IphoneHome() {
   const now = useClock();
   const [open, setOpen] = useState<AppId | null>(null);
   const [locked, setLocked] = useState(true);
+  const [page, setPage] = useState(0);
+  const [projectName, setProjectName] = useState<string | undefined>();
+  const pagesRef = useRef<HTMLDivElement>(null);
   const { theme, toggle: toggleTheme } = useOsTheme();
   const { data: weather } = useQuery({ queryKey: ["lagos-weather"], queryFn: fetchLagosWeather, staleTime: 30 * 60 * 1000, retry: 1 });
   const sky = describe(weather?.code ?? 2);
@@ -51,7 +54,8 @@ export function IphoneHome() {
       <div className="mac-wallpaper-tint" />
       <StatusBar light />
 
-      <div className="ios-home">
+      <div className="ios-pages" ref={pagesRef} onScroll={(e) => setPage(Math.round(e.currentTarget.scrollLeft / e.currentTarget.clientWidth))}>
+      <div className="ios-home ios-page">
         <div className="ios-widgets">
           <div>
             <motion.button className="ios-w ios-w-weather" whileTap={{ scale: 0.96 }} onClick={() => launch("projects")} aria-label="Weather in Lagos">
@@ -91,7 +95,19 @@ export function IphoneHome() {
           ))}
         </div>
       </div>
+      <div className="ios-home ios-page">
+        <div className="ios-grid">
+          {allProjects.map((project) => (
+            <motion.button key={project.name} className="ios-app" whileTap={{ scale: 0.88 }} onClick={() => { setProjectName(project.name); setOpen("projects"); }}>
+              <ProjectIcon project={project} size="lg" />
+              <span className="ios-app-name">{project.name.replace(" Attendance System", "")}</span>
+            </motion.button>
+          ))}
+        </div>
+      </div>
+      </div>
 
+      <div className="ios-dots" aria-hidden="true">{[0, 1].map((i) => <span key={i} className={page === i ? "on" : ""} />)}</div>
       <button className="ios-search" onClick={() => launch("projects")}><Search aria-hidden="true" /> Search</button>
 
       <nav className="ios-dock" aria-label="Dock">
@@ -123,11 +139,11 @@ export function IphoneHome() {
           >
             <StatusBar light={false} />
             <header className="ios-app-header">
-              <button className="os-back" onClick={() => setOpen(null)}><ChevronLeft aria-hidden="true" /> Home</button>
+              <button className="os-back" onClick={() => { setOpen(null); setProjectName(undefined); }}><ChevronLeft aria-hidden="true" /> Home</button>
               <button className="ios-theme" onClick={toggleTheme} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>{theme === "dark" ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}</button>
             </header>
             <div className="ios-app-body">
-              <AppContent id={open} compact />
+              <AppContent id={open} compact projectName={open === "projects" ? projectName : undefined} />
             </div>
             <button className="ios-home-indicator" aria-label="Go to home screen" onClick={() => setOpen(null)} />
           </motion.section>
