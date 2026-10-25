@@ -8,6 +8,7 @@ import { HIRE_CALENDAR_URL } from "@/lib/booking";
 import { AppContent, AppIcon, appTitles, launchers, type AppId, type LauncherId } from "./os-apps";
 import { useClock } from "./use-clock";
 import HeartModal from "@/components/HeartModal";
+import { IphoneLock } from "./iphone-lock";
 
 const dockIds: LauncherId[] = ["projects", "love", "letter", "hire"];
 
@@ -16,6 +17,7 @@ export function IphoneHome() {
   const now = useClock();
   const [loveOpen, setLoveOpen] = useState(false);
   const [open, setOpen] = useState<AppId | null>(null);
+  const [locked, setLocked] = useState(true);
 
   const launch = (id: LauncherId) => {
     if (id === "home") return navigate("/");
@@ -103,6 +105,7 @@ export function IphoneHome() {
           </motion.section>
         )}
       </AnimatePresence>
+      <AnimatePresence>{locked && <IphoneLock key="lock" now={now} onUnlock={(app) => { setLocked(false); if (app) window.setTimeout(() => launch(app), 350); }} />}</AnimatePresence>
       <HeartModal isOpen={loveOpen} onClose={() => setLoveOpen(false)} />
     </div>
   );
