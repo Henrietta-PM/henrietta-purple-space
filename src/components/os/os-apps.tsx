@@ -275,6 +275,15 @@ async function fetchHearts() {
 function LoveApp() {
   const [sendOpen, setSendOpen] = useState(false);
   const { data: hearts = [], isLoading } = useQuery({ queryKey: ["hearts-feed"], queryFn: fetchHearts, refetchInterval: 30000 });
+  const { data: total = 0 } = useQuery({
+    queryKey: ["hearts-total"],
+    queryFn: async () => {
+      const { count, error } = await supabase.from("hearts").select("*", { count: "exact", head: true });
+      if (error) throw error;
+      return count ?? 0;
+    },
+    refetchInterval: 30000,
+  });
   const now = new Date();
   const groups = [
     { label: "Today", items: hearts.filter((h) => differenceInHours(now, new Date(h.created_at)) < 24) },
@@ -295,7 +304,7 @@ function LoveApp() {
     <div className="os-love">
       <div className="os-love-cta">
         <span className="os-love-ring"><img src={portrait} alt="" /></span>
-        <div><strong>mypvrplespace</strong><small>{hearts.length >= 60 ? "60+" : hearts.length} recent likes</small></div>
+        <div><strong>mypvrplespace</strong><small>{total.toLocaleString()} {total === 1 ? "like" : "likes"}</small></div>
         <Button size="sm" onClick={() => setSendOpen(true)}><Heart /> Like</Button>
       </div>
       {isLoading && <p className="os-muted os-love-empty">Loading activity</p>}
