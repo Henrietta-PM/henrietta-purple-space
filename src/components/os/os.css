@@ -378,3 +378,4 @@ button.mw:hover { transform:translateY(-2px); }
 .ios-app-glass .os-lib-list button { border-color:hsl(0 0% 100% / .15); }
 .ios-app-glass .ios-home-indicator { background:hsl(var(--os-on-dark)); }
 .ios-app-glass .os-finder-main { background:hsl(var(--os-window)); color:hsl(var(--os-ink)); min-height:100%; border-radius:20px 20px 0 0; }
+.os-lib-logo { background:hsl(0 0% 100%); } .os-lib-logo img { object-fit:contain !important; padding:14%; }
