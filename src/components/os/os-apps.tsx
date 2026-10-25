@@ -77,8 +77,16 @@ function ProjectDetail({ project, onBack, compact }: { project: Project; onBack:
           </Button>
         )}
       </div>
-      <h2 className="os-detail-title">{project.name}</h2>
-      <p className="os-muted">{project.tags.join(" · ")}</p>
+      <div className="os-store-head">
+        <ProjectIcon project={project} size="lg" />
+        <div className="os-store-meta">
+          <h2 className="os-detail-title">{project.name}</h2>
+          <p className="os-muted">{project.tags.join(" · ")}</p>
+          {project.link !== "#" && (
+            <a className="os-store-get" href={project.link} target="_blank" rel="noopener noreferrer">Open</a>
+          )}
+        </div>
+      </div>
       <img src={project.image} alt={`${project.name} product preview`} className="os-detail-image" />
       {sections.map((section) => (
         <section key={section.title} className="os-detail-section">
