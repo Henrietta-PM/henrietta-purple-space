@@ -363,3 +363,4 @@ button.mw:hover { transform:translateY(-2px); }
 .os-pages { background:linear-gradient(180deg, hsl(32 98% 58%), hsl(22 95% 52%)); }
 .os-pages svg { width:52%; height:52%; }
 .ios-search { padding:5px 12px; font-size:13px; gap:4px; } .ios-search svg { width:12px !important; height:12px !important; stroke-width:2.5; }
+.ios-dock { left:14px; right:14px; bottom:10px; padding:10px 14px; border-radius:32px; } .ios-dock .os-icon-lg { width:54px; height:54px; } .ios-search { bottom:104px; } .ios-dots { bottom:146px; }
