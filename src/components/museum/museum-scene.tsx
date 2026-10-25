@@ -87,8 +87,8 @@ function CameraRig({ selected, phase, angle, reduced }: Pick<SceneProps, 'select
       target = new Vector3(0, 0, -8);
     }
     const blend = reduced ? 1 : 1 - Math.exp(-2.4 * Math.min(rawDelta, 0.05));
-    camera.position.lerp(destination, blend);
-    look.current.lerp(target, blend);
+    if (camera.position.distanceTo(destination) < 0.04) camera.position.copy(destination); else camera.position.lerp(destination, blend);
+    if (look.current.distanceTo(target) < 0.04) look.current.copy(target); else look.current.lerp(target, blend);
     camera.lookAt(look.current);
   });
   return null;
