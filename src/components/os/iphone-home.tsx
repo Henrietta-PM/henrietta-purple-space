@@ -127,7 +127,7 @@ export function IphoneHome() {
             key={open}
             role="dialog"
             aria-label={appTitles[open]}
-            className="ios-app-screen"
+            className={`ios-app-screen ${open === "projects" && !projectName ? "ios-app-glass" : ""}`}
             initial={{ opacity: 0, scale: 0.3, borderRadius: 60 }}
             animate={{ opacity: 1, scale: 1, borderRadius: 0 }}
             exit={{ opacity: 0, scale: 0.3, borderRadius: 60, transition: { duration: 0.22 } }}
