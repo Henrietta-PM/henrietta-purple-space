@@ -1,0 +1,105 @@
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { format } from "date-fns";
+import { BatteryFull, Signal, Wifi } from "lucide-react";
+import portrait from "@/assets/henrietta-portrait.jpg";
+import { HIRE_CALENDAR_URL } from "@/lib/booking";
+import { AppContent, AppIcon, appTitles, launchers, type AppId, type LauncherId } from "./os-apps";
+import { useClock } from "./use-clock";
+
+const dockIds: LauncherId[] = ["projects", "contact", "letter", "hire"];
+
+export function IphoneHome() {
+  const navigate = useNavigate();
+  const now = useClock();
+  const [open, setOpen] = useState<AppId | null>(null);
+
+  const launch = (id: LauncherId) => {
+    if (id === "home") return navigate("/");
+    if (id === "hire") {
+      window.open(HIRE_CALENDAR_URL, "_blank", "noopener,noreferrer");
+      return;
+    }
+    setOpen(id);
+  };
+
+  const StatusBar = ({ light }: { light: boolean }) => (
+    <div className={`ios-status ${light ? "light" : ""}`}>
+      <span>{format(now, "HH:mm")}</span>
+      <span className="ios-status-icons"><Signal /><Wifi /><BatteryFull /></span>
+    </div>
+  );
+
+  return (
+    <div className="ios-shell" style={{ backgroundImage: `url(${portrait})` }}>
+      <div className="mac-wallpaper-tint" />
+      <StatusBar light />
+
+      <div className="ios-home">
+        <motion.div className="ios-widget" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
+          <span>{format(now, "EEEE d MMMM")}</span>
+          <strong>{format(now, "HH:mm")}</strong>
+          <p>Henrietta <span className="font-handwritten">Onwuneme</span>, Product Manager</p>
+        </motion.div>
+
+        <div className="ios-grid">
+          {launchers.map((launcher, index) => (
+            <motion.button
+              key={launcher.id}
+              className="ios-app"
+              onClick={() => launch(launcher.id)}
+              initial={{ opacity: 0, scale: 0.6 }}
+              animate={{ opacity: 1, scale: 1 }}
+              whileTap={{ scale: 0.88 }}
+              transition={{ delay: 0.05 * index, type: "spring", stiffness: 400, damping: 22 }}
+            >
+              <AppIcon launcher={launcher} size="lg" />
+              <span>{launcher.name}</span>
+            </motion.button>
+          ))}
+        </div>
+      </div>
+
+      <nav className="ios-dock" aria-label="Dock">
+        {dockIds.map((id) => {
+          const launcher = launchers.find((l) => l.id === id)!;
+          return (
+            <motion.button key={id} whileTap={{ scale: 0.88 }} onClick={() => launch(id)} aria-label={launcher.name}>
+              <AppIcon launcher={launcher} size="lg" />
+            </motion.button>
+          );
+        })}
+      </nav>
+
+      <AnimatePresence>
+        {open && (
+          <motion.section
+            key={open}
+            role="dialog"
+            aria-label={appTitles[open]}
+            className="ios-app-screen"
+            initial={{ opacity: 0, scale: 0.3, borderRadius: 60 }}
+            animate={{ opacity: 1, scale: 1, borderRadius: 0 }}
+            exit={{ opacity: 0, scale: 0.3, borderRadius: 60, transition: { duration: 0.22 } }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            drag="y"
+            dragConstraints={{ top: 0, bottom: 0 }}
+            dragElastic={{ top: 0, bottom: 0.4 }}
+            onDragEnd={(_, info) => { if (info.offset.y > 140) setOpen(null); }}
+          >
+            <StatusBar light={false} />
+            <header className="ios-app-header">
+              <h1>{open === "cv" ? "CV" : appTitles[open]}</h1>
+              <button onClick={() => setOpen(null)}>Done</button>
+            </header>
+            <div className="ios-app-body">
+              <AppContent id={open} compact />
+            </div>
+            <button className="ios-home-indicator" aria-label="Go to home screen" onClick={() => setOpen(null)} />
+          </motion.section>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}

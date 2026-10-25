@@ -1,0 +1,124 @@
+.os-root { position:fixed; inset:40px 0 0; overflow:hidden; font-family:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", system-ui, sans-serif; color:hsl(var(--os-ink)); }
+.mac-shell, .ios-shell { position:absolute; inset:0; background-size:cover; background-position:center 25%; }
+.mac-wallpaper-tint { position:absolute; inset:0; background:linear-gradient(160deg, hsl(var(--os-icon-cv) / .35), hsl(240 30% 6% / .55)); pointer-events:none; }
+
+/* Icons */
+.os-icon { display:grid; place-items:center; color:hsl(var(--os-on-dark)); border-radius:22%; box-shadow:0 4px 12px hsl(240 20% 4% / .3), inset 0 1px 0 hsl(0 0% 100% / .35); }
+.os-icon svg { width:50%; height:50%; filter:drop-shadow(0 1px 1px hsl(240 20% 4% / .25)); }
+.os-icon-sm { width:28px; height:28px; } .os-icon-md { width:48px; height:48px; } .os-icon-lg { width:56px; height:56px; }
+.os-icon-projects { background:linear-gradient(160deg, hsl(var(--os-icon-projects) / .75), hsl(var(--os-icon-projects))); }
+.os-icon-cv { background:linear-gradient(160deg, hsl(var(--os-icon-cv) / .7), hsl(var(--os-icon-cv))); }
+.os-icon-letter { background:linear-gradient(160deg, hsl(var(--os-icon-letter) / .75), hsl(var(--os-icon-letter))); }
+.os-icon-contact { background:linear-gradient(160deg, hsl(var(--os-icon-contact) / .75), hsl(var(--os-icon-contact))); }
+.os-icon-shop { background:linear-gradient(160deg, hsl(var(--os-icon-shop) / .75), hsl(var(--os-icon-shop))); }
+.os-icon-hire { background:linear-gradient(160deg, hsl(var(--os-icon-hire) / .7), hsl(var(--os-icon-hire))); }
+.os-icon-home { background:linear-gradient(160deg, hsl(var(--os-icon-home) / .75), hsl(var(--os-icon-home))); }
+
+/* Mac */
+.mac-menubar { position:absolute; top:0; left:0; right:0; height:28px; z-index:50; display:flex; justify-content:space-between; align-items:center; padding:0 14px; font-size:13px; color:hsl(var(--os-on-dark)); background:hsl(var(--os-glass-dark)); backdrop-filter:blur(24px) saturate(1.6); }
+.mac-menubar-left, .mac-menubar-right { display:flex; align-items:center; gap:16px; }
+.mac-menubar svg { width:15px; height:15px; }
+.mac-menubar button { opacity:.9; } .mac-menubar button:hover { opacity:1; text-decoration:underline; text-underline-offset:3px; }
+.mac-desktop { position:absolute; top:28px; left:0; right:0; bottom:88px; }
+.mac-widget { position:absolute; left:32px; top:28px; width:290px; padding:20px; border-radius:20px; color:hsl(var(--os-on-dark)); background:hsl(var(--os-glass-dark)); backdrop-filter:blur(24px); border:1px solid hsl(0 0% 100% / .15); }
+.mac-widget h1 { font-size:24px; font-weight:700; line-height:1.15; margin:6px 0 8px; }
+.mac-widget h1 span { color:hsl(var(--os-icon-letter)); font-size:28px; }
+.mac-widget p { font-size:13px; opacity:.85; }
+.os-muted-on-dark { font-size:11px; letter-spacing:.08em; text-transform:uppercase; opacity:.7; }
+.mac-desktop-icons { position:absolute; right:28px; top:24px; display:flex; flex-direction:column; gap:18px; }
+.mac-desktop-icon { display:flex; flex-direction:column; align-items:center; gap:6px; padding:6px; border-radius:8px; color:hsl(var(--os-on-dark)); font-size:12px; text-shadow:0 1px 3px hsl(240 20% 4% / .7); }
+.mac-desktop-icon:focus-visible, .mac-desktop-icon:hover { background:hsl(0 0% 100% / .15); }
+
+.mac-window { position:absolute; display:flex; flex-direction:column; overflow:hidden; border-radius:12px; background:hsl(var(--os-window)); box-shadow:var(--os-shadow); border:1px solid hsl(0 0% 100% / .3); max-width:calc(100% - 24px); max-height:calc(100% - 24px); }
+.mac-window:not(.focused) .mac-light { background:hsl(var(--os-line)); }
+.mac-window.maximized { inset:8px !important; max-width:none; max-height:none; transform:none !important; }
+.mac-titlebar { position:relative; height:40px; flex-shrink:0; display:flex; align-items:center; padding:0 14px; background:hsl(var(--os-titlebar)); border-bottom:1px solid hsl(var(--os-line)); cursor:grab; user-select:none; touch-action:none; }
+.mac-titlebar:active { cursor:grabbing; }
+.mac-lights { display:flex; gap:8px; z-index:1; }
+.mac-light { width:12px; height:12px; border-radius:50%; }
+.mac-light.close { background:hsl(var(--os-close)); } .mac-light.min { background:hsl(var(--os-min)); } .mac-light.max { background:hsl(var(--os-max)); }
+.mac-title { position:absolute; inset:0; display:grid; place-items:center; font-size:13px; font-weight:600; color:hsl(var(--os-ink-soft)); pointer-events:none; }
+.mac-window-body { flex:1; overflow:auto; }
+
+.mac-dock { position:absolute; bottom:10px; left:50%; transform:translateX(-50%); z-index:60; display:flex; align-items:flex-end; gap:4px; padding:8px 10px 6px; border-radius:22px; background:hsl(var(--os-glass)); backdrop-filter:blur(24px) saturate(1.6); border:1px solid hsl(0 0% 100% / .4); box-shadow:0 10px 40px hsl(240 20% 4% / .3); }
+.mac-dock-slot { display:flex; align-items:flex-end; }
+.mac-dock-divider { width:1px; height:48px; margin:0 6px 8px; background:hsl(var(--os-ink) / .2); }
+.mac-dock-item { position:relative; display:flex; flex-direction:column; align-items:center; padding:0 2px; transition:transform .2s cubic-bezier(.3,1.6,.5,1), margin .2s; transform-origin:bottom center; }
+.mac-dock-item:hover, .mac-dock-item:focus-visible { transform:scale(1.35) translateY(-6px); margin:0 10px; }
+.mac-dock-tip { position:absolute; bottom:calc(100% + 10px); padding:3px 10px; border-radius:6px; font-size:11px; white-space:nowrap; background:hsl(var(--os-glass)); backdrop-filter:blur(12px); opacity:0; pointer-events:none; transition:opacity .15s; }
+.mac-dock-item:hover .mac-dock-tip { opacity:1; }
+.mac-dock-dot { width:4px; height:4px; border-radius:50%; margin-top:3px; background:transparent; }
+.mac-dock-dot.on { background:hsl(var(--os-ink) / .75); }
+
+/* Finder */
+.os-finder { display:flex; height:100%; }
+.os-finder-sidebar { width:180px; flex-shrink:0; padding:14px 10px; display:flex; flex-direction:column; gap:2px; background:hsl(var(--os-sidebar)); border-right:1px solid hsl(var(--os-line)); }
+.os-finder-sidebar span { font-size:11px; font-weight:600; color:hsl(var(--os-ink-soft)); padding:4px 8px; }
+.os-finder-sidebar button { text-align:left; font-size:13px; padding:5px 8px; border-radius:6px; }
+.os-finder-sidebar button.active { background:hsl(var(--os-ink) / .1); font-weight:600; }
+.os-finder-main { flex:1; overflow:auto; padding:18px; }
+.os-file-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:16px; }
+.os-file { display:flex; flex-direction:column; align-items:center; gap:4px; padding:10px; border-radius:10px; text-align:center; transition:background .15s, transform .15s; }
+.os-file:hover, .os-file:focus-visible { background:hsl(var(--os-icon-projects) / .12); transform:translateY(-2px); }
+.os-file img { width:100%; aspect-ratio:16/10; object-fit:cover; border-radius:8px; box-shadow:0 4px 14px hsl(240 20% 4% / .15); background:hsl(var(--os-titlebar)); margin-bottom:6px; }
+.os-file span { font-size:13px; font-weight:600; }
+.os-file small, .os-muted { font-size:12px; color:hsl(var(--os-ink-soft)); }
+.os-segment { display:flex; padding:2px; border-radius:9px; background:hsl(var(--os-ink) / .08); margin-bottom:16px; }
+.os-segment button { flex:1; padding:6px; border-radius:7px; font-size:13px; }
+.os-segment button.active { background:hsl(var(--os-window)); font-weight:600; box-shadow:0 1px 4px hsl(240 20% 4% / .15); }
+.os-detail-bar { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+.os-detail-title { font-size:28px; font-weight:700; }
+.os-detail-image { width:100%; max-width:520px; aspect-ratio:16/10; object-fit:contain; border-radius:10px; background:hsl(var(--os-titlebar)); margin:14px 0 18px; }
+.os-detail-section { margin-bottom:18px; }
+.os-detail-section h3 { font-size:14px; font-weight:700; color:hsl(var(--os-icon-cv)); margin-bottom:6px; }
+.os-detail-section p { font-size:14px; line-height:1.7; margin-bottom:8px; }
+
+/* Preview, Notes, Contact, Shop */
+.os-preview { display:flex; flex-direction:column; height:100%; }
+.os-preview-bar { display:flex; justify-content:space-between; align-items:center; padding:10px 14px; border-bottom:1px solid hsl(var(--os-line)); }
+.os-preview-frame { flex:1; width:100%; min-height:360px; border:0; background:hsl(var(--os-titlebar)); }
+.os-preview-link { align-self:center; }
+.os-note { padding:28px 32px; background:linear-gradient(hsl(var(--os-icon-letter) / .08), transparent 120px); min-height:100%; }
+.os-note-date { text-align:center; margin-bottom:12px; }
+.os-note h2 { font-size:32px; color:hsl(var(--os-icon-cv)); margin-bottom:14px; }
+.os-note p { font-size:15px; line-height:1.75; margin-bottom:14px; }
+.os-note-sign { font-size:30px; color:hsl(var(--os-icon-cv)); }
+.os-contact { padding:24px; display:flex; flex-direction:column; gap:10px; }
+.os-contact-card { text-align:center; padding-bottom:12px; }
+.os-contact-card h2 { font-size:22px; font-weight:700; }
+.os-contact-row { display:flex; flex-direction:column; padding:12px 14px; border-radius:10px; background:hsl(var(--os-titlebar)); font-size:14px; color:hsl(var(--os-icon-projects)); }
+.os-contact-row span { font-size:11px; color:hsl(var(--os-ink-soft)); }
+.os-shop { padding:18px; display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:16px; }
+.os-shop-item { border-radius:12px; overflow:hidden; background:hsl(var(--os-titlebar)); transition:transform .15s; }
+.os-shop-item:hover { transform:translateY(-3px); }
+.os-shop-item img { width:100%; aspect-ratio:16/10; object-fit:cover; }
+.os-shop-item div { padding:12px; display:flex; flex-direction:column; gap:4px; }
+.os-shop-item small { font-size:10px; font-weight:700; color:hsl(var(--os-icon-shop)); }
+.os-shop-item span { font-size:14px; font-weight:600; }
+.os-shop-item em { font-style:normal; font-size:13px; color:hsl(var(--os-icon-projects)); display:flex; align-items:center; gap:4px; }
+.os-shop-item em svg { width:14px; }
+
+/* iPhone */
+.ios-status { position:relative; z-index:5; display:flex; justify-content:space-between; align-items:center; padding:12px 28px 6px; font-size:15px; font-weight:600; }
+.ios-status.light { color:hsl(var(--os-on-dark)); }
+.ios-status-icons { display:flex; gap:6px; } .ios-status-icons svg { width:16px; height:16px; }
+.ios-home { position:relative; z-index:2; padding:12px 22px; }
+.ios-widget { padding:18px; border-radius:22px; color:hsl(var(--os-on-dark)); background:hsl(var(--os-glass-dark)); backdrop-filter:blur(24px); border:1px solid hsl(0 0% 100% / .15); margin-bottom:26px; }
+.ios-widget span { font-size:13px; opacity:.8; }
+.ios-widget strong { display:block; font-size:52px; font-weight:700; line-height:1; margin:4px 0 8px; }
+.ios-widget p { font-size:14px; }
+.ios-widget p span { color:hsl(var(--os-icon-letter)); font-size:20px; opacity:1; }
+.ios-grid { display:grid; grid-template-columns:repeat(4, 1fr); row-gap:22px; justify-items:center; }
+.ios-app { display:flex; flex-direction:column; align-items:center; gap:6px; color:hsl(var(--os-on-dark)); font-size:11px; text-shadow:0 1px 3px hsl(240 20% 4% / .6); }
+.ios-dock { position:absolute; z-index:3; left:12px; right:12px; bottom:14px; display:flex; justify-content:space-around; padding:14px 10px; border-radius:30px; background:hsl(var(--os-glass)); backdrop-filter:blur(24px) saturate(1.6); }
+.ios-app-screen { position:absolute; inset:0; z-index:20; display:flex; flex-direction:column; overflow:hidden; background:hsl(var(--os-window)); }
+.ios-app-header { display:flex; justify-content:space-between; align-items:baseline; padding:6px 20px 12px; }
+.ios-app-header h1 { font-size:30px; font-weight:800; }
+.ios-app-header button { font-size:16px; font-weight:600; color:hsl(var(--os-icon-projects)); }
+.ios-app-body { flex:1; overflow:auto; padding:0 4px 40px; }
+.ios-app-body .os-finder-main { padding:4px 14px; }
+.ios-app-body .os-file-grid { grid-template-columns:repeat(2, 1fr); gap:10px; }
+.ios-app-body .os-note { padding:8px 18px; }
+.ios-home-indicator { position:absolute; bottom:8px; left:50%; transform:translateX(-50%); width:134px; height:5px; border-radius:3px; background:hsl(var(--os-ink)); }
+
+@media (prefers-reduced-motion:reduce) { .os-root * { transition:none !important; } }

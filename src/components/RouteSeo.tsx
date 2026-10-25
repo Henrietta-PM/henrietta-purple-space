@@ -19,9 +19,9 @@ const person = {
 };
 
 const pages: Record<string, PageMeta> = {
-  "/museum": {
-    title: "The Product Museum | Henrietta Onwuneme",
-    description: "Explore Henrietta Onwuneme's product work in an interactive architectural museum, with galleries for Sally, Targett, ProxyMedicine and more.",
+  "/space": {
+    title: "MyPvrpleSpace Desktop | Henrietta Onwuneme",
+    description: "Explore Henrietta Onwuneme's product work through a Mac style desktop or iPhone style home screen, with projects, CV, letter, contact and shop apps.",
   },
   "/": {
     title: "Henrietta Onwuneme | Product Manager Portfolio",

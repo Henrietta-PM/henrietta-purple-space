@@ -8,18 +8,26 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --museum-sky: 205 28% 84%;
-    --museum-stone: 40 9% 82%;
-    --museum-wall: 40 12% 91%;
-    --museum-metal: 210 7% 24%;
-    --museum-wood: 28 24% 46%;
-    --museum-grass: 104 19% 39%;
-    --museum-water: 197 29% 53%;
-    --museum-glass: 195 20% 78%;
-    --museum-paper: 0 0% 98%;
-    --museum-ink: 220 10% 14%;
-    --museum-accent: 253 70% 56%;
-    --museum-shadow: 0 14px 45px hsl(220 15% 12% / 0.16);
+    --os-glass: 0 0% 100% / 0.62;
+    --os-glass-dark: 240 10% 12% / 0.55;
+    --os-window: 0 0% 99%;
+    --os-titlebar: 240 6% 95%;
+    --os-sidebar: 240 8% 94% / 0.92;
+    --os-ink: 240 8% 12%;
+    --os-ink-soft: 240 4% 42%;
+    --os-line: 240 6% 82%;
+    --os-on-dark: 0 0% 100%;
+    --os-close: 4 89% 61%;
+    --os-min: 41 98% 56%;
+    --os-max: 128 60% 48%;
+    --os-icon-projects: 211 98% 55%;
+    --os-icon-cv: 253 70% 56%;
+    --os-icon-letter: 44 96% 56%;
+    --os-icon-contact: 142 64% 45%;
+    --os-icon-shop: 330 80% 58%;
+    --os-icon-hire: 262 83% 64%;
+    --os-icon-home: 199 89% 52%;
+    --os-shadow: 0 30px 80px hsl(240 20% 4% / 0.45);
     --background: 0 0% 100%;
     --foreground: 0 0% 5%;
 
