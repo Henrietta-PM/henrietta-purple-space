@@ -392,3 +392,20 @@ button.mw:hover { transform:translateY(-2px); }
 .ios-home-hint { position:absolute; z-index:30; left:50%; bottom:40px; transform:translateX(-50%); white-space:nowrap; padding:7px 14px; border-radius:999px; font-size:13px; color:hsl(var(--os-on-dark)); background:hsl(240 10% 12% / .8); backdrop-filter:blur(20px); }
 .ios-app-screen .os-action-bar { padding-bottom:34px; }
 .ios-home-hint { left:0; right:0; margin:0 auto; width:max-content; transform:none; }
+
+/* App Store style project page */
+.ios-app-glass:has(.os-detail) { background:hsl(var(--os-window)) !important; backdrop-filter:none; color:hsl(var(--os-ink)); }
+.ios-app-glass:has(.os-detail) .os-finder-main { border-radius:0; }
+.ios-app-glass:has(.os-detail) .ios-theme, .ios-app-glass:has(.os-detail) .ios-status { color:hsl(var(--os-ink)) !important; }
+.ios-app-glass:has(.os-detail) .ios-theme { background:hsl(var(--os-ink) / .08); }
+.ios-app-glass:has(.os-detail) .ios-home-indicator { background:hsl(var(--os-ink)); }
+.os-store-head { display:flex; gap:16px; align-items:center; margin:10px 0 18px; }
+.os-store-head .os-icon { width:96px !important; height:96px !important; flex:none; }
+.os-store-meta { display:flex; flex-direction:column; align-items:flex-start; gap:2px; min-width:0; }
+.os-store-meta .os-detail-title { font-size:22px; font-weight:700; line-height:1.2; margin:0; }
+.os-store-meta p { font-size:13px; }
+.os-store-get { margin-top:8px; padding:5px 20px; border-radius:999px; font-size:14px; font-weight:700; color:hsl(0 0% 100%); background:hsl(var(--os-icon-projects)); }
+.ios-app-body .os-detail-image { border-radius:18px; margin-bottom:18px; box-shadow:0 6px 20px -8px hsl(240 30% 4% / .5); }
+.ios-app-body .os-detail-section { background:transparent !important; border-radius:0 !important; padding:14px 0 !important; border-top:1px solid hsl(var(--os-line)); }
+.ios-app-body .os-detail-section h3 { font-size:18px !important; text-transform:none !important; letter-spacing:0 !important; color:hsl(var(--os-ink)) !important; font-weight:700; margin-bottom:6px; }
+.ios-app-body .os-detail-section p { font-size:15px; line-height:1.55; color:hsl(var(--os-ink-soft)); }
