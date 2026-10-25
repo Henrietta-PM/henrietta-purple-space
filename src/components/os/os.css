@@ -386,3 +386,4 @@ button.mw:hover { transform:translateY(-2px); }
 .os-notes .os-notes-top::after { content:""; position:absolute; left:0; right:0; bottom:-12%; height:4%; background:repeating-linear-gradient(90deg, hsl(0 0% 70%) 0 6%, transparent 6% 10%); opacity:.7; }
 .os-notes .os-notes-lines { left:8%; right:8%; top:46%; bottom:8%; background:repeating-linear-gradient(180deg, hsl(0 0% 82%) 0 1.5px, transparent 1.5px 22%); }
 .os-notes .os-notes-lines { top:44%; bottom:6%; background:linear-gradient(180deg, hsl(0 0% 80%) 0 2px, transparent 2px) 0 0 / 100% 25% repeat-y; }
+.ios-app-header { justify-content:flex-end !important; min-height:40px; } .ios-app-body .os-detail-bar { position:sticky; top:0; }
