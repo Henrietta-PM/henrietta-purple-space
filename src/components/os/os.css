@@ -391,3 +391,4 @@ button.mw:hover { transform:translateY(-2px); }
 .ios-home-zone .ios-home-indicator { position:static; transform:none; }
 .ios-home-hint { position:absolute; z-index:30; left:50%; bottom:40px; transform:translateX(-50%); white-space:nowrap; padding:7px 14px; border-radius:999px; font-size:13px; color:hsl(var(--os-on-dark)); background:hsl(240 10% 12% / .8); backdrop-filter:blur(20px); }
 .ios-app-screen .os-action-bar { padding-bottom:34px; }
+.ios-home-hint { left:0; right:0; margin:0 auto; width:max-content; transform:none; }
