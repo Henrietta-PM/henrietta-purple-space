@@ -121,7 +121,6 @@ export function IphoneHome() {
       </div>
 
       <div className="ios-dots" aria-hidden="true">{[0, 1].map((i) => <span key={i} className={page === i ? "on" : ""} />)}</div>
-      <button className="ios-search" onClick={() => launch("projects")}><Search aria-hidden="true" /> Search</button>
 
       <nav className="ios-dock" aria-label="Dock">
         {dockIds.map((id) => {
