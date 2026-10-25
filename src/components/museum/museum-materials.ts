@@ -2,6 +2,10 @@ import { Color, RepeatWrapping, SRGBColorSpace, Texture } from 'three';
 
 export type MuseumPalette = Record<'sky' | 'stone' | 'wall' | 'metal' | 'wood' | 'grass' | 'water' | 'glass' | 'paper' | 'ink' | 'accent', string>;
 
+export function museumAssetUrl(url: string): string {
+  return import.meta.env.DEV ? `https://hirehenrietta.lovable.app${url}` : url;
+}
+
 export function readMuseumPalette(): MuseumPalette {
   const style = getComputedStyle(document.documentElement);
   const keys = ['sky', 'stone', 'wall', 'metal', 'wood', 'grass', 'water', 'glass', 'paper', 'ink', 'accent'] as const;

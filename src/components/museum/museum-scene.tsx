@@ -8,7 +8,7 @@ import woodAsset from '@/assets/museum/wood.jpg.asset.json';
 import treeAsset from '@/assets/museum/tree.glb.asset.json';
 import { Button } from '@/components/ui/button';
 import { pavilions, type Pavilion, type TourPhase } from './museum-model';
-import { readMuseumPalette, repeatTexture, type MuseumPalette } from './museum-materials';
+import { museumAssetUrl, readMuseumPalette, repeatTexture, type MuseumPalette } from './museum-materials';
 import { MuseumVisitor } from './museum-visitor';
 
 interface SceneProps {
@@ -117,14 +117,14 @@ function Landscape({ palette, maps }: { palette: MuseumPalette; maps: { grass: R
 }
 
 function TexturedCampus(props: SceneProps & { palette: MuseumPalette }) {
-  const textures = useTexture([stoneAsset.url, grassAsset.url, woodAsset.url]);
+  const textures = useTexture([stoneAsset.url, grassAsset.url, woodAsset.url].map(museumAssetUrl));
   const maps = useMemo(() => ({ stone: repeatTexture(textures[0], 5), grass: repeatTexture(textures[1], 35), wood: repeatTexture(textures[2], 2) }), [textures]);
   useEffect(() => () => { Object.values(maps).forEach((map) => map.dispose()); }, [maps]);
   return <><Landscape palette={props.palette} maps={maps} />{pavilions.map((pavilion) => <PavilionBuilding key={pavilion.id} pavilion={pavilion} palette={props.palette} selected={props.selected?.id === pavilion.id} phase={props.phase} reduced={props.reduced} onSelect={props.onSelect} onDoorOpen={props.onDoorOpen} maps={maps} />)}</>;
 }
 
 function Planting() {
-  const { scene } = useGLTF(treeAsset.url);
+  const { scene } = useGLTF(museumAssetUrl(treeAsset.url));
   const trees = useMemo(() => Array.from({ length: 22 }, (_, index) => {
     const tree = scene.clone(true);
     tree.traverse((object) => { if (object instanceof Mesh) object.castShadow = true; });

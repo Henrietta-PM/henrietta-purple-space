@@ -5,6 +5,7 @@ import { Box3, Group, Mesh, Vector3 } from 'three';
 import { SkeletonUtils } from 'three-stdlib';
 import visitorAsset from '@/assets/museum/visitor.glb.asset.json';
 import { advancePosition, routeToDoor, type Pavilion, type Point, type TourPhase } from './museum-model';
+import { museumAssetUrl } from './museum-materials';
 
 interface VisitorProps {
   selected: Pavilion | null;
@@ -21,7 +22,7 @@ export function MuseumVisitor({ selected, phase, reduced, onArrive, onEnter }: V
   const route = useRef<Point[]>([]);
   const waypoint = useRef(0);
   const fired = useRef(false);
-  const { scene, animations } = useGLTF(visitorAsset.url);
+  const { scene, animations } = useGLTF(museumAssetUrl(visitorAsset.url));
   const model = useMemo(() => {
     const clone = SkeletonUtils.clone(scene);
     clone.traverse((item) => { if (item instanceof Mesh) { item.castShadow = true; item.frustumCulled = false; } });
