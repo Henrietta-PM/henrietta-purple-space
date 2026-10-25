@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { format } from "date-fns";
-import { Lock } from "lucide-react";
+import { ChevronUp, Lock } from "lucide-react";
 import { AppIcon, launchers, type LauncherId } from "./os-apps";
 
 interface LockNotice {
@@ -60,6 +60,7 @@ export function IphoneLock({ now, onUnlock }: { now: Date; onUnlock: (app?: Laun
 
       <button className="ios-unlock" onClick={() => onUnlock()}>
         <motion.span animate={{ y: [0, -6, 0], opacity: [0.6, 1, 0.6] }} transition={{ duration: 2, repeat: Infinity }}>
+          <ChevronUp aria-hidden="true" />
           Swipe up to open
         </motion.span>
         <span className="ios-home-indicator light" aria-hidden="true" />
