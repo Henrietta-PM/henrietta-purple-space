@@ -99,8 +99,8 @@ function ProjectDetail({ project, onBack, compact }: { project: Project; onBack:
 
 function LibraryTile({ project, onOpen }: { project: Project; onOpen: (p: Project) => void }) {
   return (
-    <button className="os-lib-tile" onClick={() => onOpen(project)} aria-label={`Open ${project.name}`}>
-      <img src={project.image} alt="" loading="lazy" />
+    <button className={`os-lib-tile ${projectLogos[project.name] ? "os-lib-logo" : ""}`} onClick={() => onOpen(project)} aria-label={`Open ${project.name}`}>
+      <img src={projectLogos[project.name] ?? project.image} alt="" loading="lazy" />
     </button>
   );
 }
