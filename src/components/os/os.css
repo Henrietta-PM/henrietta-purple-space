@@ -416,3 +416,21 @@ button.mw:hover { transform:translateY(-2px); }
 .os-toggle svg { width:46%; height:46%; }
 .ios-app-body:has(.os-action-bar) { padding-bottom:0; } .ios-app-body .os-action-bar { margin-bottom:0; background:linear-gradient(180deg, hsl(var(--os-window) / 0), hsl(var(--os-window)) 24px); }
 .ios-app-screen .ios-app-body .os-action-bar { padding-bottom:40px; }
+
+/* Stable glass: own compositing layer, no transform animation on blurred elements */
+.ios-dock, .ios-w, .ios-w-weather { transform:translateZ(0); -webkit-transform:translateZ(0); backface-visibility:hidden; isolation:isolate; will-change:auto; }
+.ios-dock { transform:translateZ(0) !important; }
+.ios-dock button, .ios-w { transition:transform .15s ease, opacity .15s ease; -webkit-tap-highlight-color:transparent; }
+.ios-dock button:active, .ios-w:active { opacity:.8; }
+.ios-w-photo img { backface-visibility:hidden; }
+.os-icon-settings { background:linear-gradient(160deg, hsl(220 6% 62%), hsl(220 6% 40%)); color:hsl(0 0% 100%); }
+.os-icon-settings svg { width:62%; height:62%; }
+.ios-settings { padding:8px 16px 40px; }
+.ios-settings h1 { font-size:28px; font-weight:700; margin:8px 0 20px; }
+.ios-settings-label { font-size:12px; text-transform:uppercase; letter-spacing:.04em; opacity:.6; margin:0 0 6px 14px; }
+.ios-settings-group { border-radius:12px; overflow:hidden; background:hsl(var(--os-ink) / .06); }
+.ios-settings-group button { display:flex; width:100%; justify-content:space-between; align-items:center; padding:12px 14px; text-align:left; border-bottom:1px solid hsl(var(--os-line)); }
+.ios-settings-group button:last-child { border-bottom:0; }
+.ios-settings-group strong { display:block; font-size:16px; font-weight:500; }
+.ios-settings-group small { font-size:12px; opacity:.6; }
+.ios-settings-group svg { width:18px; height:18px; color:hsl(var(--os-icon-projects)); }
