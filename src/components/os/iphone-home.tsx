@@ -1,21 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { allProjects } from "./os-apps";
+import { describe, fetchLagosWeather } from "./mac-widgets";
+import { useOsTheme } from "./use-os-theme";
 import { AnimatePresence, motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
-import { BatteryFull, ChevronLeft, Signal, Wifi } from "lucide-react";
+import { BatteryFull, ChevronLeft, Moon, Navigation, Search, Signal, Sun, Wifi } from "lucide-react";
 import portrait from "@/assets/henrietta-portrait.jpg";
 import { HIRE_CALENDAR_URL } from "@/lib/booking";
 import { AppContent, AppIcon, appTitles, launchers, type AppId, type LauncherId } from "./os-apps";
 import { useClock } from "./use-clock";
 import { IphoneLock } from "./iphone-lock";
 
-const dockIds: LauncherId[] = ["projects", "love", "letter", "hire"];
+const dockIds: LauncherId[] = ["contact", "love", "letter", "hire"];
 
 export function IphoneHome() {
   const navigate = useNavigate();
   const now = useClock();
   const [open, setOpen] = useState<AppId | null>(null);
   const [locked, setLocked] = useState(true);
+  const { theme, toggle: toggleTheme } = useOsTheme();
+  const { data: weather } = useQuery({ queryKey: ["lagos-weather"], queryFn: fetchLagosWeather, staleTime: 30 * 60 * 1000, retry: 1 });
+  const sky = describe(weather?.code ?? 2);
+  const [photoIndex, setPhotoIndex] = useState(0);
+  const photo = allProjects[photoIndex % allProjects.length];
+  useEffect(() => {
+    const timer = window.setInterval(() => setPhotoIndex((i) => i + 1), 5000);
+    return () => window.clearInterval(timer);
+  }, []);
 
   const launch = (id: LauncherId) => {
     if (id === "home") return navigate("/");
@@ -39,14 +52,30 @@ export function IphoneHome() {
       <StatusBar light />
 
       <div className="ios-home">
-        <div className="ios-widget">
-          <span>{format(now, "EEEE d MMMM")}</span>
-          <strong>{format(now, "HH:mm")}</strong>
-          <p>Henrietta <span className="font-handwritten">Onwuneme</span>, Product Manager</p>
+        <div className="ios-widgets">
+          <div>
+            <motion.button className="ios-w ios-w-weather" whileTap={{ scale: 0.96 }} onClick={() => launch("projects")} aria-label="Weather in Lagos">
+              <span className="ios-w-place">Lagos <Navigation aria-hidden="true" /></span>
+              <strong>{weather ? `${weather.temp}°` : "--"}</strong>
+              <sky.Icon className="ios-w-sky" aria-hidden="true" />
+              <span>{sky.label}</span>
+              <span>{weather ? `H:${weather.high}° L:${weather.low}°` : "Loading"}</span>
+            </motion.button>
+            <small>Weather</small>
+          </div>
+          <div>
+            <motion.button className="ios-w ios-w-photo" whileTap={{ scale: 0.96 }} onClick={() => launch("projects")} aria-label={`View ${photo.name}`}>
+              <AnimatePresence mode="popLayout">
+                <motion.img key={photo.name} src={photo.image} alt="" initial={{ opacity: 0, scale: 1.08 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.8 }} />
+              </AnimatePresence>
+              <span>{photo.name}</span>
+            </motion.button>
+            <small>Photos</small>
+          </div>
         </div>
 
         <div className="ios-grid">
-          {launchers.map((launcher, index) => (
+          {launchers.filter((l) => !dockIds.includes(l.id)).map((launcher, index) => (
             <motion.button
               key={launcher.id}
               className="ios-app"
@@ -62,6 +91,8 @@ export function IphoneHome() {
           ))}
         </div>
       </div>
+
+      <button className="ios-search" onClick={() => launch("projects")}><Search aria-hidden="true" /> Search</button>
 
       <nav className="ios-dock" aria-label="Dock">
         {dockIds.map((id) => {
@@ -93,6 +124,7 @@ export function IphoneHome() {
             <StatusBar light={false} />
             <header className="ios-app-header">
               <button className="os-back" onClick={() => setOpen(null)}><ChevronLeft aria-hidden="true" /> Home</button>
+              <button className="ios-theme" onClick={toggleTheme} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>{theme === "dark" ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}</button>
               <h1>{open === "cv" ? "CV" : appTitles[open]}</h1>
             </header>
             <div className="ios-app-body">

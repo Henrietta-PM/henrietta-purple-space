@@ -276,3 +276,58 @@ button.mw:hover { transform:translateY(-2px); }
 .os-love-thumb { width:44px; height:44px; border-radius:6px; object-fit:cover; }
 .os-love-empty { padding:24px 0; text-align:center; }
 .ios-app-body .os-note { padding:4px 18px 32px; }
+
+/* Dark mode for app surfaces */
+.os-dark {
+  --os-window: 240 6% 10%;
+  --os-titlebar: 240 5% 16%;
+  --os-sidebar: 240 6% 13% / 0.92;
+  --os-ink: 0 0% 96%;
+  --os-ink-soft: 240 4% 64%;
+  --os-line: 240 4% 24%;
+  --os-glass: 240 8% 18% / 0.5;
+}
+.os-dark .os-mail-send svg, .os-dark .os-docs-icon { color:hsl(0 0% 100%); }
+.os-dark .os-docs { background:hsl(var(--os-titlebar)); }
+.os-dark .ios-app-screen, .os-dark .mac-window { color:hsl(var(--os-ink)); }
+.os-note { background:hsl(var(--os-window)); }
+.mac-menubar-right button { display:grid; place-items:center; }
+.mac-menubar-right button svg { width:15px; height:15px; }
+.ios-app-header { position:sticky; }
+.ios-theme { position:absolute; right:18px; top:8px; display:grid; place-items:center; width:32px; height:32px; border-radius:50%; background:hsl(var(--os-ink) / .08); color:hsl(var(--os-ink)) !important; }
+.ios-theme svg { width:16px; height:16px; }
+
+/* Instagram icon */
+.os-insta { background:radial-gradient(circle at 30% 107%, hsl(48 96% 62%) 0%, hsl(38 95% 58%) 10%, hsl(352 87% 56%) 45%, hsl(322 80% 48%) 62%, hsl(262 70% 55%) 90%); }
+.os-insta svg { width:58%; height:58%; stroke-width:2.2; }
+
+/* Liquid glass home */
+.ios-shell .mac-wallpaper-tint { background:linear-gradient(180deg, hsl(var(--os-icon-cv) / .25), hsl(var(--os-icon-cv) / .35) 60%, hsl(240 30% 6% / .45)); }
+.ios-home { padding:10px 20px; }
+.ios-widgets { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:20px; }
+.ios-widgets > div { display:flex; flex-direction:column; align-items:center; gap:6px; }
+.ios-widgets small { font-size:11px; color:hsl(var(--os-on-dark)); text-shadow:0 1px 3px hsl(240 20% 4% / .5); }
+.ios-w { position:relative; width:100%; aspect-ratio:1; border-radius:24px; overflow:hidden; color:hsl(var(--os-on-dark)); text-align:left;
+  border:1px solid hsl(0 0% 100% / .28);
+  box-shadow:inset 0 1px 1px hsl(0 0% 100% / .45), inset 0 -1px 1px hsl(0 0% 100% / .1), 0 12px 30px -10px hsl(240 30% 4% / .5); }
+.ios-w-weather { display:flex; flex-direction:column; align-items:flex-start; padding:14px 16px; background:linear-gradient(180deg, hsl(220 30% 22% / .62), hsl(230 30% 14% / .72)); backdrop-filter:blur(28px) saturate(1.8); -webkit-backdrop-filter:blur(28px) saturate(1.8); }
+.ios-w-weather strong { font-size:44px; font-weight:300; line-height:1.05; }
+.ios-w-weather span { font-size:13px; font-weight:600; }
+.ios-w-place { display:flex; align-items:center; gap:4px; font-size:15px !important; }
+.ios-w-place svg { width:12px; height:12px; fill:currentColor; }
+.ios-w-sky { width:20px; height:20px; margin-top:auto; margin-bottom:2px; }
+.ios-w-photo img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.ios-w-photo span { position:absolute; left:12px; bottom:10px; font-size:12px; font-weight:700; text-shadow:0 1px 4px hsl(240 20% 4% / .7); }
+.ios-grid { row-gap:20px; }
+.ios-app { font-size:12px; font-weight:500; }
+.ios-app .os-icon { box-shadow:0 6px 14px -4px hsl(240 30% 4% / .45), inset 0 1px 1px hsl(0 0% 100% / .4); }
+.ios-search { position:absolute; z-index:3; left:50%; bottom:118px; transform:translateX(-50%); display:flex; align-items:center; gap:5px; padding:7px 16px; border-radius:999px; font-size:14px; color:hsl(var(--os-on-dark));
+  background:hsl(0 0% 100% / .16); backdrop-filter:blur(20px) saturate(1.8); -webkit-backdrop-filter:blur(20px) saturate(1.8);
+  border:1px solid hsl(0 0% 100% / .3); box-shadow:inset 0 1px 1px hsl(0 0% 100% / .4); }
+.ios-search svg { width:14px; height:14px; }
+.ios-dock { left:10px; right:10px; bottom:12px; padding:14px 12px; border-radius:36px;
+  background:linear-gradient(180deg, hsl(0 0% 100% / .2), hsl(0 0% 100% / .08)); backdrop-filter:blur(30px) saturate(2); -webkit-backdrop-filter:blur(30px) saturate(2);
+  border:1px solid hsl(0 0% 100% / .32); box-shadow:inset 0 1px 1px hsl(0 0% 100% / .5), inset 0 -1px 2px hsl(0 0% 100% / .12), 0 10px 30px -10px hsl(240 30% 4% / .45); }
+.mac-dock { background:linear-gradient(180deg, hsl(0 0% 100% / .22), hsl(0 0% 100% / .08)) !important; backdrop-filter:blur(30px) saturate(2) !important; border:1px solid hsl(0 0% 100% / .32) !important; box-shadow:inset 0 1px 1px hsl(0 0% 100% / .5), 0 10px 30px -10px hsl(240 30% 4% / .45) !important; }
+.mw { border-color:hsl(0 0% 100% / .26); box-shadow:inset 0 1px 1px hsl(0 0% 100% / .35), 0 10px 30px -12px hsl(240 30% 4% / .6); }
+.os-cal .os-cal-date { color:hsl(240 8% 12%); } .os-cal { background:hsl(0 0% 100%) !important; }
