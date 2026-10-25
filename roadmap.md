@@ -1,4 +1,7 @@
 - [x] Add the uploaded CV download. Hosted PDF verified; local preview does not serve the asset gateway.
 - [x] Add nonconflicting CV and project details without removing existing experience.
 - [x] Resolve conflicts: StatWell launched 70% faster, Bloomie has 80% overall adoption, keep portfolio contact email.
-- [ ] Define the architectural product museum concept and setting with Henrietta before implementation.
+- [x] Define the architectural product museum concept and setting with Henrietta before implementation.
+- [ ] Research online museum plans and licensed assets for a realistic original interpretation.
+- [ ] Build a separate museum with walking, animated doors and product galleries.
+- [ ] Verify museum entry, return, direct portfolio access and desktop/phone rendering.

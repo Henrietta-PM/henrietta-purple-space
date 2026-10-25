@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,6 +8,18 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
+    --museum-sky: 205 28% 84%;
+    --museum-stone: 40 9% 82%;
+    --museum-wall: 40 12% 91%;
+    --museum-metal: 210 7% 24%;
+    --museum-wood: 28 24% 46%;
+    --museum-grass: 104 19% 39%;
+    --museum-water: 197 29% 53%;
+    --museum-glass: 195 20% 78%;
+    --museum-paper: 0 0% 98%;
+    --museum-ink: 220 10% 14%;
+    --museum-accent: 253 70% 56%;
+    --museum-shadow: 0 14px 45px hsl(220 15% 12% / 0.16);
     --background: 0 0% 100%;
     --foreground: 0 0% 5%;
 
