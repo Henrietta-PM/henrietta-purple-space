@@ -104,9 +104,9 @@
 .ios-status.light { color:hsl(var(--os-on-dark)); }
 .ios-status-icons { display:flex; gap:6px; } .ios-status-icons svg { width:16px; height:16px; }
 .ios-home { position:relative; z-index:2; padding:12px 22px; }
-.ios-widget { padding:18px; border-radius:22px; color:hsl(var(--os-on-dark)); background:hsl(var(--os-glass-dark)); backdrop-filter:blur(24px); border:1px solid hsl(0 0% 100% / .15); margin-bottom:26px; }
+.ios-widget { transform:translateZ(0); will-change:transform; isolation:isolate; padding:18px; border-radius:22px; color:hsl(var(--os-on-dark)); background:hsl(var(--os-glass-dark)); backdrop-filter:blur(24px); border:1px solid hsl(0 0% 100% / .15); margin-bottom:26px; }
 .ios-widget span { font-size:13px; opacity:.8; }
-.ios-widget strong { display:block; font-size:52px; font-weight:700; line-height:1; margin:4px 0 8px; }
+.ios-widget strong { display:block; font-variant-numeric:tabular-nums; font-size:52px; font-weight:700; line-height:1; margin:4px 0 8px; }
 .ios-widget p { font-size:14px; }
 .ios-widget p span { color:hsl(var(--os-icon-letter)); font-size:20px; opacity:1; }
 .ios-grid { display:grid; grid-template-columns:repeat(4, 1fr); row-gap:22px; justify-items:center; }
