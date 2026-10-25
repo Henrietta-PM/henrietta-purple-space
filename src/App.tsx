@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
+import { lazy, Suspense } from "react";
 import AnnouncementBanner from "./components/AnnouncementBanner";
 import ScrollToTop from "./components/ScrollToTop";
 import RouteSeo from "./components/RouteSeo";
@@ -17,6 +18,7 @@ import PortfolioGuide from "./pages/PortfolioGuide";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
+const Museum = lazy(() => import("./pages/Museum").then((module) => ({ default: module.Museum })));
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -36,6 +38,7 @@ const App = () => (
             <Route path="/contact" element={<Contact />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/portfolio-guide" element={<PortfolioGuide />} />
+            <Route path="/museum" element={<Suspense fallback={<div className="min-h-screen grid place-items-center text-foreground">Preparing the museum...</div>}><Museum /></Suspense>} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -5,6 +5,7 @@ import { Group, Mesh, Vector3 } from 'three';
 import stoneAsset from '@/assets/museum/stone.jpg.asset.json';
 import grassAsset from '@/assets/museum/grass.jpg.asset.json';
 import woodAsset from '@/assets/museum/wood.jpg.asset.json';
+import treeAsset from '@/assets/museum/tree.glb.asset.json';
 import { Button } from '@/components/ui/button';
 import { pavilions, type Pavilion, type TourPhase } from './museum-model';
 import { readMuseumPalette, repeatTexture, type MuseumPalette } from './museum-materials';
@@ -122,6 +123,20 @@ function TexturedCampus(props: SceneProps & { palette: MuseumPalette }) {
   return <><Landscape palette={props.palette} maps={maps} />{pavilions.map((pavilion) => <PavilionBuilding key={pavilion.id} pavilion={pavilion} palette={props.palette} selected={props.selected?.id === pavilion.id} phase={props.phase} reduced={props.reduced} onSelect={props.onSelect} onDoorOpen={props.onDoorOpen} maps={maps} />)}</>;
 }
 
+function Planting() {
+  const { scene } = useGLTF(treeAsset.url);
+  const trees = useMemo(() => Array.from({ length: 22 }, (_, index) => {
+    const tree = scene.clone(true);
+    tree.traverse((object) => { if (object instanceof Mesh) object.castShadow = true; });
+    const side = index % 2 === 0 ? -1 : 1;
+    tree.position.set(side * (31 + (index % 3) * 4), 0, 18 - Math.floor(index / 2) * 5.2);
+    tree.scale.setScalar(3.5 + index % 3);
+    tree.rotation.y = index * 0.9;
+    return tree;
+  }), [scene]);
+  return <>{trees.map((tree, index) => <primitive key={index} object={tree} />)}</>;
+}
+
 export function MuseumScene(props: SceneProps) {
   const palette = useMemo(readMuseumPalette, []);
   return <>
@@ -132,6 +147,7 @@ export function MuseumScene(props: SceneProps) {
     <mesh rotation-x={-Math.PI / 2} position-y={-0.08}><planeGeometry args={[180, 180]} /><meshStandardMaterial color={palette.grass} /></mesh>
     <Suspense fallback={<Html center><div className="museum-loading">Preparing the grounds...</div></Html>}><TexturedCampus {...props} palette={palette} /></Suspense>
     <Suspense fallback={null}><MuseumVisitor {...props} /></Suspense>
+    <Suspense fallback={null}><Planting /></Suspense>
     <CameraRig {...props} />
   </>;
 }
