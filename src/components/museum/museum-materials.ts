@@ -9,7 +9,7 @@ export function museumAssetUrl(url: string): string {
 export function readMuseumPalette(): MuseumPalette {
   const style = getComputedStyle(document.documentElement);
   const keys = ['sky', 'stone', 'wall', 'metal', 'wood', 'grass', 'water', 'glass', 'paper', 'ink', 'accent'] as const;
-  return Object.fromEntries(keys.map((key) => [key, new Color(`hsl(${style.getPropertyValue(`--museum-${key}`).trim()})`).getStyle()])) as MuseumPalette;
+  return Object.fromEntries(keys.map((key) => [key, new Color(`hsl(${style.getPropertyValue(`--museum-${key}`).trim().split(/\s+/).join(',')})`).getStyle()])) as MuseumPalette;
 }
 
 export function repeatTexture(source: Texture, repeat: number): Texture {

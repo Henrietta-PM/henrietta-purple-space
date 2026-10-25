@@ -12,7 +12,7 @@
 .museum-title h1 span { color:hsl(var(--museum-accent)); font-size:54px; }
 .museum-tools { position:absolute; right:30px; top:115px; display:flex; flex-direction:column; gap:8px; z-index:25; }
 .museum-tools button, .museum-label { background:hsl(var(--museum-paper) / .9); color:hsl(var(--museum-ink)); border:1px solid hsl(var(--museum-metal) / .15); box-shadow:var(--museum-shadow); }
-.museum-label { font-size:11px; height:30px; padding:0 10px; border-radius:4px; }
+.museum-shell .museum-label { font-size:11px; height:30px; padding:0 10px; border-radius:4px; color:hsl(var(--museum-ink)); border-color:hsl(var(--museum-metal) / .15); }
 .museum-label-number { font-size:9px; color:hsl(var(--museum-accent)); }
 .museum-footer { position:absolute; bottom:20px; left:36px; right:36px; display:flex; justify-content:space-between; align-items:flex-end; z-index:25; gap:16px; }
 .museum-credit { font-size:11px; }

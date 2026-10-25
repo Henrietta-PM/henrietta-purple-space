@@ -82,7 +82,8 @@ function CameraRig({ selected, phase, angle, reduced }: Pick<SceneProps, 'select
       target = new Vector3(x - (inside ? 1.4 : 0), 1.9, z - 1.5);
     } else {
       const narrow = size.width < 700;
-      destination = new Vector3(Math.sin(angle) * (narrow ? 52 : 44), narrow ? 49 : 34, Math.cos(angle) * (narrow ? 55 : 42) - 5);
+      const framing = Math.max(1, size.height / size.width * 0.88);
+      destination = new Vector3(Math.sin(angle) * (narrow ? 52 : 44) * framing, (narrow ? 49 : 34) * framing, Math.cos(angle) * (narrow ? 55 : 42) * framing - 5);
       target = new Vector3(0, 0, -8);
     }
     const blend = reduced ? 1 : 1 - Math.exp(-2.4 * Math.min(rawDelta, 0.05));
