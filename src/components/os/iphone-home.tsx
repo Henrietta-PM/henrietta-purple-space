@@ -6,7 +6,7 @@ import { useOsTheme } from "./use-os-theme";
 import { AnimatePresence, motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
-import { BatteryFull, ChevronLeft, Moon, Navigation, Search, Signal, Sun, Wifi } from "lucide-react";
+import { BatteryFull, ChevronLeft, Moon, Navigation, Signal, Sun, Wifi } from "lucide-react";
 import portrait from "@/assets/henrietta-portrait.jpg";
 import { HIRE_CALENDAR_URL } from "@/lib/booking";
 import { AppContent, AppIcon, appTitles, launchers, type AppId, type LauncherId } from "./os-apps";

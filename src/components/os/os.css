@@ -345,7 +345,7 @@ button.mw:hover { transform:translateY(-2px); }
 .ios-pages::-webkit-scrollbar { display:none; }
 .ios-page { flex:0 0 100%; scroll-snap-align:start; }
 .ios-app-name { max-width:68px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.ios-dots { position:absolute; z-index:3; left:50%; bottom:160px; transform:translateX(-50%); display:flex; gap:7px; }
+.ios-dots { position:absolute; z-index:3; left:50%; bottom:124px; transform:translateX(-50%); display:flex; gap:7px; }
 .ios-dots span { width:7px; height:7px; border-radius:50%; background:hsl(0 0% 100% / .4); transition:background .2s; }
 .ios-dots span.on { background:hsl(0 0% 100%); }
 .os-logo-icon { background:hsl(0 0% 100%); }
@@ -363,7 +363,7 @@ button.mw:hover { transform:translateY(-2px); }
 .os-pages { background:linear-gradient(180deg, hsl(32 98% 58%), hsl(22 95% 52%)); }
 .os-pages svg { width:52%; height:52%; }
 .ios-search { padding:5px 12px; font-size:13px; gap:4px; } .ios-search svg { width:12px !important; height:12px !important; stroke-width:2.5; }
-.ios-dock { left:14px; right:14px; bottom:10px; padding:10px 14px; border-radius:32px; } .ios-dock .os-icon-lg { width:54px; height:54px; } .ios-search { bottom:104px; } .ios-dots { bottom:146px; }
+.ios-dock { left:14px; right:14px; bottom:10px; padding:10px 14px; border-radius:32px; } .ios-dock .os-icon-lg { width:54px; height:54px; } .ios-search { bottom:104px; } .ios-dots { bottom:110px; }
 
 /* App Library over wallpaper */
 .ios-app-glass { background:hsl(240 20% 8% / .35) !important; backdrop-filter:blur(40px) saturate(1.6); -webkit-backdrop-filter:blur(40px) saturate(1.6); color:hsl(var(--os-on-dark)); }
