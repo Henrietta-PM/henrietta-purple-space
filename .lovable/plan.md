@@ -1,70 +1,34 @@
-## Plan: Recreate AFRIKA KOMMT! 4-Slide Presentation (PDF)
+## MyPvrpleSpace: The Product Museum
 
-### Summary
+### Concept
+Create a realistic, interactive architectural tour inspired by the Louisiana Museum of Modern Art in Denmark. Use its relationship between landscape, pavilions and glass corridors as inspiration, not an exact reconstruction or an affiliation with the museum.
 
-Regenerate the presentation with richer, portfolio-backed content that directly answers the application questions. visual style (white + accent purple, Outfit Bold + Instrument Sans fonts).
+Start with a separate museum experience so the working portfolio remains intact while Henrietta reviews it.
 
-### Content (Informed by Portfolio)
+### Visitor experience
+- Open into a landscaped museum campus with an animated visitor and clearly identifiable product pavilions.
+- Tap a pavilion to send the visitor along a walkway to its entrance.
+- Open the door on arrival and reveal an Enter action.
+- Enter a closer gallery view featuring the actual product previews and existing case-study content, with a clear return to the grounds.
+- Give Sally, Targett and ProxyMedicine prominent positions while keeping every existing project accessible.
+- Keep CV, Hire, Contact and a direct project list available without walking through the museum. Retain access to Letter and Shop without changing those pages.
 
-**Slide 1 — "What are your specific aims for taking part in AFRIKA KOMMT!?"**
+### Visual direction
+- Realistic daylight, textured surfaces, architectural glazing, planting and readable product signage.
+- Preserve the portfolio's purple identity in restrained signage and existing interface controls, not as an all-purple environment.
+- Use real project imagery and verified copy. Do not invent results, experience or architectural credentials.
+- Provide reduced-motion behaviour and an accessible ordinary portfolio alternative.
 
-As a young professional, my aims for taking part in this programs include but not limited to;
+### Technical approach
+- Add a dedicated React Three Fiber museum route, compatible with the existing React 18 app.
+- Reuse the current project data, CV asset pointer, booking links and case-study content.
+- Source and validate licensed models for the visitor and realistic environment before referencing them. Use locally hosted assets, with no runtime dependency on external model servers.
+- Source suitable architectural assets first. If a suitable museum model is unavailable, disclose an original custom-modelled interpretation rather than using placeholder buildings or claiming fidelity.
+- Use waypoint-based walking, animation states for walking and door entry, and camera transitions. This is a single-visitor tour, not multiplayer.
+- Load the 3D experience separately, cap rendering cost and provide a fallback if 3D is unavailable.
 
-- Strengthen how I build solutions that create **real economic value** — moving from startup speed to structured, global-scale execution
-- Gain firsthand exposure to how **leading German organizations** make strategic decisions, manage complexity, and scale impact across markets
-- Build a **network across industries and geographies** that shapes long-term opportunities and partnerships beyond my immediate environment
-- Return with **stronger execution ability**, a broader perspective, and relationships that influence the scale at which I build
+### Verification
+Test pavilion selection, walking, door opening, entry, gallery return and the direct project alternative. Confirm CV download and booking remain available. Inspect desktop and phone views for visible scenery, legible controls and loading failures before presenting the museum.
 
-**Slide 2 — "Which skills do you expect to gain during the programme?"**
-
-Three skill blocks:
-
-- **Strategic decision-making** in structured, large-scale organizations: understanding how global companies balance innovation with operational discipline
-- **Execution within complex systems**: navigating cross-functional processes, compliance frameworks, and enterprise workflows that differ from startup environments
-- **Cross-cultural collaboration**: working across diverse teams, communication styles, and market contexts
-
-Closing: *Exposure to a strong international network will shape how I approach opportunities and long-term impact.*
-
-**Slide 3 — Profile 1: Digitalization & AI Platform Specialist (Hyperautomation)**
-
-Why this profile: Aligns directly with my experience building AI-powered and automation-driven products across telehealth, EdTech, and search optimization.
-
-3 relevant skills/experiences:
-
-1. **End-to-end AI product development** — Led launch of AI-powered platforms including ProxyMedicine (AI diagnosis) and Targett (AI search optimization across 6+ engines). Shipped 3+ MVPs with up to 85% faster time to market.
-2. **Cross-functional team leadership** — Led 2 teams of 8–10 across engineering, design, and data. Directed ProxyMedicine's product launch contributing to IP valued at $600K.
-3. **Applied AI & automation problem-solving** — Used AI tools (Cursor AI, ChatGPT) to reduce development time by 85%. Built AI-driven features: diagnosis suggestions, personalized content, adaptive learning (80% daily adoption).
-
-Closing: *I am particularly interested in how automation can improve systems at scale while maintaining efficiency.*
-
-**Slide 4 — Profile 2: Strategic Product Management Data & Digital (Biosafety Testing Services)**
-
-Why this profile: Aligns with my experience translating business needs into structured, data-driven digital solutions.
-
-3 relevant skills/experiences:
-
-1. **Product strategy & structured problem-solving** — Defined roadmaps and PRDs across 5+ product lines (telehealth, SaaS, EdTech, GovTech). Delivered CareerPASS MVP in 8 weeks, selected Top 5 at major showcase.
-2. **Data-driven product decisions** — Conducted 5+ weekly user interviews at ProxyMedicine. Ran A/B tests boosting retention by 45%. Scaled NYSC system to 4,600+ users with 600+ daily active users.
-3. **Measurable business outcomes** — Contributed to IP sale valued at $600K (ProxyMedicine). Increased patient satisfaction by 60%. Reduced product development delays by 15% through agile practices.
-
-Closing: *This role strengthens my ability to connect product strategy with real-world business impact.*
-
-### Design
-
-- Somewhat same style as previous version: white background, `#631FE0` accent, Outfit Bold headers, Instrument Sans body
-- Vertically centered content on each slide for better balance
-- Bold key phrases inline
-- Subtle accent lines and geometric elements
-- Landscape A4 PDF, 4 pages
-
-### Technical Approach
-
-1. Write Python/ReportLab script to `/tmp/`
-2. Use previously discovered fonts (Outfit-Bold, InstrumentSans)
-3. Generate PDF to `/mnt/documents/afrika_kommt_presentation.pdf`
-4. QA via pdftoppm + visual inspection
-5. Iterate until clean
-
-### Files Changed
-
-- No codebase changes — artifact generated to `/mnt/documents/`
+### Scope
+The first delivery is a reviewable museum experience, not an immediate replacement of the homepage. A faithful recreation of a real museum would require suitable plans or a licensed model and is outside this first interpretation.
