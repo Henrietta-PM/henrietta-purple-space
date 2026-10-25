@@ -1,19 +1,37 @@
 import { useCallback, useEffect, useState } from "react";
 
 export type OsTheme = "dark" | "light";
+export type OsThemePref = OsTheme | "system";
 const KEY = "os-theme";
 const EVENT = "os-theme-change";
+const QUERY = "(prefers-color-scheme: light)";
+
+const readPref = (): OsThemePref => {
+  const value = localStorage.getItem(KEY);
+  return value === "light" || value === "dark" ? value : "system";
+};
+const systemTheme = (): OsTheme => (window.matchMedia?.(QUERY).matches ? "light" : "dark");
 
 export function useOsTheme() {
-  const [theme, setTheme] = useState<OsTheme>(() => (localStorage.getItem(KEY) === "light" ? "light" : "dark"));
+  const [pref, setPrefState] = useState<OsThemePref>(readPref);
+  const [system, setSystem] = useState<OsTheme>(systemTheme);
   useEffect(() => {
-    const sync = () => setTheme(localStorage.getItem(KEY) === "light" ? "light" : "dark");
+    const sync = () => setPrefState(readPref());
+    const media = window.matchMedia?.(QUERY);
+    const onMedia = () => setSystem(systemTheme());
     window.addEventListener(EVENT, sync);
-    return () => window.removeEventListener(EVENT, sync);
+    media?.addEventListener("change", onMedia);
+    return () => {
+      window.removeEventListener(EVENT, sync);
+      media?.removeEventListener("change", onMedia);
+    };
   }, []);
-  const toggle = useCallback(() => {
-    localStorage.setItem(KEY, theme === "dark" ? "light" : "dark");
+  const theme: OsTheme = pref === "system" ? system : pref;
+  const setPref = useCallback((next: OsThemePref) => {
+    if (next === "system") localStorage.removeItem(KEY);
+    else localStorage.setItem(KEY, next);
     window.dispatchEvent(new Event(EVENT));
-  }, [theme]);
-  return { theme, toggle };
+  }, []);
+  const toggle = useCallback(() => setPref(theme === "dark" ? "light" : "dark"), [setPref, theme]);
+  return { theme, pref, setPref, toggle };
 }
