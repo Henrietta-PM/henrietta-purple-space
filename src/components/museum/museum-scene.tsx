@@ -36,7 +36,7 @@ function PavilionBuilding({ pavilion, palette, selected, phase, reduced, onSelec
   useFrame((_, rawDelta) => {
     if (!hinge.current) return;
     const target = open ? -Math.PI * 0.48 : 0;
-    hinge.current.rotation.y += (target - hinge.current.rotation.y) * (reduced ? 1 : 1 - Math.exp(-5 * Math.min(rawDelta, 0.05)));
+    hinge.current.rotation.y += (target - hinge.current.rotation.y) * (reduced ? 1 : 1 - Math.exp(-5 * Math.min(rawDelta, 0.25)));
     if (open && phase === 'opening' && Math.abs(hinge.current.rotation.y - target) < 0.03 && !reported.current) { reported.current = true; onDoorOpen(); }
   });
   return (
@@ -87,7 +87,7 @@ function CameraRig({ selected, phase, angle, reduced }: Pick<SceneProps, 'select
       destination = new Vector3(Math.sin(angle) * (narrow ? 52 : 44) * framing, (narrow ? 49 : 34) * framing, Math.cos(angle) * (narrow ? 55 : 42) * framing - 5);
       target = new Vector3(0, 0, -8);
     }
-    const blend = reduced ? 1 : 1 - Math.exp(-2.4 * Math.min(rawDelta, 0.05));
+    const blend = reduced ? 1 : 1 - Math.exp(-2.4 * Math.min(rawDelta, 0.25));
     if (camera.position.distanceTo(destination) < 0.04) camera.position.copy(destination); else camera.position.lerp(destination, blend);
     if (look.current.distanceTo(target) < 0.04) look.current.copy(target); else look.current.lerp(target, blend);
     camera.lookAt(look.current);

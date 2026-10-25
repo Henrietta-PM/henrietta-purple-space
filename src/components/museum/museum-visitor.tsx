@@ -42,6 +42,7 @@ export function MuseumVisitor({ selected, phase, reduced, onArrive, onEnter }: V
   }, [phase, actions, reduced]);
 
   useEffect(() => {
+    if (phase === 'grounds') { position.current = [0, 0.15, 9]; return; }
     if (!selected) return;
     fired.current = false;
     waypoint.current = 0;
@@ -61,7 +62,7 @@ export function MuseumVisitor({ selected, phase, reduced, onArrive, onEnter }: V
       const target = route.current[waypoint.current];
       if (target) {
         const from = position.current;
-        const step = advancePosition(from, target, reduced ? 1000 : Math.min(rawDelta, 0.05) * 4.8);
+        const step = advancePosition(from, target, reduced ? 1000 : Math.min(rawDelta, 0.25) * 5.5);
         const yaw = Math.atan2(target[0] - from[0], target[2] - from[2]);
         const diff = Math.atan2(Math.sin(yaw - group.rotation.y), Math.cos(yaw - group.rotation.y));
         group.rotation.y += diff * (1 - Math.exp(-10 * Math.min(rawDelta, 0.05)));
