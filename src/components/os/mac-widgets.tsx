@@ -16,7 +16,7 @@ interface Weather {
   code: number;
 }
 
-async function fetchLagosWeather(): Promise<Weather> {
+export async function fetchLagosWeather(): Promise<Weather> {
   const res = await fetch(
     "https://api.open-meteo.com/v1/forecast?latitude=6.45&longitude=3.47&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=Africa%2FLagos&forecast_days=1",
   );
@@ -30,7 +30,7 @@ async function fetchLagosWeather(): Promise<Weather> {
   };
 }
 
-function describe(code: number) {
+export function describe(code: number) {
   if (code === 0) return { label: "Clear", Icon: Sun };
   if (code <= 2) return { label: "Partly Cloudy", Icon: CloudSun };
   if (code <= 48) return { label: "Cloudy", Icon: Cloud };
