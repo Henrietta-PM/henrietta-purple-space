@@ -84,7 +84,7 @@ function CameraRig({ selected, phase, angle, reduced }: Pick<SceneProps, 'select
       target = new Vector3(x - (inside ? 1.4 : 0), 1.9, z - 1.5);
     } else {
       const narrow = size.width < 700;
-      const framing = Math.max(1.2, size.height / size.width * 1.05);
+      const framing = Math.max(narrow ? 1 : 1.85, size.height / size.width * 1.05);
       destination = new Vector3(Math.sin(angle) * (narrow ? 52 : 44) * framing, (narrow ? 49 : 34) * framing, Math.cos(angle) * (narrow ? 55 : 42) * framing - 5);
       target = new Vector3(0, 0, -8);
     }
@@ -173,7 +173,7 @@ function Planting() {
 export function MuseumScene(props: SceneProps) {
   const palette = useMemo(readMuseumPalette, []);
   return <>
-    <color attach="background" args={[palette.sky]} /><fog attach="fog" args={[palette.sky, 80, 170]} />
+    <color attach="background" args={[palette.sky]} /><fog attach="fog" args={[palette.sky, 180, 350]} />
     <hemisphereLight args={[palette.paper, palette.grass, 1.5]} />
     <directionalLight position={[-30, 40, 25]} intensity={2.5} castShadow shadow-mapSize-width={1024} shadow-mapSize-height={1024} shadow-camera-left={-45} shadow-camera-right={45} shadow-camera-top={45} shadow-camera-bottom={-45} shadow-bias={-0.0003} />
     <Environment resolution={128}><Lightformer intensity={2} position={[0, 20, 0]} rotation-x={-Math.PI / 2} scale={[80, 80, 1]} /><Lightformer intensity={1} color={palette.sky} position={[30, 5, 0]} rotation-y={-Math.PI / 2} scale={[40, 20, 1]} /></Environment>
