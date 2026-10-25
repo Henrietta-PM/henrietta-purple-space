@@ -414,3 +414,4 @@ button.mw:hover { transform:translateY(-2px); }
 .os-toggle { background:hsl(0 0% 100% / .2); backdrop-filter:blur(20px) saturate(1.8); -webkit-backdrop-filter:blur(20px) saturate(1.8); border:1px solid hsl(0 0% 100% / .3); }
 .os-toggle.on { background:hsl(240 10% 12% / .55); }
 .os-toggle svg { width:46%; height:46%; }
+.ios-app-body:has(.os-action-bar) { padding-bottom:0; } .ios-app-body .os-action-bar { margin-bottom:0; background:linear-gradient(180deg, hsl(var(--os-window) / 0), hsl(var(--os-window)) 24px); }
