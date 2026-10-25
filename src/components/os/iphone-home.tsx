@@ -125,7 +125,6 @@ export function IphoneHome() {
             <header className="ios-app-header">
               <button className="os-back" onClick={() => setOpen(null)}><ChevronLeft aria-hidden="true" /> Home</button>
               <button className="ios-theme" onClick={toggleTheme} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>{theme === "dark" ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}</button>
-              <h1>{open === "cv" ? "CV" : appTitles[open]}</h1>
             </header>
             <div className="ios-app-body">
               <AppContent id={open} compact />
