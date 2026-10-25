@@ -1,10 +1,11 @@
-import { useState } from "react";
-import { ArrowLeft, ArrowUpRight, Briefcase, Calendar, Download, FileText, Heart, Home, Mail, ShoppingBag, StickyNote, type LucideIcon } from "lucide-react";
+import { useState, type ReactNode } from "react";
+import { ArrowUpRight, ChevronLeft, Briefcase, Calendar, Download, FileText, Heart, Home, Mail, ShoppingBag, StickyNote, type LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { featuredProjects, projectsData, type Project } from "@/data/projects";
 import cvAsset from "@/assets/henrietta-cv.pdf.asset.json";
 import prdTemplateComplete from "@/assets/prd-template-complete.png";
 import prdTemplateOverview from "@/assets/prd-template-overview.png";
+import { format } from "date-fns";
 import { HIRE_CALENDAR_URL, openHireCalendar } from "@/lib/booking";
 
 export type AppId = "projects" | "cv" | "letter" | "contact" | "shop";
@@ -42,7 +43,11 @@ export const allProjects: Project[] = [...featuredProjects, ...projectsData].fil
 
 const featuredNames = new Set(featuredProjects.map((project) => project.name));
 
-function ProjectDetail({ project, onBack }: { project: Project; onBack: () => void }) {
+function ActionBar({ children }: { children: ReactNode }) {
+  return <div className="os-action-bar">{children}</div>;
+}
+
+function ProjectDetail({ project, onBack, compact }: { project: Project; onBack: () => void; compact: boolean }) {
   const sections = [
     { title: "What it is", paragraphs: [project.overview] },
     { title: "The problem", paragraphs: project.problem ? [project.problem] : [] },
@@ -55,8 +60,8 @@ function ProjectDetail({ project, onBack }: { project: Project; onBack: () => vo
   return (
     <div className="os-detail">
       <div className="os-detail-bar">
-        <Button variant="ghost" size="sm" onClick={onBack}><ArrowLeft /> Projects</Button>
-        {project.link !== "#" && (
+        <button className="os-back" onClick={onBack}><ChevronLeft aria-hidden="true" /> Projects</button>
+        {!compact && project.link !== "#" && (
           <Button size="sm" asChild>
             <a href={project.link} target="_blank" rel="noopener noreferrer">Open product <ArrowUpRight /></a>
           </Button>
@@ -71,6 +76,13 @@ function ProjectDetail({ project, onBack }: { project: Project; onBack: () => vo
           {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
         </section>
       ))}
+      {compact && project.link !== "#" && (
+        <ActionBar>
+          <Button size="lg" className="w-full" asChild>
+            <a href={project.link} target="_blank" rel="noopener noreferrer">Open {project.name} <ArrowUpRight /></a>
+          </Button>
+        </ActionBar>
+      )}
     </div>
   );
 }
@@ -91,7 +103,7 @@ function ProjectsApp({ compact }: { compact: boolean }) {
       )}
       <div className="os-finder-main">
         {selected ? (
-          <ProjectDetail project={selected} onBack={() => setSelected(null)} />
+          <ProjectDetail project={selected} compact={compact} onBack={() => setSelected(null)} />
         ) : (
           <>
             {compact && (
@@ -116,19 +128,25 @@ function ProjectsApp({ compact }: { compact: boolean }) {
   );
 }
 
-function CvApp() {
+function CvApp({ compact }: { compact: boolean }) {
+  const download = (
+    <Button size={compact ? "lg" : "sm"} className={compact ? "w-full" : ""} asChild>
+      <a href={cvAsset.url} download="Henrietta-Onwuneme-CV.pdf"><Download /> Download CV</a>
+    </Button>
+  );
   return (
     <div className="os-preview">
-      <div className="os-preview-bar">
-        <span className="os-muted">Product Manager CV</span>
-        <Button size="sm" asChild>
-          <a href={cvAsset.url} download="Henrietta-Onwuneme-CV.pdf"><Download /> Download</a>
-        </Button>
-      </div>
+      {!compact && (
+        <div className="os-preview-bar">
+          <span className="os-muted">Product Manager CV</span>
+          {download}
+        </div>
+      )}
       <iframe title="Henrietta Onwuneme CV" src={cvAsset.url} className="os-preview-frame" />
       <Button variant="link" asChild className="os-preview-link">
         <a href="/cv">Open the full CV page <ArrowUpRight /></a>
       </Button>
+      {compact && <ActionBar>{download}</ActionBar>}
     </div>
   );
 }
@@ -147,7 +165,7 @@ function LetterApp() {
   );
 }
 
-function ContactApp() {
+function ContactApp({ compact }: { compact: boolean }) {
   return (
     <div className="os-contact">
       <div className="os-contact-card">
@@ -157,6 +175,13 @@ function ContactApp() {
       <a className="os-contact-row" href="mailto:mypvrplespace@gmail.com"><span>email</span>mypvrplespace@gmail.com</a>
       <a className="os-contact-row" href={HIRE_CALENDAR_URL} onClick={openHireCalendar} target="_blank" rel="noopener noreferrer"><span>calendar</span>Book a hiring call</a>
       <a className="os-contact-row" href="/contact"><span>more</span>All contact options</a>
+      {compact && (
+        <ActionBar>
+          <Button size="lg" className="w-full" asChild>
+            <a href={HIRE_CALENDAR_URL} onClick={openHireCalendar} target="_blank" rel="noopener noreferrer"><Calendar /> Book a call</a>
+          </Button>
+        </ActionBar>
+      )}
     </div>
   );
 }
@@ -186,18 +211,43 @@ function ShopApp() {
 export function AppContent({ id, compact = false }: { id: AppId; compact?: boolean }) {
   switch (id) {
     case "projects": return <ProjectsApp compact={compact} />;
-    case "cv": return <CvApp />;
+    case "cv": return <CvApp compact={compact} />;
     case "letter": return <LetterApp />;
-    case "contact": return <ContactApp />;
+    case "contact": return <ContactApp compact={compact} />;
     case "shop": return <ShopApp />;
   }
 }
 
 export function AppIcon({ launcher, size = "md" }: { launcher: Launcher; size?: "sm" | "md" | "lg" }) {
+  if (launcher.id === "hire") return <CalendarIcon size={size} />;
+  if (launcher.id === "letter") return <NotesIcon size={size} />;
   const Icon = launcher.icon;
   return (
     <span className={`os-icon os-icon-${launcher.tone} os-icon-${size}`} aria-hidden="true">
       <Icon />
     </span>
   );
+}
+
+export function CalendarIcon({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
+  const now = new Date();
+  return (
+    <span className={`os-icon os-icon-${size} os-cal`} aria-hidden="true">
+      <span className="os-cal-day">{format(now, "EEE")}</span>
+      <span className="os-cal-date">{format(now, "d")}</span>
+    </span>
+  );
+}
+
+export function NotesIcon({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
+  return (
+    <span className={`os-icon os-icon-${size} os-notes`} aria-hidden="true">
+      <span className="os-notes-top" />
+      <span className="os-notes-lines" />
+    </span>
+  );
+}
+
+export function ImageIcon({ src, size = "md" }: { src: string; size?: "sm" | "md" | "lg" }) {
+  return <span className={`os-icon os-icon-${size} os-img-icon`} aria-hidden="true"><img src={src} alt="" /></span>;
 }

@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 import { format } from "date-fns";
 import { ChevronUp, Lock } from "lucide-react";
-import { AppIcon, launchers, type LauncherId } from "./os-apps";
+import { CalendarIcon, ImageIcon, NotesIcon, type LauncherId } from "./os-apps";
+import sallyLogo from "@/assets/sally-logo.png";
+import proxyIcon from "@/assets/proxymedicine-icon.png.asset.json";
 
 interface LockNotice {
   app: LauncherId;
@@ -13,7 +15,7 @@ interface LockNotice {
 const notices: LockNotice[] = [
   { app: "projects", title: "Sally", body: "My newest product, an AI personal brand manager. Tap to see the case study.", time: "now" },
   { app: "projects", title: "ProxyMedicine", body: "1,400 patients and a 35% increase in conversion.", time: "2m ago" },
-  { app: "letter", title: "Henrietta", body: "I wrote you a letter, my potential team.", time: "5m ago" },
+  { app: "letter", title: "Notes", body: "A letter from Henrietta to you, my potential team.", time: "5m ago" },
   { app: "hire", title: "Calendar", body: "A slot is open to chat about your next product.", time: "10m ago" },
 ];
 
@@ -37,7 +39,6 @@ export function IphoneLock({ now, onUnlock }: { now: Date; onUnlock: (app?: Laun
 
       <div className="ios-notices">
         {notices.map((notice, index) => {
-          const launcher = launchers.find((item) => item.id === notice.app)!;
           return (
             <motion.button
               key={notice.title}
@@ -48,7 +49,7 @@ export function IphoneLock({ now, onUnlock }: { now: Date; onUnlock: (app?: Laun
               transition={{ delay: 0.5 + index * 0.35, type: "spring", stiffness: 260, damping: 22 }}
               whileTap={{ scale: 0.97 }}
             >
-              <AppIcon launcher={launcher} size="sm" />
+              {notice.title === "Sally" ? <ImageIcon src={sallyLogo} size="sm" /> : notice.title === "ProxyMedicine" ? <ImageIcon src={proxyIcon.url} size="sm" /> : notice.app === "hire" ? <CalendarIcon size="sm" /> : <NotesIcon size="sm" />}
               <span className="ios-notice-text">
                 <span className="ios-notice-head"><strong>{notice.title}</strong><small>{notice.time}</small></span>
                 <span>{notice.body}</span>
