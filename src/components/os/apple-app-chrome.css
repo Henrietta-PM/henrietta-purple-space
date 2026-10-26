@@ -128,4 +128,34 @@
 .apple-settings button[role=switch] > span { flex:none; background:hsl(var(--os-on-dark)); }
 .os-contact-group button.os-contact-row { height:auto; min-height:66px; align-items:flex-start; justify-content:center; border-radius:0; padding:11px 14px; }
 .os-contact-actions button:hover { color:hsl(var(--apple-blue)); }
-.apple-health .os-health-chev { transform:none; }
+.apple-health .os-health-chev { transform:none; }.jm-map { z-index:0; background:hsl(var(--os-window)); }
+.jm-pin { display:grid; place-items:center; width:34px; height:34px; border-radius:50%; border:2.5px solid hsl(0 0% 100%); box-shadow:0 3px 10px hsl(240 20% 4% / .35); color:hsl(0 0% 100%); font:700 12px/1 -apple-system, system-ui, sans-serif; transition:transform .2s; }
+.jm-pin.on { transform:scale(1.25); }
+.jm-pin-red, .jm-dot-red { background:hsl(var(--apple-red)) !important; }
+.jm-pin-blue, .jm-dot-blue { background:hsl(var(--apple-blue)) !important; }
+.jm-pin-green, .jm-dot-green { background:hsl(142 70% 42%) !important; }
+.jm-pin-green b { font-size:10px; }
+.jm-route { stroke:hsl(var(--apple-blue)); stroke-width:5; stroke-linecap:round; fill:none; }
+.jm-route-you { stroke:hsl(142 70% 42%); stroke-width:4; }
+.apple-maps .jm-card-head { display:flex; justify-content:space-between; }
+.apple-maps .jm-round { width:30px; height:30px; border-radius:50%; background:hsl(var(--os-ink) / .1); color:hsl(var(--os-ink)); }
+.apple-maps .jm-card h2 { margin-top:6px; }
+.jm-primary { display:block; margin:10px 0; padding:11px; border-radius:14px; text-align:center; font-weight:600; background:hsl(var(--apple-blue)); color:hsl(0 0% 100%); }
+.jm-text { font-size:15px; line-height:1.45; color:hsl(var(--os-ink) / .8); margin:8px 0; }
+.jm-group { margin-top:12px; border-radius:14px; background:hsl(var(--os-ink) / .06); padding:4px 14px; }
+.jm-group h3 { font-size:13px; font-weight:600; color:hsl(var(--os-ink) / .55); padding:8px 0 4px; }
+.jm-row { padding:9px 0; border-top:.5px solid hsl(var(--os-line)); }
+.jm-stats { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:12px 0; }
+.jm-stats > div { border-radius:14px; background:hsl(var(--os-ink) / .06); padding:10px 12px; }
+.jm-stats svg { width:16px; height:16px; color:hsl(var(--apple-blue)); }
+.apple-maps .jm-stats small { font-size:12px; margin-top:4px; }
+.apple-maps .jm-stats strong { font-size:17px; }
+.jm-next { display:flex; gap:12px; padding:12px 0; }
+.jm-next > span:last-child { flex:1; }
+.jm-search { display:flex; align-items:center; gap:8px; margin-top:6px; padding:6px 6px 6px 12px; border-radius:999px; background:hsl(var(--os-ink) / .08); }
+.jm-search svg { width:16px; height:16px; color:hsl(var(--os-ink) / .5); flex:none; }
+.jm-search input { flex:1; min-width:0; background:transparent; border:0; outline:0; font-size:16px; color:hsl(var(--os-ink)); }
+.jm-search button { border-radius:999px; }
+.jm-error { font-size:13px; color:hsl(var(--apple-red)); margin-top:6px; }
+.apple-map-location { z-index:500; }
+.apple-maps .os-maps-sheet { z-index:500; }

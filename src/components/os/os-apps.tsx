@@ -26,6 +26,7 @@ import { CameraApp, PhotosApp, ReportDialog, ShoutOutComposer, useVisitorPosts }
 import { Camera, Images } from "lucide-react";
 import NotesApp from "./notes-app";
 import ShopApp from "./shop-app";
+import JourneyMap from "./journey-map";
 import type { NoteId } from "@/data/notes";
 import { AppleSearch, AppleSections } from "./apple-app-chrome";
 
@@ -551,7 +552,7 @@ export function AppContent({ id, compact = false, projectName, initialNote, onLa
     case "messages": return <MessagesApp compact={compact} />;
     case "health": return <SkillsApp compact={compact} />;
     case "reminders": return <RemindersApp compact={compact} />;
-    case "maps": return <JourneyApp compact={compact} />;
+    case "maps": return <JourneyMap compact={compact} />;
     case "weather": return <WeatherApp compact={compact} />;
     case "camera": return <CameraApp onOpen={onLaunch} />;
     case "photos": return <PhotosApp compact={compact} />;
@@ -690,33 +691,6 @@ function RemindersApp({ compact }: { compact: boolean }) {
       </ul>
     </div>
     </AppleSections>
-    </div>
-  );
-}
-
-function JourneyApp({ compact }: { compact: boolean }) {
-  const [active, setActive] = useState<number | null>(0);
-  const [query, setQuery] = useState("");
-  return (
-    <div className={`os-maps apple-maps ${compact ? "apple-maps-phone" : "apple-maps-mac"}`}>
-      <iframe className="apple-map-frame" title="Map of Lagos" src="https://www.openstreetmap.org/export/embed.html?bbox=3.26%2C6.35%2C3.6%2C6.62&layer=mapnik" loading="lazy" />
-      <a className="apple-map-location" href="https://maps.apple.com/?q=Lagos%2C%20Nigeria" target="_blank" rel="noopener noreferrer" aria-label="Open Lagos in Apple Maps" title="Open in Apple Maps"><Navigation /></a>
-      <div className="os-maps-sheet">
-        <span className="os-maps-grabber" aria-hidden="true" />
-        <AppleSearch value={query} onChange={setQuery} label="Search my journey" />
-        <h2>My Journey</h2>
-        <small className="os-maps-sub">Architecture to Product Management · {journeySteps.length} stops</small>
-        <ol>
-          {journeySteps.map((step, index) => ({ ...step, index })).filter((step) => `${step.title} ${step.text}`.toLowerCase().includes(query.toLowerCase())).map((step) => (
-            <li key={step.title}>
-              <Button variant="ghost" className={active === step.index ? "on" : ""} aria-expanded={active === step.index} onClick={() => setActive((current) => current === step.index ? null : step.index)}>
-                <span className="os-maps-dot">{step.index + 1}</span>
-                <span><strong>{step.title}</strong>{active === step.index && <small>{step.text}</small>}</span>{active === step.index ? <ChevronDown aria-hidden="true" /> : <ChevronRight aria-hidden="true" />}
-              </Button>
-            </li>
-          ))}
-        </ol>
-      </div>
     </div>
   );
 }
