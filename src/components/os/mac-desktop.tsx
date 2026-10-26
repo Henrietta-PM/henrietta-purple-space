@@ -1,8 +1,8 @@
 import { useCallback, useRef, useState } from "react";
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import { format } from "date-fns";
-import { Apple, Moon, Sun } from "lucide-react";
-import { IosBattery, MacWifi } from "./status-icons";
+import { Moon, Sun } from "lucide-react";
+import { AppleLogo, MacBattery, MacWifiArcs } from "./status-icons";
 import { useOsTheme } from "./use-os-theme";
 import portrait from "@/assets/henrietta-portrait.jpg";
 import { AppContent, AppIcon, appTitles, externalLinks, isLink, launchers, type AppId, type LauncherId } from "./os-apps";
@@ -100,7 +100,7 @@ export function MacDesktop() {
       <div className="mac-wallpaper-tint" />
       <nav className="mac-menubar" aria-label="Menu bar">
         <div className="mac-menubar-left">
-          <Apple aria-hidden="true" />
+          <AppleLogo />
           <strong>{focused ? appTitles[focused.id].replace("Henrietta-Onwuneme-CV.pdf", "Preview") : "Finder"}</strong>
           <button onClick={() => launch("projects")}>Projects</button>
           <button onClick={() => launch("cv")}>CV</button>
@@ -108,8 +108,8 @@ export function MacDesktop() {
         </div>
         <div className="mac-menubar-right">
           <button onClick={toggleTheme} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>{theme === "dark" ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}</button>
-          <MacWifi />
-          <IosBattery />
+          <MacWifiArcs />
+          <MacBattery />
           <span>{format(now, "EEE d MMM HH:mm")}</span>
         </div>
       </nav>
