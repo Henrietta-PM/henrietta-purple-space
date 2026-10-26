@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from "react";
 import { toast } from "sonner";
 import { Activity, MapPin, MessageCircle, Linkedin, Twitter, ArrowUpRight, ChevronLeft, Briefcase, Calendar, Download, FileText, Heart, Instagram, PenLine, ListChecks, Mail, MoreHorizontal, PenSquare, Search, Send, Share, ShoppingBag, StickyNote, User, type LucideIcon } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import HeartModal from "@/components/HeartModal";
 import portrait from "@/assets/henrietta-portrait.jpg";
@@ -429,6 +429,7 @@ async function fetchHearts() {
 }
 
 function LoveApp() {
+  const client = useQueryClient();
   const [sendOpen, setSendOpen] = useState(false);
   const [composing, setComposing] = useState(false);
   const [reportId, setReportId] = useState<string | null>(null);
@@ -469,8 +470,8 @@ function LoveApp() {
       <div className="os-love-cta">
         <span className="os-love-ring"><img src={portrait} alt="" /></span>
         <div><strong>mypvrplespace</strong><small>{total.toLocaleString()} {total === 1 ? "like" : "likes"}</small></div>
-        <Button size="sm" variant="secondary" onClick={() => setComposing((v) => !v)}><MessageCircle /> Shout-out</Button>
-        <Button size="sm" onClick={() => setSendOpen(true)}><Heart /> Like</Button>
+        <div className="os-love-actions"><Button size="sm" variant="secondary" onClick={() => setComposing((v) => !v)}><MessageCircle /> Shout-out</Button>
+        <Button size="sm" onClick={() => setSendOpen(true)}><Heart /> Like</Button></div>
       </div>
       {composing && <ShoutOutComposer onClose={() => setComposing(false)} />}
       {isLoading && <p className="os-muted os-love-empty">Loading activity</p>}
@@ -492,7 +493,7 @@ function LoveApp() {
           ))}
         </section>
       ))}
-      <HeartModal isOpen={sendOpen} onClose={() => setSendOpen(false)} />
+      <HeartModal isOpen={sendOpen} onClose={() => setSendOpen(false)} onSent={() => { setSendOpen(false); client.invalidateQueries({ queryKey: ["hearts-feed"] }); client.invalidateQueries({ queryKey: ["hearts-total"] }); }} />
       <ReportDialog id={reportId} onClose={() => setReportId(null)} />
     </div>
   );

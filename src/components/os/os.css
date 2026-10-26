@@ -707,3 +707,12 @@ button.mw-weather { cursor: pointer; text-align: left; font: inherit; color: inh
   .ios-pages { height:calc(100% - 170px); }
   .ios-dots { bottom:90px; }
 }
+.os-love-cta > div:not(.os-love-actions) { min-width:0; }
+.os-love-cta strong { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.os-love-actions { flex:none !important; display:flex !important; flex-direction:row !important; gap:6px; }
+@media (max-width:480px) {
+  .os-love-cta { gap:10px; }
+  .os-love-ring img { width:38px; height:38px; }
+  .os-love-actions button { height:32px; padding:0 10px; font-size:12px; border-radius:999px; gap:4px; }
+  .os-love-actions svg { width:14px; height:14px; }
+}

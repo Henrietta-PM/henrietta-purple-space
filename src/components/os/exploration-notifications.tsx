@@ -35,6 +35,12 @@ export default function ExplorationNotifications({ enabled = true, mobile = fals
   } });
   const { data: visits } = useVisitorPosts(enabled);
   const seen = useRef<Set<string> | null>(null);
+  const ownLikes = useRef(0);
+  useEffect(() => {
+    const onLike = () => { ownLikes.current += 1; setNotice({ app: "love", key: `own-${Date.now()}`, title: "Love Portfolio", body: "Your like was sent. Thank you for the love!" }); };
+    window.addEventListener("portfolio-like", onLike);
+    return () => window.removeEventListener("portfolio-like", onLike);
+  }, []);
   useEffect(() => {
     if (!hearts || !visits) return;
     const ids = [...hearts.map((h) => `h-${h.id}`), ...visits.map((v) => `v-${v.id}`)];
@@ -42,7 +48,10 @@ export default function ExplorationNotifications({ enabled = true, mobile = fals
     const known = seen.current;
     const fresh = ids.filter((id) => !known.has(id));
     fresh.forEach((id) => known.add(id));
-    const latest = fresh[0];
+    const likes = fresh.filter((id) => id.startsWith("h-")).length;
+    const absorbed = Math.min(likes, ownLikes.current);
+    ownLikes.current -= absorbed;
+    const latest = absorbed ? fresh.find((id) => id.startsWith("v-")) : fresh[0];
     if (!latest || currentApp.current === "love") return;
     if (latest.startsWith("h-")) { setNotice({ app: "love", key: latest, title: "New like", body: "Someone just liked this portfolio." }); return; }
     const visit = visits.find((v) => `v-${v.id}` === latest);
