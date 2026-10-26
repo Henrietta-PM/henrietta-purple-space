@@ -25,12 +25,12 @@ const pin = (tone: string, glyph: string, on: boolean) => L.divIcon({
   iconAnchor: [17, 34],
 });
 
-function FlyTo({ target, bounds }: { target: [number, number] | null; bounds: [number, number][] | null }) {
+function FlyTo({ target, bounds, compact }: { target: [number, number] | null; bounds: [number, number][] | null; compact: boolean }) {
   const map = useMap();
   useEffect(() => {
-    if (bounds) map.flyToBounds(bounds, { padding: [60, 60], duration: 1.2 });
+    if (bounds) map.flyToBounds(bounds, { paddingTopLeft: compact ? [40, 70] : [340, 60], paddingBottomRight: compact ? [40, 380] : [60, 60], duration: 1.2 });
     else if (target) map.flyTo(target, 13, { duration: 1.2 });
-  }, [map, target, bounds]);
+  }, [map, target, bounds, compact]);
   return null;
 }
 
@@ -81,7 +81,7 @@ export default function JourneyMap({ compact }: { compact: boolean }) {
     <div className={`os-maps apple-maps ${compact ? "apple-maps-phone" : "apple-maps-mac"}`}>
       <MapContainer className="apple-map-frame jm-map" center={[6, 5.5]} zoom={6} zoomControl={false} attributionControl>
         <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; OpenStreetMap contributors" />
-        <FlyTo target={focus.target} bounds={focus.bounds} />
+        <FlyTo target={focus.target} bounds={focus.bounds} compact={compact} />
         <Polyline positions={stops.map((s) => [s.lat, s.lng])} pathOptions={{ className: "jm-route" }} />
         {visitor && <Polyline positions={[[LAGOS.lat, LAGOS.lng], [visitor.lat, visitor.lng]]} pathOptions={{ className: "jm-route jm-route-you", dashArray: "2 8" }} />}
         {stops.map((s) => <Marker key={s.id} position={[s.lat, s.lng]} icon={icons[s.id]} eventHandlers={{ click: () => open(s) }} />)}
