@@ -8,6 +8,8 @@ import { format } from "date-fns";
 import { Check, Navigation, Settings } from "lucide-react";
 import { IosBattery, IosNetwork, IosSignal } from "./status-icons";
 import { useWallpaper } from "./use-wallpaper";
+import appleSettingsIcon from "@/assets/apple-settings-icon.jpg";
+import { ImageIcon } from "./os-apps";
 import { AppContent, AppIcon, AppLibrary, appTitles, externalLinks, isLink, launchers, type AppId, type LauncherId } from "./os-apps";
 import { useClock } from "./use-clock";
 import { IphoneLock } from "./iphone-lock";
@@ -101,7 +103,7 @@ export function IphoneHome() {
             </motion.button>
           ))}
           <motion.button className="ios-app" whileTap={{ scale: 0.88 }} onClick={() => setOpen("settings")}>
-            <span className="os-icon os-icon-lg os-icon-settings" aria-hidden="true"><Settings /></span>
+            <ImageIcon src={appleSettingsIcon} size="lg" />
             <span>Settings</span>
           </motion.button>
         </div>
