@@ -8,7 +8,7 @@
 - Share exploration notifications between both OS shells, using their existing app launch callbacks; keep them local and start phone notifications only after the lock screen closes so they never require browser permission or interrupt entry.
 - Camera and Photos share a visitor guestbook; anonymous submissions and private reports go through a validated edge function with atomic network throttling, and private photo storage is accessed only through service-generated signed URLs to keep write access out of the browser.
 - Keep the existing letter launcher ID for saved layouts, but present it as Notes with shared note content; pass a note selection from widgets and note shortcuts so normal app launches open the note list.
-- Notes uses single-screen folder/list/reader navigation on phone and independently scrollable folder/list/reader columns on Mac; retain working reader actions and omit owner-only authoring tools.
+- Notes uses single-screen folder/list/reader navigation on phone and independently scrollable folder/list/reader columns on Mac; retain working reader actions, allow visitor edits and highlights saved only in their own browser, and omit owner-only authoring tools so shared note content never changes.
 - Messages shares original testimonials between its phone list/thread and Mac split view; never invent message dates or replies, and keep the display read-only rather than impersonating real iMessage delivery.
 - Shared Apple app navigation provides phone tab bars and desktop sidebars, with app-specific content kept separate so portfolio facts and visitor actions remain unchanged.
 - My Journey uses a real map of the owner's known city without assigning geographic locations to career milestones, so the map never invents career locations.
