@@ -559,3 +559,24 @@ button.mw:hover { transform:translateY(-2px); }
 .os-apple-health, .os-apple-reminders { background:hsl(0 0% 100%); }
 .os-apple-maps { overflow:hidden; }
 .os-apple-messages svg, .os-apple-health svg, .os-apple-reminders svg, .os-apple-maps svg { width:100% !important; height:100% !important; display:block; }
+
+/* App Library refinements */
+.os-appstore { background:linear-gradient(180deg, hsl(196 100% 62%), hsl(216 100% 50%)) !important; }
+.os-appstore svg { width:66% !important; height:66% !important; color:hsl(0 0% 100%); }
+.ios-shell .ios-dock { transition:opacity .25s, transform .25s; }
+.ios-on-library .ios-dock { opacity:0; transform:translateY(30px) !important; pointer-events:none; }
+.ios-on-library .ios-pages { height:calc(100% - 48px); }
+.ios-lib-page .os-library { padding:4px 20px 40px; }
+.ios-lib-page .os-lib-search { justify-content:center; height:38px; padding:0 12px; margin-bottom:22px; border-radius:12px; }
+.ios-lib-page .os-lib-search input { flex:0 1 auto; width:100px; text-align:left; }
+.ios-lib-page .os-lib-search:focus-within { justify-content:flex-start; }
+.ios-lib-page .os-lib-search:focus-within input { flex:1; }
+.ios-lib-page .os-lib-grid { grid-template-columns:1fr 1fr; gap:14px 22px; }
+.ios-lib-page .os-lib-box { gap:12px; padding:14px; border-radius:28px; background:hsl(0 0% 100% / .16); border:0; box-shadow:none; }
+.os-lib-box > * { min-width:0; min-height:0; aspect-ratio:1; }
+.os-lib-mini { grid-template-rows:1fr 1fr; gap:5px !important; aspect-ratio:1; }
+.os-lib-mini .os-lib-tile { width:100%; height:100%; aspect-ratio:1; border-radius:24%; box-shadow:none; }
+.os-lib-tile { overflow:hidden; border-radius:23%; }
+.os-lib-tile .os-icon { border-radius:inherit !important; }
+.ios-lib-page .os-lib-folder { font-size:12px; font-weight:500; gap:6px; }
+.os-lib-mini .os-cal .os-cal-day { font-size:5px; } .os-lib-mini .os-cal .os-cal-date { font-size:11px; }
