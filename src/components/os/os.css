@@ -561,8 +561,8 @@ button.mw:hover { transform:translateY(-2px); }
 .os-apple-messages svg, .os-apple-health svg, .os-apple-reminders svg, .os-apple-maps svg { width:100% !important; height:100% !important; display:block; }
 
 /* App Library refinements */
-.os-appstore { background:linear-gradient(180deg, hsl(196 100% 62%), hsl(216 100% 50%)) !important; }
-.os-appstore svg { width:66% !important; height:66% !important; color:hsl(0 0% 100%); }
+.os-appstore { background:linear-gradient(180deg, hsl(197 96% 54%), hsl(217 90% 54%)) !important; }
+.os-appstore svg { width:64% !important; height:64% !important; color:hsl(0 0% 100%); filter:none; }
 .ios-shell .ios-dock { transition:opacity .25s, transform .25s; }
 .ios-on-library .ios-dock { opacity:0; transform:translateY(30px) !important; pointer-events:none; }
 .ios-on-library .ios-pages { height:calc(100% - 48px); }
