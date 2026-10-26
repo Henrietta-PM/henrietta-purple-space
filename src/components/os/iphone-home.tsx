@@ -13,6 +13,7 @@ import { IphoneLock } from "./iphone-lock";
 import ExplorationNotifications from "./exploration-notifications";
 import AppOrganizer, { AppZone } from "./app-organizer";
 import { phoneLayout } from "./app-catalog";
+import { aboutMeNote, type NoteId } from "@/data/notes";
 
 export function IphoneHome() {
   const now = useClock();
@@ -21,6 +22,7 @@ export function IphoneHome() {
   const wallpaper = useWallpaper();
   const [page, setPage] = useState(0);
   const [projectName, setProjectName] = useState<string | undefined>();
+  const [initialNote, setInitialNote] = useState<NoteId | undefined>();
   const pagesRef = useRef<HTMLDivElement>(null);
   const settleTimer = useRef<number>();
   const handlePagesScroll = (element: HTMLDivElement) => {
@@ -45,6 +47,7 @@ export function IphoneHome() {
   const sky = describe(weather?.code ?? 2);
 
   const launch = (id: LauncherId) => {
+    setInitialNote(undefined);
     if (isLink(id)) {
       window.open(externalLinks[id], "_blank", "noopener,noreferrer");
       return;
@@ -87,11 +90,11 @@ export function IphoneHome() {
             <small>Weather</small>
           </div>
           <div>
-            <button className="ios-w ios-w-notes" onClick={() => launch("letter")} aria-label="Intro note from Henrietta">
+            <button className="ios-w ios-w-notes" onClick={() => { launch("letter"); setInitialNote("about-me"); }} aria-label="Read About Me note">
               <span className="ios-w-notes-head">Notes</span>
               <div className="ios-w-notes-body">
                 <strong>Hi, I'm <span className="font-handwritten">Henrietta.</span></strong>
-                <p>Product management for me is about people, their needs, and the paths we create to meet them. I've shipped 5+ MVPs with up to 85% faster time to market.</p>
+                <p>{aboutMeNote.preview}</p>
               </div>
             </button>
             <small>Notes</small>
@@ -133,7 +136,7 @@ export function IphoneHome() {
           >
             <StatusBar light={false} />
             <div className="ios-app-body">
-              {open === "settings" ? <SettingsApp pref={pref} onChange={setPref} /> : <AppContent id={open} compact projectName={open === "projects" ? projectName : undefined} onLaunch={(id) => { setProjectName(undefined); launch(id); }} />}
+              {open === "settings" ? <SettingsApp pref={pref} onChange={setPref} /> : <AppContent id={open} compact initialNote={open === "letter" ? initialNote : undefined} projectName={open === "projects" ? projectName : undefined} onLaunch={(id) => { setProjectName(undefined); launch(id); }} />}
             </div>
             {showHint && <motion.span className="ios-home-hint" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>Swipe up or tap the bar to go home</motion.span>}
             <motion.button

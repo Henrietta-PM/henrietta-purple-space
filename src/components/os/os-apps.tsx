@@ -26,6 +26,8 @@ import { workSteps } from "@/components/HowIWork";
 import WeatherApp from "./weather-app";
 import { CameraApp, PhotosApp, ReportDialog, ShoutOutComposer, useVisitorPosts } from "./visitor-guestbook";
 import { Camera, Images } from "lucide-react";
+import NotesApp from "./notes-app";
+import type { NoteId } from "@/data/notes";
 
 export type AppId = "projects" | "cv" | "letter" | "contact" | "shop" | "love" | "messages" | "health" | "reminders" | "maps" | "weather" | "camera" | "photos";
 export type LinkId = "hire" | "instagram" | "linkedin" | "x";
@@ -50,7 +52,7 @@ export interface Launcher {
 export const launchers: Launcher[] = [
   { id: "projects", name: "Projects", icon: Briefcase, tone: "projects" },
   { id: "cv", name: "CV", icon: FileText, tone: "cv" },
-  { id: "letter", name: "Letter", icon: StickyNote, tone: "letter" },
+  { id: "letter", name: "Notes", icon: StickyNote, tone: "letter" },
   { id: "contact", name: "Contacts", icon: Mail, tone: "contact" },
   { id: "shop", name: "Shop", icon: ShoppingBag, tone: "shop" },
   { id: "love", name: "Love Portfolio", icon: Heart, tone: "love" },
@@ -69,7 +71,7 @@ export const launchers: Launcher[] = [
 export const appTitles: Record<AppId, string> = {
   projects: "Projects",
   cv: "Henrietta-Onwuneme-CV.pdf",
-  letter: "Letter",
+  letter: "Notes",
   contact: "Contact",
   shop: "Shop",
   love: "Love Portfolio",
@@ -522,11 +524,11 @@ function ShopApp() {
   );
 }
 
-export function AppContent({ id, compact = false, projectName, onLaunch }: { id: AppId; compact?: boolean; projectName?: string; onLaunch?: (id: LauncherId) => void }) {
+export function AppContent({ id, compact = false, projectName, initialNote, onLaunch }: { id: AppId; compact?: boolean; projectName?: string; initialNote?: NoteId; onLaunch?: (id: LauncherId) => void }) {
   switch (id) {
     case "projects": return <ProjectsApp compact={compact} initial={projectName} />;
     case "cv": return <CvApp compact={compact} />;
-    case "letter": return <LetterApp />;
+    case "letter": return <NotesApp key={initialNote ?? "all-notes"} initialNote={initialNote} letter={<LetterApp />} />;
     case "contact": return <ContactApp />;
     case "shop": return <ShopApp />;
     case "love": return <LoveApp />;
