@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { testimonials } from "@/components/Testimonials";
 import { friendlyError } from "@/lib/friendly-error";
 import type { Visit } from "./visitor-guestbook";
-import { ReportDialog, deleteVisitorMessage, loadOwnedMessages, sendVisitorMessage, useVisitorMessages } from "./visitor-guestbook";
+import { ReportDialog, deleteVisitorMessage, loadOwnedMessages, secondsUntilNextMessage, sendVisitorMessage, useVisitorMessages } from "./visitor-guestbook";
 import "./messages-app.css";
 
 const messageSchema = z.object({ name: z.string().trim().min(1).max(40), message: z.string().trim().min(1).max(240) });
@@ -114,6 +114,8 @@ export default function MessagesApp({ compact = false }: { compact?: boolean }) 
     const parsed = messageSchema.safeParse({ name: replying ? visitor.name : name, message: draft });
     if (!parsed.success) { toast.error("Add your name and a message."); return; }
     if (!replying && !consent) { toast.error("Please agree to show your message publicly."); return; }
+    const wait = secondsUntilNextMessage();
+    if (wait > 0) { toast.error(`You can send one message a minute. Try again in ${wait} ${wait === 1 ? "second" : "seconds"}.`); return; }
     setSending(true);
     try {
       const result = await sendVisitorMessage(parsed.data.name, parsed.data.message);
