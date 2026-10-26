@@ -28,9 +28,9 @@ const windowSizes: Record<AppId, { w: number; h: number }> = {
   maps: { w: 460, h: 580 },
 };
 
-function MacWindow({ win, index, focused, bounds, onFocus, onClose, onMinimize, onMaximize }: {
+function MacWindow({ win, index, focused, bounds, onFocus, onClose, onMinimize, onMaximize, onLaunch }: {
   win: WindowState; index: number; focused: boolean; bounds: React.RefObject<HTMLDivElement>;
-  onFocus: () => void; onClose: () => void; onMinimize: () => void; onMaximize: () => void;
+  onFocus: () => void; onClose: () => void; onMinimize: () => void; onMaximize: () => void; onLaunch: (id: LauncherId) => void;
 }) {
   const controls = useDragControls();
   const size = windowSizes[win.id];
@@ -61,7 +61,7 @@ function MacWindow({ win, index, focused, bounds, onFocus, onClose, onMinimize, 
         <span className="mac-title">{appTitles[win.id]}</span>
       </header>
       <div className="mac-window-body">
-        <AppContent id={win.id} />
+        <AppContent id={win.id} onLaunch={onLaunch} />
       </div>
     </motion.section>
   );
@@ -137,6 +137,7 @@ export function MacDesktop() {
               onClose={() => close(win.id)}
               onMinimize={() => update(win.id, { minimized: true })}
               onMaximize={() => update(win.id, { maximized: !win.maximized })}
+              onLaunch={launch}
             />
           ))}
         </AnimatePresence>

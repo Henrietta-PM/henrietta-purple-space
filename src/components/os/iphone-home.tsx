@@ -156,7 +156,7 @@ export function IphoneHome() {
           >
             <StatusBar light={false} />
             <div className="ios-app-body">
-              {open === "settings" ? <SettingsApp pref={pref} onChange={setPref} /> : <AppContent id={open} compact projectName={open === "projects" ? projectName : undefined} />}
+              {open === "settings" ? <SettingsApp pref={pref} onChange={setPref} /> : <AppContent id={open} compact projectName={open === "projects" ? projectName : undefined} onLaunch={(id) => { setProjectName(undefined); launch(id); }} />}
             </div>
             {showHint && <motion.span className="ios-home-hint" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>Swipe up or tap the bar to go home</motion.span>}
             <motion.button
