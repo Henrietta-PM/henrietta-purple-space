@@ -1,0 +1,24 @@
+.os-notes-app { min-height:100%; color:hsl(var(--os-ink)); background:hsl(var(--os-window)); }
+.os-notes-nav { position:sticky; top:0; z-index:2; display:flex; align-items:center; justify-content:space-between; min-height:52px; padding:8px 12px; background:hsl(var(--os-window)); border-bottom:1px solid hsl(var(--os-line) / .35); }
+.os-notes-nav .os-notes-back { color:hsl(var(--os-icon-letter)); padding:8px; font-size:16px; }
+.os-notes-nav .os-notes-back:hover { background:hsl(var(--os-icon-letter) / .1); }
+.os-notes-nav small { padding-right:8px; font-size:12px; color:hsl(var(--os-ink-soft)); }
+.os-notes-library { padding:18px 20px 32px; }
+.os-notes-library h1 { font-size:32px; font-weight:700; margin-bottom:20px; }
+.os-notes-search { display:flex; align-items:center; gap:8px; padding:10px 12px; border-radius:12px; background:hsl(var(--os-ink) / .06); color:hsl(var(--os-ink-soft)); margin-bottom:24px; }
+.os-notes-search svg { width:18px; height:18px; flex-shrink:0; }
+.os-notes-search input { background:transparent; outline:none; color:hsl(var(--os-ink)); width:100%; min-width:0; font-size:16px; }
+.os-notes-library h2 { font-size:21px; font-weight:700; margin-bottom:10px; }
+.os-notes-list { background:hsl(var(--os-titlebar)); border-radius:16px; overflow:hidden; }
+.os-notes-list .os-notes-row { width:100%; display:flex; justify-content:flex-start; flex-direction:column; align-items:stretch; gap:6px; height:auto; min-height:90px; text-align:left; white-space:normal; padding:18px; border-radius:0; }
+.os-notes-row + .os-notes-row { border-top:1px solid hsl(var(--os-line) / .4); }
+.os-notes-row strong { font-size:17px; }
+.os-notes-row span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:14px; font-weight:400; color:hsl(var(--os-ink-soft)); }
+.os-notes-count { text-align:center; margin-top:20px; font-size:13px; color:hsl(var(--os-ink-soft)); }
+.os-notes-reading { padding:22px 24px 40px; max-width:680px; margin:0 auto; overflow-wrap:anywhere; }
+.os-notes-reading h1 { font-size:28px; font-weight:700; margin-bottom:22px; }
+.os-notes-reading h2 { font-size:23px; font-weight:600; margin-bottom:18px; }
+.os-notes-reading p { font-size:16px; line-height:1.65; margin-bottom:20px; }
+.os-notes-reading .os-note { padding:0; }
+.os-notes-reading .os-note-tools, .os-notes-reading .os-note-date { display:none; }
+@media (max-height:500px) { .os-notes-library { padding-top:10px; } .os-notes-library h1 { margin-bottom:12px; } }
