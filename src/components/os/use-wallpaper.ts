@@ -10,7 +10,7 @@ import hero5 from "@/assets/henrietta-hero-5.jpg";
 export const wallpapers = [portrait, hero, hero1, hero2, hero3, hero4, hero5];
 export const lockWallpaper = hero;
 
-const ROTATE_MS = 12000;
+const ROTATE_MS = 6000;
 
 export function useWallpaper() {
   const [index, setIndex] = useState(0);
