@@ -129,15 +129,23 @@ function ProjectDetail({ project, onBack, compact }: { project: Project; onBack:
   );
 }
 
-function LibraryTile({ project, onOpen }: { project: Project; onOpen: (p: Project) => void }) {
+interface LibItem { key: string; label: string; sub: string; icon: ReactNode; open: () => void }
+
+function LibraryTile({ item }: { item: LibItem }) {
   return (
-    <button className={`os-lib-tile ${projectLogos[project.name] ? "os-lib-logo" : ""}`} onClick={() => onOpen(project)} aria-label={`Open ${project.name}`}>
-      <img src={projectLogos[project.name] ?? project.image} alt="" loading="lazy" />
+    <button className="os-lib-tile os-lib-logo" onClick={item.open} aria-label={`Open ${item.label}`}>
+      {item.icon}
     </button>
   );
 }
 
-function ProjectsApp({ compact, initial }: { compact: boolean; initial?: string }) {
+const libraryFolders: { name: string; ids: LauncherId[] }[] = [
+  { name: "About Me", ids: ["cv", "letter", "health", "maps", "reminders"] },
+  { name: "Social", ids: ["love", "instagram", "linkedin", "x", "messages"] },
+  { name: "Productivity", ids: ["hire", "contact", "shop"] },
+];
+
+function ProjectsApp({ compact, initial, onLaunch }: { compact: boolean; initial?: string; onLaunch?: (id: LauncherId) => void }) {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<Project | null>(() => allProjects.find((p) => p.name === initial) ?? null);
 
@@ -149,28 +157,33 @@ function ProjectsApp({ compact, initial }: { compact: boolean; initial?: string 
     );
   }
 
-  const q = query.trim().toLowerCase();
-  const matches = allProjects.filter((p) => !q || `${p.name} ${p.tags.join(" ")}`.toLowerCase().includes(q));
+  const projectItem = (p: Project): LibItem => ({ key: p.name, label: p.name, sub: p.tags[0] ?? "Project", icon: <ProjectIcon project={p} size="lg" />, open: () => setSelected(p) });
+  const appItem = (id: LauncherId): LibItem => {
+    const launcher = launchers.find((l) => l.id === id)!;
+    return { key: id, label: launcher.name, sub: "App", icon: <AppIcon launcher={launcher} size="lg" />, open: () => (isLink(id) ? window.open(externalLinks[id], "_blank", "noopener,noreferrer") : onLaunch?.(id)) };
+  };
   const folders = [
-    { name: "Featured", items: allProjects.filter((p) => featuredNames.has(p.name)) },
-    { name: "AI Products", items: allProjects.filter((p) => p.tags.some((t) => /ai/i.test(t))) },
-    { name: "Health and Gov", items: allProjects.filter((p) => p.tags.some((t) => /health|gov/i.test(t))) },
-    { name: "Side Projects", items: allProjects.filter((p) => !featuredNames.has(p.name)) },
+    { name: "Featured", items: allProjects.filter((p) => featuredNames.has(p.name)).map(projectItem) },
+    { name: "Side Projects", items: allProjects.filter((p) => !featuredNames.has(p.name)).map(projectItem) },
+    ...libraryFolders.map((f) => ({ name: f.name, items: f.ids.filter((id) => isLink(id) || onLaunch).map(appItem) })),
   ].filter((f) => f.items.length > 0);
+  const everything = folders.flatMap((f) => f.items).filter((item, i, list) => list.findIndex((x) => x.key === item.key) === i);
+  const q = query.trim().toLowerCase();
+  const matches = everything.filter((item) => `${item.label} ${item.sub}`.toLowerCase().includes(q));
 
   return (
     <div className="os-library">
       <label className="os-lib-search">
         <Search aria-hidden="true" />
-        <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="App Library" aria-label="Search projects" />
+        <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="App Library" aria-label="Search apps and projects" />
       </label>
       {q ? (
         <ul className="os-lib-list">
-          {matches.map((p) => (
-            <li key={p.name}>
-              <button onClick={() => setSelected(p)}>
-                <img src={p.image} alt="" />
-                <span><strong>{p.name}</strong><small>{p.tags[0]}</small></span>
+          {matches.map((item) => (
+            <li key={item.key}>
+              <button onClick={item.open}>
+                {item.icon}
+                <span><strong>{item.label}</strong><small>{item.sub}</small></span>
               </button>
             </li>
           ))}
@@ -183,12 +196,12 @@ function ProjectsApp({ compact, initial }: { compact: boolean; initial?: string 
             return (
               <div key={folder.name} className="os-lib-folder">
                 <div className="os-lib-box">
-                  {a && <LibraryTile project={a} onOpen={setSelected} />}
-                  {b && <LibraryTile project={b} onOpen={setSelected} />}
-                  {rest.length === 1 && <LibraryTile project={rest[0]} onOpen={setSelected} />}
+                  {a && <LibraryTile item={a} />}
+                  {b && <LibraryTile item={b} />}
+                  {rest.length === 1 && <LibraryTile item={rest[0]} />}
                   {rest.length > 1 && (
                     <div className="os-lib-mini">
-                      {rest.slice(0, 4).map((p) => <LibraryTile key={p.name} project={p} onOpen={setSelected} />)}
+                      {rest.slice(0, 4).map((item) => <LibraryTile key={item.key} item={item} />)}
                     </div>
                   )}
                 </div>
@@ -383,9 +396,9 @@ function ShopApp() {
   );
 }
 
-export function AppContent({ id, compact = false, projectName }: { id: AppId; compact?: boolean; projectName?: string }) {
+export function AppContent({ id, compact = false, projectName, onLaunch }: { id: AppId; compact?: boolean; projectName?: string; onLaunch?: (id: LauncherId) => void }) {
   switch (id) {
-    case "projects": return <ProjectsApp compact={compact} initial={projectName} />;
+    case "projects": return <ProjectsApp compact={compact} initial={projectName} onLaunch={onLaunch} />;
     case "cv": return <CvApp compact={compact} />;
     case "letter": return <LetterApp />;
     case "contact": return <ContactApp />;
@@ -403,11 +416,11 @@ export function AppIcon({ launcher, size = "md" }: { launcher: Launcher; size?: 
   if (launcher.id === "letter") return <NotesIcon size={size} />;
   if (launcher.id === "projects") return <span className={`os-icon os-icon-${size} os-files`} aria-hidden="true"><span className="os-files-folder" /></span>;
   if (launcher.id === "shop") return <span className={`os-icon os-icon-${size} os-appstore`} aria-hidden="true"><AppStoreGlyph /></span>;
-  if (launcher.id === "x") return <span className={`os-icon os-icon-${size} os-x`} aria-hidden="true"><b>X</b></span>;
-  if (launcher.id === "linkedin") return <span className={`os-icon os-icon-${size} os-linkedin`} aria-hidden="true"><b>in</b></span>;
+  if (launcher.id === "x") return <span className={`os-icon os-icon-${size} os-x`} aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" /></svg></span>;
+  if (launcher.id === "linkedin") return <span className={`os-icon os-icon-${size} os-linkedin`} aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.85 1.637-1.75 3.37-1.75 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.125 2.062 2.062 0 0 1 0 4.125zM7.119 20.452H3.555V9h3.564v11.452z" /></svg></span>;
   if (launcher.id === "cv") return <span className={`os-icon os-icon-${size} os-pages`} aria-hidden="true"><PenLine /></span>;
   if (launcher.id === "contact") return <span className={`os-icon os-icon-${size} os-contacts`} aria-hidden="true"><span className="os-contacts-head" /><span className="os-contacts-body" /><span className="os-contacts-tabs" /></span>;
-  if (launcher.id === "instagram") return <span className={`os-icon os-icon-${size} os-insta`} aria-hidden="true"><Instagram /></span>;
+  if (launcher.id === "instagram") return <span className={`os-icon os-icon-${size} os-insta`} aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="5.5" /><circle cx="12" cy="12" r="4.2" /><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none" /></svg></span>;
   if (launcher.id === "love") return <span className={`os-icon os-icon-${size} os-likes`} aria-hidden="true"><Heart /></span>;
   const Icon = launcher.icon;
   return (
@@ -467,34 +480,45 @@ export function ProjectIcon({ project, size = "md" }: { project: Project; size?:
   );
 }
 
+const messageTimes = ["Yesterday", "Tuesday", "Monday"];
+
+function Avatar({ name, large = false }: { name: string; large?: boolean }) {
+  const initials = name.split(" ").map((part) => part.charAt(0)).join("").slice(0, 2);
+  return <span className={`os-msg-avatar ${large ? "os-msg-avatar-lg" : ""}`}>{initials}</span>;
+}
+
 function MessagesApp() {
   const [active, setActive] = useState<number | null>(null);
   const person = active === null ? null : testimonials[active];
   if (person) {
     return (
-      <div className="os-msg">
+      <div className="os-msg os-msg-chat">
         <div className="os-msg-head">
-          <button className="os-back" onClick={() => setActive(null)}><ChevronLeft aria-hidden="true" /> Messages</button>
-          <span className="os-msg-avatar">{person.author.charAt(0)}</span>
-          <strong>{person.author}</strong>
-          <small>{person.role}</small>
+          <button className="os-msg-back" onClick={() => setActive(null)} aria-label="Back to Messages"><ChevronLeft aria-hidden="true" /></button>
+          <Avatar name={person.author} large />
+          <strong>{person.author} <ChevronLeft className="os-msg-chev" aria-hidden="true" /></strong>
         </div>
         <div className="os-msg-thread">
-          <p className="os-bubble os-bubble-out">Hi, would you share a few words about working with me?</p>
+          <span className="os-msg-stamp">iMessage<br />{messageTimes[active ?? 0]}</span>
           <p className="os-bubble os-bubble-in">{person.quote}</p>
+          <span className="os-msg-role">{person.role}</span>
         </div>
       </div>
     );
   }
   return (
     <div className="os-msg">
-      <h2 className="os-msg-title">Messages</h2>
+      <h2 className="os-large-title">Messages</h2>
+      <label className="os-search-field"><Search aria-hidden="true" /><input placeholder="Search" aria-label="Search messages" /></label>
       <ul className="os-msg-list">
         {testimonials.map((item, index) => (
           <li key={item.author}>
             <button onClick={() => setActive(index)}>
-              <span className="os-msg-avatar">{item.author.charAt(0)}</span>
-              <span className="os-msg-preview"><strong>{item.author}</strong><small>{item.role}</small><span>{item.quote}</span></span>
+              <Avatar name={item.author} />
+              <span className="os-msg-preview">
+                <span className="os-msg-row"><strong>{item.author}</strong><time>{messageTimes[index]}</time></span>
+                <span>{item.quote}</span>
+              </span>
             </button>
           </li>
         ))}
@@ -509,46 +533,81 @@ function SkillsApp() {
     { title: "Technical Skills", tone: "tech", items: skillCategories.technicalSkills },
     { title: "Tools", tone: "tools", items: skillCategories.tools },
   ];
+  const [open, setOpen] = useState<string | null>(null);
   return (
     <div className="os-health">
-      <h2 className="os-msg-title">Summary</h2>
-      {groups.map((group) => (
-        <section key={group.title} className={`os-health-card os-health-${group.tone}`}>
-          <header><Activity aria-hidden="true" /><strong>{group.title}</strong><span>{group.items.length}</span></header>
-          <div className="os-health-chips">{group.items.map((item) => <span key={item}>{item}</span>)}</div>
-        </section>
-      ))}
+      <span className="os-health-date">{format(new Date(), "EEEE d MMMM").toUpperCase()}</span>
+      <h2 className="os-large-title">Summary</h2>
+      <p className="os-health-section">Pinned</p>
+      {groups.map((group) => {
+        const expanded = open === group.title;
+        const shown = expanded ? group.items : group.items.slice(0, 4);
+        return (
+          <button key={group.title} className={`os-health-card os-health-${group.tone}`} onClick={() => setOpen(expanded ? null : group.title)} aria-expanded={expanded}>
+            <span className="os-health-head"><Activity aria-hidden="true" /><strong>{group.title}</strong><ChevronLeft className="os-health-chev" aria-hidden="true" /></span>
+            <span className="os-health-value"><b>{group.items.length}</b> skills</span>
+            <span className="os-health-list">{shown.join(" · ")}{!expanded && group.items.length > 4 ? ` · +${group.items.length - 4} more` : ""}</span>
+          </button>
+        );
+      })}
     </div>
   );
 }
 
 function RemindersApp() {
+  const [done, setDone] = useState<string[]>([]);
+  const toggle = (id: string) => setDone((list) => (list.includes(id) ? list.filter((x) => x !== id) : [...list, id]));
   return (
     <div className="os-rem">
       <h2 className="os-rem-title">How I Work</h2>
       <ul>
-        {workSteps.map((step) => (
-          <li key={step.number}>
-            <span className="os-rem-check" aria-hidden="true" />
-            <span><strong>{step.title}</strong><small>{step.text}</small></span>
-          </li>
-        ))}
+        {workSteps.map((step) => {
+          const checked = done.includes(step.number);
+          return (
+            <li key={step.number}>
+              <button className={`os-rem-check ${checked ? "on" : ""}`} onClick={() => toggle(step.number)} aria-pressed={checked} aria-label={`Mark ${step.title} done`} />
+              <span className={checked ? "os-rem-done" : ""}><strong>{step.title}</strong><small>{step.text}</small></span>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
 }
 
+const pinSpots = [{ x: 22, y: 70 }, { x: 52, y: 42 }, { x: 80, y: 22 }];
+
 function JourneyApp() {
+  const [active, setActive] = useState(0);
   return (
     <div className="os-maps">
-      <div className="os-maps-canvas" aria-hidden="true"><span className="os-maps-route" /></div>
+      <svg className="os-maps-canvas" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <rect width="100" height="100" className="os-map-land" />
+        <path d="M60 0 C 70 30, 95 35, 100 60 L100 0 Z" className="os-map-water" />
+        <rect x="6" y="12" width="22" height="18" rx="3" className="os-map-park" />
+        <rect x="62" y="68" width="26" height="20" rx="3" className="os-map-park" />
+        <path d="M0 55 L100 48 M0 85 L100 78 M35 0 L40 100 M70 0 L66 100" className="os-map-road" />
+        <path d="M0 30 L100 20 M15 0 L12 100 M88 0 L92 100" className="os-map-street" />
+        <polyline points={pinSpots.map((p) => `${p.x},${p.y}`).join(" ")} className="os-map-route" />
+      </svg>
+      <div className="os-maps-pins">
+        {pinSpots.map((spot, index) => (
+          <button key={index} className={`os-maps-pin ${active === index ? "on" : ""}`} style={{ left: `${spot.x}%`, top: `${spot.y}%` }} onClick={() => setActive(index)} aria-label={journeySteps[index].title}>
+            <span>{index + 1}</span>
+          </button>
+        ))}
+      </div>
       <div className="os-maps-sheet">
-        <h2>From Architecture to Product Management</h2>
+        <span className="os-maps-grabber" aria-hidden="true" />
+        <h2>Journey</h2>
+        <small className="os-maps-sub">Architecture to Product Management · {journeySteps.length} stops</small>
         <ol>
           {journeySteps.map((step, index) => (
             <li key={step.title}>
-              <span className="os-maps-pin">{index + 1}</span>
-              <span><strong>{step.title}</strong><small>{step.text}</small></span>
+              <button className={active === index ? "on" : ""} onClick={() => setActive(index)}>
+                <span className="os-maps-dot">{index + 1}</span>
+                <span><strong>{step.title}</strong><small>{step.text}</small></span>
+              </button>
             </li>
           ))}
         </ol>
