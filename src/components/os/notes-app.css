@@ -93,3 +93,13 @@
 .an-format-dock svg { width:22px; height:22px; }
 .an-aa { font-size:18px; font-weight:600; }
 .an-aa[aria-pressed=true] { background:hsl(var(--notes-accent) / 0.2); }
+/* Replace default purple hover with Apple-style soft highlights */
+.os-notes-app button:hover, .os-notes-app button:focus { background-color:transparent; }
+.os-notes-app .an-note-row, .os-notes-app .an-folder-row { color:hsl(var(--os-ink)) !important; transition:background-color .15s; }
+.os-notes-app .an-note-row:hover, .os-notes-app .an-folder-row:hover { background:hsl(var(--os-ink) / .05) !important; }
+.os-notes-app .an-note-row:active, .os-notes-app .an-folder-row:active { background:hsl(var(--os-ink) / .1) !important; }
+.os-notes-app .an-note-row.selected { background:hsl(var(--notes-accent) / .9) !important; }
+.os-notes-app .an-back, .os-notes-app .an-icon { color:hsl(var(--notes-accent)) !important; }
+.os-notes-app .an-back:hover, .os-notes-app .an-icon:hover { background:transparent !important; opacity:.7; }
+.os-notes-app .an-back:active, .os-notes-app .an-icon:active { opacity:.45; }
+.os-notes-app button:focus-visible { outline:2px solid hsl(var(--notes-accent)); outline-offset:-2px; }
