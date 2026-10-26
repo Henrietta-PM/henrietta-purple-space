@@ -58,7 +58,7 @@ export function IphoneHome() {
   );
 
   return (
-    <div className="ios-shell" style={{ backgroundImage: `url(${portrait})` }}>
+    <div className={`ios-shell ${page > 1 ? "ios-on-library" : ""}`} style={{ backgroundImage: `url(${portrait})` }}>
       <div className="mac-wallpaper-tint" />
       <StatusBar light />
 

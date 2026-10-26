@@ -154,12 +154,16 @@ export function AppLibrary({ onOpenProject, onLaunch }: { onOpenProject: (name: 
     const launcher = launchers.find((l) => l.id === id)!;
     return { key: id, label: launcher.name, sub: "App", icon: <AppIcon launcher={launcher} size="lg" />, open: () => (isLink(id) ? window.open(externalLinks[id], "_blank", "noopener,noreferrer") : onLaunch(id)) };
   };
+  const byName = (name: string) => allProjects.find((p) => p.name === name);
+  const pick = (names: string[]) => names.map(byName).filter((p): p is Project => Boolean(p)).map(projectItem);
   const folders = [
+    { name: "Suggestions", items: [...pick(["Sally"]), appItem("letter"), appItem("cv"), appItem("hire")] },
+    { name: "Recently Added", items: pick(["Sally", "Targett", "VibeStack", "Bloomie AI"]) },
     { name: "Featured", items: allProjects.filter((p) => featuredNames.has(p.name)).map(projectItem) },
     { name: "Side Projects", items: allProjects.filter((p) => !featuredNames.has(p.name)).map(projectItem) },
     ...libraryFolders.map((f) => ({ name: f.name, items: f.ids.map(appItem) })),
   ].filter((f) => f.items.length > 0);
-  const everything = folders.flatMap((f) => f.items).filter((item, i, list) => list.findIndex((x) => x.key === item.key) === i);
+  const everything = folders.slice(2).flatMap((f) => f.items).filter((item, i, list) => list.findIndex((x) => x.key === item.key) === i);
   const q = query.trim().toLowerCase();
   const matches = everything.filter((item) => `${item.label} ${item.sub}`.toLowerCase().includes(q));
 
@@ -522,10 +526,13 @@ export function ImageIcon({ src, size = "md" }: { src: string; size?: "sm" | "md
 
 function AppStoreGlyph() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
-      <path d="M9.5 4.5 16.5 17" />
-      <path d="M14.5 4.5 7.5 17" />
-      <path d="M5 13.5h14" />
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round">
+      <path d="M9.6 4.8 17.4 18.4" />
+      <path d="M14.4 4.8 11.3 10.2" />
+      <path d="M9.9 12.6 7.2 17.3" />
+      <path d="M6.2 19.1 5.8 19.8" />
+      <path d="M4.8 15.6H13.4" />
+      <path d="M16.6 15.6H19.2" />
     </svg>
   );
 }
