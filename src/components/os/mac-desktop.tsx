@@ -26,16 +26,16 @@ const windowSizes: Record<AppId, { w: number; h: number }> = {
   projects: { w: 860, h: 560 },
   cv: { w: 640, h: 600 },
   letter: { w: 900, h: 620 },
-  contact: { w: 440, h: 420 },
+  contact: { w: 780, h: 600 },
   shop: { w: 640, h: 460 },
   love: { w: 420, h: 560 },
   messages: { w: 860, h: 600 },
-  health: { w: 480, h: 600 },
-  reminders: { w: 420, h: 460 },
-  maps: { w: 460, h: 580 },
-  weather: { w: 420, h: 620 },
+  health: { w: 780, h: 600 },
+  reminders: { w: 720, h: 560 },
+  maps: { w: 860, h: 620 },
+  weather: { w: 940, h: 680 },
   camera: { w: 460, h: 650 },
-  photos: { w: 640, h: 600 },
+  photos: { w: 860, h: 600 },
 };
 
 function MacWindow({ win, index, focused, bounds, onFocus, onClose, onMinimize, onMaximize, onLaunch }: {
