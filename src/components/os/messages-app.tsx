@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { format, isThisWeek, isToday, isYesterday } from "date-fns";
-import { ArrowUp, ChevronLeft, ChevronRight, Flag, Info, ListFilter, Mic, Search, SquarePen } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowUp, Trash2, ChevronLeft, ChevronRight, Flag, Info, ListFilter, Mic, Search, SquarePen } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { testimonials } from "@/components/Testimonials";
 import { friendlyError } from "@/lib/friendly-error";
-import { ReportDialog, sendVisitorMessage, useVisitorMessages } from "./visitor-guestbook";
+import { ReportDialog, deleteVisitorMessage, loadOwnedMessages, sendVisitorMessage, useVisitorMessages } from "./visitor-guestbook";
 import "./messages-app.css";
 
 const messageSchema = z.object({ name: z.string().trim().min(1).max(40), message: z.string().trim().min(1).max(240) });
@@ -48,7 +49,21 @@ export default function MessagesApp({ compact = false }: { compact?: boolean }) 
   const [consent, setConsent] = useState(false);
   const [sending, setSending] = useState(false);
   const [reportId, setReportId] = useState<string | null>(null);
+  const [owned, setOwned] = useState<Record<string, string>>(loadOwnedMessages);
+  const [swiped, setSwiped] = useState<string | null>(null);
   const queryClient = useQueryClient();
+  const remove = async (id: string) => {
+    try {
+      await deleteVisitorMessage(id);
+      setOwned(loadOwnedMessages());
+      setSwiped(null);
+      if (active?.kind === "visitor" && active.id === id) setActive(undefined);
+      await queryClient.invalidateQueries({ queryKey: ["visitor-posts"] });
+      toast.success("Message deleted.");
+    } catch (error) {
+      toast.error(friendlyError(error, "Your message couldn't be deleted. Please try again shortly."));
+    }
+  };
   const { data: visitorMessages = [] } = useVisitorMessages();
   const query = search.toLowerCase().trim();
   const pinned = testimonials.map((item, index) => ({ ...item, index })).filter((item) => `${item.author} ${item.quote} ${item.role}`.toLowerCase().includes(query));
@@ -81,6 +96,7 @@ export default function MessagesApp({ compact = false }: { compact?: boolean }) 
       setDraft("");
       setConsent(false);
       toast.success("Message sent. Thank you!");
+      setOwned(loadOwnedMessages());
       if (result?.id) open({ kind: "visitor", id: result.id });
     } catch (error) {
       toast.error(friendlyError(error, "Your message couldn't be sent. Please try again shortly."));
@@ -117,13 +133,18 @@ export default function MessagesApp({ compact = false }: { compact?: boolean }) 
           <MessageAvatar name={item.author} /><span className="am-preview"><span className="am-preview-heading"><strong>{item.author}</strong>{compact && <small><ChevronRight aria-hidden="true" /></small>}</span><span className="am-preview-text">{item.quote}</span></span>
         </Button>)}
         {visitors.map((item) => {
-          const unread = !read.includes(item.id);
-          return <div key={item.id} className="am-row-wrap">
-            <Button variant="ghost" className={`am-row ${active?.kind === "visitor" && active.id === item.id ? "selected" : ""}`} aria-label={`${item.display_name}${unread ? ", unread" : ""}`} onClick={() => open({ kind: "visitor", id: item.id })}>
+          const mine = Boolean(owned[item.id]);
+          const unread = !mine && !read.includes(item.id);
+          const row = <Button variant="ghost" className={`am-row ${active?.kind === "visitor" && active.id === item.id ? "selected" : ""}`} aria-label={`${item.display_name}${unread ? ", unread" : ""}`} onClick={() => open({ kind: "visitor", id: item.id })}>
               <span className={`am-unread ${unread ? "on" : ""}`} aria-hidden="true" />
               <MessageAvatar name={item.display_name} /><span className="am-preview"><span className="am-preview-heading"><strong>{item.display_name}</strong><small>{listTime(item.created_at)}{compact && <ChevronRight aria-hidden="true" />}</small></span><span className="am-preview-text">{item.message}</span></span>
-            </Button>
-            {compact && editing && <Button variant="ghost" size="icon" className="am-row-report" aria-label={`Report message from ${item.display_name}`} onClick={() => setReportId(item.id)}><Flag /></Button>}
+            </Button>;
+          return <div key={item.id} className="am-row-wrap">
+            {mine && <Button variant="destructive" className="am-row-delete" aria-label="Delete your message" onClick={() => void remove(item.id)}><Trash2 aria-hidden="true" />Delete</Button>}
+            {mine
+              ? <motion.div className="am-row-swipe" drag="x" dragConstraints={{ left: -88, right: 0 }} dragElastic={0.1} dragDirectionLock animate={{ x: swiped === item.id ? -88 : 0 }} onDragEnd={(_, info) => setSwiped(info.offset.x < -40 ? item.id : null)} onClickCapture={(event) => { if (swiped === item.id) { event.stopPropagation(); setSwiped(null); } }}>{row}</motion.div>
+              : row}
+            {compact && editing && !mine && <Button variant="ghost" size="icon" className="am-row-report" aria-label={`Report message from ${item.display_name}`} onClick={() => setReportId(item.id)}><Flag /></Button>}
           </div>;
         })}
         {pinned.length === 0 && visitors.length === 0 && <p className="am-empty">No Results</p>}
@@ -137,7 +158,8 @@ export default function MessagesApp({ compact = false }: { compact?: boolean }) 
           ? <div className="am-person"><strong>New Message</strong></div>
           : <div className="am-person"><MessageAvatar name={person?.author ?? visitor?.display_name ?? ""} /><strong>{person?.author ?? visitor?.display_name}{compact && <ChevronRight aria-hidden="true" />}</strong></div>}
         {person && <Button variant="ghost" size="icon" className="am-details" aria-label="Contact details" title="Contact details" onClick={() => setDetails((value) => !value)}><Info /></Button>}
-        {visitor && <Button variant="ghost" size="icon" className="am-details" aria-label="Report message" title="Report" onClick={() => setReportId(visitor.id)}><Flag /></Button>}
+        {visitor && owned[visitor.id] && <Button variant="ghost" size="icon" className="am-details" aria-label="Delete your message" title="Delete" onClick={() => void remove(visitor.id)}><Trash2 /></Button>}
+        {visitor && !owned[visitor.id] && <Button variant="ghost" size="icon" className="am-details" aria-label="Report message" title="Report" onClick={() => setReportId(visitor.id)}><Flag /></Button>}
       </header>
       <div className="am-thread-scroll">
         {person && <>
@@ -147,7 +169,7 @@ export default function MessagesApp({ compact = false }: { compact?: boolean }) 
         </>}
         {visitor && <>
           <p className="am-time">{format(new Date(visitor.created_at), "EEE, d MMM 'at' HH:mm")}</p>
-          <p className="am-incoming">{visitor.message}</p>
+          <p className={owned[visitor.id] ? "am-outgoing" : "am-incoming"}>{visitor.message}</p>
         </>}
         {active?.kind === "new" && <div className="am-compose-intro">
           <label className="am-to">To: <span>Henrietta</span></label>
