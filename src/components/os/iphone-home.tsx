@@ -21,6 +21,7 @@ export function IphoneHome() {
   const now = useClock();
   const [open, setOpen] = useState<AppId | "settings" | null>(null);
   const [locked, setLocked] = useState(true);
+  const wallpaper = useWallpaper();
   const [page, setPage] = useState(0);
   const [projectName, setProjectName] = useState<string | undefined>();
   const pagesRef = useRef<HTMLDivElement>(null);
