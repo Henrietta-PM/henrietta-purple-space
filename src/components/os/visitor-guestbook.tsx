@@ -59,6 +59,7 @@ export default function VisitorGuestbook({ mode, onOpen }: { mode: "camera" | "p
   const { data: posts = [], isLoading, isError, refetch } = useQuery<Visit[]>({ queryKey: ["visitor-posts"], queryFn: async () => (await invokeGuestbook()).posts, enabled: mode === "photos", refetchInterval: 30000 });
   const photos = posts.filter((post) => post.photo_url);
   const showShoutOut = (post: Visit) => toast(post.display_name, {
+    id: "visitor-shout-out",
     description: post.message,
     duration: 5000,
     action: { label: "Report", onClick: () => setReportId(post.id) },
@@ -67,7 +68,7 @@ export default function VisitorGuestbook({ mode, onOpen }: { mode: "camera" | "p
     const first = posts[0];
     if (mode !== "photos" || !first || announcedVisit.current) return;
     announcedVisit.current = true;
-    toast(first.display_name, { description: first.message, duration: 5000, action: { label: "Report", onClick: () => setReportId(first.id) } });
+    toast(first.display_name, { id: "visitor-shout-out", description: first.message, duration: 5000, action: { label: "Report", onClick: () => setReportId(first.id) } });
   }, [mode, posts]);
   const openPhoto = (post: Visit) => { setSelectedPhoto(post); showShoutOut(post); };
   const selectedIndex = photos.findIndex((post) => post.id === selectedPhoto?.id);
