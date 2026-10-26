@@ -83,7 +83,7 @@ export default function JourneyMap({ compact }: { compact: boolean }) {
       <MapContainer className="apple-map-frame jm-map" center={[6, 5.5]} zoom={6} zoomControl={false} attributionControl>
         <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; OpenStreetMap contributors" />
         <FlyTo target={focus.target} bounds={focus.bounds} compact={compact} />
-        <Polyline positions={stops.map((s) => [s.lat, s.lng])} pathOptions={{ className: "jm-route" }} />
+        <Polyline positions={stops.map((s): [number, number] => [s.lat, s.lng])} pathOptions={{ className: "jm-route" }} />
         {visitor && <Polyline positions={[[LAGOS.lat, LAGOS.lng], [visitor.lat, visitor.lng]]} pathOptions={{ className: "jm-route jm-route-you", dashArray: "2 8" }} />}
         {stops.map((s) => <Marker key={s.id} position={[s.lat, s.lng]} icon={icons[s.id]} eventHandlers={{ click: () => open(s) }} />)}
         {visitor && <Marker position={[visitor.lat, visitor.lng]} icon={youIcon} eventHandlers={{ click: () => setSelected("you") }} />}
