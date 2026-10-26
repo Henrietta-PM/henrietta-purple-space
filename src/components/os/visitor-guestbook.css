@@ -1,5 +1,6 @@
 .visitor-field { display:flex; flex-direction:column; gap:6px; font-size:13px; }
-.visitor-field select { border:1px solid hsl(var(--os-line)); border-radius:8px; padding:10px; background:hsl(var(--os-titlebar)); color:inherit; }
+.visitor-field select { -webkit-appearance:none; appearance:none; border:1px solid hsl(var(--border)); border-radius:10px; padding:12px 14px; font-size:16px; background-color:hsl(var(--muted)); color:hsl(var(--foreground)); color-scheme:dark; }
+.visitor-field select option { background-color:hsl(var(--popover)); color:hsl(var(--popover-foreground)); }
 .visitor-report { display:flex; flex-direction:column; gap:12px; }
 
 /* Camera, styled after the iOS Camera app */
