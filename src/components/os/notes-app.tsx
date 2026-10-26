@@ -14,7 +14,7 @@ export default function NotesApp({ initialNote, letter, compact = false }: { ini
   const [gallery, setGallery] = useState(false);
   const [pinned, setPinned] = useState<NoteId[]>([]);
   const readingRef = useRef<HTMLDivElement>(null);
-  const notes = portfolioNotes.filter((note) => `${note.title} ${note.preview} ${note.id === "about-me" ? aboutMeNote.paragraphs.join(" ") : ""}`.toLowerCase().includes(search.toLowerCase().trim()));
+  const notes = portfolioNotes.filter((note) => `${note.title} ${note.preview} ${note.id === "about-me" ? [aboutMeNote.intro, ...aboutMeNote.paragraphs].join(" ") : ""}`.toLowerCase().includes(search.toLowerCase().trim()));
   const shareNote = async () => {
     const text = readingRef.current?.innerText;
     if (!text) return;
@@ -40,7 +40,7 @@ export default function NotesApp({ initialNote, letter, compact = false }: { ini
   </div>;
   const folderList = <div className="an-folder-list"><h2>On My {compact ? "iPhone" : "Mac"}</h2><Button variant="ghost" className="an-folder-row" onClick={() => { setFolders(false); setSelected(undefined); }}><Folder /><span>Notes</span><small>{portfolioNotes.length}</small>{compact && <ChevronRight />}</Button></div>;
   const reader = <div className="os-notes-reading" ref={readingRef}>
-    {selected === "about-me" ? <article><h1>{aboutMeNote.title}</h1><h2>{aboutMeNote.greeting}</h2><p>{aboutMeNote.preview}</p><ul className="os-notes-highlights">{aboutMeNote.highlights.map((highlight) => <li key={highlight}>{highlight}</li>)}</ul>{aboutMeNote.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}<p className="font-handwritten os-note-sign">Henrietta</p></article> : letter}
+    {selected === "about-me" ? <article><h1>{aboutMeNote.title}</h1><h2>{aboutMeNote.greeting}</h2><p>{aboutMeNote.preview}</p><p>{aboutMeNote.intro}</p><p>{aboutMeNote.highlightsLead}</p><ul className="os-notes-highlights">{aboutMeNote.highlights.map((highlight) => <li key={highlight}>{highlight}</li>)}</ul>{aboutMeNote.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}<p className="font-handwritten os-note-sign">Henrietta</p></article> : letter}
   </div>;
 
   return (
