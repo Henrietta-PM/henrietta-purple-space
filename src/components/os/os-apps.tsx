@@ -15,8 +15,6 @@ import targettLogo from "@/assets/targett-logo-featured.png";
 import vibestackLogo from "@/assets/vibestack-logo.png";
 import bloomieLogo from "@/assets/bloomie-logo-featured.png";
 import proxyIcon from "@/assets/proxymedicine-icon.png.asset.json";
-import prdTemplateComplete from "@/assets/prd-template-complete.png";
-import prdTemplateOverview from "@/assets/prd-template-overview.png";
 import { differenceInDays, differenceInHours, differenceInMinutes, format } from "date-fns";
 import { HIRE_CALENDAR_URL, openHireCalendar } from "@/lib/booking";
 import { skillCategories } from "@/pages/CV";
