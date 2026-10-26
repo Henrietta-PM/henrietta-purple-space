@@ -93,7 +93,7 @@ export function IphoneHome() {
               <span className="ios-w-notes-head">Notes</span>
               <div className="ios-w-notes-body">
                 <strong>Hi, I'm <span className="font-handwritten">Henrietta.</span></strong>
-                <p>{aboutMeNote.preview} {aboutMeNote.intro}...</p>
+                <p>{aboutMeNote.preview} {aboutMeNote.intro.replace(/\.$/, "")}...</p>
               </div>
             </button>
             <small>Notes</small>
