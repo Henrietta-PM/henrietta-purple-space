@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { featuredProjects, projectsData, type Project } from "@/data/projects";
 import cvAsset from "@/assets/henrietta-cv.pdf.asset.json";
 import sallyLogo from "@/assets/sally-logo.png";
+import appleCameraIcon from "@/assets/apple-camera-icon.jpg";
+import applePhotosIcon from "@/assets/apple-photos-icon.jpg";
 import targettLogo from "@/assets/targett-logo-featured.png";
 import vibestackLogo from "@/assets/vibestack-logo.png";
 import bloomieLogo from "@/assets/bloomie-logo-featured.png";
@@ -522,8 +524,8 @@ export function AppContent({ id, compact = false, projectName, onLaunch }: { id:
 }
 
 export function AppIcon({ launcher, size = "md" }: { launcher: Launcher; size?: "sm" | "md" | "lg" }) {
-  if (launcher.id === "camera") return <span className={`os-icon os-icon-${size} os-camera-icon`} aria-hidden="true"><svg viewBox="0 0 60 60"><path className="os-camera-body" d="M10 21h9l3-5h16l3 5h9a4 4 0 0 1 4 4v19a4 4 0 0 1-4 4H10a4 4 0 0 1-4-4V25a4 4 0 0 1 4-4Z" /><rect className="os-camera-body" x="11" y="17" width="7" height="2.5" rx="1" /><circle className="os-camera-lens-rim" cx="30" cy="34" r="11.5" /><circle className="os-camera-body" cx="30" cy="34" r="9.5" /><circle className="os-camera-flash" cx="47" cy="26" r="2" /></svg></span>;
-  if (launcher.id === "photos") return <span className={`os-icon os-icon-${size} os-photos-icon`} aria-hidden="true"><svg viewBox="0 0 60 60">{Array.from({ length: 8 }, (_, index) => <ellipse key={index} className="os-photos-petal" cx="30" cy="18.4" rx="8.3" ry="13.5" transform={`rotate(${index * 45} 30 30)`} />)}</svg></span>;
+  if (launcher.id === "camera") return <ImageIcon src={appleCameraIcon} size={size} />;
+  if (launcher.id === "photos") return <ImageIcon src={applePhotosIcon} size={size} />;
   if (launcher.id === "hire") return <CalendarIcon size={size} />;
   if (launcher.id === "letter") return <NotesIcon size={size} />;
   if (launcher.id === "projects") return <span className={`os-icon os-icon-${size} os-files`} aria-hidden="true"><span className="os-files-folder" /></span>;
