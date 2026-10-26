@@ -78,3 +78,7 @@
 .mac-dock .os-organized-tile { padding:0; }
 .mac-dock .os-organized-dot { bottom:-5px; width:3px; height:3px; }
 .os-mac-dock-apps .mac-dock-divider { margin:0 5px; align-self:center; }
+/* Dock app names: full height pill floating clearly above the dock glass */
+.mac-dock, .os-mac-dock-apps { overflow:visible !important; }
+.mac-dock .os-organized-tile { position:relative; }
+.mac-dock .os-organized-tile .os-tile-name { height:auto; line-height:16px; padding:4px 11px; bottom:calc(100% + 16px); z-index:60; box-sizing:border-box; }
