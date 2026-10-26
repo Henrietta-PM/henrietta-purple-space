@@ -514,6 +514,10 @@ button.mw:hover { transform:translateY(-2px); }
 .os-rem li > span { flex:1; padding-bottom:11px; border-bottom:.5px solid hsl(var(--os-line)); }
 .os-rem-check { flex-shrink:0; width:22px; height:22px; margin-top:1px; border-radius:50%; border:1.5px solid hsl(var(--os-ink) / .3); transition:all .2s; }
 .os-rem-check.on { border-color:hsl(211 100% 50%); background:radial-gradient(circle, hsl(211 100% 50%) 0 52%, transparent 56%); }
+.apple-reminders .os-rem-check { background-color:transparent; color:hsl(var(--os-ink)); transition:opacity .15s; }
+.apple-reminders .os-rem-check:hover { background-color:transparent; opacity:.7; }
+.apple-reminders .os-rem-check:active { background-color:transparent; opacity:.45; }
+.apple-reminders .os-rem-check:focus-visible { outline:2px solid hsl(var(--os-ink) / .5); outline-offset:3px; }
 .os-rem strong { display:block; font-size:17px; font-weight:400; }
 .os-rem small { display:block; font-size:15px; color:hsl(var(--os-ink) / .5); line-height:1.35; margin-top:2px; }
 .os-rem-done strong { color:hsl(var(--os-ink) / .45); }
