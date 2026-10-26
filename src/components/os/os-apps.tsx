@@ -528,7 +528,7 @@ export function AppContent({ id, compact = false, projectName, initialNote, onLa
   switch (id) {
     case "projects": return <ProjectsApp compact={compact} initial={projectName} />;
     case "cv": return <CvApp compact={compact} />;
-    case "letter": return <NotesApp key={initialNote ?? "all-notes"} initialNote={initialNote} letter={<LetterApp />} />;
+    case "letter": return <NotesApp key={initialNote ?? "all-notes"} compact={compact} initialNote={initialNote} letter={<LetterApp />} />;
     case "contact": return <ContactApp />;
     case "shop": return <ShopApp />;
     case "love": return <LoveApp />;

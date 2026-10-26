@@ -11,6 +11,10 @@ All colors MUST be HSL.
     --os-glass: 0 0% 100% / 0.62;
     --os-glass-dark: 240 10% 12% / 0.55;
     --os-window: 0 0% 99%;
+    --notes-paper: 0 0% 100%;
+    --notes-group: 240 5% 96%;
+    --notes-accent: 42 100% 40%;
+    --notes-selected: 43 95% 85%;
     --os-titlebar: 240 6% 95%;
     --os-sidebar: 240 8% 94% / 0.92;
     --os-ink: 240 8% 12%;
@@ -96,6 +100,13 @@ All colors MUST be HSL.
     --sidebar-border: 220 13% 91%;
 
     --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .os-dark {
+    --notes-paper: 0 0% 0%;
+    --notes-group: 240 2% 11%;
+    --notes-accent: 45 100% 55%;
+    --notes-selected: 42 70% 22%;
   }
 
   .dark {
