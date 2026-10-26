@@ -8,6 +8,7 @@ import { useWallpaper } from "./use-wallpaper";
 import { AppContent, AppIcon, appTitles, externalLinks, isLink, launchers, type AppId, type LauncherId } from "./os-apps";
 import { useClock } from "./use-clock";
 import MacWidgets from "./mac-widgets";
+import ExplorationNotifications from "./exploration-notifications";
 
 interface WindowState {
   id: AppId;
@@ -100,6 +101,7 @@ export function MacDesktop() {
   return (
     <div className="mac-shell" style={{ backgroundImage: `url(${wallpaper})` }}>
       <div className="mac-wallpaper-tint" />
+      <ExplorationNotifications activeApp={focused?.id} onLaunch={launch} />
       <nav className="mac-menubar" aria-label="Menu bar">
         <div className="mac-menubar-left">
           <AppleLogo />

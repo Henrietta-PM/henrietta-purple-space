@@ -11,6 +11,7 @@ import { useWallpaper } from "./use-wallpaper";
 import { AppContent, AppIcon, AppLibrary, appTitles, externalLinks, isLink, launchers, type AppId, type LauncherId } from "./os-apps";
 import { useClock } from "./use-clock";
 import { IphoneLock } from "./iphone-lock";
+import ExplorationNotifications from "./exploration-notifications";
 
 const dockIds: LauncherId[] = ["contact", "love", "letter", "hire"];
 const homeIds: LauncherId[] = ["projects", "cv", "messages", "health", "reminders", "maps", "shop"];
@@ -57,6 +58,7 @@ export function IphoneHome() {
     <div className={`ios-shell ${page > 1 ? "ios-on-library" : ""}`} style={{ backgroundImage: `url(${wallpaper})` }}>
       <div className="mac-wallpaper-tint" />
       <StatusBar light />
+      <ExplorationNotifications mobile enabled={!locked} activeApp={open ?? undefined} onLaunch={(id) => { setProjectName(undefined); launch(id); }} />
 
       <div className="ios-pages" ref={pagesRef} onScroll={(e) => setPage(Math.round(e.currentTarget.scrollLeft / e.currentTarget.clientWidth))}>
       <div className="ios-home ios-page">
