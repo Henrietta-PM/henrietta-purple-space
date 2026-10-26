@@ -3,6 +3,8 @@
 .an-toolbar { flex-shrink:0; min-height:48px; padding:4px 12px; display:flex; align-items:center; justify-content:space-between; gap:8px; background:hsl(var(--notes-paper) / .92); }
 .an-toolbar .an-back { padding:0 4px; color:hsl(var(--notes-accent)); font-size:17px; font-weight:400; }
 .an-back svg { width:24px; height:24px; }
+.an-phone .an-reader-back { width:40px; height:40px; padding:0; border-radius:50%; background:hsl(var(--os-ink) / .06); }
+.an-phone.reading .an-tools { border-radius:24px; background:hsl(var(--os-ink) / .06); padding:2px 6px; gap:4px; }
 .an-tools { display:flex; gap:6px; align-items:center; }
 .an-toolbar .an-icon { border-radius:50%; width:36px; height:36px; color:hsl(var(--notes-accent)); }
 .an-icon svg { width:22px; height:22px; stroke-width:1.7; }

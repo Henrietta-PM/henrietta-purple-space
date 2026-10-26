@@ -47,7 +47,7 @@ export default function NotesApp({ initialNote, letter, compact = false }: { ini
     <div className={`os-notes-app ${compact ? "an-phone" : "an-mac"} ${selected ? "reading" : ""}`}>
       {compact ? <>
         <header className="an-toolbar">
-          {!folders ? <Button variant="ghost" className="an-back" onClick={() => { if (selected) setSelected(undefined); else setFolders(true); }}><ChevronLeft />{selected ? "Notes" : "Folders"}</Button> : <span />}
+          {!folders ? <Button variant="ghost" className={`an-back ${selected ? "an-reader-back" : ""}`} aria-label={selected ? "Back to Notes" : "Folders"} title={selected ? "Back to Notes" : "Folders"} onClick={() => { if (selected) setSelected(undefined); else setFolders(true); }}><ChevronLeft />{!selected && "Folders"}</Button> : <span />}
           <div className="an-tools">{selected && <Button variant="ghost" size="icon" className="an-icon" aria-label="Share note" title="Share" onClick={shareNote}><Share /></Button>}{menu}</div>
         </header>
         {selected ? reader : <div className="an-phone-list"><h1>{folders ? "Folders" : "Notes"}</h1>{searchField}{folders ? folderList : noteList}</div>}
