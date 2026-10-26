@@ -142,7 +142,7 @@ function MovableTile({ tile, zone, index, desktop }: { tile: AppTile; zone: stri
   const app = appCatalog.find((item) => item.id === tile.apps[0]);
   const name = tile.apps.length > 1 ? tile.name ?? "Apps" : app?.name ?? "App";
   return <div ref={dropRef} className={`os-tile-slot ${isOver && context.active !== tile.id ? "drop-target" : ""} ${desktop ? "free-position" : ""}`} style={desktop ? { left: tile.position ? `calc(${tile.position.x * 100}% - ${tile.position.x * 88}px)` : "calc(100% - 108px)", top: tile.position ? `calc(${tile.position.y * 100}% - ${tile.position.y * 90}px)` : 24 + index * 96 } : undefined}>
-    <MotionButton ref={setNodeRef} variant="ghost" {...attributes} {...listeners} aria-label={name} title={name} className={`os-organized-tile ${context.editing ? "editing" : ""} ${isDragging ? "dragging" : ""}`} whileTap={{ scale: .92 }} onDoubleClick={() => { if (desktop && app && tile.apps.length === 1) context.launch(app); }} onClick={(event) => {
+    <MotionButton ref={setNodeRef} variant="ghost" {...attributes} {...listeners} aria-label={name} title={zone === "dock" ? undefined : name} className={`os-organized-tile ${context.editing ? "editing" : ""} ${isDragging ? "dragging" : ""}`} whileTap={{ scale: .92 }} onDoubleClick={() => { if (desktop && app && tile.apps.length === 1) context.launch(app); }} onClick={(event) => {
       if (context.active) return;
       if (tile.apps.length > 1) context.openFolder(tile.id);
       else if (app && !context.editing && (!desktop || event.detail === 0)) context.launch(app);
