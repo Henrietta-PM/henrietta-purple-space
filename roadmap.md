@@ -20,5 +20,5 @@
 - [x] Remove the pre-lock loading flash and add Mac lock-screen entry; verify fresh phone and desktop loads and unlock, including delayed app loading.
 - [x] Correct Messages phone and Mac layouts against Apple references, preserving pinned testimonials and public messaging; verified lists, threads and composing without public submission.
 - [x] Match iPhone Messages list to the iOS 26 reference and add conversation previews below pinned testimonials on Mac.
-- [ ] Add and verify an AI product-challenge tool inside How I Work, grounded in the existing process with spam protection.
-- [ ] Recommend complementary interactive apps and a video wallpaper approach without changing the existing slideshow.
+- [x] Add and verify an AI product-challenge tool inside How I Work, grounded in the existing process with spam protection; real streamed answer, phone layout, throttle and validation tested.
+- [x] Recommend complementary interactive apps and a video wallpaper approach without changing the existing slideshow.
