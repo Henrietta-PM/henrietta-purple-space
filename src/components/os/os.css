@@ -531,3 +531,25 @@ button.mw:hover { transform:translateY(-2px); }
 .os-maps-sheet small { display:block; font-size:14px; color:hsl(var(--os-ink) / .6); line-height:1.4; }
 .os-lib-list .os-icon { width:40px; height:40px; flex-shrink:0; }
 .os-lib-tile .os-icon { width:100%; height:100%; border-radius:inherit; }
+
+/* App Library page (swipe past last home page) */
+.ios-lib-page { overflow-y:auto; border-radius:0; background:hsl(240 20% 8% / .3) !important; }
+.ios-lib-page .os-library { padding-top:6px; }
+.ios-dots.hidden { opacity:0; }
+
+/* Files app */
+.os-files-app { padding:4px 16px 40px; color:hsl(var(--os-ink)); }
+.os-files-nav { display:flex; justify-content:space-between; align-items:center; height:32px; }
+.os-files-back { display:flex; align-items:center; font-size:17px; color:hsl(211 100% 50%); margin-left:-8px; }
+.os-files-back svg { width:26px; height:26px; }
+.os-files-more { width:26px; height:26px; padding:4px; border-radius:50%; color:hsl(211 100% 50%); background:hsl(211 100% 50% / .12); }
+.os-files-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(96px, 1fr)); gap:20px 14px; margin-top:12px; }
+.os-files-item { display:flex; flex-direction:column; align-items:center; gap:2px; text-align:center; min-width:0; }
+.os-files-item strong { font-size:13px; font-weight:500; margin-top:6px; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.os-files-item small { font-size:12px; color:hsl(var(--os-ink) / .45); max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.os-files-glyph { position:relative; width:88px; height:70px; margin-top:8px; }
+.os-files-glyph::before { content:""; position:absolute; left:0; top:0; width:40%; height:22%; border-radius:6px 6px 0 0; background:hsl(205 90% 58%); }
+.os-files-glyph span { position:absolute; left:0; right:0; top:14%; bottom:0; border-radius:4px 8px 8px 8px; background:linear-gradient(180deg, hsl(203 95% 66%), hsl(208 90% 55%)); box-shadow:inset 0 1px 0 hsl(0 0% 100% / .4); }
+.os-files-thumb { width:88px; height:88px; display:grid; place-items:center; }
+.os-files-thumb img { max-width:100%; max-height:100%; object-fit:contain; border-radius:4px; box-shadow:0 1px 4px hsl(240 20% 4% / .25); background:hsl(0 0% 100%); }
+.os-files-count { text-align:center; font-size:12px; color:hsl(var(--os-ink) / .45); margin-top:28px; }

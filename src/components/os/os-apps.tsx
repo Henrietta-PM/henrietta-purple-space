@@ -145,27 +145,18 @@ const libraryFolders: { name: string; ids: LauncherId[] }[] = [
   { name: "Productivity", ids: ["hire", "contact", "shop"] },
 ];
 
-function ProjectsApp({ compact, initial, onLaunch }: { compact: boolean; initial?: string; onLaunch?: (id: LauncherId) => void }) {
+export function AppLibrary({ onOpenProject, onLaunch }: { onOpenProject: (name: string) => void; onLaunch: (id: LauncherId) => void }) {
   const [query, setQuery] = useState("");
-  const [selected, setSelected] = useState<Project | null>(() => allProjects.find((p) => p.name === initial) ?? null);
 
-  if (selected) {
-    return (
-      <div className="os-finder-main">
-        <ProjectDetail project={selected} compact={compact} onBack={() => setSelected(null)} />
-      </div>
-    );
-  }
-
-  const projectItem = (p: Project): LibItem => ({ key: p.name, label: p.name, sub: p.tags[0] ?? "Project", icon: <ProjectIcon project={p} size="lg" />, open: () => setSelected(p) });
+  const projectItem = (p: Project): LibItem => ({ key: p.name, label: p.name, sub: p.tags[0] ?? "Project", icon: <ProjectIcon project={p} size="lg" />, open: () => onOpenProject(p.name) });
   const appItem = (id: LauncherId): LibItem => {
     const launcher = launchers.find((l) => l.id === id)!;
-    return { key: id, label: launcher.name, sub: "App", icon: <AppIcon launcher={launcher} size="lg" />, open: () => (isLink(id) ? window.open(externalLinks[id], "_blank", "noopener,noreferrer") : onLaunch?.(id)) };
+    return { key: id, label: launcher.name, sub: "App", icon: <AppIcon launcher={launcher} size="lg" />, open: () => (isLink(id) ? window.open(externalLinks[id], "_blank", "noopener,noreferrer") : onLaunch(id)) };
   };
   const folders = [
     { name: "Featured", items: allProjects.filter((p) => featuredNames.has(p.name)).map(projectItem) },
     { name: "Side Projects", items: allProjects.filter((p) => !featuredNames.has(p.name)).map(projectItem) },
-    ...libraryFolders.map((f) => ({ name: f.name, items: f.ids.filter((id) => isLink(id) || onLaunch).map(appItem) })),
+    ...libraryFolders.map((f) => ({ name: f.name, items: f.ids.map(appItem) })),
   ].filter((f) => f.items.length > 0);
   const everything = folders.flatMap((f) => f.items).filter((item, i, list) => list.findIndex((x) => x.key === item.key) === i);
   const q = query.trim().toLowerCase();
@@ -211,6 +202,63 @@ function ProjectsApp({ compact, initial, onLaunch }: { compact: boolean; initial
           })}
         </div>
       )}
+    </div>
+  );
+}
+
+const fileFolders = [
+  { name: "Featured", items: () => allProjects.filter((p) => featuredNames.has(p.name)) },
+  { name: "Side Projects", items: () => allProjects.filter((p) => !featuredNames.has(p.name)) },
+];
+
+function FolderGlyph() {
+  return <span className="os-files-glyph" aria-hidden="true"><span /></span>;
+}
+
+function ProjectsApp({ compact, initial }: { compact: boolean; initial?: string }) {
+  const [query, setQuery] = useState("");
+  const [folder, setFolder] = useState<string | null>(null);
+  const [selected, setSelected] = useState<Project | null>(() => allProjects.find((p) => p.name === initial) ?? null);
+
+  if (selected) {
+    return (
+      <div className="os-finder-main">
+        <ProjectDetail project={selected} compact={compact} onBack={() => setSelected(null)} />
+      </div>
+    );
+  }
+
+  const current = fileFolders.find((f) => f.name === folder);
+  const q = query.trim().toLowerCase();
+  const list = (current ? current.items() : allProjects).filter((p) => !q || `${p.name} ${p.tags.join(" ")}`.toLowerCase().includes(q));
+  const showFolders = !current && !q;
+
+  return (
+    <div className="os-files-app">
+      <div className="os-files-nav">
+        {current ? <button className="os-files-back" onClick={() => setFolder(null)}><ChevronLeft aria-hidden="true" /> Projects</button> : <span />}
+        <MoreHorizontal className="os-files-more" aria-hidden="true" />
+      </div>
+      <h2 className="os-large-title">{current ? current.name : "Projects"}</h2>
+      <label className="os-search-field"><Search aria-hidden="true" /><input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search" aria-label="Search projects" /></label>
+      <div className="os-files-grid">
+        {showFolders && fileFolders.map((f) => (
+          <button key={f.name} className="os-files-item" onClick={() => setFolder(f.name)}>
+            <FolderGlyph />
+            <strong>{f.name}</strong>
+            <small>{f.items().length} items</small>
+          </button>
+        ))}
+        {!showFolders && list.map((p) => (
+          <button key={p.name} className="os-files-item" onClick={() => setSelected(p)}>
+            <span className="os-files-thumb"><img src={p.image} alt="" loading="lazy" /></span>
+            <strong>{p.name}</strong>
+            <small>{p.tags[0] ?? "Project"}</small>
+          </button>
+        ))}
+        {!showFolders && list.length === 0 && <p className="os-muted">No results</p>}
+      </div>
+      {showFolders && <p className="os-files-count">{fileFolders.length} folders, {allProjects.length} projects</p>}
     </div>
   );
 }
@@ -398,7 +446,7 @@ function ShopApp() {
 
 export function AppContent({ id, compact = false, projectName, onLaunch }: { id: AppId; compact?: boolean; projectName?: string; onLaunch?: (id: LauncherId) => void }) {
   switch (id) {
-    case "projects": return <ProjectsApp compact={compact} initial={projectName} onLaunch={onLaunch} />;
+    case "projects": return <ProjectsApp compact={compact} initial={projectName} />;
     case "cv": return <CvApp compact={compact} />;
     case "letter": return <LetterApp />;
     case "contact": return <ContactApp />;
