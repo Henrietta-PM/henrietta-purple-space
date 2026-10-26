@@ -15,6 +15,11 @@ All colors MUST be HSL.
     --notes-group: 240 5% 96%;
     --notes-accent: 42 100% 40%;
     --notes-selected: 43 95% 85%;
+    --messages-paper: 0 0% 100%;
+    --messages-incoming: 240 5% 90%;
+    --messages-blue: 211 100% 50%;
+    --messages-avatar-top: 220 5% 70%;
+    --messages-avatar-bottom: 220 5% 54%;
     --os-titlebar: 240 6% 95%;
     --os-sidebar: 240 8% 94% / 0.92;
     --os-ink: 240 8% 12%;
@@ -103,6 +108,8 @@ All colors MUST be HSL.
   }
 
   .os-dark {
+    --messages-paper: 0 0% 0%;
+    --messages-incoming: 240 3% 18%;
     --notes-paper: 0 0% 0%;
     --notes-group: 240 2% 11%;
     --notes-accent: 45 100% 55%;
