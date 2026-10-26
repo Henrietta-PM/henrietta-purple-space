@@ -221,7 +221,7 @@ export function PhotosApp({ compact = false }: { compact?: boolean }) {
         {album !== "all" && <Button variant="ghost" size="icon" aria-label="Back to albums" onClick={() => { setAlbum("all"); setTab("albums"); }}><ChevronLeft /></Button>}
         <div className="min-w-0 flex-1">
           <h2>{tab === "albums" && album === "all" ? compact ? "Collections" : "Albums" : tab === "search" ? "Search" : title}</h2>
-          {title === "Visitors" && tab === "library" && <p className="text-xs text-muted-foreground">Photos of people who stopped by</p>}
+          {title === "Visitors" && tab !== "search" && <p className="text-xs text-muted-foreground">Photos of people who stopped by</p>}
         </div>
         <span className="ph-profile">H</span>
       </header>
