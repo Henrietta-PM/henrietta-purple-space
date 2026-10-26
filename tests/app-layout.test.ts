@@ -28,4 +28,12 @@ describe("visitor app organization", () => {
     const grouped = moveTile(defaults, "camera", "home", "photos", true, catalog);
     expect(restoreLayout(JSON.parse(JSON.stringify(grouped)), defaults)).toEqual(grouped);
   });
+  test("dragged-out app can move to the dock and persists without duplicates", () => {
+    const grouped = moveTile(defaults, "camera", "home", "photos", true, catalog);
+    const extracted = extractApp(grouped, "photos", "photos");
+    const moved = moveTile(extracted, "extracted:photos", "dock");
+    expect(moved.dock[0].apps).toEqual(["photos"]);
+    expect(moved.home[0].apps).toEqual(["camera"]);
+    expect(restoreLayout(JSON.parse(JSON.stringify(moved)), defaults)).toEqual(moved);
+  });
 });
