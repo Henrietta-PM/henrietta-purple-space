@@ -590,3 +590,13 @@ button.mw:hover { transform:translateY(-2px); }
   outline:0 !important;
 }
 .ios-dock::before, .ios-dock::after { display:none !important; }
+
+/* App Library: full-screen blur behind, no layer edges */
+.ios-shell::before { content:""; position:absolute; inset:0; z-index:1; pointer-events:none; opacity:0; transition:opacity .35s ease;
+  background:hsl(240 20% 8% / .28); backdrop-filter:blur(40px) saturate(1.6); -webkit-backdrop-filter:blur(40px) saturate(1.6); }
+.ios-shell.ios-on-library::before { opacity:1; }
+.ios-lib-page { background:transparent !important; backdrop-filter:none !important; -webkit-backdrop-filter:none !important; border:0 !important; box-shadow:none !important;
+  -webkit-mask-image:linear-gradient(180deg, transparent 0, hsl(0 0% 0%) 14px, hsl(0 0% 0%) calc(100% - 28px), transparent 100%);
+  mask-image:linear-gradient(180deg, transparent 0, hsl(0 0% 0%) 14px, hsl(0 0% 0%) calc(100% - 28px), transparent 100%); }
+.ios-on-library .ios-pages { height:calc(100% - 44px); }
+.ios-lib-page .os-library { padding-bottom:60px; }
