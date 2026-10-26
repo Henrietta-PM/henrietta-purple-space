@@ -2,19 +2,18 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { createResponsesCall } from "../_shared/responses.ts";
 import { getLovableAiGatewayResponseHeaders } from "../_shared/run-id.ts";
 import { isValidChallenge } from "./validation.ts";
-
-const allowedOrigins = new Set(["http://localhost:8080", "https://henriettaofpm.online", "https://www.henriettaofpm.online", "https://hirehenrietta.lovable.app", "https://id-preview--1fbb70ac-9159-464a-b1cf-9b99dfbd6927.lovable.app"]);
+import { isAllowedChallengeOrigin } from "./origins.ts";
 
 Deno.serve(async (request) => {
   const origin = request.headers.get("origin") || "";
   const headers = {
-    "Access-Control-Allow-Origin": allowedOrigins.has(origin) ? origin : "https://henriettaofpm.online",
+    "Access-Control-Allow-Origin": isAllowedChallengeOrigin(origin) ? origin : "https://henriettaofpm.online",
     "Access-Control-Allow-Headers": "authorization, apikey, content-type, x-client-info",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Vary": "Origin",
   };
   const json = (status: number, message: string) => new Response(JSON.stringify({ message }), { status, headers: { ...headers, "Content-Type": "application/json" } });
-  if (origin && !allowedOrigins.has(origin)) return json(403, "This request is not available from this website.");
+  if (origin && !isAllowedChallengeOrigin(origin)) return json(403, "This request is not available from this website.");
   if (request.method === "OPTIONS") return new Response(null, { headers });
   if (request.method !== "POST") return json(405, "Please submit a product challenge.");
   const key = Deno.env.get("LOVABLE_API_KEY");
