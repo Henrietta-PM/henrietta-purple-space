@@ -9,4 +9,4 @@
 - [x] Add Camera and Photos with optional photos, consent and immediate public shout-outs.
 - [x] Add private reporting and visitor spam protection, then test submission and gallery readback.
 - [x] Add visitor-local app rearranging and automatically named folders on phone and desktop, then verify both flows.
-- [ ] Replace folder modals with Apple-style folders and verify dragging apps out on phone and desktop.
+- [x] Replace folder modals with Apple-style folders and verify dragging apps out on phone and desktop.
