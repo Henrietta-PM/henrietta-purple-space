@@ -645,3 +645,12 @@ button.mw:hover { transform:translateY(-2px); }
 
 /* App Library search stays pinned while scrolling */
 .ios-lib-page .os-lib-search { position:sticky; top:14px; z-index:5; background:hsl(240 12% 30% / .55); backdrop-filter:blur(24px) saturate(1.6); -webkit-backdrop-filter:blur(24px) saturate(1.6); }
+
+/* Mac menu bar, macOS refinement */
+.mac-menubar { height:26px; padding:0 10px 0 14px; font-family:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif; font-size:13px; font-weight:500; background:hsl(240 10% 10% / .28); backdrop-filter:blur(40px) saturate(1.8); -webkit-backdrop-filter:blur(40px) saturate(1.8); text-shadow:0 0 6px hsl(240 20% 4% / .25); }
+.mac-menubar-left { gap:18px; } .mac-menubar-left strong { font-weight:700; }
+.mac-menubar-left > svg { width:14px; height:16px; fill:currentColor; stroke:none; }
+.mac-menubar-right { gap:14px; }
+.mac-menubar-right > svg { width:auto; height:12px; }
+.mac-menubar button:hover { text-decoration:none; }
+.mac-menubar .ios-battery-text { font-size:9.5px; }
