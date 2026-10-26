@@ -13,6 +13,8 @@ const postSchema = z.object({
 }).refine((value) => value.message.length > 0 || Boolean(value.photo)).refine((value) => value.kind === "shoutout" || (value.message.length > 0 && !value.photo));
 const reportSchema = z.object({ id: z.string().uuid(), reason: z.enum(["Inappropriate content", "Spam", "Privacy concern"]) });
 const moderateSchema = z.object({ action: z.literal("moderate"), id: z.string().uuid(), token: z.string().uuid(), decision: z.enum(["keep", "delete"]) });
+const deleteSchema = z.object({ action: z.literal("delete"), id: z.string().uuid(), token: z.string().uuid() });
+const sha256 = async (value: string) => Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value))), (byte) => byte.toString(16).padStart(2, "0")).join("");
 const REPORT_THRESHOLD = 3;
 const SITE_URL = "https://hirehenrietta.lovable.app";
 const OWNER_EMAIL = "mypvrplespace@gmail.com";
@@ -58,6 +60,17 @@ Deno.serve(async (req) => {
       await admin.from("visitor_moderation").update({ resolved_at: new Date().toISOString() }).eq("post_id", id);
       return reply({ success: true, decision: decision.data.decision });
     }
+    if (body.action === "delete") {
+      const request = deleteSchema.safeParse(body);
+      if (!request.success) return reply({ error: "This message can't be deleted." }, 400);
+      const { data: post } = await admin.from("visitor_posts").select("photo_path,delete_token_hash").eq("id", request.data.id).maybeSingle();
+      if (!post || !post.delete_token_hash || post.delete_token_hash !== await sha256(request.data.token)) return reply({ error: "You can only delete your own messages." }, 403);
+      if (post.photo_path) await admin.storage.from("visitor-photos").remove([post.photo_path]);
+      await admin.from("visitor_reports").delete().eq("post_id", request.data.id);
+      await admin.from("visitor_moderation").delete().eq("post_id", request.data.id);
+      await admin.from("visitor_posts").delete().eq("id", request.data.id);
+      return reply({ success: true });
+    }
     const reporting = body.action === "report";
     const parsed = reporting ? reportSchema.safeParse(body) : postSchema.safeParse(body);
     if (!parsed.success) return reply({ error: "Please check your name, message and consent." }, 400);
@@ -90,12 +103,13 @@ Deno.serve(async (req) => {
       const { error } = await admin.storage.from("visitor-photos").upload(photoPath, bytes, { contentType: "image/jpeg", upsert: false });
       if (error) throw error;
     }
-    const { data, error } = await admin.from("visitor_posts").insert({ display_name: post.name, message: post.message, photo_path: photoPath, kind: post.kind }).select("id").single();
+    const deleteToken = crypto.randomUUID();
+    const { data, error } = await admin.from("visitor_posts").insert({ display_name: post.name, message: post.message, photo_path: photoPath, kind: post.kind, delete_token_hash: await sha256(deleteToken) }).select("id").single();
     if (error) {
       if (photoPath) await admin.storage.from("visitor-photos").remove([photoPath]);
       throw error;
     }
-    return reply({ id: data.id, success: true }, 201);
+    return reply({ id: data.id, deleteToken, success: true }, 201);
   } catch {
     return reply({ error: "We couldn't complete that. Please try again shortly." }, 500);
   }
