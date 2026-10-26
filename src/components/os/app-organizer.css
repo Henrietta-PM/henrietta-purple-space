@@ -6,7 +6,7 @@
 .os-tile-slot { min-width:0; display:flex; align-items:center; justify-content:center; border-radius:18px; }
 .os-organized-tile { position:relative; width:100%; height:auto; min-width:0; display:flex; flex-direction:column; gap:6px; padding:0; border:0; border-radius:14px; color:hsl(var(--os-on-dark)); background:transparent; white-space:normal; user-select:none; -webkit-user-select:none; -webkit-touch-callout:none; }
 .os-organized-tile:hover { background:transparent; color:hsl(var(--os-on-dark)); }
-.os-organized-tile .os-tile-name { width:100%; max-width:78px; height:16px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:12px; font-weight:500; line-height:16px; text-shadow:0 1px 3px hsl(var(--os-ink) / .65); }
+.os-organized-tile .os-tile-name { width:100%; max-width:78px; height:16px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:12px; font-weight:500; line-height:16px; text-shadow:0 1px 2px hsl(240 20% 4% / .55); }
 .os-organized-tile.editing { touch-action:none; cursor:grab; }
 .os-organized-tile.editing > .os-icon, .os-organized-tile.editing > .os-folder-icon { animation:os-app-wiggle .3s ease-in-out infinite alternate; }
 .os-organized-tile.dragging { opacity:.2; }
@@ -56,3 +56,13 @@
 .mac-dock .os-organized-tile:hover .os-tile-name { opacity:1; }
 .os-mac-dock-apps .mac-dock-divider { width:1px; height:44px; margin:0 6px 6px; background:hsl(var(--os-on-dark) / .35); }
 .mac-dock .os-organized-tile .os-tile-name { width:auto; max-width:none; overflow:visible; text-overflow:clip; font-size:13px; padding:4px 12px; transform:translateX(-50%); bottom:calc(100% + 6px); }
+/* macOS Tahoe sized dock */
+.mac-dock { padding:4px 5px; border-radius:18px; bottom:6px; }
+.mac-dock .os-tile-slot { flex:0 0 46px; padding:1px; }
+.mac-dock .os-organized-tile { width:46px; padding-bottom:5px; }
+.mac-dock .os-organized-tile > .os-icon, .mac-dock .os-folder-icon { width:44px !important; height:44px !important; }
+.mac-dock .os-organized-tile:hover { transform:none; }
+.os-mac-dock-apps .mac-dock-divider { height:38px; margin:0 5px 6px; }
+.mac-dock .os-organized-tile .os-tile-name { bottom:calc(100% + 14px); padding:4px 11px; border-radius:9px; font-size:13px; text-shadow:none; color:hsl(0 0% 100%); background:hsl(240 4% 22% / .9); }
+.mac-dock .os-organized-tile .os-tile-name::after { content:""; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:5px solid transparent; border-top-color:hsl(240 4% 22% / .9); }
+.mac-dock .os-organized-dot { position:absolute; bottom:0; left:50%; transform:translateX(-50%); }
