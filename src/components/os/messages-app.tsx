@@ -64,10 +64,10 @@ export default function MessagesApp({ compact = false }: { compact?: boolean }) 
       <header className="am-list-top">
         <div className="am-list-controls">
           <Button variant="ghost" size="icon" className="am-control" aria-label="Message filters" title="Filters" onClick={() => setFilter((value) => !value)}><ListFilter /></Button>
-          <Button variant="ghost" size="icon" className="am-control" aria-label="New message" title="New message" onClick={() => open({ kind: "new" })}><SquarePen /></Button>
+          {!compact && <Button variant="ghost" size="icon" className="am-control" aria-label="New message" title="New message" onClick={() => open({ kind: "new" })}><SquarePen /></Button>}
         </div>
         {filter && <Button variant="ghost" className="am-control" onClick={() => { setSearch(""); setFilter(false); }}>All Messages</Button>}
-        <h1>Messages</h1>
+        {compact && <h1>Messages</h1>}
         {!compact && searchField}
       </header>
       <div className="am-rows">
@@ -81,7 +81,7 @@ export default function MessagesApp({ compact = false }: { compact?: boolean }) 
         </Button>)}
         {pinned.length === 0 && visitors.length === 0 && <p className="am-empty">No Results</p>}
       </div>
-      {compact && <div className="am-list-bottom">{searchField}</div>}
+      {compact && <div className="am-list-bottom">{searchField}<Button variant="ghost" size="icon" className="am-control am-new-bottom" aria-label="New message" title="New message" onClick={() => open({ kind: "new" })}><SquarePen /></Button></div>}
     </section>}
     {showThread ? <section className="am-thread">
       <header className="am-thread-header">
@@ -108,10 +108,13 @@ export default function MessagesApp({ compact = false }: { compact?: boolean }) 
           <label className="am-consent"><input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} /> Show my name and message publicly in Messages</label>
         </div>}
       </div>
-      {active?.kind === "new" && <footer className="am-composer">
+      <footer className="am-composer">
+        {active?.kind !== "new" && <Button variant="ghost" size="icon" className="am-compose-start" aria-label="Write a new message" title="Write a new message" onClick={() => open({ kind: "new" })}><SquarePen /></Button>}
+        {active?.kind === "new" ? <>
         <input placeholder="iMessage" aria-label="Message" maxLength={240} value={draft} onChange={(event) => setDraft(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter") void send(); }} />
         <Button size="icon" className="am-send" aria-label="Send message" disabled={sending || !draft.trim()} onClick={() => void send()}><ArrowUp /></Button>
-      </footer>}
+        </> : <Button variant="ghost" className="am-compose-placeholder" onClick={() => open({ kind: "new" })}>iMessage</Button>}
+      </footer>
     </section> : !compact && <div className="am-empty">No Conversation Selected</div>}
     <ReportDialog id={reportId} onClose={() => setReportId(null)} />
   </div>;
