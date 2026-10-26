@@ -19,6 +19,8 @@
 .os-notes-reading h1 { font-size:28px; font-weight:700; margin-bottom:22px; }
 .os-notes-reading h2 { font-size:23px; font-weight:600; margin-bottom:18px; }
 .os-notes-reading p { font-size:16px; line-height:1.65; margin-bottom:20px; }
+.os-notes-highlights { list-style:disc; padding-left:22px; margin:0 0 24px; font-size:16px; line-height:1.65; }
+.os-notes-highlights li { padding-left:2px; margin-bottom:6px; }
 .os-notes-reading .os-note { padding:0; }
 .os-notes-reading .os-note-tools, .os-notes-reading .os-note-date { display:none; }
 @media (max-height:500px) { .os-notes-library { padding-top:10px; } .os-notes-library h1 { margin-bottom:12px; } }

@@ -21,6 +21,7 @@ export default function NotesApp({ initialNote, letter }: { initialNote?: NoteId
             <h1>{aboutMeNote.title}</h1>
             <h2>{aboutMeNote.greeting}</h2>
             <p>{aboutMeNote.preview}</p>
+            <ul className="os-notes-highlights">{aboutMeNote.highlights.map((highlight) => <li key={highlight}>{highlight}</li>)}</ul>
             {aboutMeNote.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             <p className="font-handwritten os-note-sign">Henrietta</p>
           </article> : letter}
