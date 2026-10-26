@@ -44,9 +44,8 @@ const reminders: { label: string; id: LauncherId }[] = [
 ];
 
 const enter = (delay: number) => ({
-  initial: { opacity: 0, y: 12 },
-  animate: { opacity: 1, y: 0 },
-  transition: { delay, duration: 0.4 },
+  initial: false as const,
+  transition: { delay },
 });
 
 export default function MacWidgets({ now, onLaunch }: MacWidgetsProps) {
