@@ -1,0 +1,1 @@
+ALTER TABLE public.visitor_posts ADD COLUMN kind text NOT NULL DEFAULT 'shoutout' CHECK (kind IN ('shoutout', 'message'));
