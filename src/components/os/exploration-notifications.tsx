@@ -100,6 +100,18 @@ export default function ExplorationNotifications({ enabled = true, mobile = fals
             animate={{ opacity: 1, x: 0, y: 0 }}
             exit={reduceMotion ? { opacity: 0 } : { opacity: 0, x: mobile ? 0 : 35, y: mobile ? -70 : 0 }}
             transition={{ duration: reduceMotion ? 0 : 0.3 }}
+            drag={mobile ? "y" : "x"}
+            dragConstraints={mobile ? { top: 0, bottom: 0 } : { left: 0, right: 0 }}
+            dragElastic={mobile ? { top: 0.9, bottom: 0.1 } : { left: 0.1, right: 0.9 }}
+            dragSnapToOrigin
+            style={{ touchAction: "none" }}
+            onDragStart={() => setPaused(true)}
+            onDragEnd={(_, info) => {
+              const swiped = mobile
+                ? info.offset.y < -40 || info.velocity.y < -400
+                : info.offset.x > 60 || info.velocity.x > 500;
+              if (swiped) dismiss(); else setPaused(false);
+            }}
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
             onFocusCapture={() => setPaused(true)}
