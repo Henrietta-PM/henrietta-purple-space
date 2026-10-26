@@ -32,6 +32,25 @@ export default function AppOrganizer({ storageKey, defaults, mobile = false, onL
   const [folderId, setFolderId] = useState<string | null>(null);
   const [announcement, setAnnouncement] = useState("");
   const lastPageTurn = useRef(0);
+  const controlsRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (mobile || hideControls) return;
+    const controls = controlsRef.current;
+    const dock = controls?.parentElement?.querySelector<HTMLElement>(".mac-dock") ?? document.querySelector<HTMLElement>(".mac-dock");
+    if (!controls || !dock) return;
+    const place = () => {
+      const rect = dock.getBoundingClientRect();
+      const parent = controls.offsetParent?.getBoundingClientRect();
+      if (!parent) return;
+      controls.style.right = `${Math.max(8, parent.right - rect.right)}px`;
+      controls.style.bottom = `${parent.bottom - rect.top + 6}px`;
+    };
+    place();
+    const observer = new ResizeObserver(place);
+    observer.observe(dock);
+    window.addEventListener("resize", place);
+    return () => { observer.disconnect(); window.removeEventListener("resize", place); };
+  }, [mobile, hideControls]);
   const folderBounds = useRef<HTMLDivElement>(null);
   const draggingFromFolder = useRef(false);
   const sensors = useSensors(
@@ -96,7 +115,7 @@ export default function AppOrganizer({ storageKey, defaults, mobile = false, onL
         if (x < 28 || x > window.innerWidth - 28) { lastPageTurn.current = Date.now(); onPageEdge?.(x < 28 ? -1 : 1); }
       }} onDragEnd={endDrag} onDragCancel={() => setActive(null)}>
         {children}
-        {!hideControls && <div className={`os-organize-controls ${mobile ? "phone" : "desktop"}`}>
+        {!hideControls && <div ref={controlsRef} className={`os-organize-controls ${mobile ? "phone" : "desktop"}`}>
           {editing && <Button variant="ghost" size="icon" aria-label="Reset app layout" title="Reset app layout" onClick={() => { setLayout(defaults); setFolderId(null); }}><RotateCcw /></Button>}
           <Button variant="ghost" size="icon" aria-label={editing ? "Finish arranging apps" : "Arrange apps"} title={editing ? "Done" : "Arrange apps"} onClick={() => setEditing((value) => !value)}>{editing ? <Check /> : <Grip />}</Button>
         </div>}
