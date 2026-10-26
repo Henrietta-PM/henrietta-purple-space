@@ -35,12 +35,6 @@ export function IphoneHome() {
   const { pref, setPref } = useOsTheme();
   const { data: weather } = useQuery({ queryKey: ["lagos-weather"], queryFn: fetchLagosWeather, staleTime: 30 * 60 * 1000, retry: 1 });
   const sky = describe(weather?.code ?? 2);
-  const [photoIndex, setPhotoIndex] = useState(0);
-  const photo = allProjects[photoIndex % allProjects.length];
-  useEffect(() => {
-    const timer = window.setInterval(() => setPhotoIndex((i) => i + 1), 5000);
-    return () => window.clearInterval(timer);
-  }, []);
 
   const launch = (id: LauncherId) => {
     if (isLink(id)) {
@@ -76,13 +70,14 @@ export function IphoneHome() {
             <small>Weather</small>
           </div>
           <div>
-            <button className="ios-w ios-w-photo" onClick={() => launch("projects")} aria-label={`View ${photo.name}`}>
-              <AnimatePresence mode="popLayout">
-                <motion.img key={photo.name} src={photo.image} alt="" initial={{ opacity: 0, scale: 1.08 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.8 }} />
-              </AnimatePresence>
-              <span>{photo.name}</span>
+            <button className="ios-w ios-w-notes" onClick={() => launch("letter")} aria-label="Intro note from Henrietta">
+              <span className="ios-w-notes-head">Notes</span>
+              <div className="ios-w-notes-body">
+                <strong>Hi, I'm <span className="font-handwritten">Henrietta.</span></strong>
+                <p>Product management for me is about people, their needs, and the paths we create to meet them. I've shipped 5+ MVPs with up to 85% faster time to market.</p>
+              </div>
             </button>
-            <small>Photos</small>
+            <small>Notes</small>
           </div>
         </div>
 
