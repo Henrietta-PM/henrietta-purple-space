@@ -19,6 +19,7 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 const Space = lazy(() => import("./pages/Space").then((module) => ({ default: module.Space })));
+const Moderate = lazy(() => import("./pages/Moderate").then((module) => ({ default: module.Moderate })));
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -38,6 +39,7 @@ const App = () => (
             <Route path="/letter" element={<Letter />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/shop" element={<Shop />} />
+            <Route path="/moderate" element={<Suspense fallback={<div className="min-h-screen" />}><Moderate /></Suspense>} />
             <Route path="/portfolio-guide" element={<PortfolioGuide />} />
             <Route path="/space" element={<Navigate to="/" replace />} />
             <Route path="/museum" element={<Navigate to="/" replace />} />
