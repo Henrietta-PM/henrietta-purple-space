@@ -43,6 +43,13 @@
       "when": 1793024928442,
       "tag": "0005_visitor_post_delete_token",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1793054964835,
+      "tag": "0006_product_challenge_safety",
+      "breakpoints": true
     }
   ]
 }

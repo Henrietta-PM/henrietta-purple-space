@@ -1,0 +1,14 @@
+.product-challenge { padding:20px 16px 28px; color:hsl(var(--os-ink)); }
+.product-challenge header { display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:22px; flex-wrap:wrap; }
+.product-challenge h2 { font-size:26px; font-weight:700; }
+.product-challenge label { display:block; font-size:17px; font-weight:600; margin-bottom:10px; }
+.product-challenge textarea { background:hsl(var(--os-window)); color:hsl(var(--os-ink)); border-color:hsl(var(--os-line)); border-radius:12px; font-size:16px; resize:vertical; }
+.pc-input-footer { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:12px 0; flex-wrap:wrap; }
+.pc-input-footer small,.pc-caption { color:hsl(var(--os-ink-soft)); font-size:12px; line-height:1.5; }
+.product-challenge button { white-space:normal; height:auto; min-height:40px; gap:8px; }
+.pc-result { margin-top:24px; border-top:1px solid hsl(var(--os-line)); padding-top:20px; }
+.pc-result h3 { font-size:20px; font-weight:600; margin-bottom:14px; }
+.pc-answer { white-space:pre-wrap; overflow-wrap:anywhere; font-size:15px; line-height:1.65; margin-bottom:18px; }
+.pc-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+.pc-error { color:hsl(var(--destructive)); font-size:14px; line-height:1.5; margin-top:16px; }
+@media (prefers-reduced-motion:reduce) { .pc-result { animation:none; transition:none; } }

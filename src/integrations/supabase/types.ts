@@ -29,6 +29,42 @@ export type Database = {
         }
         Relationships: []
       }
+      product_challenge_ai_state: {
+        Row: {
+          id: string
+          message: string
+          status: number
+          updated_at: string
+        }
+        Insert: {
+          id: string
+          message: string
+          status: number
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          message?: string
+          status?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      product_challenge_limits: {
+        Row: {
+          last_called_at: string
+          request_key: string
+        }
+        Insert: {
+          last_called_at?: string
+          request_key: string
+        }
+        Update: {
+          last_called_at?: string
+          request_key?: string
+        }
+        Relationships: []
+      }
       rate_limits: {
         Row: {
           ip: string
@@ -150,6 +186,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      claim_product_challenge: {
+        Args: { request_key: string }
+        Returns: boolean
+      }
       claim_visitor_request: { Args: { request_key: string }; Returns: boolean }
       record_visitor_report: {
         Args: {
