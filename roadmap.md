@@ -6,3 +6,5 @@
 - [x] Build a separate museum with walking, animated doors and product galleries.
 - [x] Verify museum entry, return, direct portfolio access and desktop/phone rendering.- [x] Replace the museum with a Mac desktop (desktop) and iPhone home screen (phone) page.
 - [x] Add and verify dismissible exploration notifications on Mac and iPhone.
+- [ ] Add Camera and Photos with optional photos, consent and immediate public shout-outs.
+- [ ] Add private reporting and visitor spam protection, then test submission and gallery readback.

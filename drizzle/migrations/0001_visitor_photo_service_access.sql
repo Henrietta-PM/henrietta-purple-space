@@ -1,0 +1,1 @@
+CREATE POLICY "Visitor photos service access" ON storage.objects FOR ALL TO service_role USING (bucket_id = 'visitor-photos') WITH CHECK (bucket_id = 'visitor-photos');
