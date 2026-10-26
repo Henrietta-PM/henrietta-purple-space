@@ -22,6 +22,10 @@ const windowSizes: Record<AppId, { w: number; h: number }> = {
   contact: { w: 440, h: 420 },
   shop: { w: 640, h: 460 },
   love: { w: 420, h: 560 },
+  messages: { w: 440, h: 560 },
+  health: { w: 480, h: 600 },
+  reminders: { w: 420, h: 460 },
+  maps: { w: 460, h: 580 },
 };
 
 function MacWindow({ win, index, focused, bounds, onFocus, onClose, onMinimize, onMaximize }: {
