@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent, type PointerEvent } from "react";
 import { MapContainer, TileLayer, Marker, Polyline, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -53,6 +53,27 @@ export default function JourneyMap({ compact }: { compact: boolean }) {
   const [error, setError] = useState("");
   const [focus, setFocus] = useState<{ target: [number, number] | null; bounds: [number, number][] | null }>({ target: null, bounds: stops.map((s) => [s.lat, s.lng]) });
 
+  const [sheetH, setSheetH] = useState(52);
+  const [dragging, setDragging] = useState(false);
+  const drag = useRef<{ y: number; h: number; box: number } | null>(null);
+  const moved = useRef(false);
+  const startDrag = (e: PointerEvent<HTMLElement>) => {
+    const box = e.currentTarget.parentElement?.parentElement?.clientHeight ?? 1;
+    drag.current = { y: e.clientY, h: sheetH, box }; moved.current = false;
+    e.currentTarget.setPointerCapture(e.pointerId); setDragging(true);
+  };
+  const moveDrag = (e: PointerEvent<HTMLElement>) => {
+    if (!drag.current) return;
+    const dy = drag.current.y - e.clientY;
+    if (Math.abs(dy) > 4) moved.current = true;
+    setSheetH(Math.min(92, Math.max(18, drag.current.h + (dy / drag.current.box) * 100)));
+  };
+  const endDrag = () => {
+    if (!drag.current) return;
+    drag.current = null; setDragging(false);
+    setSheetH((h) => [22, 52, 88].reduce((a, b) => (Math.abs(b - h) < Math.abs(a - h) ? b : a)));
+  };
+
   const stop = stops.find((s) => s.id === selected) ?? null;
   const km = visitor ? haversineKm(LAGOS, visitor) : 0;
 
@@ -93,8 +114,10 @@ export default function JourneyMap({ compact }: { compact: boolean }) {
       </MapContainer>
       <button type="button" className="apple-map-location" aria-label="Show my whole journey" title="Show my whole journey" onClick={back}><Navigation /></button>
 
-      <div className="os-maps-sheet">
-        <span className="os-maps-grabber" aria-hidden="true" />
+      <div className="os-maps-sheet" style={compact ? { height: `${sheetH}%`, maxHeight: "none", transition: dragging ? "none" : "height .3s cubic-bezier(.2,.9,.3,1)" } : undefined}>
+        <span className="os-maps-grabber jm-drag" role="slider" aria-label="Resize panel" aria-valuemin={22} aria-valuemax={88} aria-valuenow={Math.round(sheetH)} tabIndex={0}
+          onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag}
+          onClick={() => !moved.current && setSheetH((h) => (h < 70 ? 88 : 52))} />
         <AnimatePresence mode="wait" initial={false}>
         {stop ? (
           <motion.div key={stop.id} className="jm-card" {...fade}>
