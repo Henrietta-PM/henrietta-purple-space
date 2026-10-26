@@ -4,13 +4,4 @@
 
 ## Pages
 
-- [Home](/): Overview, impact metrics, featured work, and how Henrietta works.
-- [Projects](/projects): Case studies including ProxyMedicine, Bloomie AI, Sally, Targett, VibeStack, and a public-sector attendance platform.
-- [CV](/cv): Professional summary, skills, tools, and experience timeline.
-- [Letter](/letter): A personal letter to a potential team or employer.
-- [Contact](/contact): Ways to get in touch and book a call.
-- [Portfolio Guide](/portfolio-guide): Product manager portfolio examples and tips using real case studies.
-
-## Optional
-
-- [Shop](/shop): Digital products and resources.
+- [Home](/): An interactive Mac style desktop and iPhone style home screen with apps for projects and case studies, CV, skills, how Henrietta works, her journey, testimonials, a personal letter, contact, shop and booking a call.

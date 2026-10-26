@@ -434,3 +434,71 @@ button.mw:hover { transform:translateY(-2px); }
 .ios-settings-group strong { display:block; font-size:16px; font-weight:500; }
 .ios-settings-group small { font-size:12px; opacity:.6; }
 .ios-settings-group svg { width:18px; height:18px; color:hsl(var(--os-icon-projects)); }
+
+/* New apps: icons */
+.os-likes { background:linear-gradient(160deg, hsl(350 95% 66%), hsl(345 85% 50%)); color:hsl(0 0% 100%); }
+.os-likes svg { width:56%; height:56%; fill:currentColor; }
+.os-icon-messages { background:linear-gradient(180deg, hsl(130 75% 60%), hsl(135 70% 42%)); color:hsl(0 0% 100%); }
+.os-icon-messages svg { fill:currentColor; }
+.os-icon-health { background:hsl(0 0% 100%); color:hsl(350 90% 56%); }
+.os-icon-reminders { background:hsl(0 0% 100%); color:hsl(211 100% 50%); }
+.os-icon-maps { background:linear-gradient(135deg, hsl(140 45% 70%) 0 45%, hsl(45 90% 70%) 45% 55%, hsl(205 80% 70%) 55%); color:hsl(0 80% 52%); }
+.os-icon-maps svg, .os-icon-health svg, .os-icon-reminders svg, .os-icon-messages svg { width:58%; height:58%; }
+.os-linkedin { background:hsl(210 90% 40%); color:hsl(0 0% 100%); }
+.os-x { background:hsl(0 0% 4%); color:hsl(0 0% 100%); border:1px solid hsl(0 0% 100% / .15); }
+.os-linkedin b, .os-x b { font-family:Helvetica, Arial, sans-serif; font-weight:800; font-size:26px; line-height:1; }
+.os-icon-sm.os-linkedin b, .os-icon-sm.os-x b { font-size:14px; }
+
+/* Shared title */
+.os-msg-title, .os-rem-title { font-size:30px; font-weight:700; margin:4px 0 14px; color:hsl(var(--os-ink)); }
+.os-rem-title { color:hsl(211 100% 50%); }
+
+/* Messages */
+.os-msg { padding:4px 16px 40px; color:hsl(var(--os-ink)); }
+.os-msg-list li button { display:flex; gap:12px; width:100%; padding:10px 0; text-align:left; border-bottom:1px solid hsl(var(--os-line)); }
+.os-msg-avatar { flex-shrink:0; display:grid; place-items:center; width:44px; height:44px; border-radius:50%; font-weight:700; font-size:18px; color:hsl(0 0% 100%); background:linear-gradient(180deg, hsl(220 8% 66%), hsl(220 8% 48%)); }
+.os-msg-preview { min-width:0; display:flex; flex-direction:column; }
+.os-msg-preview strong { font-size:16px; }
+.os-msg-preview small { font-size:12px; opacity:.6; }
+.os-msg-preview > span { font-size:14px; opacity:.7; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.os-msg-head { display:flex; flex-direction:column; align-items:center; gap:4px; padding-bottom:12px; border-bottom:1px solid hsl(var(--os-line)); position:relative; }
+.os-msg-head .os-back { position:absolute; left:0; top:0; }
+.os-msg-head .os-msg-avatar { margin-top:28px; width:56px; height:56px; font-size:22px; }
+.os-msg-head small { font-size:12px; opacity:.6; }
+.os-msg-thread { display:flex; flex-direction:column; gap:8px; padding-top:16px; }
+.os-bubble { max-width:80%; padding:9px 13px; border-radius:20px; font-size:15px; line-height:1.4; }
+.os-bubble-out { align-self:flex-end; background:hsl(211 100% 50%); color:hsl(0 0% 100%); border-bottom-right-radius:6px; }
+.os-bubble-in { align-self:flex-start; background:hsl(var(--os-ink) / .1); border-bottom-left-radius:6px; }
+
+/* Skills (Health) */
+.os-health { padding:4px 16px 40px; display:flex; flex-direction:column; gap:12px; color:hsl(var(--os-ink)); }
+.os-health-card { padding:14px; border-radius:14px; background:hsl(var(--os-ink) / .06); }
+.os-health-card header { display:flex; align-items:center; gap:6px; margin-bottom:10px; font-size:15px; }
+.os-health-card header svg { width:16px; height:16px; }
+.os-health-card header span { margin-left:auto; font-size:22px; font-weight:700; }
+.os-health-soft header { color:hsl(350 90% 58%); }
+.os-health-tech header { color:hsl(150 70% 42%); }
+.os-health-tools header { color:hsl(190 85% 48%); }
+.os-health-chips { display:flex; flex-wrap:wrap; gap:6px; }
+.os-health-chips span { padding:5px 10px; border-radius:999px; font-size:12px; background:hsl(var(--os-ink) / .08); }
+
+/* Reminders */
+.os-rem { padding:4px 16px 40px; color:hsl(var(--os-ink)); }
+.os-rem li { display:flex; gap:12px; padding:12px 0; border-bottom:1px solid hsl(var(--os-line)); }
+.os-rem-check { flex-shrink:0; width:22px; height:22px; margin-top:1px; border-radius:50%; border:2px solid hsl(211 100% 50%); background:radial-gradient(circle, hsl(211 100% 50%) 0 45%, transparent 50%); }
+.os-rem strong { display:block; font-size:16px; font-weight:500; }
+.os-rem small { font-size:13px; opacity:.65; line-height:1.4; }
+
+/* Journey (Maps) */
+.os-maps { color:hsl(var(--os-ink)); }
+.os-maps-canvas { position:relative; height:200px; background:
+  linear-gradient(90deg, hsl(var(--os-ink) / .06) 1px, transparent 1px) 0 0 / 28px 28px,
+  linear-gradient(hsl(var(--os-ink) / .06) 1px, transparent 1px) 0 0 / 28px 28px,
+  linear-gradient(160deg, hsl(140 35% 55% / .35), hsl(205 60% 60% / .35)); }
+.os-maps-route { position:absolute; left:12%; right:12%; top:50%; height:6px; border-radius:6px; background:hsl(211 100% 50%); transform:rotate(-12deg); box-shadow:0 0 0 3px hsl(0 0% 100% / .6); }
+.os-maps-sheet { margin-top:-18px; position:relative; padding:18px 16px 40px; border-radius:18px 18px 0 0; background:hsl(var(--os-window)); }
+.os-maps-sheet h2 { font-size:20px; font-weight:700; margin-bottom:12px; }
+.os-maps-sheet li { display:flex; gap:12px; padding:10px 0; border-bottom:1px solid hsl(var(--os-line)); }
+.os-maps-pin { flex-shrink:0; display:grid; place-items:center; width:28px; height:28px; border-radius:50%; background:hsl(0 80% 55%); color:hsl(0 0% 100%); font-weight:700; font-size:13px; }
+.os-maps-sheet strong { display:block; font-size:16px; }
+.os-maps-sheet small { font-size:13px; opacity:.7; line-height:1.4; }
