@@ -13,5 +13,6 @@
 - [x] Add an About Me note opened by the widget, and a browsable Notes app preserving the letter; verify phone and desktop.
 - [x] Remove the read-only testimonial footer and verify Messages on phone and desktop.
 - [x] Audit remaining app interiors against Apple's designs.
-- [ ] Match phone app interiors to iOS 26 and desktop interiors to macOS Tahoe, preserving portfolio content and visitor features.
-- [ ] Verify updated app navigation and layouts on phone and desktop.
+- [x] Update Apple app navigation and control styling against iOS 26 and macOS Tahoe references, preserving portfolio content and visitor features.
+- [x] Verify updated app navigation on short and tall phones and Mac; test camera capture without uploading and load live weather.
+- [ ] Verify exact visual matching for every Apple app. Blocked by incomplete version-specific reference screenshots; current screens are not verified as exact matches.
