@@ -66,3 +66,4 @@
 .mac-dock .os-organized-tile .os-tile-name { bottom:calc(100% + 14px); padding:4px 11px; border-radius:9px; font-size:13px; text-shadow:none; color:hsl(0 0% 100%); background:hsl(240 4% 22% / .9); }
 .mac-dock .os-organized-tile .os-tile-name::after { content:""; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:5px solid transparent; border-top-color:hsl(240 4% 22% / .9); }
 .mac-dock .os-organized-dot { position:absolute; bottom:0; left:50%; transform:translateX(-50%); }
+.mac-dock .os-organized-tile .os-tile-name { bottom:calc(100% + 22px); }
