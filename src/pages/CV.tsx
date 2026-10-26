@@ -111,7 +111,7 @@ const selectedWork = [
   { name: "VibeStack", line: "Design-system generator and prompt workspace for AI-built apps, shipped from zero to live solo using AI agents for prototyping, research and production code." },
 ];
 
-const skillCategories = {
+export const skillCategories = {
   softSkills: [
     "Team Leadership",
     "Data-driven Decisions",

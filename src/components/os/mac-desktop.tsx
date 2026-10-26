@@ -1,12 +1,10 @@
 import { useCallback, useRef, useState } from "react";
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { Apple, BatteryFull, Moon, Sun, Wifi } from "lucide-react";
 import { useOsTheme } from "./use-os-theme";
 import portrait from "@/assets/henrietta-portrait.jpg";
-import { HIRE_CALENDAR_URL } from "@/lib/booking";
-import { AppContent, AppIcon, appTitles, launchers, type AppId, type LauncherId } from "./os-apps";
+import { AppContent, AppIcon, appTitles, externalLinks, isLink, launchers, type AppId, type LauncherId } from "./os-apps";
 import { useClock } from "./use-clock";
 import MacWidgets from "./mac-widgets";
 
@@ -24,6 +22,10 @@ const windowSizes: Record<AppId, { w: number; h: number }> = {
   contact: { w: 440, h: 420 },
   shop: { w: 640, h: 460 },
   love: { w: 420, h: 560 },
+  messages: { w: 440, h: 560 },
+  health: { w: 480, h: 600 },
+  reminders: { w: 420, h: 460 },
+  maps: { w: 460, h: 580 },
 };
 
 function MacWindow({ win, index, focused, bounds, onFocus, onClose, onMinimize, onMaximize }: {
@@ -66,7 +68,6 @@ function MacWindow({ win, index, focused, bounds, onFocus, onClose, onMinimize, 
 }
 
 export function MacDesktop() {
-  const navigate = useNavigate();
   const now = useClock();
   const { theme, toggle: toggleTheme } = useOsTheme();
   const bounds = useRef<HTMLDivElement>(null);
@@ -82,9 +83,8 @@ export function MacDesktop() {
   }, []);
 
   const launch = (id: LauncherId) => {
-    if (id === "home") return navigate("/");
-    if (id === "hire") {
-      window.open(HIRE_CALENDAR_URL, "_blank", "noopener,noreferrer");
+    if (isLink(id)) {
+      window.open(externalLinks[id], "_blank", "noopener,noreferrer");
       return;
     }
     setWindows((list) => (list.some((w) => w.id === id) ? list : [...list, { id, z: topZ + 1, minimized: false, maximized: false }]));
@@ -104,7 +104,6 @@ export function MacDesktop() {
           <button onClick={() => launch("projects")}>Projects</button>
           <button onClick={() => launch("cv")}>CV</button>
           <button onClick={() => launch("contact")}>Contact</button>
-          <button onClick={() => navigate("/")}>Classic portfolio</button>
         </div>
         <div className="mac-menubar-right">
           <button onClick={toggleTheme} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>{theme === "dark" ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}</button>
@@ -148,7 +147,7 @@ export function MacDesktop() {
           const open = windows.some((w) => w.id === launcher.id);
           return (
             <span key={launcher.id} className="mac-dock-slot">
-              {index === launchers.length - 2 && <span className="mac-dock-divider" aria-hidden="true" />}
+              {launcher.id === "hire" && <span className="mac-dock-divider" aria-hidden="true" />}
               <button className="mac-dock-item" onClick={() => launch(launcher.id)} aria-label={launcher.name}>
                 <span className="mac-dock-tip">{launcher.name}</span>
                 <AppIcon launcher={launcher} size="lg" />

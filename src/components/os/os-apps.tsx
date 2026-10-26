@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react";
-import { ArrowUpRight, ChevronLeft, Briefcase, Calendar, Download, FileText, Globe, Heart, Home, Instagram, PenLine, ListChecks, Mail, MoreHorizontal, PenSquare, Search, Send, Share, ShoppingBag, StickyNote, User, type LucideIcon } from "lucide-react";
+import { Activity, MapPin, MessageCircle, Linkedin, Twitter, ArrowUpRight, ChevronLeft, Briefcase, Calendar, Download, FileText, Globe, Heart, Instagram, PenLine, ListChecks, Mail, MoreHorizontal, PenSquare, Search, Send, Share, ShoppingBag, StickyNote, User, type LucideIcon } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import HeartModal from "@/components/HeartModal";
@@ -16,9 +16,23 @@ import prdTemplateComplete from "@/assets/prd-template-complete.png";
 import prdTemplateOverview from "@/assets/prd-template-overview.png";
 import { differenceInDays, differenceInHours, differenceInMinutes, format } from "date-fns";
 import { HIRE_CALENDAR_URL, openHireCalendar } from "@/lib/booking";
+import { skillCategories } from "@/pages/CV";
+import { testimonials } from "@/components/Testimonials";
+import { journeySteps } from "@/components/JourneySection";
+import { workSteps } from "@/components/HowIWork";
 
-export type AppId = "projects" | "cv" | "letter" | "contact" | "shop" | "love";
-export type LauncherId = AppId | "hire" | "home";
+export type AppId = "projects" | "cv" | "letter" | "contact" | "shop" | "love" | "messages" | "health" | "reminders" | "maps";
+export type LinkId = "hire" | "instagram" | "linkedin" | "x";
+export type LauncherId = AppId | LinkId;
+
+export const externalLinks: Record<LinkId, string> = {
+  hire: HIRE_CALENDAR_URL,
+  instagram: "https://www.instagram.com/henriettaofpm",
+  linkedin: "https://linkedin.com/in/henrietta-onwuneme",
+  x: "https://x.com/henrietta_bby",
+};
+
+export const isLink = (id: LauncherId): id is LinkId => id in externalLinks;
 
 export interface Launcher {
   id: LauncherId;
@@ -33,9 +47,15 @@ export const launchers: Launcher[] = [
   { id: "letter", name: "Letter", icon: StickyNote, tone: "letter" },
   { id: "contact", name: "Contacts", icon: Mail, tone: "contact" },
   { id: "shop", name: "Shop", icon: ShoppingBag, tone: "shop" },
-  { id: "love", name: "Instagram", icon: Heart, tone: "love" },
+  { id: "love", name: "Likes", icon: Heart, tone: "love" },
+  { id: "messages", name: "Messages", icon: MessageCircle, tone: "messages" },
+  { id: "health", name: "Skills", icon: Activity, tone: "health" },
+  { id: "reminders", name: "How I Work", icon: ListChecks, tone: "reminders" },
+  { id: "maps", name: "Journey", icon: MapPin, tone: "maps" },
   { id: "hire", name: "Hire Me", icon: Calendar, tone: "hire" },
-  { id: "home", name: "Portfolio", icon: Home, tone: "home" },
+  { id: "instagram", name: "Instagram", icon: Instagram, tone: "insta" },
+  { id: "linkedin", name: "LinkedIn", icon: Linkedin, tone: "linkedin" },
+  { id: "x", name: "X", icon: Twitter, tone: "x" },
 ];
 
 export const appTitles: Record<AppId, string> = {
@@ -44,7 +64,11 @@ export const appTitles: Record<AppId, string> = {
   letter: "Letter",
   contact: "Contact",
   shop: "Shop",
-  love: "Instagram",
+  love: "Likes",
+  messages: "Messages",
+  health: "Skills",
+  reminders: "How I Work",
+  maps: "Journey",
 };
 
 export const allProjects: Project[] = [...featuredProjects, ...projectsData].filter(
@@ -196,7 +220,7 @@ function CvApp({ compact }: { compact: boolean }) {
       </div>
       <div className="os-docs-canvas">
         <iframe title="Henrietta Onwuneme CV" src={cvAsset.url} className="os-docs-page" />
-        <a href="/cv" className="os-docs-link">Open the full CV page <ArrowUpRight /></a>
+        <a href={cvAsset.url} target="_blank" rel="noopener noreferrer" className="os-docs-link">Open the CV in a new tab <ArrowUpRight /></a>
       </div>
       {compact && <ActionBar>{download}</ActionBar>}
     </div>
@@ -268,7 +292,9 @@ function ContactApp() {
         <div className="os-contact-row"><span>location</span><em>Lagos, Nigeria</em></div>
       </div>
       <div className="os-contact-group">
-        <a className="os-contact-row" href="/contact"><span>more</span>All contact options</a>
+        <a className="os-contact-row" href={externalLinks.linkedin} target="_blank" rel="noopener noreferrer"><span>LinkedIn</span>henrietta-onwuneme</a>
+        <a className="os-contact-row" href={externalLinks.x} target="_blank" rel="noopener noreferrer"><span>X</span>@henrietta_bby</a>
+        <a className="os-contact-row" href={externalLinks.instagram} target="_blank" rel="noopener noreferrer"><span>Instagram</span>@henriettaofpm</a>
       </div>
     </div>
   );
@@ -365,6 +391,10 @@ export function AppContent({ id, compact = false, projectName }: { id: AppId; co
     case "contact": return <ContactApp />;
     case "shop": return <ShopApp />;
     case "love": return <LoveApp />;
+    case "messages": return <MessagesApp />;
+    case "health": return <SkillsApp />;
+    case "reminders": return <RemindersApp />;
+    case "maps": return <JourneyApp />;
   }
 }
 
@@ -373,10 +403,12 @@ export function AppIcon({ launcher, size = "md" }: { launcher: Launcher; size?: 
   if (launcher.id === "letter") return <NotesIcon size={size} />;
   if (launcher.id === "projects") return <span className={`os-icon os-icon-${size} os-files`} aria-hidden="true"><span className="os-files-folder" /></span>;
   if (launcher.id === "shop") return <span className={`os-icon os-icon-${size} os-appstore`} aria-hidden="true"><AppStoreGlyph /></span>;
-  if (launcher.id === "home") return <span className={`os-icon os-icon-${size} os-safari`} aria-hidden="true"><span className="os-safari-dial"><span className="os-safari-needle" /></span></span>;
+  if (launcher.id === "x") return <span className={`os-icon os-icon-${size} os-x`} aria-hidden="true"><b>X</b></span>;
+  if (launcher.id === "linkedin") return <span className={`os-icon os-icon-${size} os-linkedin`} aria-hidden="true"><b>in</b></span>;
   if (launcher.id === "cv") return <span className={`os-icon os-icon-${size} os-pages`} aria-hidden="true"><PenLine /></span>;
   if (launcher.id === "contact") return <span className={`os-icon os-icon-${size} os-contacts`} aria-hidden="true"><span className="os-contacts-head" /><span className="os-contacts-body" /><span className="os-contacts-tabs" /></span>;
-  if (launcher.id === "love") return <span className={`os-icon os-icon-${size} os-insta`} aria-hidden="true"><Instagram /></span>;
+  if (launcher.id === "instagram") return <span className={`os-icon os-icon-${size} os-insta`} aria-hidden="true"><Instagram /></span>;
+  if (launcher.id === "love") return <span className={`os-icon os-icon-${size} os-likes`} aria-hidden="true"><Heart /></span>;
   const Icon = launcher.icon;
   return (
     <span className={`os-icon os-icon-${launcher.tone} os-icon-${size}`} aria-hidden="true">
@@ -432,5 +464,95 @@ export function ProjectIcon({ project, size = "md" }: { project: Project; size?:
     <span className={`os-icon os-icon-${size} os-img-icon ${logo ? "os-logo-icon" : ""}`} aria-hidden="true">
       <img src={logo ?? project.image} alt="" />
     </span>
+  );
+}
+
+function MessagesApp() {
+  const [active, setActive] = useState<number | null>(null);
+  const person = active === null ? null : testimonials[active];
+  if (person) {
+    return (
+      <div className="os-msg">
+        <div className="os-msg-head">
+          <button className="os-back" onClick={() => setActive(null)}><ChevronLeft aria-hidden="true" /> Messages</button>
+          <span className="os-msg-avatar">{person.author.charAt(0)}</span>
+          <strong>{person.author}</strong>
+          <small>{person.role}</small>
+        </div>
+        <div className="os-msg-thread">
+          <p className="os-bubble os-bubble-out">Hi, would you share a few words about working with me?</p>
+          <p className="os-bubble os-bubble-in">{person.quote}</p>
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div className="os-msg">
+      <h2 className="os-msg-title">Messages</h2>
+      <ul className="os-msg-list">
+        {testimonials.map((item, index) => (
+          <li key={item.author}>
+            <button onClick={() => setActive(index)}>
+              <span className="os-msg-avatar">{item.author.charAt(0)}</span>
+              <span className="os-msg-preview"><strong>{item.author}</strong><small>{item.role}</small><span>{item.quote}</span></span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function SkillsApp() {
+  const groups = [
+    { title: "Soft Skills", tone: "soft", items: skillCategories.softSkills },
+    { title: "Technical Skills", tone: "tech", items: skillCategories.technicalSkills },
+    { title: "Tools", tone: "tools", items: skillCategories.tools },
+  ];
+  return (
+    <div className="os-health">
+      <h2 className="os-msg-title">Summary</h2>
+      {groups.map((group) => (
+        <section key={group.title} className={`os-health-card os-health-${group.tone}`}>
+          <header><Activity aria-hidden="true" /><strong>{group.title}</strong><span>{group.items.length}</span></header>
+          <div className="os-health-chips">{group.items.map((item) => <span key={item}>{item}</span>)}</div>
+        </section>
+      ))}
+    </div>
+  );
+}
+
+function RemindersApp() {
+  return (
+    <div className="os-rem">
+      <h2 className="os-rem-title">How I Work</h2>
+      <ul>
+        {workSteps.map((step) => (
+          <li key={step.number}>
+            <span className="os-rem-check" aria-hidden="true" />
+            <span><strong>{step.title}</strong><small>{step.text}</small></span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function JourneyApp() {
+  return (
+    <div className="os-maps">
+      <div className="os-maps-canvas" aria-hidden="true"><span className="os-maps-route" /></div>
+      <div className="os-maps-sheet">
+        <h2>From Architecture to Product Management</h2>
+        <ol>
+          {journeySteps.map((step, index) => (
+            <li key={step.title}>
+              <span className="os-maps-pin">{index + 1}</span>
+              <span><strong>{step.title}</strong><small>{step.text}</small></span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
   );
 }

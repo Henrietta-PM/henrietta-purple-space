@@ -4,19 +4,19 @@ import { allProjects, ProjectIcon } from "./os-apps";
 import { describe, fetchLagosWeather } from "./mac-widgets";
 import { useOsTheme, type OsThemePref } from "./use-os-theme";
 import { AnimatePresence, motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { BatteryFull, Check, Navigation, Settings, Signal, Wifi } from "lucide-react";
 import portrait from "@/assets/henrietta-portrait.jpg";
-import { HIRE_CALENDAR_URL } from "@/lib/booking";
-import { AppContent, AppIcon, appTitles, launchers, type AppId, type LauncherId } from "./os-apps";
+import { AppContent, AppIcon, appTitles, externalLinks, isLink, launchers, type AppId, type LauncherId } from "./os-apps";
 import { useClock } from "./use-clock";
 import { IphoneLock } from "./iphone-lock";
 
 const dockIds: LauncherId[] = ["contact", "love", "letter", "hire"];
+const homeIds: LauncherId[] = ["projects", "cv", "messages", "health", "reminders", "maps", "shop"];
+const socialIds: LauncherId[] = ["instagram", "linkedin", "x"];
+const byId = (id: LauncherId) => launchers.find((l) => l.id === id)!;
 
 export function IphoneHome() {
-  const navigate = useNavigate();
   const now = useClock();
   const [open, setOpen] = useState<AppId | "settings" | null>(null);
   const [locked, setLocked] = useState(true);
@@ -43,9 +43,8 @@ export function IphoneHome() {
   }, []);
 
   const launch = (id: LauncherId) => {
-    if (id === "home") return navigate("/");
-    if (id === "hire") {
-      window.open(HIRE_CALENDAR_URL, "_blank", "noopener,noreferrer");
+    if (isLink(id)) {
+      window.open(externalLinks[id], "_blank", "noopener,noreferrer");
       return;
     }
     setOpen(id);
@@ -88,7 +87,7 @@ export function IphoneHome() {
         </div>
 
         <div className="ios-grid">
-          {launchers.filter((l) => !dockIds.includes(l.id)).map((launcher, index) => (
+          {homeIds.map(byId).map((launcher, index) => (
             <motion.button
               key={launcher.id}
               className="ios-app"
@@ -116,6 +115,12 @@ export function IphoneHome() {
               <span className="ios-app-name">{project.name.replace(" Attendance System", "")}</span>
             </motion.button>
           ))}
+          {socialIds.map(byId).map((launcher) => (
+            <motion.button key={launcher.id} className="ios-app" whileTap={{ scale: 0.88 }} onClick={() => launch(launcher.id)}>
+              <AppIcon launcher={launcher} size="lg" />
+              <span>{launcher.name}</span>
+            </motion.button>
+          ))}
         </div>
       </div>
       </div>
@@ -124,7 +129,7 @@ export function IphoneHome() {
 
       <nav className="ios-dock" aria-label="Dock">
         {dockIds.map((id) => {
-          const launcher = launchers.find((l) => l.id === id)!;
+          const launcher = byId(id);
           return (
             <button key={id} onClick={() => launch(id)} aria-label={launcher.name}>
               <AppIcon launcher={launcher} size="lg" />
