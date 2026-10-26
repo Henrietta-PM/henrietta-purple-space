@@ -353,7 +353,7 @@ button.mw:hover { transform:translateY(-2px); }
 .ios-app-header .ios-theme { position:static; }
 
 /* Home pages */
-.ios-pages { position:relative; z-index:2; display:flex; overflow-x:auto; overflow-y:hidden; overscroll-behavior-x:contain; scroll-snap-type:x mandatory; scrollbar-width:none; height:calc(100% - 210px); }
+.ios-pages { position:relative; z-index:2; display:flex; overflow-x:auto; overflow-y:hidden; overscroll-behavior-x:contain; scroll-snap-type:x mandatory; scrollbar-width:none; height:calc(100% - 170px); }
 .ios-pages::-webkit-scrollbar { display:none; }
 .ios-page { flex:0 0 100%; scroll-snap-align:start; scroll-snap-stop:always; }
 .ios-app-name { max-width:68px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
@@ -704,7 +704,7 @@ button.mw-weather { cursor: pointer; text-align: left; font: inherit; color: inh
   .ios-app .os-icon-lg, .ios-dock .os-icon-lg { width:46px; height:46px; }
   .ios-app { font-size:11px; gap:4px; }
   .ios-dock { padding:8px 12px; }
-  .ios-pages { height:calc(100% - 170px); }
+  .ios-pages { height:calc(100% - 130px); }
   .ios-dots { bottom:90px; }
 }
 .os-love-cta > div:not(.os-love-actions) { min-width:0; }
