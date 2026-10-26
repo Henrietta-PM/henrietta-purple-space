@@ -12,3 +12,4 @@
 - Messages shares original testimonials between its phone list/thread and Mac split view; never invent message dates or replies, and keep the display read-only rather than impersonating real iMessage delivery.
 - Shared Apple app navigation provides phone tab bars and desktop sidebars, with app-specific content kept separate so portfolio facts and visitor actions remain unchanged.
 - My Journey uses a real map of the owner's known city without assigning geographic locations to career milestones, so the map never invents career locations.
+- Render a lightweight lock-screen fallback while OS app code loads and initialize the shared viewport hook synchronously, so phones never first mount the desktop shell; both shells start locked and defer exploration notifications until entry.

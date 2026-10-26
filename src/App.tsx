@@ -16,6 +16,7 @@ import Contact from "./pages/Contact";
 import Shop from "./pages/Shop";
 import PortfolioGuide from "./pages/PortfolioGuide";
 import NotFound from "./pages/NotFound";
+import { LoadingLockScreen } from "./components/os/loading-lock";
 
 const queryClient = new QueryClient();
 const Space = lazy(() => import("./pages/Space").then((module) => ({ default: module.Space })));
@@ -32,7 +33,7 @@ const App = () => (
           <RouteSeo />
           <AnnouncementBanner />
           <Routes>
-            <Route path="/" element={<Suspense fallback={<div className="min-h-screen" />}><Space /></Suspense>} />
+            <Route path="/" element={<Suspense fallback={<LoadingLockScreen />}><Space /></Suspense>} />
             <Route path="/classic" element={<Index />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/cv" element={<CV />} />

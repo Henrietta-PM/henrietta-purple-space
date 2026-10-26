@@ -17,3 +17,4 @@
 - [x] Verify updated app navigation on short and tall phones and Mac; test camera capture without uploading and load live weather.
 - [ ] Verify exact visual matching for every Apple app. Blocked by incomplete version-specific reference screenshots; current screens are not verified as exact matches.
 - [x] Fix the Automatic switch thumb and verify journey expand/collapse arrows.
+- [ ] Remove the pre-lock loading flash and add Mac lock-screen entry; verify fresh phone and desktop loads and unlock.

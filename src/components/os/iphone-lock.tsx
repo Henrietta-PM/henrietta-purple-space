@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { lockWallpaper } from "./use-wallpaper";
+import { lockWallpaper } from "./lock-wallpaper";
 import { format } from "date-fns";
 import { ChevronUp, Lock } from "lucide-react";
 import { CalendarIcon, ImageIcon, NotesIcon, type LauncherId } from "./os-apps";
@@ -24,7 +24,7 @@ export function IphoneLock({ now, onUnlock }: { now: Date; onUnlock: (app?: Laun
   return (
     <motion.section
       className="ios-lock"
-      style={{ backgroundImage: `url(${lockWallpaper})` }}
+      style={{ backgroundImage: `url(${lockWallpaper})`, backgroundColor: "hsl(var(--camera-paper))" }}
       aria-label="Lock screen"
       initial={{ opacity: 1 }}
       exit={{ y: "-100%", transition: { duration: 0.45, ease: [0.32, 0.72, 0, 1] } }}
