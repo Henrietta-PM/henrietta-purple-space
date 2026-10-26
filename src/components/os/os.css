@@ -636,3 +636,6 @@ button.mw:hover { transform:translateY(-2px); }
   .mac-widgets .mw-intro { order:5; height:auto; min-height:0; }
   .mac-widgets .mw-clock-time { font-size:40px; }
 }
+
+/* App Library search stays pinned while scrolling */
+.ios-lib-page .os-lib-search { position:sticky; top:14px; z-index:5; background:hsl(240 12% 30% / .55); backdrop-filter:blur(24px) saturate(1.6); -webkit-backdrop-filter:blur(24px) saturate(1.6); }
