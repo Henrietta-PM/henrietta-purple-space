@@ -9,3 +9,4 @@
 - Camera and Photos share a visitor guestbook; anonymous submissions and private reports go through a validated edge function with atomic network throttling, and private photo storage is accessed only through service-generated signed URLs to keep write access out of the browser.
 - Keep the existing letter launcher ID for saved layouts, but present it as Notes with shared note content; pass a note selection from widgets and note shortcuts so normal app launches open the note list.
 - Notes uses single-screen folder/list/reader navigation on phone and independently scrollable folder/list/reader columns on Mac; retain working reader actions and omit owner-only authoring tools.
+- Messages shares original testimonials between its phone list/thread and Mac split view; never invent message dates or replies, and keep the display read-only rather than impersonating real iMessage delivery.
