@@ -8,7 +8,7 @@ import hero4 from "@/assets/henrietta-hero-4.jpg";
 import hero5 from "@/assets/henrietta-hero-5.jpg";
 
 export const wallpapers = [portrait, hero, hero1, hero2, hero3, hero4, hero5];
-export const lockWallpaper = portrait;
+export const lockWallpaper = hero;
 
 const ROTATE_MS = 12000;
 

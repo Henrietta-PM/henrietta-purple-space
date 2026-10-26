@@ -86,13 +86,13 @@ export default function MacWidgets({ now, onLaunch }: MacWidgetsProps) {
         <p>Product management for me is about people, their needs, and the paths we create to meet them. I've shipped 5+ MVPs with up to 85% faster time to market.</p>
       </motion.div>
 
-      <motion.div className="mw mw-sq mw-weather" {...enter(0.42)} aria-label="Weather in Lagos">
+      <motion.button type="button" className="mw mw-sq mw-weather" {...enter(0.42)} onClick={() => onLaunch("weather")} aria-label="Open Weather for Lagos">
         <span className="mw-place">Lagos <Navigation aria-hidden="true" /></span>
         <span className="mw-temp">{weather ? `${weather.temp}°` : "--"}</span>
         <sky.Icon className="mw-sky" aria-hidden="true" />
         <span className="mw-sky-label">{sky.label}</span>
         <span className="mw-hl">{weather ? `H:${weather.high}° L:${weather.low}°` : "Loading"}</span>
-      </motion.div>
+      </motion.button>
     </div>
   );
 }
