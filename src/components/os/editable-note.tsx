@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import DOMPurify from "dompurify";
-import { Bold, Highlighter, Italic, RotateCcw, Underline } from "lucide-react";
+import { Bold, Highlighter, Italic, RotateCcw, Strikethrough, Underline } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
@@ -18,6 +18,7 @@ export default function EditableNote({ noteId, children }: { noteId: string; chi
   const ref = useRef<HTMLDivElement>(null);
   const [edited, setEdited] = useState(() => readSaved(noteId) !== null);
   const [version, setVersion] = useState(0);
+  const [formatting, setFormatting] = useState(false);
 
   useEffect(() => {
     const saved = readSaved(noteId);
@@ -34,7 +35,7 @@ export default function EditableNote({ noteId, children }: { noteId: string; chi
     }
   };
 
-  const format = (command: "bold" | "italic" | "underline" | "hiliteColor") => {
+  const format = (command: "bold" | "italic" | "underline" | "strikeThrough" | "hiliteColor") => {
     ref.current?.focus();
     document.execCommand(command, false, command === "hiliteColor" ? "hsl(48 100% 60%)" : undefined);
     save();
@@ -65,12 +66,17 @@ export default function EditableNote({ noteId, children }: { noteId: string; chi
       >
         {children}
       </div>
-      <div className="an-format-bar" role="toolbar" aria-label="Formatting">
-        <Button variant="ghost" size="icon" aria-label="Highlight" title="Highlight" onMouseDown={(event) => event.preventDefault()} onClick={() => format("hiliteColor")}><Highlighter /></Button>
-        <Button variant="ghost" size="icon" aria-label="Bold" title="Bold" onMouseDown={(event) => event.preventDefault()} onClick={() => format("bold")}><Bold /></Button>
-        <Button variant="ghost" size="icon" aria-label="Italic" title="Italic" onMouseDown={(event) => event.preventDefault()} onClick={() => format("italic")}><Italic /></Button>
-        <Button variant="ghost" size="icon" aria-label="Underline" title="Underline" onMouseDown={(event) => event.preventDefault()} onClick={() => format("underline")}><Underline /></Button>
-        {edited && <Button variant="ghost" size="icon" aria-label="Restore original note" title="Restore original" onClick={reset}><RotateCcw /></Button>}
+      <div className="an-format-dock">
+        {formatting && <div className="an-format-panel" role="toolbar" aria-label="Format">
+          {([["bold", Bold, "Bold"], ["italic", Italic, "Italic"], ["underline", Underline, "Underline"], ["strikeThrough", Strikethrough, "Strikethrough"], ["hiliteColor", Highlighter, "Highlight"]] as const).map(([command, Icon, label]) => (
+            <Button key={command} variant="ghost" size="icon" aria-label={label} title={label} onMouseDown={(event) => event.preventDefault()} onClick={() => format(command)}><Icon /></Button>
+          ))}
+        </div>}
+        <div className="an-bottom-bar">
+          <Button variant="ghost" className="an-aa" aria-label="Format" aria-pressed={formatting} title="Format" onMouseDown={(event) => event.preventDefault()} onClick={() => setFormatting((value) => !value)}>Aa</Button>
+          <Button variant="ghost" size="icon" aria-label="Highlight" title="Highlight" onMouseDown={(event) => event.preventDefault()} onClick={() => format("hiliteColor")}><Highlighter /></Button>
+          <Button variant="ghost" size="icon" aria-label="Restore original note" title="Restore original" disabled={!edited} onClick={reset}><RotateCcw /></Button>
+        </div>
       </div>
     </>
   );
