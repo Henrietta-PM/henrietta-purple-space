@@ -7,9 +7,10 @@ import { toast } from "@/hooks/use-toast";
 interface HeartModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onSent?: () => void;
 }
 
-const HeartModal = ({ isOpen, onClose }: HeartModalProps) => {
+const HeartModal = ({ isOpen, onClose, onSent }: HeartModalProps) => {
   const [heartSent, setHeartSent] = useState(false);
   const [heartCount, setHeartCount] = useState(0);
   const [isSending, setIsSending] = useState(false);
@@ -75,6 +76,8 @@ const HeartModal = ({ isOpen, onClose }: HeartModalProps) => {
       // Immediately update the count locally
       await fetchHeartCount();
       
+      window.dispatchEvent(new CustomEvent("portfolio-like"));
+      if (onSent) { window.setTimeout(onSent, 900); return; }
       toast({
         title: "Heart sent! 💜",
         description: "Thank you for your support!",
