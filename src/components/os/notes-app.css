@@ -74,3 +74,9 @@
 .ios-app-screen:has(.an-phone.reading), .ios-app-body:has(.an-phone.reading) { background:hsl(var(--notes-paper)); }
 .mac-window-body:has(.an-mac) { overflow:hidden; min-height:0; }
 @media (max-width:760px) { .an-mac .an-sidebar { display:none; } .an-mac-list { width:200px; } }
+.an-phone .an-toolbar { background:hsl(var(--notes-group) / .78); backdrop-filter:blur(28px); }
+.an-phone.reading .an-toolbar { background:hsl(var(--notes-paper) / .78); }
+.an-phone .an-reader-back,.an-phone.reading .an-tools { background:hsl(var(--apple-glass) / .8); box-shadow:var(--apple-shadow); backdrop-filter:blur(24px); }
+.an-phone .an-note-list { border-radius:24px; }
+.an-phone .an-search { border-radius:24px; min-height:42px; }
+.an-phone .an-folder-row { border-radius:24px; }
