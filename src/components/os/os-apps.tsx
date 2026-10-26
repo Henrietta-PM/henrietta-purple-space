@@ -404,6 +404,34 @@ function ContactApp({ compact }: { compact: boolean }) {
     { label: "linkedin", Icon: Linkedin, onClick: () => window.open(externalLinks.linkedin, "_blank", "noopener,noreferrer") },
     { label: "share", Icon: Share, onClick: shareContact },
   ];
+  if (!compact) return (
+    <div className="mc-contacts">
+      <aside className="mc-list">
+        <label className="mc-search"><Search aria-hidden="true" /><input placeholder="Search" aria-label="Search contacts" /></label>
+        <Button variant="ghost" className="mc-row selected"><img src={portrait} alt="" /><span><strong>Henrietta Onwuneme</strong><small>My Card</small></span></Button>
+      </aside>
+      <section className="mc-card">
+        <div className="mc-poster">
+          <img src={portrait} alt="Henrietta Onwuneme" className="mc-avatar" />
+          <h2>Henrietta Onwuneme</h2>
+          <p>Product Manager</p>
+          <div className="mc-actions">{actions.map(({ label, Icon, onClick }) => <Button key={label} variant="ghost" size="icon" aria-label={label} title={label} onClick={onClick}><Icon /></Button>)}</div>
+        </div>
+        <div className="mc-groups">
+          <div className="mc-group">
+            <Button variant="ghost" className="mc-field" onClick={() => setComposing(true)}><small>email</small><span>{CONTACT_EMAIL}</span></Button>
+            <a className="mc-field" href={HIRE_CALENDAR_URL} onClick={openHireCalendar} target="_blank" rel="noopener noreferrer"><small>calendar</small><span>Book a hiring call</span></a>
+            <div className="mc-field"><small>location</small><span>Lagos, Nigeria</span></div>
+          </div>
+          <div className="mc-group">
+            <a className="mc-field" href={externalLinks.linkedin} target="_blank" rel="noopener noreferrer"><small>LinkedIn</small><span>henrietta-onwuneme</span></a>
+            <a className="mc-field" href={externalLinks.x} target="_blank" rel="noopener noreferrer"><small>X</small><span>@henrietta_bby</span></a>
+            <a className="mc-field" href={externalLinks.instagram} target="_blank" rel="noopener noreferrer"><small>Instagram</small><span>@henriettaofpm</span></a>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
   return (
     <AppleSections compact={compact} title="Contacts" sections={[{ id: "contacts", label: "Contacts", icon: User }]} selected="contacts" onSelect={() => undefined}>
     <div className={compact ? "" : "apple-contact-mac"}>
