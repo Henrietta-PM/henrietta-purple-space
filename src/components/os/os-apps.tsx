@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react";
-import { Activity, MapPin, MessageCircle, Linkedin, Twitter, ArrowUpRight, ChevronLeft, Briefcase, Calendar, Download, FileText, Globe, Heart, Home, Instagram, PenLine, ListChecks, Mail, MoreHorizontal, PenSquare, Search, Send, Share, ShoppingBag, StickyNote, User, type LucideIcon } from "lucide-react";
+import { Activity, MapPin, MessageCircle, Linkedin, Twitter, ArrowUpRight, ChevronLeft, Briefcase, Calendar, Download, FileText, Globe, Heart, Instagram, PenLine, ListChecks, Mail, MoreHorizontal, PenSquare, Search, Send, Share, ShoppingBag, StickyNote, User, type LucideIcon } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import HeartModal from "@/components/HeartModal";

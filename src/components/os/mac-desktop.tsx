@@ -6,7 +6,7 @@ import { Apple, BatteryFull, Moon, Sun, Wifi } from "lucide-react";
 import { useOsTheme } from "./use-os-theme";
 import portrait from "@/assets/henrietta-portrait.jpg";
 import { HIRE_CALENDAR_URL } from "@/lib/booking";
-import { AppContent, AppIcon, appTitles, launchers, type AppId, type LauncherId } from "./os-apps";
+import { AppContent, AppIcon, appTitles, externalLinks, isLink, launchers, type AppId, type LauncherId } from "./os-apps";
 import { useClock } from "./use-clock";
 import MacWidgets from "./mac-widgets";
 
@@ -82,9 +82,8 @@ export function MacDesktop() {
   }, []);
 
   const launch = (id: LauncherId) => {
-    if (id === "home") return navigate("/");
-    if (id === "hire") {
-      window.open(HIRE_CALENDAR_URL, "_blank", "noopener,noreferrer");
+    if (isLink(id)) {
+      window.open(externalLinks[id], "_blank", "noopener,noreferrer");
       return;
     }
     setWindows((list) => (list.some((w) => w.id === id) ? list : [...list, { id, z: topZ + 1, minimized: false, maximized: false }]));
@@ -104,7 +103,6 @@ export function MacDesktop() {
           <button onClick={() => launch("projects")}>Projects</button>
           <button onClick={() => launch("cv")}>CV</button>
           <button onClick={() => launch("contact")}>Contact</button>
-          <button onClick={() => navigate("/")}>Classic portfolio</button>
         </div>
         <div className="mac-menubar-right">
           <button onClick={toggleTheme} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>{theme === "dark" ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}</button>
