@@ -66,7 +66,7 @@ export function IphoneHome() {
       <div className="mac-wallpaper-tint" />
       <StatusBar light />
       <ExplorationNotifications mobile enabled={!locked} activeApp={open ?? undefined} onLaunch={(id) => { setProjectName(undefined); launch(id); if (id === "letter") setInitialNote("letter"); }} />
-      <AppOrganizer storageKey="portfolio-phone-apps-v1" defaults={phoneLayout} mobile onPageEdge={(direction) => {
+      <AppOrganizer storageKey="portfolio-phone-apps-v1" hideControls={locked} defaults={phoneLayout} mobile onPageEdge={(direction) => {
         const element = pagesRef.current;
         if (element) element.scrollTo({ left: Math.max(0, Math.min(1, Math.round(element.scrollLeft / element.clientWidth) + direction)) * element.clientWidth, behavior: "smooth" });
       }} onLaunch={(app) => {

@@ -129,7 +129,7 @@ export function MacDesktop() {
         </div>
       </nav>}
 
-      <AppOrganizer storageKey="portfolio-desktop-apps-v1" defaults={desktopLayout} openIds={windows.map((win) => win.id)} onLaunch={(app) => { if (app.launcher) launch(app.launcher, app.id === "shortcut:letter" ? "letter" : undefined); }}>
+      <AppOrganizer storageKey="portfolio-desktop-apps-v1" hideControls={locked} defaults={desktopLayout} openIds={windows.map((win) => win.id)} onLaunch={(app) => { if (app.launcher) launch(app.launcher, app.id === "shortcut:letter" ? "letter" : undefined); }}>
       <div ref={bounds} className="mac-desktop">
         <MacWidgets now={now} onLaunch={launch} />
 
