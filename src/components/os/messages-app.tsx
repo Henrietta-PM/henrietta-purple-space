@@ -112,9 +112,9 @@ export default function MessagesApp({ compact = false }: { compact?: boolean }) 
             <MessageAvatar name={item.author} /><span className="am-pin-name">{item.author.split(" ")[0]}</span>
           </Button>)}
         </div>}
-        {!compact && pinned.map((item) => <Button key={`row-${item.author}`} variant="ghost" className={`am-row ${active?.kind === "pinned" && active.index === item.index ? "selected" : ""}`} onClick={() => open({ kind: "pinned", index: item.index })}>
+        {pinned.map((item) => <Button key={`row-${item.author}`} variant="ghost" className={`am-row ${active?.kind === "pinned" && active.index === item.index ? "selected" : ""}`} onClick={() => open({ kind: "pinned", index: item.index })}>
           <span className="am-unread" aria-hidden="true" />
-          <MessageAvatar name={item.author} /><span className="am-preview"><span className="am-preview-heading"><strong>{item.author}</strong></span><span className="am-preview-text">{item.quote}</span></span>
+          <MessageAvatar name={item.author} /><span className="am-preview"><span className="am-preview-heading"><strong>{item.author}</strong>{compact && <small><ChevronRight aria-hidden="true" /></small>}</span><span className="am-preview-text">{item.quote}</span></span>
         </Button>)}
         {visitors.map((item) => {
           const unread = !read.includes(item.id);
