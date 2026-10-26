@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import { Moon, Sun } from "lucide-react";
 import { AppleLogo, MacBattery, MacWifiArcs } from "./status-icons";
 import { useOsTheme } from "./use-os-theme";
-import portrait from "@/assets/henrietta-portrait.jpg";
+import { useWallpaper } from "./use-wallpaper";
 import { AppContent, AppIcon, appTitles, externalLinks, isLink, launchers, type AppId, type LauncherId } from "./os-apps";
 import { useClock } from "./use-clock";
 import MacWidgets from "./mac-widgets";
@@ -72,6 +72,7 @@ export function MacDesktop() {
   const now = useClock();
   const { theme, toggle: toggleTheme } = useOsTheme();
   const bounds = useRef<HTMLDivElement>(null);
+  const wallpaper = useWallpaper();
   const [windows, setWindows] = useState<WindowState[]>([]);
   const topZ = windows.reduce((max, win) => Math.max(max, win.z), 0);
   const focused = windows.filter((win) => !win.minimized).sort((a, b) => b.z - a.z)[0];
@@ -96,7 +97,7 @@ export function MacDesktop() {
   const close = (id: AppId) => setWindows((list) => list.filter((w) => w.id !== id));
 
   return (
-    <div className="mac-shell" style={{ backgroundImage: `url(${portrait})` }}>
+    <div className="mac-shell" style={{ backgroundImage: `url(${wallpaper})` }}>
       <div className="mac-wallpaper-tint" />
       <nav className="mac-menubar" aria-label="Menu bar">
         <div className="mac-menubar-left">

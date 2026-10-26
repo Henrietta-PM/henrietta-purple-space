@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { format } from "date-fns";
 import { Check, Navigation, Settings } from "lucide-react";
 import { IosBattery, IosNetwork, IosSignal } from "./status-icons";
-import portrait from "@/assets/henrietta-portrait.jpg";
+import { useWallpaper } from "./use-wallpaper";
 import { AppContent, AppIcon, AppLibrary, appTitles, externalLinks, isLink, launchers, type AppId, type LauncherId } from "./os-apps";
 import { useClock } from "./use-clock";
 import { IphoneLock } from "./iphone-lock";
@@ -21,6 +21,7 @@ export function IphoneHome() {
   const now = useClock();
   const [open, setOpen] = useState<AppId | "settings" | null>(null);
   const [locked, setLocked] = useState(true);
+  const wallpaper = useWallpaper();
   const [page, setPage] = useState(0);
   const [projectName, setProjectName] = useState<string | undefined>();
   const pagesRef = useRef<HTMLDivElement>(null);
@@ -53,7 +54,7 @@ export function IphoneHome() {
   );
 
   return (
-    <div className={`ios-shell ${page > 1 ? "ios-on-library" : ""}`} style={{ backgroundImage: `url(${portrait})` }}>
+    <div className={`ios-shell ${page > 1 ? "ios-on-library" : ""}`} style={{ backgroundImage: `url(${wallpaper})` }}>
       <div className="mac-wallpaper-tint" />
       <StatusBar light />
 
