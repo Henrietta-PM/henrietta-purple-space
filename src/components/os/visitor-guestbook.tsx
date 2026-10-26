@@ -32,8 +32,35 @@ export function useVisitorMessages() {
   return useQuery<Visit[], Error, Visit[]>({ queryKey: ["visitor-posts"], queryFn: fetchVisits, refetchInterval: 30000, select: (posts) => posts.filter((post) => post.kind === "message") });
 }
 
+const ownedKey = "henrietta-owned-messages";
+
+export function loadOwnedMessages(): Record<string, string> {
+  try {
+    const parsed: unknown = JSON.parse(localStorage.getItem(ownedKey) ?? "{}");
+    if (!parsed || typeof parsed !== "object") return {};
+    return Object.fromEntries(Object.entries(parsed).filter((entry): entry is [string, string] => typeof entry[1] === "string"));
+  } catch {
+    return {};
+  }
+}
+
+function saveOwnedMessages(owned: Record<string, string>) {
+  try { localStorage.setItem(ownedKey, JSON.stringify(owned)); } catch { /* storage unavailable */ }
+}
+
 export async function sendVisitorMessage(name: string, message: string) {
-  return invokeGuestbook({ name, message, consent: true, kind: "message" });
+  const result = await invokeGuestbook({ name, message, consent: true, kind: "message" });
+  if (result?.id && result?.deleteToken) saveOwnedMessages({ ...loadOwnedMessages(), [result.id]: result.deleteToken });
+  return result;
+}
+
+export async function deleteVisitorMessage(id: string) {
+  const owned = loadOwnedMessages();
+  const token = owned[id];
+  if (!token) throw new Error("Not owner");
+  await invokeGuestbook({ action: "delete", id, token });
+  delete owned[id];
+  saveOwnedMessages(owned);
 }
 
 async function preparePhoto(file: File): Promise<string> {

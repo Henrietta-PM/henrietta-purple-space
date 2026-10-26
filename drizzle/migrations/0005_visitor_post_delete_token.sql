@@ -1,0 +1,2 @@
+ALTER TABLE public.visitor_posts ADD COLUMN IF NOT EXISTS delete_token_hash text;
+COMMENT ON COLUMN public.visitor_posts.delete_token_hash IS 'SHA-256 of the sender-only delete token; read only by the visitor-guestbook edge function (service role).';

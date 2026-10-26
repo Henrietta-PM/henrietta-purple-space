@@ -133,3 +133,11 @@
 .am-mac .am-rows .am-row.selected, .am-mac .am-rows .am-row.selected:hover { background:hsl(var(--messages-blue)); color:hsl(var(--os-on-dark)); }
 .am-mac .am-rows .am-row.selected .am-preview-text, .am-mac .am-rows .am-row.selected small { color:hsl(var(--os-on-dark) / .85); }
 .am-mac .am-search { background:hsl(var(--os-ink) / .06); padding:5px 8px; border-radius:8px; }
+.am-row-wrap { overflow:hidden; }
+.am-row-swipe { position:relative; z-index:1; flex:1; min-width:0; background:hsl(var(--messages-paper)); touch-action:pan-y; }
+.am-row-delete { position:absolute; right:0; top:0; bottom:0; width:88px; height:auto; border-radius:0; display:flex; flex-direction:column; gap:4px; font-size:13px; }
+.am-mac .am-row-delete { border-radius:8px; }
+.am-outgoing { position:relative; align-self:flex-end; margin-left:auto; max-width:86%; width:fit-content; padding:10px 14px; border-radius:18px; background:hsl(var(--messages-blue)); color:hsl(0 0% 100%); font-size:17px; line-height:1.4; overflow-wrap:anywhere; }
+.am-outgoing::before { content:""; position:absolute; right:-6px; bottom:0; width:16px; height:18px; background:hsl(var(--messages-blue)); border-bottom-left-radius:14px; }
+.am-outgoing::after { content:""; position:absolute; right:-10px; bottom:-1px; width:10px; height:20px; background:hsl(var(--messages-paper)); border-bottom-left-radius:10px; }
+.am-mac .am-outgoing { font-size:13px; max-width:80%; padding:8px 12px; border-radius:16px; }
