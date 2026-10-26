@@ -5,3 +5,4 @@
 - [x] Research online museum plans and licensed assets for a realistic original interpretation.
 - [x] Build a separate museum with walking, animated doors and product galleries.
 - [x] Verify museum entry, return, direct portfolio access and desktop/phone rendering.- [x] Replace the museum with a Mac desktop (desktop) and iPhone home screen (phone) page.
+- [x] Add and verify dismissible exploration notifications on Mac and iPhone.
