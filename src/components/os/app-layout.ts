@@ -39,7 +39,8 @@ export function extractApp(layout: AppLayout, folderId: string, appId: string): 
   return Object.fromEntries(Object.entries(layout).map(([zone, tiles]) => [zone, tiles.flatMap((tile) => {
     if (tile.id !== folderId || !tile.apps.includes(appId) || tile.apps.length < 2) return [tile];
     const remaining = tile.apps.filter((id) => id !== appId);
-    return [{ ...tile, apps: remaining, name: remaining.length > 1 ? tile.name : undefined }, { id: appId, apps: [appId] }];
+    const extractedId = `extracted:${appId}`;
+    return [{ ...tile, id: tile.id === extractedId ? `folder:${remaining.join("|")}` : tile.id, apps: remaining, name: remaining.length > 1 ? tile.name : undefined }, { id: extractedId, apps: [appId] }];
   })]));
 }
 
