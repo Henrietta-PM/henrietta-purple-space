@@ -1,5 +1,5 @@
 export const aboutMeNote = {
-  id: "about-me",
+  id: "about-me" as const,
   title: "About Me",
   greeting: "Hi, I'm Henrietta.",
   preview: "Product management for me is about people, their needs, and the paths we create to meet them. I've shipped 5+ MVPs with up to 85% faster time to market.",
