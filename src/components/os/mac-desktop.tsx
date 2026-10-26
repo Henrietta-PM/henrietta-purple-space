@@ -5,7 +5,6 @@ import { format } from "date-fns";
 import { Apple, BatteryFull, Moon, Sun, Wifi } from "lucide-react";
 import { useOsTheme } from "./use-os-theme";
 import portrait from "@/assets/henrietta-portrait.jpg";
-import { HIRE_CALENDAR_URL } from "@/lib/booking";
 import { AppContent, AppIcon, appTitles, externalLinks, isLink, launchers, type AppId, type LauncherId } from "./os-apps";
 import { useClock } from "./use-clock";
 import MacWidgets from "./mac-widgets";
@@ -66,7 +65,6 @@ function MacWindow({ win, index, focused, bounds, onFocus, onClose, onMinimize, 
 }
 
 export function MacDesktop() {
-  const navigate = useNavigate();
   const now = useClock();
   const { theme, toggle: toggleTheme } = useOsTheme();
   const bounds = useRef<HTMLDivElement>(null);
@@ -146,7 +144,7 @@ export function MacDesktop() {
           const open = windows.some((w) => w.id === launcher.id);
           return (
             <span key={launcher.id} className="mac-dock-slot">
-              {index === launchers.length - 2 && <span className="mac-dock-divider" aria-hidden="true" />}
+              {launcher.id === "hire" && <span className="mac-dock-divider" aria-hidden="true" />}
               <button className="mac-dock-item" onClick={() => launch(launcher.id)} aria-label={launcher.name}>
                 <span className="mac-dock-tip">{launcher.name}</span>
                 <AppIcon launcher={launcher} size="lg" />
