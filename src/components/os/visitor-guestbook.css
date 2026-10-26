@@ -23,19 +23,4 @@
 .visitor-photo-controls { display:flex; align-items:center; justify-content:space-around; padding:8px; color:hsl(var(--os-icon-projects)); }
 .visitor-empty { padding:45px 0; text-align:center; color:hsl(var(--os-ink-soft)); }
 .visitor-report { display:flex; flex-direction:column; gap:12px; }
-.os-camera-icon { background:linear-gradient(hsl(var(--os-camera-top)),hsl(var(--os-camera-bottom))); }
-.os-icon.os-camera-icon svg { width:100%; height:100%; filter:none; }
-.os-camera-body { fill:hsl(var(--os-camera-glyph)); }
-.os-camera-lens-rim { fill:hsl(var(--os-camera-rim)); }
-.os-camera-flash { fill:hsl(var(--os-camera-top)); }
-.os-photos-icon { background:hsl(var(--os-photos-paper)); }
-.os-icon.os-photos-icon svg { width:90%; height:90%; filter:none; isolation:isolate; }
-.os-photos-petal { fill:hsl(var(--os-photos-red)); opacity:.78; mix-blend-mode:multiply; }
-.os-photos-petal:nth-child(2) { fill:hsl(var(--os-photos-orange)); }
-.os-photos-petal:nth-child(3) { fill:hsl(var(--os-photos-yellow)); }
-.os-photos-petal:nth-child(4) { fill:hsl(var(--os-photos-lime)); }
-.os-photos-petal:nth-child(5) { fill:hsl(var(--os-photos-green)); }
-.os-photos-petal:nth-child(6) { fill:hsl(var(--os-photos-blue)); }
-.os-photos-petal:nth-child(7) { fill:hsl(var(--os-photos-purple)); }
-.os-photos-petal:nth-child(8) { fill:hsl(var(--os-photos-pink)); }
 @media(max-width:420px) { .visitor-app { padding:14px; } }
