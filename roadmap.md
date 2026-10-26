@@ -19,3 +19,4 @@
 - [x] Fix the Automatic switch thumb and verify journey expand/collapse arrows.
 - [x] Remove the pre-lock loading flash and add Mac lock-screen entry; verify fresh phone and desktop loads and unlock, including delayed app loading.
 - [x] Correct Messages phone and Mac layouts against Apple references, preserving pinned testimonials and public messaging; verified lists, threads and composing without public submission.
+- [x] Match iPhone Messages list to the iOS 26 reference and add conversation previews below pinned testimonials on Mac.
