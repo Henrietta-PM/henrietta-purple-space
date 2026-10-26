@@ -1,6 +1,6 @@
 .os-organize-controls { position:absolute; z-index:65; display:flex; gap:4px; color:hsl(var(--os-on-dark)); }
 .os-organize-controls.phone { top:38px; right:10px; }
-.os-organize-controls.desktop { right:20px; bottom:94px; }
+.os-organize-controls.desktop { right:20px; bottom:72px; }
 .os-organize-controls .inline-flex { width:30px; height:30px; border-radius:50%; color:inherit; background:hsl(var(--os-glass-dark)); backdrop-filter:blur(24px); }
 .os-app-zone { min-height:64px; }
 .os-tile-slot { min-width:0; display:flex; align-items:center; justify-content:center; border-radius:18px; }
