@@ -6,6 +6,7 @@ import { AppIcon, launchers, type AppId, type LauncherId } from "./os-apps";
 import "./exploration-notifications.css";
 
 const notices: { app: AppId; title: string; body: string }[] = [
+  { app: "love", title: "Enjoying your visit?", body: "Leave a heart for my portfolio." },
   { app: "projects", title: "A look at my work", body: "The products I've worked on, and the stories behind them." },
   { app: "messages", title: "From people I've worked with", body: "A few words from my teammates and collaborators." },
   { app: "letter", title: "A note from Henrietta", body: "A letter to my potential team." },
