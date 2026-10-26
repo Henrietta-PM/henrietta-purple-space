@@ -77,8 +77,8 @@ export default function ShopApp({ compact = false }: { compact?: boolean }) {
         {tab === "today" && <>
           <header className="as-head"><small>{new Intl.DateTimeFormat("en-GB", { weekday: "long", day: "numeric", month: "long" }).format(new Date())}</small><h1>Today</h1></header>
           <button type="button" className="as-story" onClick={() => setOpenId(featured.id)}>
-            <img src={featured.image} alt="" />
             <div className="as-story-text"><small>{featured.badge}</small><h2>Write your next PRD in minutes</h2></div>
+            <img src={featured.image} alt="" />
             <div className="as-story-foot"><img className="as-icon sm" src={featured.image} alt="" /><div className="as-row-text"><strong>{featured.title}</strong><span>{featured.subtitle}</span></div><GetButton product={featured} /></div>
           </button>
           <section className="as-section"><h2>{shopProducts[1].badge}</h2><ProductRow product={shopProducts[1]} onOpen={() => setOpenId(shopProducts[1].id)} /></section>
