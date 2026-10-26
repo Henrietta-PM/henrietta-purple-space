@@ -6,8 +6,8 @@
 .am-list-controls .am-control { border-radius:50%; background:hsl(var(--os-ink) / .06); }
 .am-list-top h1 { font-size:34px; font-weight:700; line-height:1.2; margin:8px 0 16px; }
 .am-phone .am-list-top { position:relative; padding:8px 20px 12px; }
-.am-phone .am-list-top h1 { font-size:34px; text-align:left; margin:10px 0 0; line-height:1.2; }
-.am-phone .am-list-controls { justify-content:space-between; }
+.am-phone .am-list-top h1 { font-size:20px; text-align:center; margin:0; line-height:38px; }
+.am-phone .am-list-controls { position:absolute; left:16px; top:8px; justify-content:flex-start; }
 .am-list-bottom { flex-shrink:0; padding:8px 16px 4px; }
 .am-list-bottom .am-search { margin-bottom:0; border-radius:24px; min-height:44px; }
 .am-search { display:flex; gap:6px; align-items:center; padding:9px 12px; border-radius:18px; background:hsl(var(--os-ink) / .07); margin-bottom:12px; color:hsl(var(--os-ink-soft)); }
@@ -53,7 +53,9 @@
 .ios-app-body:has(.am-phone) { padding:0 0 24px; overflow:hidden; min-height:0; background:hsl(var(--messages-paper)); }
 .ios-app-screen:has(.am-phone) { background:hsl(var(--messages-paper)); }
 .mac-window-body:has(.am-mac) { overflow:hidden; min-height:0; }
-.am-list-bottom { padding:8px 16px 8px; }
+.am-list-bottom { display:flex; align-items:center; gap:10px; padding:8px 16px 8px; }
+.am-list-bottom .am-search { flex:1; min-width:0; }
+.am-new-bottom { flex-shrink:0; width:50px; height:50px; border-radius:50%; background:hsl(var(--apple-glass) / .9); box-shadow:var(--apple-shadow); backdrop-filter:blur(24px); }
 .am-list-bottom .am-search { background:hsl(var(--apple-glass) / .9); box-shadow:var(--apple-shadow); backdrop-filter:blur(24px); min-height:50px; }
 .am-thread-header .am-back,.am-thread-header .am-details { border-radius:50%; background:hsl(var(--apple-glass) / .8); box-shadow:var(--apple-shadow); }
 .am-phone .am-thread-header .am-details { width:40px; height:40px; }
