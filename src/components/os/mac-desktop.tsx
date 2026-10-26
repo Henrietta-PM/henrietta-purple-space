@@ -71,7 +71,7 @@ export function MacDesktop() {
   const now = useClock();
   const { theme, toggle: toggleTheme } = useOsTheme();
   const bounds = useRef<HTMLDivElement>(null);
-  const [windows, setWindows] = useState<WindowState[]>([{ id: "projects", z: 1, minimized: false, maximized: false }]);
+  const [windows, setWindows] = useState<WindowState[]>([]);
   const topZ = windows.reduce((max, win) => Math.max(max, win.z), 0);
   const focused = windows.filter((win) => !win.minimized).sort((a, b) => b.z - a.z)[0];
 
