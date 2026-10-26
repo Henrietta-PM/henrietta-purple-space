@@ -114,3 +114,7 @@
 .wx-phone { padding-top:20px; }
 .apple-app-layout:has(.wx-phone) .apple-tabbar { display:none; }
 .ios-app-body:has(.apple-maps) { padding:0; overflow:hidden; min-height:0; }
+.ios-home-hint { display:none; }
+.apple-contact-mac .os-contact-actions button { height:auto; }
+.os-contact-actions button { padding:12px 2px; }
+.apple-phone .apple-tabbar:has(button:only-child) { display:none; }
