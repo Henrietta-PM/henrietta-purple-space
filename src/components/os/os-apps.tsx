@@ -330,18 +330,51 @@ function MailCompose({ onCancel }: { onCancel: () => void }) {
   );
 }
 
-async function shareContact() {
-  const url = window.location.origin;
+const SHARE_URL = "https://hirehenrietta.lovable.app";
+
+function copyWithFallback(text: string): boolean {
+  const field = document.createElement("textarea");
+  field.value = text;
+  field.setAttribute("readonly", "");
+  field.style.position = "fixed";
+  field.style.opacity = "0";
+  document.body.appendChild(field);
+  field.select();
+  let copied = false;
   try {
-    if (navigator.share) {
-      await navigator.share({ title: "Henrietta Onwuneme, Product Manager", url });
+    copied = document.execCommand("copy");
+  } catch {
+    copied = false;
+  }
+  document.body.removeChild(field);
+  return copied;
+}
+
+async function copyShareLink() {
+  try {
+    await navigator.clipboard.writeText(SHARE_URL);
+    toast.success("Link copied");
+    return;
+  } catch {
+    if (copyWithFallback(SHARE_URL)) {
+      toast.success("Link copied");
       return;
     }
-    await navigator.clipboard.writeText(url);
-    toast.success("Link copied");
-  } catch {
-    // Visitor closed the share sheet
   }
+  toast(`Share this link: ${SHARE_URL}`);
+}
+
+async function shareContact() {
+  const data = { title: "Henrietta Onwuneme, Product Manager", text: "Henrietta Onwuneme, Product Manager", url: SHARE_URL };
+  if (typeof navigator.share === "function" && (!navigator.canShare || navigator.canShare(data))) {
+    try {
+      await navigator.share(data);
+      return;
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") return;
+    }
+  }
+  await copyShareLink();
 }
 
 function ContactApp() {
