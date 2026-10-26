@@ -57,7 +57,7 @@ export default function MacWidgets({ now, onLaunch }: MacWidgetsProps) {
   return (
     <div className="mac-widgets">
       <motion.div className="mw mw-sq mw-clock" {...enter(0.1)} aria-label="Clock">
-        <span className="mw-clock-ticks" aria-hidden="true" />
+        <span className="mw-cap">{format(now, "EEE d MMM")}</span>
         <span className="mw-clock-time">{format(now, "HH:mm")}</span>
       </motion.div>
 
