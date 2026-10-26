@@ -42,7 +42,6 @@ export default function MessagesApp({ compact = false }: { compact?: boolean }) 
         <p className="am-incoming">{person.quote}</p>
         <p className="am-person-role">{person.role}</p>
       </div>
-      <footer className="am-bottom">Read-only testimonial</footer>
     </section> : !compact && <div className="am-empty">No Conversation Selected</div>}
   </div>;
 }
