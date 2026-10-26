@@ -19,7 +19,8 @@ interface Organization {
 const OrganizationContext = createContext<Organization | null>(null);
 const MotionButton = motion.create(Button);
 
-export default function AppOrganizer({ storageKey, defaults, mobile = false, onLaunch, children, onPageEdge, openIds = [] }: {
+export default function AppOrganizer({ storageKey, defaults, mobile = false, onLaunch, children, onPageEdge, openIds = [], hideControls = false }: {
+  hideControls?: boolean;
   storageKey: string; defaults: AppLayout; mobile?: boolean; onLaunch: (app: OrganizedApp) => void; children: ReactNode;
   onPageEdge?: (direction: number) => void; openIds?: string[];
 }) {
@@ -95,10 +96,10 @@ export default function AppOrganizer({ storageKey, defaults, mobile = false, onL
         if (x < 28 || x > window.innerWidth - 28) { lastPageTurn.current = Date.now(); onPageEdge?.(x < 28 ? -1 : 1); }
       }} onDragEnd={endDrag} onDragCancel={() => setActive(null)}>
         {children}
-        <div className={`os-organize-controls ${mobile ? "phone" : "desktop"}`}>
+        {!hideControls && <div className={`os-organize-controls ${mobile ? "phone" : "desktop"}`}>
           {editing && <Button variant="ghost" size="icon" aria-label="Reset app layout" title="Reset app layout" onClick={() => { setLayout(defaults); setFolderId(null); }}><RotateCcw /></Button>}
           <Button variant="ghost" size="icon" aria-label={editing ? "Finish arranging apps" : "Arrange apps"} title={editing ? "Done" : "Arrange apps"} onClick={() => setEditing((value) => !value)}>{editing ? <Check /> : <Grip />}</Button>
-        </div>
+        </div>}
         <DragOverlay zIndex={150} dropAnimation={null}>{activeTile && <div className="os-drag-preview"><TileIcon tile={activeTile} /></div>}</DragOverlay>
         <AnimatePresence>{folder && <motion.div className="os-folder-layer" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: .18 }}>
           <Button variant="ghost" className="os-folder-backdrop" aria-label="Close folder" onClick={() => setFolderId(null)} />
