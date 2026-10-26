@@ -28,6 +28,15 @@ export function IphoneHome() {
   const [page, setPage] = useState(0);
   const [projectName, setProjectName] = useState<string | undefined>();
   const pagesRef = useRef<HTMLDivElement>(null);
+  const settleTimer = useRef<number>();
+  const handlePagesScroll = (element: HTMLDivElement) => {
+    setPage(Math.round(element.scrollLeft / element.clientWidth));
+    window.clearTimeout(settleTimer.current);
+    settleTimer.current = window.setTimeout(() => {
+      const target = Math.round(element.scrollLeft / element.clientWidth) * element.clientWidth;
+      if (Math.abs(element.scrollLeft - target) > 1) element.scrollTo({ left: target, behavior: "smooth" });
+    }, 120);
+  };
   const [showHint, setShowHint] = useState(false);
   const goHome = () => { setOpen(null); setProjectName(undefined); };
   useEffect(() => {
@@ -62,7 +71,7 @@ export function IphoneHome() {
       <StatusBar light />
       <ExplorationNotifications mobile enabled={!locked} activeApp={open ?? undefined} onLaunch={(id) => { setProjectName(undefined); launch(id); }} />
 
-      <div className="ios-pages" ref={pagesRef} onScroll={(e) => setPage(Math.round(e.currentTarget.scrollLeft / e.currentTarget.clientWidth))}>
+      <div className="ios-pages" ref={pagesRef} onScroll={(e) => handlePagesScroll(e.currentTarget)}>
       <div className="ios-home ios-page">
         <div className="ios-widgets">
           <div>
