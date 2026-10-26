@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
+import { Fragment, createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import { DndContext, DragOverlay, KeyboardSensor, MouseSensor, TouchSensor, pointerWithin, rectIntersection, useDraggable, useDroppable, useSensor, useSensors, type DragEndEvent } from "@dnd-kit/core";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, Grip, RotateCcw } from "lucide-react";
@@ -158,6 +158,6 @@ export function AppZone({ zone, className, children, desktop = false }: { zone: 
   const { setNodeRef, isOver } = useDroppable({ id: `zone:${zone}`, data: { zone } });
   return <div ref={setNodeRef} className={`${className ?? ""} os-app-zone ${desktop ? "os-free-zone" : ""} ${isOver ? "zone-over" : ""}`} data-app-zone={zone}>
     {children}
-    {context?.layout[zone]?.map((tile, index) => <MovableTile key={tile.id} tile={tile} zone={zone} index={index} desktop={desktop} />)}
+    {context?.layout[zone]?.map((tile, index) => <Fragment key={tile.id}>{className?.includes("os-mac-dock-apps") && tile.apps[0] === "hire" && <span className="mac-dock-divider" aria-hidden="true" />}<MovableTile tile={tile} zone={zone} index={index} desktop={desktop} /></Fragment>)}
   </div>;
 }
