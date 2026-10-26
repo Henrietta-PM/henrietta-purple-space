@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import DOMPurify from "dompurify";
-import { Bold, Highlighter, Italic, RotateCcw, Strikethrough, Underline } from "lucide-react";
+import { Bold, Highlighter, Italic, ListChecks, RotateCcw, SquarePen, Strikethrough, Underline } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
@@ -35,7 +35,7 @@ export default function EditableNote({ noteId, children }: { noteId: string; chi
     }
   };
 
-  const format = (command: "bold" | "italic" | "underline" | "strikeThrough" | "hiliteColor") => {
+  const format = (command: "bold" | "italic" | "underline" | "strikeThrough" | "hiliteColor" | "insertUnorderedList") => {
     ref.current?.focus();
     document.execCommand(command, false, command === "hiliteColor" ? "hsl(48 100% 60%)" : undefined);
     save();
@@ -72,10 +72,15 @@ export default function EditableNote({ noteId, children }: { noteId: string; chi
             <Button key={command} variant="ghost" size="icon" aria-label={label} title={label} onMouseDown={(event) => event.preventDefault()} onClick={() => format(command)}><Icon /></Button>
           ))}
         </div>}
-        <div className="an-bottom-bar">
-          <Button variant="ghost" className="an-aa" aria-label="Format" aria-pressed={formatting} title="Format" onMouseDown={(event) => event.preventDefault()} onClick={() => setFormatting((value) => !value)}>Aa</Button>
-          <Button variant="ghost" size="icon" aria-label="Highlight" title="Highlight" onMouseDown={(event) => event.preventDefault()} onClick={() => format("hiliteColor")}><Highlighter /></Button>
-          <Button variant="ghost" size="icon" aria-label="Restore original note" title="Restore original" disabled={!edited} onClick={reset}><RotateCcw /></Button>
+        <div className="an-bottom-row">
+          <div className="an-bottom-bar">
+            <Button variant="ghost" size="icon" aria-label="List" title="List" onMouseDown={(event) => event.preventDefault()} onClick={() => format("insertUnorderedList")}><ListChecks /></Button>
+            <Button variant="ghost" className="an-aa" aria-label="Format" aria-pressed={formatting} title="Format" onMouseDown={(event) => event.preventDefault()} onClick={() => setFormatting((value) => !value)}>Aa</Button>
+            <Button variant="ghost" size="icon" aria-label="Highlight" title="Highlight" onMouseDown={(event) => event.preventDefault()} onClick={() => format("hiliteColor")}><Highlighter /></Button>
+          </div>
+          {edited
+            ? <Button variant="ghost" size="icon" className="an-round" aria-label="Restore original note" title="Restore original" onClick={reset}><RotateCcw /></Button>
+            : <Button variant="ghost" size="icon" className="an-round" aria-label="Edit note" title="Edit" onClick={() => ref.current?.focus()}><SquarePen /></Button>}
         </div>
       </div>
     </>
