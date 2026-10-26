@@ -29,7 +29,6 @@ import ShopApp from "./shop-app";
 import JourneyMap from "./journey-map";
 import type { NoteId } from "@/data/notes";
 import { AppleSearch, AppleSections } from "./apple-app-chrome";
-import ProductChallenge from "./product-challenge";
 
 export type AppId = "projects" | "cv" | "letter" | "contact" | "shop" | "love" | "messages" | "health" | "reminders" | "maps" | "weather" | "camera" | "photos";
 export type LinkId = "hire" | "instagram" | "linkedin" | "x";
@@ -674,9 +673,9 @@ function RemindersApp({ compact }: { compact: boolean }) {
   const toggle = (id: string) => setDone((list) => (list.includes(id) ? list.filter((x) => x !== id) : [...list, id]));
   return (
     <div className="apple-reminders apple-height">
-    <AppleSections compact={compact} title="Reminders" sections={[{ id: "all", label: "All", icon: ListChecks }, { id: "completed", label: "Completed", icon: Check }, { id: "search", label: "Search", icon: Search }, { id: "challenge", label: "Challenge", icon: PenSquare }]} selected={section} onSelect={setSection}>
+    <AppleSections compact={compact} title="Reminders" sections={[{ id: "all", label: "All", icon: ListChecks }, { id: "completed", label: "Completed", icon: Check }, { id: "search", label: "Search", icon: Search }]} selected={section} onSelect={setSection}>
     <header className="apple-toolbar"><span /><h2>Reminders</h2><span /></header>
-    {section === "challenge" ? <ProductChallenge /> : <div className="os-rem">
+    <div className="os-rem">
       <h2 className="os-rem-title">How I Work <span>{workSteps.length - done.length}</span></h2>
       {section === "search" && <AppleSearch value={query} onChange={setQuery} label="Search work steps" />}
       <ul>
@@ -690,7 +689,7 @@ function RemindersApp({ compact }: { compact: boolean }) {
           );
         })}
       </ul>
-    </div>}
+    </div>
     </AppleSections>
     </div>
   );

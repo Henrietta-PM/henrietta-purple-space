@@ -13,4 +13,3 @@
 - Shared Apple app navigation provides phone tab bars and desktop sidebars, with app-specific content kept separate so portfolio facts and visitor actions remain unchanged.
 - My Journey is a keyless Leaflet/OpenStreetMap map showing only owner-confirmed places, with visitor city lookup done in the browser via Open-Meteo geocoding, so no location is invented and no key is needed.
 - Render a lightweight lock-screen fallback while OS app code loads and initialize the shared viewport hook synchronously, so phones never first mount the desktop shell; both shells start locked and defer exploration notifications until entry.
-- The How I Work challenge tool calls Lovable AI only through a streaming server function with an atomic hashed-network throttle and persistent access/billing pause; keep visitor challenges out of portfolio storage and distinguish suggestions from owner facts.
