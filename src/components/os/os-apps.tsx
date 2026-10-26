@@ -21,8 +21,9 @@ import { skillCategories } from "@/pages/CV";
 import { testimonials } from "@/components/Testimonials";
 import { journeySteps } from "@/components/JourneySection";
 import { workSteps } from "@/components/HowIWork";
+import WeatherApp from "./weather-app";
 
-export type AppId = "projects" | "cv" | "letter" | "contact" | "shop" | "love" | "messages" | "health" | "reminders" | "maps";
+export type AppId = "projects" | "cv" | "letter" | "contact" | "shop" | "love" | "messages" | "health" | "reminders" | "maps" | "weather";
 export type LinkId = "hire" | "instagram" | "linkedin" | "x";
 export type LauncherId = AppId | LinkId;
 
@@ -70,6 +71,7 @@ export const appTitles: Record<AppId, string> = {
   health: "Skills",
   reminders: "How I Work",
   maps: "My Journey",
+  weather: "Weather",
 };
 
 export const allProjects: Project[] = [...featuredProjects, ...projectsData].filter(
@@ -507,6 +509,7 @@ export function AppContent({ id, compact = false, projectName, onLaunch }: { id:
     case "health": return <SkillsApp />;
     case "reminders": return <RemindersApp />;
     case "maps": return <JourneyApp />;
+    case "weather": return <WeatherApp />;
   }
 }
 

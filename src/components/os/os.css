@@ -662,3 +662,27 @@ button.mw:hover { transform:translateZ(0); opacity:.92; }
 .mac-battery { display:flex; align-items:center; gap:5px; font-size:12px; }
 .mac-battery svg, .mac-menubar-right > svg { width:auto !important; height:12px !important; }
 .mac-menubar-left > svg { width:14px !important; height:16px !important; margin-top:-2px; }
+
+/* Weather app */
+.wx-app { min-height: 100%; padding: 24px 16px 40px; color: hsl(0 0% 100%); background: linear-gradient(180deg, hsl(210 60% 42%), hsl(215 55% 28%)); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif; display: flex; flex-direction: column; gap: 12px; }
+.wx-hero { display: flex; flex-direction: column; align-items: center; padding: 12px 0 16px; text-shadow: 0 1px 2px hsl(0 0% 0% / 0.15); }
+.wx-place { font-size: 28px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; }
+.wx-place svg { width: 14px; height: 14px; fill: currentColor; }
+.wx-temp { font-size: 88px; font-weight: 200; line-height: 1; margin-left: 20px; }
+.wx-sky { font-size: 18px; font-weight: 500; opacity: 0.9; }
+.wx-hl { font-size: 18px; font-weight: 500; }
+.wx-card { background: hsl(215 50% 20% / 0.35); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 16px; padding: 10px 14px; }
+.wx-cap { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; opacity: 0.6; padding-bottom: 8px; border-bottom: 1px solid hsl(0 0% 100% / 0.15); margin-bottom: 6px; }
+.wx-hours { display: flex; gap: 18px; overflow-x: auto; padding: 4px 2px; scrollbar-width: none; }
+.wx-hour { display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; min-width: 32px; }
+.wx-hour svg { width: 22px; height: 22px; }
+.wx-hour strong { font-size: 18px; font-weight: 500; }
+.wx-day { display: grid; grid-template-columns: 56px 26px 34px 1fr 34px; align-items: center; gap: 8px; padding: 9px 0; font-size: 17px; font-weight: 500; border-bottom: 1px solid hsl(0 0% 100% / 0.12); }
+.wx-day:last-child { border-bottom: 0; }
+.wx-day svg { width: 20px; height: 20px; }
+.wx-lo { opacity: 0.55; text-align: right; }
+.wx-bar { position: relative; height: 4px; border-radius: 4px; background: hsl(0 0% 0% / 0.2); }
+.wx-bar i { position: absolute; top: 0; bottom: 0; border-radius: 4px; background: linear-gradient(90deg, hsl(190 80% 60%), hsl(45 95% 60%)); }
+.wx-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.wx-tile strong { display: block; font-size: 30px; font-weight: 400; padding: 6px 0 10px; }
+button.mw-weather { cursor: pointer; text-align: left; font: inherit; color: inherit; }

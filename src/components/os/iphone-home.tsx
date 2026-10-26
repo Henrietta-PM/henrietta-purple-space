@@ -62,7 +62,7 @@ export function IphoneHome() {
       <div className="ios-home ios-page">
         <div className="ios-widgets">
           <div>
-            <button className="ios-w ios-w-weather" onClick={() => launch("projects")} aria-label="Weather in Lagos">
+            <button className="ios-w ios-w-weather" onClick={() => launch("weather")} aria-label="Weather in Lagos">
               <span className="ios-w-place">Lagos <Navigation aria-hidden="true" /></span>
               <strong>{weather ? `${weather.temp}°` : "--"}</strong>
               <sky.Icon className="ios-w-sky" aria-hidden="true" />
