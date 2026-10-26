@@ -600,3 +600,33 @@ button.mw:hover { transform:translateY(-2px); }
   mask-image:linear-gradient(180deg, transparent 0, hsl(0 0% 0%) 14px, hsl(0 0% 0%) calc(100% - 28px), transparent 100%); }
 .ios-on-library .ios-pages { height:calc(100% - 44px); }
 .ios-lib-page .os-library { padding-bottom:60px; }
+
+/* Mac widgets, Apple style refinement */
+.mac-widgets { gap:14px; font-family:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif; }
+.mac-widgets .mw { padding:14px; border-radius:22px; }
+.mac-widgets .mw-cap { font-size:11px; letter-spacing:.02em; }
+.mac-widgets .mw-clock { background:hsl(var(--os-glass-dark)); color:hsl(var(--os-on-dark)); align-items:flex-start; justify-content:space-between; }
+.mac-widgets .mw-clock-ticks { display:none; }
+.mac-widgets .mw-clock-time { transform:none; font-size:46px; font-weight:600; letter-spacing:-.03em; line-height:1; margin-top:auto; }
+.mac-widgets .mw-cal .mw-cap:first-child { color:hsl(4 90% 62%); opacity:1; font-weight:700; }
+.mac-widgets .mw-big { font-size:34px; font-weight:300; line-height:1; margin-top:2px; }
+.mac-widgets .mw-gap { margin-bottom:4px; font-size:10px; }
+.mac-widgets .mw-event { position:relative; padding:4px 6px 4px 10px; border-radius:6px; background:hsl(4 90% 62% / .22); font-size:11px; line-height:1.3; }
+.mac-widgets .mw-event::before { content:""; position:absolute; left:3px; top:4px; bottom:4px; width:3px; border-radius:2px; background:hsl(4 90% 62%); }
+.mac-widgets .mw-rem-head { margin-bottom:4px; }
+.mac-widgets .mw-rem-head span { font-size:13px; }
+.mac-widgets .mw-rem-head strong { font-size:20px; font-weight:600; }
+.mac-widgets .mw-rem-item { padding:5px 0; gap:7px; font-size:12px; }
+.mac-widgets .mw-ring { width:14px; height:14px; }
+.mac-widgets .mw-intro { height:auto; min-height:152px; justify-content:center; }
+.mac-widgets .mw-intro h1 { font-size:20px; margin:4px 0 6px; }
+.mac-widgets .mw-intro h1 span { font-size:24px; }
+.mac-widgets .mw-intro p { font-size:12px; line-height:1.45; }
+.mac-widgets .mw-temp { font-size:36px; font-weight:300; }
+.mac-widgets .mw-sky-label, .mac-widgets .mw-hl { font-size:11px; }
+@media (max-width:1100px) {
+  .mac-widgets { grid-template-columns:repeat(2,142px); gap:12px; }
+  .mac-widgets .mw { height:142px; padding:12px; }
+  .mac-widgets .mw-intro { order:5; height:auto; min-height:0; }
+  .mac-widgets .mw-clock-time { font-size:40px; }
+}
