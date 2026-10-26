@@ -73,7 +73,7 @@ export type Database = {
           display_name: string
           hidden?: boolean
           id?: string
-          message: string
+          message?: string
           photo_path?: string | null
         }
         Update: {
