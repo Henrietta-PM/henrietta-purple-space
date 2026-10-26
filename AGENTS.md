@@ -11,5 +11,5 @@
 - Notes uses single-screen folder/list/reader navigation on phone and independently scrollable folder/list/reader columns on Mac; retain working reader actions, allow visitor edits and highlights saved only in their own browser, and omit owner-only authoring tools so shared note content never changes.
 - Messages pins the original testimonials and lists public visitor messages from the guestbook function (kind message, same throttling and reporting), shared between phone and Mac; never invent message dates or replies.
 - Shared Apple app navigation provides phone tab bars and desktop sidebars, with app-specific content kept separate so portfolio facts and visitor actions remain unchanged.
-- My Journey uses a real map of the owner's known city without assigning geographic locations to career milestones, so the map never invents career locations.
+- My Journey is a keyless Leaflet/OpenStreetMap map showing only owner-confirmed places, with visitor city lookup done in the browser via Open-Meteo geocoding, so no location is invented and no key is needed.
 - Render a lightweight lock-screen fallback while OS app code loads and initialize the shared viewport hook synchronously, so phones never first mount the desktop shell; both shells start locked and defer exploration notifications until entry.
