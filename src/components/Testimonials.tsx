@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { useScrollFade } from "@/hooks/use-scroll-fade";
 
-const testimonials = [
+export const testimonials = [
   {
     quote: "I had the pleasure of working with Henrietta on Bloomie, where she served as Product Manager. Under her leadership, we successfully launched the MVP, a testament to her organized, user-focused approach and ability to deliver results under pressure. Henrietta is resourceful, calm under pressure, and deeply committed to building products that matter. I highly recommend her.",
     author: "Shile Owoka",

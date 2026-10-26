@@ -1,7 +1,7 @@
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import JourneyStep from "./JourneyStep";
 
-const journeySteps = [
+export const journeySteps = [
   {
     title: "Where I Started",
     text: "I began with an architecture background, balancing design, structure, and the human experience. It taught me to see products as systems that serve people.",

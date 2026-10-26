@@ -1,7 +1,7 @@
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import WorkStepCard from "./WorkStepCard";
 
-const workSteps = [
+export const workSteps = [
   {
     number: "01",
     title: "Listen with context",
