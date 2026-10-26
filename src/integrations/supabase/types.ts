@@ -83,6 +83,7 @@ export type Database = {
       visitor_posts: {
         Row: {
           created_at: string
+          delete_token_hash: string | null
           display_name: string
           hidden: boolean
           id: string
@@ -92,6 +93,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          delete_token_hash?: string | null
           display_name: string
           hidden?: boolean
           id?: string
@@ -101,6 +103,7 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          delete_token_hash?: string | null
           display_name?: string
           hidden?: boolean
           id?: string
