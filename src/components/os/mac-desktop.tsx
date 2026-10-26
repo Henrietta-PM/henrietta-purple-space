@@ -27,6 +27,7 @@ const windowSizes: Record<AppId, { w: number; h: number }> = {
   health: { w: 480, h: 600 },
   reminders: { w: 420, h: 460 },
   maps: { w: 460, h: 580 },
+  weather: { w: 420, h: 620 },
 };
 
 function MacWindow({ win, index, focused, bounds, onFocus, onClose, onMinimize, onMaximize, onLaunch }: {
