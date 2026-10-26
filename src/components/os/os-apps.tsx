@@ -648,7 +648,7 @@ function SkillsApp({ compact }: { compact: boolean }) {
         const shown = expanded ? group.items : group.items.slice(0, 4);
         return (
           <Button variant="ghost" key={group.title} className={`os-health-card os-health-${group.tone}`} onClick={() => setOpen(expanded ? null : group.title)} aria-expanded={expanded}>
-            <span className="os-health-head"><Activity aria-hidden="true" /><strong>{group.title}</strong><ChevronLeft className="os-health-chev" aria-hidden="true" /></span>
+            <span className="os-health-head"><Activity aria-hidden="true" /><strong>{group.title}</strong>{expanded ? <ChevronDown className="os-health-chev" aria-hidden="true" /> : <ChevronRight className="os-health-chev" aria-hidden="true" />}</span>
             <span className="os-health-value"><b>{group.items.length}</b> skills</span>
             <span className="os-health-list">{shown.join(" · ")}{!expanded && group.items.length > 4 ? ` · +${group.items.length - 4} more` : ""}</span>
           </Button>

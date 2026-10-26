@@ -128,3 +128,4 @@
 .apple-settings button[role=switch] > span { flex:none; background:hsl(var(--os-on-dark)); }
 .os-contact-group button.os-contact-row { height:auto; min-height:66px; align-items:flex-start; justify-content:center; border-radius:0; padding:11px 14px; }
 .os-contact-actions button:hover { color:hsl(var(--apple-blue)); }
+.apple-health .os-health-chev { transform:none; }
