@@ -133,7 +133,7 @@ interface LibItem { key: string; label: string; sub: string; icon: ReactNode; op
 
 function LibraryTile({ item }: { item: LibItem }) {
   return (
-    <button className="os-lib-tile os-lib-logo" onClick={item.open} aria-label={`Open ${item.label}`}>
+    <button className="os-lib-tile" onClick={item.open} aria-label={`Open ${item.label}`}>
       {item.icon}
     </button>
   );
