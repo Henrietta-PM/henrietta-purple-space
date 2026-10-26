@@ -83,8 +83,8 @@ export default function MacWidgets({ now, onLaunch }: MacWidgetsProps) {
 
       <motion.div className="mw mw-wide mw-intro" {...enter(0.34)}>
         <span className="mw-cap mw-accent">MyPvrpleSpace</span>
-        <h1>Henrietta <span className="font-handwritten">Onwuneme</span></h1>
-        <p>Hi, I'm Henrietta. Product management for me is about people, their needs, and the paths we create to meet them. I've shipped 5+ MVPs with up to 85% faster time to market.</p>
+        <h1>Hi, I'm&nbsp;<span className="font-handwritten">Henrietta.</span></h1>
+        <p>Product management for me is about people, their needs, and the paths we create to meet them. I've shipped 5+ MVPs with up to 85% faster time to market.</p>
       </motion.div>
 
       <motion.div className="mw mw-sq mw-weather" {...enter(0.42)} aria-label="Weather in Lagos">
