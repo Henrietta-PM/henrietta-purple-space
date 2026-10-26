@@ -44,12 +44,83 @@ export type Database = {
         }
         Relationships: []
       }
+      visitor_limits: {
+        Row: {
+          key: string
+          last_called_at: string
+        }
+        Insert: {
+          key: string
+          last_called_at?: string
+        }
+        Update: {
+          key?: string
+          last_called_at?: string
+        }
+        Relationships: []
+      }
+      visitor_posts: {
+        Row: {
+          created_at: string
+          display_name: string
+          hidden: boolean
+          id: string
+          message: string
+          photo_path: string | null
+        }
+        Insert: {
+          created_at?: string
+          display_name: string
+          hidden?: boolean
+          id?: string
+          message: string
+          photo_path?: string | null
+        }
+        Update: {
+          created_at?: string
+          display_name?: string
+          hidden?: boolean
+          id?: string
+          message?: string
+          photo_path?: string | null
+        }
+        Relationships: []
+      }
+      visitor_reports: {
+        Row: {
+          created_at: string
+          id: string
+          post_id: string
+          reason: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          post_id: string
+          reason: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          post_id?: string
+          reason?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "visitor_reports_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "visitor_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      claim_visitor_request: { Args: { request_key: string }; Returns: boolean }
     }
     Enums: {
       [_ in never]: never
