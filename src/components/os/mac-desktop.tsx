@@ -25,7 +25,7 @@ interface WindowState {
 const windowSizes: Record<AppId, { w: number; h: number }> = {
   projects: { w: 860, h: 560 },
   cv: { w: 640, h: 600 },
-  letter: { w: 560, h: 560 },
+  letter: { w: 900, h: 620 },
   contact: { w: 440, h: 420 },
   shop: { w: 640, h: 460 },
   love: { w: 420, h: 560 },
