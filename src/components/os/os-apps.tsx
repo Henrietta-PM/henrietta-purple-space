@@ -49,10 +49,10 @@ export const launchers: Launcher[] = [
   { id: "contact", name: "Contacts", icon: Mail, tone: "contact" },
   { id: "shop", name: "Shop", icon: ShoppingBag, tone: "shop" },
   { id: "love", name: "Likes", icon: Heart, tone: "love" },
-  { id: "messages", name: "Messages", icon: MessageCircle, tone: "messages" },
+  { id: "messages", name: "Testimonials", icon: MessageCircle, tone: "messages" },
   { id: "health", name: "Skills", icon: Activity, tone: "health" },
   { id: "reminders", name: "How I Work", icon: ListChecks, tone: "reminders" },
-  { id: "maps", name: "Journey", icon: MapPin, tone: "maps" },
+  { id: "maps", name: "My Journey", icon: MapPin, tone: "maps" },
   { id: "hire", name: "Hire Me", icon: Calendar, tone: "hire" },
   { id: "instagram", name: "Instagram", icon: Instagram, tone: "insta" },
   { id: "linkedin", name: "LinkedIn", icon: Linkedin, tone: "linkedin" },
@@ -66,10 +66,10 @@ export const appTitles: Record<AppId, string> = {
   contact: "Contact",
   shop: "Shop",
   love: "Likes",
-  messages: "Messages",
+  messages: "Testimonials",
   health: "Skills",
   reminders: "How I Work",
-  maps: "Journey",
+  maps: "My Journey",
 };
 
 export const allProjects: Project[] = [...featuredProjects, ...projectsData].filter(
