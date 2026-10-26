@@ -21,6 +21,7 @@ interface WindowState {
   maximized: boolean;
   initialNote?: NoteId;
   noteEntry?: number;
+  projectName?: string;
 }
 
 const windowSizes: Record<AppId, { w: number; h: number }> = {
@@ -72,7 +73,7 @@ function MacWindow({ win, index, focused, bounds, onFocus, onClose, onMinimize, 
         <span className="mac-title">{appTitles[win.id]}</span>
       </header>
       <div className="mac-window-body">
-        <AppContent key={win.id === "letter" ? win.noteEntry : win.id} id={win.id} initialNote={win.initialNote} onLaunch={onLaunch} />
+        <AppContent key={win.id === "letter" || win.id === "projects" ? `${win.id}-${win.noteEntry}` : win.id} id={win.id} initialNote={win.initialNote} projectName={win.projectName} onLaunch={onLaunch} />
       </div>
     </motion.section>
   );
@@ -95,14 +96,14 @@ export function MacDesktop() {
     });
   }, []);
 
-  const launch = (id: LauncherId, initialNote?: NoteId) => {
+  const launch = (id: LauncherId, initialNote?: NoteId, projectName?: string) => {
     if (isLink(id)) {
       window.open(externalLinks[id], "_blank", "noopener,noreferrer");
       return;
     }
     setWindows((list) => (list.some((w) => w.id === id)
-      ? list.map((win) => win.id === id && id === "letter" ? { ...win, initialNote, noteEntry: (win.noteEntry ?? 0) + 1 } : win)
-      : [...list, { id, z: topZ + 1, minimized: false, maximized: false, initialNote, noteEntry: 0 }]));
+      ? list.map((win) => win.id === id && (id === "letter" || id === "projects") ? { ...win, initialNote, projectName, noteEntry: (win.noteEntry ?? 0) + 1 } : win)
+      : [...list, { id, z: topZ + 1, minimized: false, maximized: false, initialNote, projectName, noteEntry: 0 }]));
     focus(id);
   };
 
@@ -131,7 +132,7 @@ export function MacDesktop() {
 
       <AppOrganizer storageKey="portfolio-desktop-apps-v1" hideControls={locked} defaults={desktopLayout} openIds={windows.map((win) => win.id)} onLaunch={(app) => { if (app.launcher) launch(app.launcher, app.id === "shortcut:letter" ? "letter" : undefined); }}>
       <div ref={bounds} className="mac-desktop">
-        <MacWidgets now={now} onLaunch={launch} />
+        <MacWidgets now={now} onLaunch={(id, note, project) => launch(id, note, project)} />
 
         <AppZone zone="desktop" desktop />
 

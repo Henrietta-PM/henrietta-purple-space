@@ -3,10 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 import { addDays, format } from "date-fns";
 import { Cloud, CloudRain, CloudSun, Navigation, Sun } from "lucide-react";
 import type { LauncherId } from "./os-apps";
+import type { NoteId } from "@/data/notes";
 
 interface MacWidgetsProps {
   now: Date;
-  onLaunch: (id: LauncherId) => void;
+  onLaunch: (id: LauncherId, note?: NoteId, project?: string) => void;
 }
 
 interface Weather {
@@ -37,9 +38,9 @@ export function describe(code: number) {
   return { label: "Rain", Icon: CloudRain };
 }
 
-const reminders: { label: string; id: LauncherId }[] = [
-  { label: "Read Henrietta's letter", id: "letter" },
-  { label: "Explore Sally", id: "projects" },
+const reminders: { label: string; id: LauncherId; note?: NoteId; project?: string }[] = [
+  { label: "Read Henrietta's letter", id: "letter", note: "letter" },
+  { label: "Explore Sally", id: "projects", project: "Sally" },
   { label: "Book a call", id: "hire" },
 ];
 
@@ -73,7 +74,7 @@ export default function MacWidgets({ now, onLaunch }: MacWidgetsProps) {
       <motion.div className="mw mw-sq mw-rem" {...enter(0.26)}>
         <div className="mw-rem-head"><span>Reminders</span><strong>{reminders.length}</strong></div>
         {reminders.map((r) => (
-          <button key={r.label} className="mw-rem-item" onClick={() => onLaunch(r.id)}>
+          <button key={r.label} className="mw-rem-item" onClick={() => onLaunch(r.id, r.note, r.project)}>
             <span className="mw-ring" aria-hidden="true" />
             <span className="mw-ellipsis">{r.label}</span>
           </button>
