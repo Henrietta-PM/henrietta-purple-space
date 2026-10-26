@@ -1,0 +1,39 @@
+.os-organize-controls { position:absolute; z-index:65; display:flex; gap:4px; color:hsl(var(--os-on-dark)); }
+.os-organize-controls.phone { top:38px; right:10px; }
+.os-organize-controls.desktop { right:20px; bottom:94px; }
+.os-organize-controls .inline-flex { width:30px; height:30px; border-radius:50%; color:inherit; background:hsl(var(--os-glass-dark)); backdrop-filter:blur(24px); }
+.os-app-zone { min-height:64px; }
+.os-tile-slot { min-width:0; display:flex; align-items:center; justify-content:center; border-radius:18px; }
+.os-organized-tile { position:relative; width:100%; height:auto; min-width:0; display:flex; flex-direction:column; gap:6px; padding:0; border:0; border-radius:14px; color:hsl(var(--os-on-dark)); background:transparent; white-space:normal; user-select:none; -webkit-user-select:none; -webkit-touch-callout:none; }
+.os-organized-tile:hover { background:transparent; color:hsl(var(--os-on-dark)); }
+.os-organized-tile .os-tile-name { width:100%; max-width:78px; height:16px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:12px; font-weight:500; line-height:16px; text-shadow:0 1px 3px hsl(var(--os-ink) / .65); }
+.os-organized-tile.editing { touch-action:none; cursor:grab; }
+.os-organized-tile.editing > .os-icon, .os-organized-tile.editing > .os-folder-icon { animation:os-app-wiggle .3s ease-in-out infinite alternate; }
+.os-organized-tile.dragging { opacity:.2; }
+.drop-target { background:hsl(var(--os-on-dark) / .25); outline:2px solid hsl(var(--os-on-dark) / .5); }
+.os-folder-icon { width:56px; height:56px; padding:7px; display:grid; grid-template-columns:repeat(3,1fr); grid-auto-rows:11px; gap:4px; border-radius:22%; background:hsl(var(--os-on-dark) / .2); backdrop-filter:blur(24px); }
+.os-folder-icon > span { width:100%; height:100%; overflow:hidden; }
+.os-folder-icon .os-icon { width:100% !important; height:100% !important; box-shadow:none; }
+.os-drag-preview { width:56px; height:56px; transform:scale(1.12); cursor:grabbing; }
+.ios-grid .os-tile-slot { width:100%; }
+.ios-dock.os-app-zone { gap:8px; overflow-x:auto; scrollbar-width:none; }
+.ios-dock .os-tile-slot { flex:0 0 56px; }
+.ios-dock .os-tile-name, .mac-dock .os-tile-name { display:none; }
+.mac-dock.os-app-zone { max-width:calc(100% - 24px); overflow-x:auto; scrollbar-width:none; }
+.mac-dock .os-tile-slot { flex:0 0 56px; padding:2px; }
+.mac-dock .os-organized-tile { width:56px; }
+.mac-dock .os-organized-tile:hover { transform:translateY(-3px); }
+.os-free-zone { position:absolute; inset:0; pointer-events:none; }
+.os-free-zone.zone-over { background:hsl(var(--os-on-dark) / .04); }
+.os-free-zone .free-position { position:absolute; width:88px; height:90px; pointer-events:auto; }
+.os-free-zone .os-organized-tile { cursor:grab; touch-action:none; }
+.os-organized-folder { z-index:100; max-width:360px; max-height:80dvh; overflow-y:auto; border-radius:28px; background:hsl(var(--os-window) / .96); color:hsl(var(--os-ink)); backdrop-filter:blur(40px); font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif; }
+.os-folder-name { margin:12px 0; border:0; background:transparent; color:hsl(var(--os-ink)); text-align:center; font-size:24px; font-weight:600; }
+.os-folder-apps { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:22px 12px; padding:12px 0; }
+.os-folder-app { display:flex; flex-direction:column; align-items:center; gap:4px; min-width:0; }
+.os-folder-app .os-organized-tile { color:hsl(var(--os-ink)); font-size:11px; }
+.os-folder-app .os-organized-tile > span:last-child { width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+@keyframes os-app-wiggle { from { rotate:-1.5deg; } to { rotate:1.5deg; } }
+@media (max-height:740px) and (max-width:767px) { .ios-grid .os-organized-tile > .os-icon, .ios-grid .os-folder-icon { width:52px; height:52px; } }
+@media (max-height:640px) and (max-width:767px) { .ios-grid .os-organized-tile > .os-icon, .ios-dock .os-organized-tile > .os-icon, .ios-grid .os-folder-icon, .ios-dock .os-folder-icon { width:46px; height:46px; } .ios-dock .os-tile-slot { flex-basis:46px; } }
+@media (prefers-reduced-motion:reduce) { .os-organized-tile.editing > * { animation:none; } }
