@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Camera, ChevronLeft, ChevronRight, Circle, Flag, ImagePlus, MessageCircle, Plus, RefreshCw, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Flag, Image as ImageIcon, LayoutGrid, RefreshCw, SwitchCamera, X, Zap } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { format } from "date-fns";
@@ -8,15 +8,21 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { supabase } from "@/integrations/supabase/client";
 import { friendlyError } from "@/lib/friendly-error";
+import { wallpapers } from "./use-wallpaper";
 import "./visitor-guestbook.css";
 
-interface Visit { id: string; display_name: string; message: string; photo_url: string | null; created_at: string }
-const visitSchema = z.object({ name: z.string().trim().min(1).max(40), message: z.string().trim().min(1).max(240), consent: z.literal(true) });
+export interface Visit { id: string; display_name: string; message: string; photo_url: string | null; created_at: string }
+const nameSchema = z.string().trim().min(1).max(40);
+const shoutSchema = z.object({ name: nameSchema, message: z.string().trim().min(1).max(240), consent: z.literal(true) });
 
 async function invokeGuestbook(body?: unknown) {
   const { data, error } = await supabase.functions.invoke("visitor-guestbook", { method: body ? "POST" : "GET", ...(body ? { body } : {}) });
   if (error) throw error;
   return data;
+}
+
+export function useVisitorPosts(enabled = true) {
+  return useQuery<Visit[]>({ queryKey: ["visitor-posts"], queryFn: async () => (await invokeGuestbook()).posts, enabled, refetchInterval: 30000 });
 }
 
 async function preparePhoto(file: File): Promise<string> {
@@ -33,20 +39,33 @@ async function preparePhoto(file: File): Promise<string> {
   return canvas.toDataURL("image/jpeg", 0.8);
 }
 
-export default function VisitorGuestbook({ mode, onOpen }: { mode: "camera" | "photos"; onOpen?: (id: "camera" | "photos") => void }) {
+function ReportDialog({ id, onClose }: { id: string | null; onClose: () => void }) {
+  const [reason, setReason] = useState("Inappropriate content");
+  const [busy, setBusy] = useState(false);
+  return (
+    <Dialog open={id !== null} onOpenChange={(open) => { if (!open) onClose(); }}>
+      <DialogContent><DialogTitle>Report this visit</DialogTitle>
+        <div className="visitor-report">
+          <label className="visitor-field">Reason<select value={reason} onChange={(event) => setReason(event.target.value)}>{["Inappropriate content", "Spam", "Privacy concern"].map((option) => <option key={option}>{option}</option>)}</select></label>
+          <Button disabled={busy} onClick={async () => { if (!id) return; setBusy(true); try { await invokeGuestbook({ action: "report", id, reason }); onClose(); toast.success("Report received. Thank you."); } catch (error) { toast.error(friendlyError(error, "Your report couldn't be sent. Please try again shortly.")); } finally { setBusy(false); } }}>Send report</Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+export function CameraApp({ onOpen }: { onOpen?: (id: "photos") => void }) {
   const client = useQueryClient();
+  const { data: posts = [] } = useVisitorPosts();
+  const lastPhoto = posts.find((post) => post.photo_url)?.photo_url ?? wallpapers[0];
+  const [stream, setStream] = useState<MediaStream | null>(null);
+  const [facing, setFacing] = useState<"user" | "environment">("user");
   const [photo, setPhoto] = useState<string>();
+  const [flash, setFlash] = useState(false);
   const [name, setName] = useState("");
-  const [message, setMessage] = useState("");
   const [consent, setConsent] = useState(false);
   const [busy, setBusy] = useState(false);
-  const [cameraBusy, setCameraBusy] = useState(false);
-  const [stream, setStream] = useState<MediaStream | null>(null);
-  const [reportId, setReportId] = useState<string | null>(null);
-  const [reason, setReason] = useState("Inappropriate content");
-  const [selectedPhoto, setSelectedPhoto] = useState<Visit | null>(null);
-  const shoutOutIndex = useRef(0);
-  const announcedVisit = useRef(false);
+  const [starting, setStarting] = useState(false);
   const video = useRef<HTMLVideoElement>(null);
   const fileInput = useRef<HTMLInputElement>(null);
   const mounted = useRef(true);
@@ -55,89 +74,169 @@ export default function VisitorGuestbook({ mode, onOpen }: { mode: "camera" | "p
     if (stream && video.current) video.current.srcObject = stream;
     return () => stream?.getTracks().forEach((track) => track.stop());
   }, [stream]);
-  const stopCamera = () => { stream?.getTracks().forEach((track) => track.stop()); setStream(null); };
-  const { data: posts = [], isLoading, isError, refetch } = useQuery<Visit[]>({ queryKey: ["visitor-posts"], queryFn: async () => (await invokeGuestbook()).posts, enabled: mode === "photos", refetchInterval: 30000 });
-  const photos = posts.filter((post) => post.photo_url);
-  const showShoutOut = (post: Visit) => toast(post.display_name, {
-    id: "visitor-shout-out",
-    description: post.message,
-    duration: 5000,
-    action: { label: "Report", onClick: () => setReportId(post.id) },
-  });
-  useEffect(() => {
-    const first = posts[0];
-    if (mode !== "photos" || !first || announcedVisit.current) return;
-    announcedVisit.current = true;
-    toast(first.display_name, { id: "visitor-shout-out", description: first.message, duration: 5000, action: { label: "Report", onClick: () => setReportId(first.id) } });
-  }, [mode, posts]);
-  const openPhoto = (post: Visit) => { setSelectedPhoto(post); showShoutOut(post); };
-  const selectedIndex = photos.findIndex((post) => post.id === selectedPhoto?.id);
-
-  const startCamera = async () => {
-    if (cameraBusy) return;
-    setCameraBusy(true);
+  const stop = () => { stream?.getTracks().forEach((track) => track.stop()); setStream(null); };
+  const start = async (mode = facing) => {
+    if (starting) return;
+    setStarting(true);
     try {
-      const next = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false });
+      const next = await navigator.mediaDevices.getUserMedia({ video: { facingMode: mode }, audio: false });
       if (!mounted.current) { next.getTracks().forEach((track) => track.stop()); return; }
-      setPhoto(undefined);
       setStream(next);
     } catch (error) { toast.error(friendlyError(error, "Camera unavailable. You can choose a photo instead.")); }
-    finally { if (mounted.current) setCameraBusy(false); }
+    finally { if (mounted.current) setStarting(false); }
   };
-  const capture = () => {
+  const shutter = () => {
     const source = video.current;
-    if (!source || !source.videoWidth) return;
+    if (!stream || !source?.videoWidth) { start(); return; }
     const canvas = document.createElement("canvas");
     const ratio = Math.min(1, 1200 / Math.max(source.videoWidth, source.videoHeight));
     canvas.width = Math.round(source.videoWidth * ratio);
     canvas.height = Math.round(source.videoHeight * ratio);
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+    if (facing === "user") { ctx.translate(canvas.width, 0); ctx.scale(-1, 1); }
     ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
+    setFlash(true);
+    window.setTimeout(() => setFlash(false), 180);
     setPhoto(canvas.toDataURL("image/jpeg", 0.8));
-    stopCamera();
+    stop();
   };
-  const submit = async (event: React.FormEvent) => {
+  const flip = () => { const next = facing === "user" ? "environment" : "user"; setFacing(next); if (stream) { stop(); start(next); } };
+  const post = async (event: React.FormEvent) => {
     event.preventDefault();
-    const parsed = visitSchema.safeParse({ name, message, consent });
-    if (!parsed.success) { toast.error("Add your name, a shout-out and permission to share publicly."); return; }
+    const parsed = nameSchema.safeParse(name);
+    if (!parsed.success || !consent || !photo) { toast.error("Add your name and permission to share publicly."); return; }
     setBusy(true);
     try {
-      await invokeGuestbook({ ...parsed.data, photo });
-      stopCamera();
-      setPhoto(undefined); setMessage(""); setConsent(false);
+      await invokeGuestbook({ name: parsed.data, consent: true, photo });
+      setPhoto(undefined); setConsent(false);
       await client.invalidateQueries({ queryKey: ["visitor-posts"] });
-      toast.success("Your visit is now in Photos.");
+      toast.success("Your photo is now in Photos.");
       onOpen?.("photos");
-    } catch (error) { toast.error(friendlyError(error, "Your visit couldn't be posted. Please try again shortly. Wait a minute if you just posted.")); }
+    } catch (error) { toast.error(friendlyError(error, "Your photo couldn't be posted. Wait a minute if you just posted.")); }
     finally { setBusy(false); }
   };
+
   return (
-    <div className={`visitor-app ${mode === "photos" ? "visitor-photos-app" : ""}`}>
-      <header className="visitor-toolbar"><h2>{mode === "camera" ? "Camera" : "Photos"}</h2><div className="visitor-header-actions">{mode === "photos" && <Button variant="ghost" size="icon" disabled={!posts.length} aria-label="Show visitor shout-out" title="Visitor shout-outs" onClick={() => { const post = posts[shoutOutIndex.current % posts.length]; if (post) { showShoutOut(post); shoutOutIndex.current += 1; } }}><MessageCircle /></Button>}<Button variant="ghost" size="icon" aria-label={mode === "photos" ? "Leave a shout-out" : "Open visitor photos"} title={mode === "photos" ? "Leave a shout-out" : "Visitor photos"} onClick={() => onOpen?.(mode === "photos" ? "camera" : "photos")}>{mode === "photos" ? <Plus /> : <ImagePlus />}</Button></div></header>
-      {mode === "camera" ? <>
-        <div className="visitor-preview">{stream ? <video ref={video} autoPlay playsInline muted aria-label="Camera preview" /> : photo ? <img src={photo} alt="Your photo preview" /> : <Camera className="h-12 w-12 text-muted-foreground" />}</div>
-        <div className="visitor-tools">
-          {stream ? <><Button variant="ghost" size="icon" onClick={capture} aria-label="Take photo" title="Take photo"><Circle /></Button><Button variant="ghost" size="icon" onClick={stopCamera} aria-label="Stop camera" title="Stop camera"><X /></Button></> : <Button variant="ghost" size="icon" onClick={startCamera} disabled={cameraBusy} aria-label="Start camera" title="Start camera"><Camera /></Button>}
-          <Button variant="ghost" size="icon" onClick={() => fileInput.current?.click()} aria-label="Choose photo" title="Choose photo"><ImagePlus /></Button>
-          {photo && <Button variant="ghost" size="icon" onClick={() => setPhoto(undefined)} aria-label="Remove photo" title="Remove photo"><X /></Button>}
-          <input ref={fileInput} type="file" accept="image/*" className="hidden" onChange={async (event) => { const input = event.currentTarget; const file = input.files?.[0]; if (!file) return; try { const result = await preparePhoto(file); stopCamera(); setPhoto(result); } catch (error) { toast.error(friendlyError(error, "Choose a photo under 15 MB that your browser can open.")); } input.value = ""; }} />
-        </div>
-        <form className="visitor-form" onSubmit={submit}>
-          <label className="visitor-field">Your name<input value={name} onChange={(event) => setName(event.target.value)} maxLength={40} required autoComplete="nickname" /></label>
-          <label className="visitor-field">Your shout-out<textarea value={message} onChange={(event) => setMessage(event.target.value)} placeholder="Henrietta was hia" maxLength={240} required rows={3} /></label>
-          <label className="visitor-consent"><input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} required /><span>I agree to publish my name, shout-out and optional photo for everyone to see. I have permission from anyone in my photo.</span></label>
-          <Button type="submit" disabled={busy}>{busy ? "Posting..." : "Post my visit"}</Button>
+    <div className="cam-app">
+      <div className="cam-top"><Zap aria-hidden="true" /><span className="cam-top-dot" /><Button variant="ghost" size="icon" className="cam-round" aria-label="Choose from your photos" onClick={() => fileInput.current?.click()}><ImageIcon /></Button></div>
+      <div className="cam-view">
+        {photo ? <img src={photo} alt="Your photo" /> : stream ? <video ref={video} autoPlay playsInline muted aria-label="Camera preview" className={facing === "user" ? "is-mirror" : ""} /> : (
+          <button type="button" className="cam-allow" onClick={() => start()} disabled={starting}>{starting ? "Starting camera..." : "Tap to turn on the camera"}<small>Nothing is shared until you post it.</small></button>
+        )}
+        {flash && <span className="cam-flash" />}
+      </div>
+      {photo ? (
+        <form className="cam-review" onSubmit={post}>
+          <input value={name} onChange={(event) => setName(event.target.value)} maxLength={40} placeholder="Your name" aria-label="Your name" autoComplete="nickname" />
+          <label className="cam-consent"><input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} /><span>Share my name and photo publicly. Everyone in it agreed.</span></label>
+          <div className="cam-review-actions"><Button type="button" variant="ghost" onClick={() => { setPhoto(undefined); start(); }}>Retake</Button><Button type="submit" disabled={busy}>{busy ? "Posting..." : "Use Photo"}</Button></div>
         </form>
-      </> : <>
-        {isLoading && <p className="visitor-empty">Loading visits...</p>}
-        {isError && <div className="visitor-empty"><p>Visits couldn't load.</p><Button variant="ghost" onClick={() => refetch()}><RefreshCw /> Try again</Button></div>}
-        {!isLoading && !isError && !posts.length && <div className="visitor-empty"><p>No visits yet.</p><Button variant="ghost" onClick={() => onOpen?.("camera")}><Plus /> Leave the first shout-out</Button></div>}
-        <div className="visitor-photo-grid">{photos.map((post) => <Button variant="ghost" className="visitor-photo-tile" key={post.id} aria-label={`Open photo by ${post.display_name}`} onClick={() => openPhoto(post)}><img src={post.photo_url ?? undefined} alt={`Photo shared by ${post.display_name}`} loading="lazy" referrerPolicy="no-referrer" /></Button>)}</div>
-        {!isLoading && !isError && posts.length > 0 && <footer className="visitor-photo-count">{photos.length} {photos.length === 1 ? "Photo" : "Photos"}</footer>}
-      </>}
-      <Dialog open={selectedPhoto !== null} onOpenChange={(open) => { if (!open) setSelectedPhoto(null); }}><DialogContent className="visitor-photo-viewer"><DialogTitle className="sr-only">Visitor photo</DialogTitle>{selectedPhoto && <><header className="visitor-photo-date"><time dateTime={selectedPhoto.created_at}>{format(new Date(selectedPhoto.created_at), "d MMMM yyyy")}</time></header><img className="visitor-full-photo" src={selectedPhoto.photo_url ?? undefined} alt={`Photo shared by ${selectedPhoto.display_name}`} referrerPolicy="no-referrer" /><footer className="visitor-photo-controls"><Button variant="ghost" size="icon" disabled={selectedIndex <= 0} aria-label="Previous photo" onClick={() => { const previous = photos[selectedIndex - 1]; if (previous) openPhoto(previous); }}><ChevronLeft /></Button><Button variant="ghost" size="icon" aria-label="Show photo shout-out" onClick={() => showShoutOut(selectedPhoto)}><MessageCircle /></Button><Button variant="ghost" size="icon" aria-label="Report photo" onClick={() => { setReportId(selectedPhoto.id); setSelectedPhoto(null); }}><Flag /></Button><Button variant="ghost" size="icon" disabled={selectedIndex < 0 || selectedIndex >= photos.length - 1} aria-label="Next photo" onClick={() => { const next = photos[selectedIndex + 1]; if (next) openPhoto(next); }}><ChevronRight /></Button></footer></>}</DialogContent></Dialog>
-      <Dialog open={reportId !== null} onOpenChange={(open) => { if (!open) setReportId(null); }}><DialogContent><DialogTitle>Report this visit</DialogTitle><div className="visitor-report"><label className="visitor-field">Reason<select value={reason} onChange={(event) => setReason(event.target.value)}>{["Inappropriate content", "Spam", "Privacy concern"].map((option) => <option key={option}>{option}</option>)}</select></label><Button disabled={busy} onClick={async () => { if (!reportId) return; setBusy(true); try { await invokeGuestbook({ action: "report", id: reportId, reason }); setReportId(null); toast.success("Report received. Thank you."); } catch (error) { toast.error(friendlyError(error, "Your report couldn't be sent. Please try again shortly.")); } finally { setBusy(false); } }}>Send report</Button></div></DialogContent></Dialog>
+      ) : (
+        <>
+          <div className="cam-modes" aria-hidden="true"><span>VIDEO</span><span className="on">PHOTO</span><span>PORTRAIT</span></div>
+          <div className="cam-bar">
+            <button type="button" className="cam-thumb" aria-label="Open Photos" onClick={() => onOpen?.("photos")}><img src={lastPhoto} alt="" /></button>
+            <button type="button" className="cam-shutter" aria-label="Take photo" onClick={shutter}><span /></button>
+            <Button variant="ghost" size="icon" className="cam-round cam-flip" aria-label="Switch camera" onClick={flip}><SwitchCamera /></Button>
+          </div>
+        </>
+      )}
+      <input ref={fileInput} type="file" accept="image/*" className="hidden" onChange={async (event) => { const input = event.currentTarget; const file = input.files?.[0]; if (!file) return; try { const result = await preparePhoto(file); stop(); setPhoto(result); } catch (error) { toast.error(friendlyError(error, "Choose a photo under 15 MB that your browser can open.")); } input.value = ""; }} />
     </div>
   );
 }
+
+interface Shot { id: string; src: string; date?: string; by?: string; visitId?: string }
+
+export function PhotosApp() {
+  const { data: posts = [], isLoading, isError, refetch } = useVisitorPosts();
+  const [tab, setTab] = useState<"library" | "albums">("library");
+  const [album, setAlbum] = useState<"all" | "henrietta" | "visitors">("all");
+  const [index, setIndex] = useState<number | null>(null);
+  const [reportId, setReportId] = useState<string | null>(null);
+  const visitors: Shot[] = posts.filter((post) => post.photo_url).map((post) => ({ id: post.id, src: post.photo_url!, date: post.created_at, by: post.display_name, visitId: post.id }));
+  const mine: Shot[] = wallpapers.map((src, i) => ({ id: `h-${i}`, src, by: "Henrietta" }));
+  const shots = album === "henrietta" ? mine : album === "visitors" ? visitors : [...visitors, ...mine];
+  const current = index === null ? null : shots[index];
+  const title = album === "henrietta" ? "Henrietta" : album === "visitors" ? "Visitors" : "Library";
+  const albums = [{ id: "henrietta" as const, name: "Henrietta", items: mine }, { id: "visitors" as const, name: "Visitors", items: visitors }];
+
+  return (
+    <div className="ph-app">
+      <header className="ph-head">
+        {album !== "all" && <Button variant="ghost" size="icon" aria-label="Back to albums" onClick={() => { setAlbum("all"); setTab("albums"); }}><ChevronLeft /></Button>}
+        <h2>{tab === "albums" && album === "all" ? "Albums" : title}</h2>
+      </header>
+      <div className="ph-body">
+        {tab === "albums" && album === "all" ? (
+          <div className="ph-albums">{albums.map((item) => (
+            <button key={item.id} type="button" className="ph-album" onClick={() => { setAlbum(item.id); setTab("library"); }}>
+              <span className="ph-album-cover">{item.items[0] ? <img src={item.items[0].src} alt="" loading="lazy" referrerPolicy="no-referrer" /> : <ImageIcon />}</span>
+              <strong>{item.name}</strong><small>{item.items.length}</small>
+            </button>
+          ))}</div>
+        ) : (
+          <>
+            {isError && album !== "henrietta" && <p className="ph-note">Visitor photos couldn't load. <button type="button" onClick={() => refetch()}><RefreshCw className="inline h-3 w-3" /> Try again</button></p>}
+            {isLoading && album !== "henrietta" && <p className="ph-note">Loading visitor photos...</p>}
+            <div className="ph-grid">{shots.map((shot, i) => (
+              <button key={shot.id} type="button" className="ph-tile" aria-label={`Open photo by ${shot.by}`} onClick={() => setIndex(i)}><img src={shot.src} alt="" loading="lazy" referrerPolicy="no-referrer" /></button>
+            ))}</div>
+            <p className="ph-count">{shots.length} Photos</p>
+          </>
+        )}
+      </div>
+      <nav className="ph-tabs" aria-label="Photos sections">
+        <button type="button" className={tab === "library" && album === "all" ? "on" : ""} onClick={() => { setAlbum("all"); setTab("library"); }}><ImageIcon />Library</button>
+        <button type="button" className={tab === "albums" || album !== "all" ? "on" : ""} onClick={() => { setAlbum("all"); setTab("albums"); }}><LayoutGrid />Albums</button>
+      </nav>
+      <Dialog open={current !== null} onOpenChange={(open) => { if (!open) setIndex(null); }}>
+        <DialogContent className="ph-viewer"><DialogTitle className="sr-only">Photo</DialogTitle>
+          {current && index !== null && <>
+            <header className="ph-viewer-head"><strong>{current.by}</strong>{current.date && <time dateTime={current.date}>{format(new Date(current.date), "d MMMM yyyy")}</time>}</header>
+            <img className="ph-full" src={current.src} alt={`Photo by ${current.by}`} referrerPolicy="no-referrer" />
+            <footer className="ph-viewer-bar">
+              <Button variant="ghost" size="icon" disabled={index <= 0} aria-label="Previous photo" onClick={() => setIndex(index - 1)}><ChevronLeft /></Button>
+              {current.visitId ? <Button variant="ghost" size="icon" aria-label="Report photo" onClick={() => { setReportId(current.visitId!); setIndex(null); }}><Flag /></Button> : <span />}
+              <Button variant="ghost" size="icon" disabled={index >= shots.length - 1} aria-label="Next photo" onClick={() => setIndex(index + 1)}><ChevronRight /></Button>
+            </footer>
+          </>}
+        </DialogContent>
+      </Dialog>
+      <ReportDialog id={reportId} onClose={() => setReportId(null)} />
+    </div>
+  );
+}
+
+export function ShoutOutComposer({ onClose }: { onClose: () => void }) {
+  const client = useQueryClient();
+  const [name, setName] = useState("");
+  const [message, setMessage] = useState("");
+  const [consent, setConsent] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const submit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    const parsed = shoutSchema.safeParse({ name, message, consent });
+    if (!parsed.success) { toast.error("Add your name, a shout-out and permission to share publicly."); return; }
+    setBusy(true);
+    try {
+      await invokeGuestbook(parsed.data);
+      await client.invalidateQueries({ queryKey: ["visitor-posts"] });
+      toast.success("Shout-out posted.");
+      onClose();
+    } catch (error) { toast.error(friendlyError(error, "Your shout-out couldn't be posted. Wait a minute if you just posted.")); }
+    finally { setBusy(false); }
+  };
+  return (
+    <form className="shout-form" onSubmit={submit}>
+      <div className="shout-form-head"><strong>Leave a shout-out</strong><Button type="button" variant="ghost" size="icon" aria-label="Close" onClick={onClose}><X /></Button></div>
+      <input value={name} onChange={(event) => setName(event.target.value)} maxLength={40} placeholder="Your name" aria-label="Your name" autoComplete="nickname" />
+      <textarea value={message} onChange={(event) => setMessage(event.target.value)} maxLength={240} rows={2} placeholder="Henrietta was hia" aria-label="Your shout-out" />
+      <label className="cam-consent"><input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} /><span>Show my name and shout-out to everyone.</span></label>
+      <Button type="submit" disabled={busy}>{busy ? "Posting..." : "Post"}</Button>
+    </form>
+  );
+}
+
+export { ReportDialog };

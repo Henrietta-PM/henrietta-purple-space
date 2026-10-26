@@ -686,3 +686,24 @@ button.mw:hover { transform:translateZ(0); opacity:.92; }
 .wx-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .wx-tile strong { display: block; font-size: 30px; font-weight: 400; padding: 6px 0 10px; }
 button.mw-weather { cursor: pointer; text-align: left; font: inherit; color: inherit; }
+.os-love-report { margin-left:6px; font-size:12px; color:hsl(var(--os-ink-soft)); text-decoration:underline; }
+
+/* Short phone screens: compress the home screen so every icon stays visible above the dock */
+.ios-page { overflow-y:auto; scrollbar-width:none; }
+.ios-page::-webkit-scrollbar { display:none; }
+@media (max-height:740px) {
+  .ios-home { padding-top:4px; }
+  .ios-widgets { gap:14px; margin-bottom:12px; }
+  .ios-w { aspect-ratio:auto; height:clamp(118px, 22dvh, 160px); border-radius:20px; }
+  .ios-grid { row-gap:12px; }
+  .ios-app .os-icon-lg { width:52px; height:52px; }
+}
+@media (max-height:640px) {
+  .ios-w { height:clamp(104px, 20dvh, 130px); }
+  .ios-w-notes-body p { display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+  .ios-app .os-icon-lg, .ios-dock .os-icon-lg { width:46px; height:46px; }
+  .ios-app { font-size:11px; gap:4px; }
+  .ios-dock { padding:8px 12px; }
+  .ios-pages { height:calc(100% - 170px); }
+  .ios-dots { bottom:90px; }
+}

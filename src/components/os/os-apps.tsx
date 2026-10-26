@@ -24,7 +24,7 @@ import { testimonials } from "@/components/Testimonials";
 import { journeySteps } from "@/components/JourneySection";
 import { workSteps } from "@/components/HowIWork";
 import WeatherApp from "./weather-app";
-import VisitorGuestbook from "./visitor-guestbook";
+import { CameraApp, PhotosApp, ReportDialog, ShoutOutComposer, useVisitorPosts } from "./visitor-guestbook";
 import { Camera, Images } from "lucide-react";
 
 export type AppId = "projects" | "cv" | "letter" | "contact" | "shop" | "love" | "messages" | "health" | "reminders" | "maps" | "weather" | "camera" | "photos";
@@ -430,7 +430,10 @@ async function fetchHearts() {
 
 function LoveApp() {
   const [sendOpen, setSendOpen] = useState(false);
+  const [composing, setComposing] = useState(false);
+  const [reportId, setReportId] = useState<string | null>(null);
   const { data: hearts = [], isLoading } = useQuery({ queryKey: ["hearts-feed"], queryFn: fetchHearts, refetchInterval: 30000 });
+  const { data: visits = [] } = useVisitorPosts();
   const { data: total = 0 } = useQuery({
     queryKey: ["hearts-total"],
     queryFn: async () => {
@@ -440,11 +443,16 @@ function LoveApp() {
     },
     refetchInterval: 30000,
   });
+  type Activity = { id: string; created_at: string; kind: "like" | "shout" | "photo"; name?: string; message?: string; photo?: string | null; visitId?: string };
+  const activity: Activity[] = [
+    ...hearts.map((h) => ({ id: `h-${h.id}`, created_at: h.created_at, kind: "like" as const })),
+    ...visits.map((v) => ({ id: `v-${v.id}`, created_at: v.created_at, kind: v.message ? "shout" as const : "photo" as const, name: v.display_name, message: v.message, photo: v.photo_url, visitId: v.id })),
+  ].sort((a, b) => b.created_at.localeCompare(a.created_at));
   const now = new Date();
   const groups = [
-    { label: "Today", items: hearts.filter((h) => differenceInHours(now, new Date(h.created_at)) < 24) },
-    { label: "This week", items: hearts.filter((h) => { const d = differenceInDays(now, new Date(h.created_at)); return differenceInHours(now, new Date(h.created_at)) >= 24 && d < 7; }) },
-    { label: "Earlier", items: hearts.filter((h) => differenceInDays(now, new Date(h.created_at)) >= 7) },
+    { label: "Today", items: activity.filter((h) => differenceInHours(now, new Date(h.created_at)) < 24) },
+    { label: "This week", items: activity.filter((h) => { const d = differenceInDays(now, new Date(h.created_at)); return differenceInHours(now, new Date(h.created_at)) >= 24 && d < 7; }) },
+    { label: "Earlier", items: activity.filter((h) => differenceInDays(now, new Date(h.created_at)) >= 7) },
   ].filter((g) => g.items.length > 0);
   const ago = (date: string) => {
     const d = new Date(date);
@@ -461,23 +469,31 @@ function LoveApp() {
       <div className="os-love-cta">
         <span className="os-love-ring"><img src={portrait} alt="" /></span>
         <div><strong>mypvrplespace</strong><small>{total.toLocaleString()} {total === 1 ? "like" : "likes"}</small></div>
+        <Button size="sm" variant="secondary" onClick={() => setComposing((v) => !v)}><MessageCircle /> Shout-out</Button>
         <Button size="sm" onClick={() => setSendOpen(true)}><Heart /> Like</Button>
       </div>
+      {composing && <ShoutOutComposer onClose={() => setComposing(false)} />}
       {isLoading && <p className="os-muted os-love-empty">Loading activity</p>}
-      {!isLoading && hearts.length === 0 && <p className="os-muted os-love-empty">No likes yet. Be the first.</p>}
+      {!isLoading && activity.length === 0 && <p className="os-muted os-love-empty">No activity yet. Be the first.</p>}
       {groups.map((group) => (
         <section key={group.label}>
           <h3 className="os-love-head">{group.label}</h3>
-          {group.items.map((h) => (
-            <div key={h.id} className="os-love-row">
-              <span className="os-love-avatar" aria-hidden="true"><User /><Heart className="os-love-badge" /></span>
-              <p><strong>Someone</strong> liked your portfolio. <span className="os-muted">{ago(h.created_at)}</span></p>
-              <img src={portrait} alt="" className="os-love-thumb" />
+          {group.items.map((item) => (
+            <div key={item.id} className="os-love-row">
+              <span className="os-love-avatar" aria-hidden="true"><User />{item.kind === "like" ? <Heart className="os-love-badge" /> : <MessageCircle className="os-love-badge" />}</span>
+              <p>
+                <strong>{item.name ?? "Someone"}</strong>{" "}
+                {item.kind === "like" ? "liked your portfolio." : item.kind === "photo" ? "stopped by and shared a photo." : <>left a shout-out: {item.message}</>}{" "}
+                <span className="os-muted">{ago(item.created_at)}</span>
+                {item.visitId && <button type="button" className="os-love-report" onClick={() => setReportId(item.visitId!)}>Report</button>}
+              </p>
+              <img src={item.photo ?? portrait} alt="" className="os-love-thumb" referrerPolicy="no-referrer" />
             </div>
           ))}
         </section>
       ))}
       <HeartModal isOpen={sendOpen} onClose={() => setSendOpen(false)} />
+      <ReportDialog id={reportId} onClose={() => setReportId(null)} />
     </div>
   );
 }
@@ -518,8 +534,8 @@ export function AppContent({ id, compact = false, projectName, onLaunch }: { id:
     case "reminders": return <RemindersApp />;
     case "maps": return <JourneyApp />;
     case "weather": return <WeatherApp />;
-    case "camera": return <VisitorGuestbook mode="camera" onOpen={onLaunch} />;
-    case "photos": return <VisitorGuestbook mode="photos" onOpen={onLaunch} />;
+    case "camera": return <CameraApp onOpen={onLaunch} />;
+    case "photos": return <PhotosApp />;
   }
 }
 

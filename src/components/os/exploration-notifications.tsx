@@ -2,10 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { useVisitorPosts } from "./visitor-guestbook";
 import { AppIcon, launchers, type AppId, type LauncherId } from "./os-apps";
 import "./exploration-notifications.css";
 
-const notices: { app: AppId; title: string; body: string }[] = [
+type Notice = { app: AppId; title: string; body: string; key?: string };
+const notices: Notice[] = [
   { app: "love", title: "Enjoying your visit?", body: "Leave a heart for my portfolio." },
   { app: "projects", title: "A look at my work", body: "The products I've worked on, and the stories behind them." },
   { app: "messages", title: "From people I've worked with", body: "A few words from my teammates and collaborators." },
@@ -18,12 +22,32 @@ export default function ExplorationNotifications({ enabled = true, mobile = fals
   activeApp?: string;
   onLaunch: (id: LauncherId) => void;
 }) {
-  const [notice, setNotice] = useState<(typeof notices)[number] | null>(null);
+  const [notice, setNotice] = useState<Notice | null>(null);
   const [paused, setPaused] = useState(false);
   const nextIndex = useRef(0);
   const currentApp = useRef(activeApp);
   const reduceMotion = useReducedMotion();
   currentApp.current = activeApp;
+  const { data: hearts } = useQuery({ queryKey: ["hearts-live"], enabled, refetchInterval: 30000, queryFn: async () => {
+    const { data, error } = await supabase.from("hearts").select("id").order("created_at", { ascending: false }).limit(20);
+    if (error) throw error;
+    return data ?? [];
+  } });
+  const { data: visits } = useVisitorPosts(enabled);
+  const seen = useRef<Set<string> | null>(null);
+  useEffect(() => {
+    if (!hearts || !visits) return;
+    const ids = [...hearts.map((h) => `h-${h.id}`), ...visits.map((v) => `v-${v.id}`)];
+    if (!seen.current) { seen.current = new Set(ids); return; }
+    const known = seen.current;
+    const fresh = ids.filter((id) => !known.has(id));
+    fresh.forEach((id) => known.add(id));
+    const latest = fresh[0];
+    if (!latest || currentApp.current === "love") return;
+    if (latest.startsWith("h-")) { setNotice({ app: "love", key: latest, title: "New like", body: "Someone just liked this portfolio." }); return; }
+    const visit = visits.find((v) => `v-${v.id}` === latest);
+    if (visit) setNotice({ app: "love", key: latest, title: visit.display_name, body: visit.message || "Stopped by and shared a photo." });
+  }, [hearts, visits]);
 
   useEffect(() => {
     if (!enabled) return;
@@ -60,7 +84,7 @@ export default function ExplorationNotifications({ enabled = true, mobile = fals
       <AnimatePresence>
         {enabled && notice && launcher && (
           <motion.aside
-            key={notice.app}
+            key={notice.key ?? notice.app}
             className="os-exploration-notice"
             aria-label={`${launcher.name} notification`}
             initial={reduceMotion ? { opacity: 0 } : { opacity: 0, x: mobile ? 0 : 35, y: mobile ? -70 : 0 }}
