@@ -1,5 +1,4 @@
-.os-notes-app { --notes-paper:0 0% 100%; --notes-group:240 5% 96%; --notes-accent:42 100% 40%; --notes-selected:43 95% 85%; height:100%; min-height:100%; color:hsl(var(--os-ink)); background:hsl(var(--notes-paper)); font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif; letter-spacing:0; }
-.os-dark .os-notes-app { --notes-paper:0 0% 0%; --notes-group:240 2% 11%; --notes-accent:45 100% 55%; --notes-selected:42 70% 22%; }
+.os-notes-app { height:100%; min-height:100%; color:hsl(var(--os-ink)); background:hsl(var(--notes-paper)); font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif; letter-spacing:0; }
 .an-toolbar { flex-shrink:0; min-height:48px; padding:4px 12px; display:flex; align-items:center; justify-content:space-between; gap:8px; background:hsl(var(--notes-paper) / .92); }
 .an-toolbar .an-back { padding:0 4px; color:hsl(var(--notes-accent)); font-size:17px; font-weight:400; }
 .an-back svg { width:24px; height:24px; }

@@ -102,11 +102,14 @@ All colors MUST be HSL.
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
-  .dark {
+  .os-dark {
     --notes-paper: 0 0% 0%;
     --notes-group: 240 2% 11%;
     --notes-accent: 45 100% 55%;
     --notes-selected: 42 70% 22%;
+  }
+
+  .dark {
     --background: 253 35% 12%;
     --foreground: 0 0% 98%;
 
