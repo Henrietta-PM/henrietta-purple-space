@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { format } from "date-fns";
 import { BatteryFull, Check, Navigation, Settings, Signal, Wifi } from "lucide-react";
 import portrait from "@/assets/henrietta-portrait.jpg";
-import { AppContent, AppIcon, appTitles, externalLinks, isLink, launchers, type AppId, type LauncherId } from "./os-apps";
+import { AppContent, AppIcon, AppLibrary, appTitles, externalLinks, isLink, launchers, type AppId, type LauncherId } from "./os-apps";
 import { useClock } from "./use-clock";
 import { IphoneLock } from "./iphone-lock";
 
@@ -123,9 +123,12 @@ export function IphoneHome() {
           ))}
         </div>
       </div>
+      <div className="ios-page ios-lib-page ios-app-glass">
+        <AppLibrary onOpenProject={(name) => { setProjectName(name); setOpen("projects"); }} onLaunch={launch} />
+      </div>
       </div>
 
-      <div className="ios-dots" aria-hidden="true">{[0, 1].map((i) => <span key={i} className={page === i ? "on" : ""} />)}</div>
+      <div className={`ios-dots ${page > 1 ? "hidden" : ""}`} aria-hidden="true">{[0, 1].map((i) => <span key={i} className={page === i ? "on" : ""} />)}</div>
 
       <nav className="ios-dock" aria-label="Dock">
         {dockIds.map((id) => {
@@ -144,7 +147,7 @@ export function IphoneHome() {
             key={open}
             role="dialog"
             aria-label={open === "settings" ? "Settings" : appTitles[open]}
-            className={`ios-app-screen ${open === "projects" && !projectName ? "ios-app-glass" : ""}`}
+            className="ios-app-screen"
             initial={{ opacity: 0, scale: 0.3, borderRadius: 60 }}
             animate={{ opacity: 1, scale: 1, borderRadius: 0 }}
             exit={{ opacity: 0, scale: 0.3, borderRadius: 60, transition: { duration: 0.22 } }}
