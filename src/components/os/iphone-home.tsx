@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { ProjectIcon } from "./os-apps";
+import { allProjects, ProjectIcon } from "./os-apps";
 import { describe, fetchLagosWeather } from "./mac-widgets";
 import { useOsTheme, type OsThemePref } from "./use-os-theme";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { format } from "date-fns";
 import { BatteryFull, Check, Navigation, Settings, Signal, Wifi } from "lucide-react";
 import portrait from "@/assets/henrietta-portrait.jpg";
