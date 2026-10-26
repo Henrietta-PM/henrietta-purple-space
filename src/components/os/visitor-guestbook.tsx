@@ -12,7 +12,7 @@ import { wallpapers } from "./use-wallpaper";
 import "./visitor-guestbook.css";
 import { AppleSearch, AppleSections } from "./apple-app-chrome";
 
-export interface Visit { id: string; display_name: string; message: string; photo_url: string | null; created_at: string }
+export interface Visit { id: string; display_name: string; message: string; photo_url: string | null; created_at: string; kind?: "shoutout" | "message" }
 const nameSchema = z.string().trim().min(1).max(40);
 const shoutSchema = z.object({ name: nameSchema, message: z.string().trim().min(1).max(240), consent: z.literal(true) });
 
@@ -23,7 +23,17 @@ async function invokeGuestbook(body?: unknown) {
 }
 
 export function useVisitorPosts(enabled = true) {
-  return useQuery<Visit[]>({ queryKey: ["visitor-posts"], queryFn: async () => (await invokeGuestbook()).posts, enabled, refetchInterval: 30000 });
+  return useQuery<Visit[], Error, Visit[]>({ queryKey: ["visitor-posts"], queryFn: fetchVisits, enabled, refetchInterval: 30000, select: (posts) => posts.filter((post) => post.kind !== "message") });
+}
+
+const fetchVisits = async (): Promise<Visit[]> => (await invokeGuestbook()).posts;
+
+export function useVisitorMessages() {
+  return useQuery<Visit[], Error, Visit[]>({ queryKey: ["visitor-posts"], queryFn: fetchVisits, refetchInterval: 30000, select: (posts) => posts.filter((post) => post.kind === "message") });
+}
+
+export async function sendVisitorMessage(name: string, message: string) {
+  return invokeGuestbook({ name, message, consent: true, kind: "message" });
 }
 
 async function preparePhoto(file: File): Promise<string> {

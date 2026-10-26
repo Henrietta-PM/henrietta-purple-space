@@ -9,7 +9,8 @@ const postSchema = z.object({
   consent: z.literal(true),
   website: z.string().max(0).optional(),
   photo: z.string().max(2800000).optional(),
-}).refine((value) => value.message.length > 0 || Boolean(value.photo));
+  kind: z.enum(["shoutout", "message"]).default("shoutout"),
+}).refine((value) => value.message.length > 0 || Boolean(value.photo)).refine((value) => value.kind === "shoutout" || (value.message.length > 0 && !value.photo));
 const reportSchema = z.object({ id: z.string().uuid(), reason: z.enum(["Inappropriate content", "Spam", "Privacy concern"]) });
 const moderateSchema = z.object({ action: z.literal("moderate"), id: z.string().uuid(), token: z.string().uuid(), decision: z.enum(["keep", "delete"]) });
 const REPORT_THRESHOLD = 3;
@@ -23,7 +24,7 @@ Deno.serve(async (req) => {
   const admin = createClient(Deno.env.get("SUPABASE_URL") ?? "", Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "");
   try {
     if (req.method === "GET") {
-      const { data, error } = await admin.from("visitor_posts").select("id,display_name,message,photo_path,created_at").eq("hidden", false).order("created_at", { ascending: false }).limit(100);
+      const { data, error } = await admin.from("visitor_posts").select("id,display_name,message,photo_path,created_at,kind").eq("hidden", false).order("created_at", { ascending: false }).limit(100);
       if (error) throw error;
       const posts = await Promise.all((data ?? []).map(async ({ photo_path, ...post }) => {
         if (!photo_path) return { ...post, photo_url: null };
@@ -89,7 +90,7 @@ Deno.serve(async (req) => {
       const { error } = await admin.storage.from("visitor-photos").upload(photoPath, bytes, { contentType: "image/jpeg", upsert: false });
       if (error) throw error;
     }
-    const { data, error } = await admin.from("visitor_posts").insert({ display_name: post.name, message: post.message, photo_path: photoPath }).select("id").single();
+    const { data, error } = await admin.from("visitor_posts").insert({ display_name: post.name, message: post.message, photo_path: photoPath, kind: post.kind }).select("id").single();
     if (error) {
       if (photoPath) await admin.storage.from("visitor-photos").remove([photoPath]);
       throw error;

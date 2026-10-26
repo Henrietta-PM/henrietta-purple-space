@@ -86,6 +86,7 @@ export type Database = {
           display_name: string
           hidden: boolean
           id: string
+          kind: string
           message: string
           photo_path: string | null
         }
@@ -94,6 +95,7 @@ export type Database = {
           display_name: string
           hidden?: boolean
           id?: string
+          kind?: string
           message?: string
           photo_path?: string | null
         }
@@ -102,6 +104,7 @@ export type Database = {
           display_name?: string
           hidden?: boolean
           id?: string
+          kind?: string
           message?: string
           photo_path?: string | null
         }
