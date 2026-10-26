@@ -46,10 +46,11 @@ export default function AppOrganizer({ storageKey, defaults, mobile = false, onL
       controls.style.bottom = `${parent.bottom - rect.top + 6}px`;
     };
     place();
+    const timers = [200, 600, 1200].map((ms) => window.setTimeout(place, ms));
     const observer = new ResizeObserver(place);
     observer.observe(dock);
     window.addEventListener("resize", place);
-    return () => { observer.disconnect(); window.removeEventListener("resize", place); };
+    return () => { timers.forEach(window.clearTimeout); observer.disconnect(); window.removeEventListener("resize", place); };
   }, [mobile, hideControls]);
   const folderBounds = useRef<HTMLDivElement>(null);
   const draggingFromFolder = useRef(false);
