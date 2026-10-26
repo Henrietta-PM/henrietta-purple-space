@@ -1,6 +1,7 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 import { z } from "npm:zod@3";
+import jpeg from "npm:jpeg-js@0.4.4";
 
 const postSchema = z.object({
   name: z.string().trim().min(1).max(40),
@@ -51,8 +52,13 @@ Deno.serve(async (req) => {
     let photoPath: string | null = null;
     if (post.photo) {
       if (!/^data:image\/jpeg;base64,[A-Za-z0-9+/=]+$/.test(post.photo)) return reply({ error: "Please choose a JPEG photo." }, 400);
-      const bytes = Uint8Array.from(atob(post.photo.split(",")[1]), (char) => char.charCodeAt(0));
+      let bytes = Uint8Array.from(atob(post.photo.split(",")[1]), (char) => char.charCodeAt(0));
       if (bytes.length > 2 * 1024 * 1024 || bytes[0] !== 255 || bytes[1] !== 216 || bytes[2] !== 255) return reply({ error: "Please choose a smaller, valid photo." }, 400);
+      try {
+        const image = jpeg.decode(bytes, { useTArray: true, maxResolutionInMP: 2, maxMemoryUsageInMB: 32 });
+        if (image.width > 1200 || image.height > 1200) return reply({ error: "Please choose a smaller photo." }, 400);
+        bytes = new Uint8Array(jpeg.encode({ width: image.width, height: image.height, data: image.data }, 80).data);
+      } catch { return reply({ error: "That photo couldn't be opened. Please choose another." }, 400); }
       photoPath = `${crypto.randomUUID()}.jpg`;
       const { error } = await admin.storage.from("visitor-photos").upload(photoPath, bytes, { contentType: "image/jpeg", upsert: false });
       if (error) throw error;
