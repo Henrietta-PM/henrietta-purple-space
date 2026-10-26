@@ -746,3 +746,4 @@ button.mw-weather { cursor: pointer; text-align: left; font: inherit; color: inh
   backdrop-filter:blur(14px) saturate(1.9) brightness(1.08) !important; -webkit-backdrop-filter:blur(14px) saturate(1.9) brightness(1.08) !important;
   box-shadow:inset 0 1px 1px hsl(0 0% 100% / .45), inset 0 -1px 1px hsl(0 0% 100% / .12), inset 1px 0 1px hsl(0 0% 100% / .1), inset -1px 0 1px hsl(0 0% 100% / .1), 0 8px 24px hsl(240 20% 4% / .18) !important;
 }
+.ios-dock { box-shadow:inset 0 .5px 0 hsl(0 0% 100% / .3), 0 6px 18px hsl(240 20% 4% / .12) !important; }
