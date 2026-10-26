@@ -15,8 +15,6 @@ import targettLogo from "@/assets/targett-logo-featured.png";
 import vibestackLogo from "@/assets/vibestack-logo.png";
 import bloomieLogo from "@/assets/bloomie-logo-featured.png";
 import proxyIcon from "@/assets/proxymedicine-icon.png.asset.json";
-import prdTemplateComplete from "@/assets/prd-template-complete.png";
-import prdTemplateOverview from "@/assets/prd-template-overview.png";
 import { differenceInDays, differenceInHours, differenceInMinutes, format } from "date-fns";
 import { HIRE_CALENDAR_URL, openHireCalendar } from "@/lib/booking";
 import { skillCategories } from "@/pages/CV";
@@ -27,6 +25,7 @@ import WeatherApp from "./weather-app";
 import { CameraApp, PhotosApp, ReportDialog, ShoutOutComposer, useVisitorPosts } from "./visitor-guestbook";
 import { Camera, Images } from "lucide-react";
 import NotesApp from "./notes-app";
+import ShopApp from "./shop-app";
 import type { NoteId } from "@/data/notes";
 import { AppleSearch, AppleSections } from "./apple-app-chrome";
 
@@ -541,35 +540,13 @@ function LoveApp() {
 }
 
 
-const shopItems = [
-  { title: "Complete 3-in-1 PRD Template", image: prdTemplateComplete, url: "https://selar.com/49gf07l554", badge: "PREMIUM" },
-  { title: "PRD Overview + User Flows Templates", image: prdTemplateOverview, url: "https://selar.com/1r76753817", badge: "MOST POPULAR" },
-];
-
-function ShopApp() {
-  return (
-    <div className="os-shop">
-      {shopItems.map((item) => (
-        <a key={item.url} href={item.url} target="_blank" rel="noopener noreferrer" className="os-shop-item">
-          <img src={item.image} alt={item.title} loading="lazy" />
-          <div>
-            <small>{item.badge}</small>
-            <span>{item.title}</span>
-            <em>Get it <ArrowUpRight /></em>
-          </div>
-        </a>
-      ))}
-    </div>
-  );
-}
-
 export function AppContent({ id, compact = false, projectName, initialNote, onLaunch }: { id: AppId; compact?: boolean; projectName?: string; initialNote?: NoteId; onLaunch?: (id: LauncherId) => void }) {
   switch (id) {
     case "projects": return <ProjectsApp compact={compact} initial={projectName} />;
     case "cv": return <CvApp compact={compact} />;
     case "letter": return <NotesApp key={initialNote ?? "all-notes"} compact={compact} initialNote={initialNote} letter={<LetterApp />} />;
     case "contact": return <ContactApp compact={compact} />;
-    case "shop": return <ShopApp />;
+    case "shop": return <ShopApp compact={compact} />;
     case "love": return <LoveApp />;
     case "messages": return <MessagesApp compact={compact} />;
     case "health": return <SkillsApp compact={compact} />;
