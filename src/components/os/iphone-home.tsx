@@ -14,7 +14,7 @@ import { IphoneLock } from "./iphone-lock";
 import ExplorationNotifications from "./exploration-notifications";
 
 const dockIds: LauncherId[] = ["contact", "love", "letter", "hire"];
-const homeIds: LauncherId[] = ["projects", "cv", "messages", "health", "reminders", "maps", "shop"];
+const homeIds: LauncherId[] = ["projects", "cv", "messages", "health", "reminders", "maps", "shop", "camera", "photos"];
 const socialIds: LauncherId[] = ["instagram", "linkedin", "x"];
 const byId = (id: LauncherId) => launchers.find((l) => l.id === id)!;
 

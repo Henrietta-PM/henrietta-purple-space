@@ -22,8 +22,10 @@ import { testimonials } from "@/components/Testimonials";
 import { journeySteps } from "@/components/JourneySection";
 import { workSteps } from "@/components/HowIWork";
 import WeatherApp from "./weather-app";
+import VisitorGuestbook from "./visitor-guestbook";
+import { Camera, Images } from "lucide-react";
 
-export type AppId = "projects" | "cv" | "letter" | "contact" | "shop" | "love" | "messages" | "health" | "reminders" | "maps" | "weather";
+export type AppId = "projects" | "cv" | "letter" | "contact" | "shop" | "love" | "messages" | "health" | "reminders" | "maps" | "weather" | "camera" | "photos";
 export type LinkId = "hire" | "instagram" | "linkedin" | "x";
 export type LauncherId = AppId | LinkId;
 
@@ -54,6 +56,8 @@ export const launchers: Launcher[] = [
   { id: "health", name: "Skills", icon: Activity, tone: "health" },
   { id: "reminders", name: "How I Work", icon: ListChecks, tone: "reminders" },
   { id: "maps", name: "My Journey", icon: MapPin, tone: "maps" },
+  { id: "camera", name: "Camera", icon: Camera, tone: "camera" },
+  { id: "photos", name: "Photos", icon: Images, tone: "photos" },
   { id: "hire", name: "Hire Me", icon: Calendar, tone: "hire" },
   { id: "instagram", name: "Instagram", icon: Instagram, tone: "insta" },
   { id: "linkedin", name: "LinkedIn", icon: Linkedin, tone: "linkedin" },
@@ -72,6 +76,8 @@ export const appTitles: Record<AppId, string> = {
   reminders: "How I Work",
   maps: "My Journey",
   weather: "Weather",
+  camera: "Camera",
+  photos: "Photos",
 };
 
 export const allProjects: Project[] = [...featuredProjects, ...projectsData].filter(
@@ -144,7 +150,7 @@ function LibraryTile({ item }: { item: LibItem }) {
 
 const libraryFolders: { name: string; ids: LauncherId[] }[] = [
   { name: "About Me", ids: ["cv", "letter", "health", "maps", "reminders"] },
-  { name: "Social", ids: ["love", "instagram", "linkedin", "x", "messages"] },
+  { name: "Social", ids: ["love", "instagram", "linkedin", "x", "messages", "camera", "photos"] },
   { name: "Productivity", ids: ["hire", "contact", "shop"] },
 ];
 
@@ -510,10 +516,14 @@ export function AppContent({ id, compact = false, projectName, onLaunch }: { id:
     case "reminders": return <RemindersApp />;
     case "maps": return <JourneyApp />;
     case "weather": return <WeatherApp />;
+    case "camera": return <VisitorGuestbook mode="camera" onOpen={onLaunch} />;
+    case "photos": return <VisitorGuestbook mode="photos" onOpen={onLaunch} />;
   }
 }
 
 export function AppIcon({ launcher, size = "md" }: { launcher: Launcher; size?: "sm" | "md" | "lg" }) {
+  if (launcher.id === "camera") return <span className={`os-icon os-icon-${size} os-camera-icon`} aria-hidden="true"><Camera /></span>;
+  if (launcher.id === "photos") return <span className={`os-icon os-icon-${size} os-photos-icon`} aria-hidden="true"><svg viewBox="0 0 60 60">{Array.from({ length: 8 }, (_, index) => <ellipse key={index} className="os-photos-petal" cx="30" cy="18" rx="8" ry="14" transform={`rotate(${index * 45} 30 30)`} />)}</svg></span>;
   if (launcher.id === "hire") return <CalendarIcon size={size} />;
   if (launcher.id === "letter") return <NotesIcon size={size} />;
   if (launcher.id === "projects") return <span className={`os-icon os-icon-${size} os-files`} aria-hidden="true"><span className="os-files-folder" /></span>;

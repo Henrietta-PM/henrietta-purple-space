@@ -1,0 +1,20 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1792978033496,
+      "tag": "0000_visitor_guestbook",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1792978049390,
+      "tag": "0001_visitor_photo_service_access",
+      "breakpoints": true
+    }
+  ]
+}
