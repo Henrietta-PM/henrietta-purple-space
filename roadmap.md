@@ -11,5 +11,6 @@
 - [x] Add visitor-local app rearranging and automatically named folders on phone and desktop, then verify both flows.
 - [x] Replace folder modals with Apple-style folders and verify dragging apps out on phone and desktop.
 - [x] Add an About Me note opened by the widget, and a browsable Notes app preserving the letter; verify phone and desktop.
-- [ ] Remove the read-only testimonial footer and verify Messages on phone and desktop.
-- [ ] Audit remaining app interiors against Apple's designs and identify the reference version for matching them.
+- [x] Remove the read-only testimonial footer and verify Messages on phone and desktop.
+- [x] Audit remaining app interiors against Apple's designs.
+- [ ] Match Apple app interiors to a consistent reference version. Waiting for the owner's choice of Apple design generation.
