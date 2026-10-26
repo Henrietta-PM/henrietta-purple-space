@@ -22,5 +22,5 @@
 - [x] Match iPhone Messages list to the iOS 26 reference and add conversation previews below pinned testimonials on Mac.
 - [x] Add and verify an AI product-challenge tool inside How I Work, grounded in the existing process with spam protection; real streamed answer, phone layout, throttle and validation tested.
 - [x] Recommend complementary interactive apps and a video wallpaper approach without changing the existing slideshow.
-- [ ] Fix Challenge requests from the actual editor preview origin and verify a real recommendation there.
-- [ ] Find the Aki briefcase-walk clip with verified sound for wallpaper selection.
+- [x] Fix Challenge requests from the actual editor preview origin and verify a real recommendation there; retention challenge returned successfully and origin regression tests passed.
+- [ ] Add Aki briefcase-walk wallpaper with sound. Blocked by needing the exact clip or link from the owner; research did not verify the matching footage and audio.
