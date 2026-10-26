@@ -16,10 +16,15 @@
 .os-folder-icon .os-icon { width:100% !important; height:100% !important; box-shadow:none; }
 .os-drag-preview { width:56px; height:56px; transform:scale(1.12); cursor:grabbing; }
 .ios-grid .os-tile-slot { width:100%; }
-.ios-dock.os-app-zone { gap:8px; overflow-x:auto; scrollbar-width:none; }
+.os-phone-dock-apps { display:flex; justify-content:space-around; width:100%; gap:8px; overflow-x:auto; scrollbar-width:none; }
 .ios-dock .os-tile-slot { flex:0 0 56px; }
 .ios-dock .os-tile-name, .mac-dock .os-tile-name { display:none; }
-.mac-dock.os-app-zone { max-width:calc(100% - 24px); overflow-x:auto; scrollbar-width:none; }
+.mac-dock { max-width:calc(100% - 24px); }
+.os-mac-dock-apps { display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; }
+.os-organized-dot { width:4px; height:4px; border-radius:50%; background:transparent; }
+.os-organized-dot.on { background:hsl(var(--os-ink)); }
+.os-phone-dock-apps .os-organized-dot { display:none; }
+.ios-shell:has(.ios-lock) .os-organize-controls, .ios-shell:has(.ios-app-screen) .os-organize-controls, .ios-on-library .os-organize-controls { display:none; }
 .mac-dock .os-tile-slot { flex:0 0 56px; padding:2px; }
 .mac-dock .os-organized-tile { width:56px; }
 .mac-dock .os-organized-tile:hover { transform:translateY(-3px); }

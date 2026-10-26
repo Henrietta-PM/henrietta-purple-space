@@ -1,24 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { allProjects, ProjectIcon } from "./os-apps";
 import { describe, fetchLagosWeather } from "./mac-widgets";
 import { useOsTheme, type OsThemePref } from "./use-os-theme";
 import { AnimatePresence, motion } from "framer-motion";
 import { format } from "date-fns";
-import { Check, Navigation, Settings } from "lucide-react";
+import { Check, Navigation } from "lucide-react";
 import { IosBattery, IosNetwork, IosSignal } from "./status-icons";
 import { useWallpaper } from "./use-wallpaper";
-import appleSettingsIcon from "@/assets/apple-settings-icon.jpg";
-import { ImageIcon } from "./os-apps";
-import { AppContent, AppIcon, AppLibrary, appTitles, externalLinks, isLink, launchers, type AppId, type LauncherId } from "./os-apps";
+import { AppContent, AppLibrary, appTitles, externalLinks, isLink, type AppId, type LauncherId } from "./os-apps";
 import { useClock } from "./use-clock";
 import { IphoneLock } from "./iphone-lock";
 import ExplorationNotifications from "./exploration-notifications";
-
-const dockIds: LauncherId[] = ["contact", "love", "letter", "hire"];
-const homeIds: LauncherId[] = ["projects", "cv", "messages", "health", "reminders", "maps", "shop", "camera", "photos"];
-const socialIds: LauncherId[] = ["instagram", "linkedin", "x"];
-const byId = (id: LauncherId) => launchers.find((l) => l.id === id)!;
+import AppOrganizer, { AppZone } from "./app-organizer";
+import { phoneLayout } from "./app-catalog";
 
 export function IphoneHome() {
   const now = useClock();
@@ -70,7 +64,15 @@ export function IphoneHome() {
       <div className="mac-wallpaper-tint" />
       <StatusBar light />
       <ExplorationNotifications mobile enabled={!locked} activeApp={open ?? undefined} onLaunch={(id) => { setProjectName(undefined); launch(id); }} />
-
+      <AppOrganizer storageKey="portfolio-phone-apps-v1" defaults={phoneLayout} mobile onPageEdge={(direction) => {
+        const element = pagesRef.current;
+        if (element) element.scrollTo({ left: Math.max(0, Math.min(1, Math.round(element.scrollLeft / element.clientWidth) + direction)) * element.clientWidth, behavior: "smooth" });
+      }} onLaunch={(app) => {
+        setProjectName(app.projectName);
+        if (app.projectName) setOpen("projects");
+        else if (app.id === "settings") setOpen("settings");
+        else if (app.launcher) launch(app.launcher);
+      }}>
       <div className="ios-pages" ref={pagesRef} onScroll={(e) => handlePagesScroll(e.currentTarget)}>
       <div className="ios-home ios-page">
         <div className="ios-widgets">
@@ -96,42 +98,10 @@ export function IphoneHome() {
           </div>
         </div>
 
-        <div className="ios-grid">
-          {homeIds.map(byId).map((launcher, index) => (
-            <motion.button
-              key={launcher.id}
-              className="ios-app"
-              onClick={() => launch(launcher.id)}
-              initial={{ opacity: 0, scale: 0.6 }}
-              animate={{ opacity: 1, scale: 1 }}
-              whileTap={{ scale: 0.88 }}
-              transition={{ delay: 0.05 * index, type: "spring", stiffness: 400, damping: 22 }}
-            >
-              <AppIcon launcher={launcher} size="lg" />
-              <span>{launcher.name}</span>
-            </motion.button>
-          ))}
-          <motion.button className="ios-app" whileTap={{ scale: 0.88 }} onClick={() => setOpen("settings")}>
-            <ImageIcon src={appleSettingsIcon} size="lg" />
-            <span>Settings</span>
-          </motion.button>
-        </div>
+        <AppZone zone="home0" className="ios-grid" />
       </div>
       <div className="ios-home ios-page">
-        <div className="ios-grid">
-          {allProjects.map((project) => (
-            <motion.button key={project.name} className="ios-app" whileTap={{ scale: 0.88 }} onClick={() => { setProjectName(project.name); setOpen("projects"); }}>
-              <ProjectIcon project={project} size="lg" />
-              <span className="ios-app-name">{project.name.replace(" Attendance System", "")}</span>
-            </motion.button>
-          ))}
-          {socialIds.map(byId).map((launcher) => (
-            <motion.button key={launcher.id} className="ios-app" whileTap={{ scale: 0.88 }} onClick={() => launch(launcher.id)}>
-              <AppIcon launcher={launcher} size="lg" />
-              <span>{launcher.name}</span>
-            </motion.button>
-          ))}
-        </div>
+        <AppZone zone="home1" className="ios-grid" />
       </div>
       <div className="ios-page ios-lib-page ios-app-glass">
         <AppLibrary onOpenProject={(name) => { setProjectName(name); setOpen("projects"); }} onLaunch={launch} />
@@ -141,15 +111,9 @@ export function IphoneHome() {
       <div className={`ios-dots ${page > 1 ? "hidden" : ""}`} aria-hidden="true">{[0, 1].map((i) => <span key={i} className={page === i ? "on" : ""} />)}</div>
 
       <nav className="ios-dock" aria-label="Dock">
-        {dockIds.map((id) => {
-          const launcher = byId(id);
-          return (
-            <button key={id} onClick={() => launch(id)} aria-label={launcher.name}>
-              <AppIcon launcher={launcher} size="lg" />
-            </button>
-          );
-        })}
+        <AppZone zone="dock" className="os-phone-dock-apps" />
       </nav>
+      </AppOrganizer>
 
       <AnimatePresence>
         {open && (

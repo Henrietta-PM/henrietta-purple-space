@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import { DndContext, DragOverlay, KeyboardSensor, MouseSensor, TouchSensor, pointerWithin, rectIntersection, useDraggable, useDroppable, useSensor, useSensors, type DragEndEvent } from "@dnd-kit/core";
 import { motion } from "framer-motion";
 import { Check, Grip, RotateCcw, ArrowUpRight } from "lucide-react";
@@ -15,12 +15,14 @@ interface Organization {
   active: string | null;
   openFolder: (id: string) => void;
   launch: (app: OrganizedApp) => void;
+  openIds: string[];
 }
 const OrganizationContext = createContext<Organization | null>(null);
 const MotionButton = motion.create(Button);
 
-export default function AppOrganizer({ storageKey, defaults, mobile = false, onLaunch, children }: {
+export default function AppOrganizer({ storageKey, defaults, mobile = false, onLaunch, children, onPageEdge, openIds = [] }: {
   storageKey: string; defaults: AppLayout; mobile?: boolean; onLaunch: (app: OrganizedApp) => void; children: ReactNode;
+  onPageEdge?: (direction: number) => void; openIds?: string[];
 }) {
   const [layout, setLayout] = useState<AppLayout>(() => {
     try { return restoreLayout(JSON.parse(localStorage.getItem(storageKey) ?? "null"), defaults); } catch { return defaults; }
@@ -29,6 +31,7 @@ export default function AppOrganizer({ storageKey, defaults, mobile = false, onL
   const [active, setActive] = useState<string | null>(null);
   const [folderId, setFolderId] = useState<string | null>(null);
   const [announcement, setAnnouncement] = useState("");
+  const lastPageTurn = useRef(0);
   const sensors = useSensors(
     useSensor(MouseSensor, { activationConstraint: { distance: 6 } }),
     useSensor(TouchSensor, { activationConstraint: editing ? { distance: 5 } : { delay: 450, tolerance: 8 } }),
@@ -63,11 +66,16 @@ export default function AppOrganizer({ storageKey, defaults, mobile = false, onL
     setAnnouncement(group ? "Apps grouped into a folder" : "App moved");
   };
   return (
-    <OrganizationContext.Provider value={{ layout, editing, active, openFolder: setFolderId, launch }}>
+    <OrganizationContext.Provider value={{ layout, editing, active, openFolder: setFolderId, launch, openIds }}>
       <DndContext sensors={sensors} collisionDetection={(args) => {
         const hits = pointerWithin(args);
         return (hits.length ? hits : rectIntersection(args)).sort((a, b) => Number(String(a.id).startsWith("zone:")) - Number(String(b.id).startsWith("zone:")));
-      }} onDragStart={({ active: item }) => { setActive(String(item.id)); setEditing(true); }} onDragEnd={endDrag} onDragCancel={() => setActive(null)}>
+      }} onDragStart={({ active: item }) => { setActive(String(item.id)); setEditing(true); }} onDragMove={({ active: item }) => {
+        const rect = item.rect.current.translated;
+        if (!mobile || !rect || Date.now() - lastPageTurn.current < 800) return;
+        const x = rect.left + rect.width / 2;
+        if (x < 28 || x > window.innerWidth - 28) { lastPageTurn.current = Date.now(); onPageEdge?.(x < 28 ? -1 : 1); }
+      }} onDragEnd={endDrag} onDragCancel={() => setActive(null)}>
         {children}
         <div className={`os-organize-controls ${mobile ? "phone" : "desktop"}`}>
           {editing && <Button variant="ghost" size="icon" aria-label="Reset app layout" title="Reset app layout" onClick={() => { setLayout(defaults); setFolderId(null); }}><RotateCcw /></Button>}
@@ -112,12 +120,13 @@ function MovableTile({ tile, zone, index, desktop }: { tile: AppTile; zone: stri
   const app = appCatalog.find((item) => item.id === tile.apps[0]);
   const name = tile.apps.length > 1 ? tile.name ?? "Apps" : app?.name ?? "App";
   return <div ref={dropRef} className={`os-tile-slot ${isOver && context.active !== tile.id ? "drop-target" : ""} ${desktop ? "free-position" : ""}`} style={desktop ? { left: tile.position ? `calc(${tile.position.x * 100}% - ${tile.position.x * 88}px)` : "calc(100% - 108px)", top: tile.position ? `calc(${tile.position.y * 100}% - ${tile.position.y * 90}px)` : 24 + index * 96 } : undefined}>
-    <MotionButton ref={setNodeRef} variant="ghost" {...attributes} {...listeners} aria-label={name} className={`os-organized-tile ${context.editing ? "editing" : ""} ${isDragging ? "dragging" : ""}`} whileTap={{ scale: .92 }} onClick={() => {
+    <MotionButton ref={setNodeRef} variant="ghost" {...attributes} {...listeners} aria-label={name} title={name} className={`os-organized-tile ${context.editing ? "editing" : ""} ${isDragging ? "dragging" : ""}`} whileTap={{ scale: .92 }} onDoubleClick={() => { if (desktop && app && tile.apps.length === 1) context.launch(app); }} onClick={(event) => {
       if (context.active) return;
       if (tile.apps.length > 1) context.openFolder(tile.id);
-      else if (app && !context.editing) context.launch(app);
+      else if (app && !context.editing && (!desktop || event.detail === 0)) context.launch(app);
     }}>
       <TileIcon tile={tile} /><span className="os-tile-name">{name}</span>
+      {zone === "dock" && <span className={`os-organized-dot ${tile.apps.some((id) => context.openIds.includes(id)) ? "on" : ""}`} />}
     </MotionButton>
   </div>;
 }

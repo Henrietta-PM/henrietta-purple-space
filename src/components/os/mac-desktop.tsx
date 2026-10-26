@@ -5,10 +5,12 @@ import { Moon, Sun } from "lucide-react";
 import { AppleLogo, MacBattery, MacWifiArcs } from "./status-icons";
 import { useOsTheme } from "./use-os-theme";
 import { useWallpaper } from "./use-wallpaper";
-import { AppContent, AppIcon, appTitles, externalLinks, isLink, launchers, type AppId, type LauncherId } from "./os-apps";
+import { AppContent, appTitles, externalLinks, isLink, type AppId, type LauncherId } from "./os-apps";
 import { useClock } from "./use-clock";
 import MacWidgets from "./mac-widgets";
 import ExplorationNotifications from "./exploration-notifications";
+import AppOrganizer, { AppZone } from "./app-organizer";
+import { desktopLayout } from "./app-catalog";
 
 interface WindowState {
   id: AppId;
@@ -120,17 +122,11 @@ export function MacDesktop() {
         </div>
       </nav>
 
+      <AppOrganizer storageKey="portfolio-desktop-apps-v1" defaults={desktopLayout} openIds={windows.map((win) => win.id)} onLaunch={(app) => { if (app.launcher) launch(app.launcher); }}>
       <div ref={bounds} className="mac-desktop">
         <MacWidgets now={now} onLaunch={launch} />
 
-        <div className="mac-desktop-icons">
-          {launchers.filter((l) => l.id === "cv" || l.id === "letter").map((launcher) => (
-            <button key={launcher.id} className="mac-desktop-icon" onDoubleClick={() => launch(launcher.id)} onClick={(event) => { if (event.detail === 0) launch(launcher.id); }}>
-              <AppIcon launcher={launcher} size="md" />
-              <span>{launcher.id === "cv" ? "CV.pdf" : "Letter.note"}</span>
-            </button>
-          ))}
-        </div>
+        <AppZone zone="desktop" desktop />
 
         <AnimatePresence>
           {windows.map((win, index) => (
@@ -151,20 +147,9 @@ export function MacDesktop() {
       </div>
 
       <nav className="mac-dock" aria-label="Dock">
-        {launchers.map((launcher, index) => {
-          const open = windows.some((w) => w.id === launcher.id);
-          return (
-            <span key={launcher.id} className="mac-dock-slot">
-              {launcher.id === "hire" && <span className="mac-dock-divider" aria-hidden="true" />}
-              <button className="mac-dock-item" onClick={() => launch(launcher.id)} aria-label={launcher.name}>
-                <span className="mac-dock-tip">{launcher.name}</span>
-                <AppIcon launcher={launcher} size="lg" />
-                <span className={`mac-dock-dot ${open ? "on" : ""}`} />
-              </button>
-            </span>
-          );
-        })}
+        <AppZone zone="dock" className="os-mac-dock-apps" />
       </nav>
+      </AppOrganizer>
     </div>
   );
 }
