@@ -1,5 +1,5 @@
 .os-root { position:fixed; inset:40px 0 0; overflow:hidden; font-family:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", system-ui, sans-serif; color:hsl(var(--os-ink)); }
-.mac-shell, .ios-shell { position:absolute; inset:0; background-size:cover; background-position:center 25%; }
+.mac-shell, .ios-shell { position:absolute; inset:0; background-size:cover; background-position:center 25%; transition:background-image .8s ease; }
 .mac-wallpaper-tint { position:absolute; inset:0; background:linear-gradient(160deg, hsl(var(--os-icon-cv) / .35), hsl(240 30% 6% / .55)); pointer-events:none; }
 
 /* Icons */
