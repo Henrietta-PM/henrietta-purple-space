@@ -195,3 +195,8 @@
 .apple-maps-phone .jm-drag { touch-action:none; cursor:grab; position:relative; }
 .apple-maps-phone .jm-drag::before { content:""; position:absolute; inset:-14px -60px; }
 .apple-maps-phone .os-maps-sheet { padding-top:6px; }
+.apple-maps .jm-steps { overflow:hidden; padding:0; }
+.apple-maps .jm-steps li button { padding:0 14px; border-radius:0; background:transparent !important; color:hsl(var(--os-ink)) !important; transition:background-color .15s; }
+.apple-maps .jm-steps li button:hover { background:hsl(var(--os-ink) / .05) !important; }
+.apple-maps .jm-steps li button:active { background:hsl(var(--os-ink) / .1) !important; }
+.apple-maps .jm-steps li button:focus-visible { outline:2px solid hsl(var(--apple-blue)); outline-offset:-2px; }
