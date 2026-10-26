@@ -38,7 +38,6 @@
 .am-person-role { color:hsl(var(--os-ink-soft)); font-size:12px; margin:8px 4px 0; }
 .am-contact-details { background:hsl(var(--os-ink) / .05); padding:14px 16px; margin-bottom:20px; border-radius:16px; }
 .am-contact-details strong { display:block; font-size:16px; }.am-contact-details p { color:hsl(var(--os-ink-soft)); font-size:14px; margin-top:4px; }
-.am-bottom { flex-shrink:0; display:flex; align-items:center; justify-content:center; min-height:42px; padding:6px 16px; color:hsl(var(--os-ink-soft)); font-size:12px; }
 .am-mac .am-conversations { width:280px; flex-shrink:0; background:hsl(var(--os-sidebar)); border-right:.5px solid hsl(var(--os-line)); }
 .am-mac .am-list-top h1 { font-size:20px; margin:6px 0 12px; }
 .am-mac .am-row { min-height:86px; gap:8px; padding:4px 8px; border-radius:8px; }
