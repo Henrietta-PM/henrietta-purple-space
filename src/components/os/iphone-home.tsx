@@ -6,7 +6,7 @@ import { useOsTheme, type OsThemePref } from "./use-os-theme";
 import { AnimatePresence, motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
-import { BatteryFull, Check, Navigation, Settings, Signal, Wifi } from "lucide-react";
+import { BatteryFull, Check, Navigation, Signal, Wifi } from "lucide-react";
 import portrait from "@/assets/henrietta-portrait.jpg";
 import { HIRE_CALENDAR_URL } from "@/lib/booking";
 import { AppContent, AppIcon, appTitles, launchers, type AppId, type LauncherId } from "./os-apps";
@@ -103,7 +103,7 @@ export function IphoneHome() {
             </motion.button>
           ))}
           <motion.button className="ios-app" whileTap={{ scale: 0.88 }} onClick={() => setOpen("settings")}>
-            <span className="os-icon os-icon-lg os-icon-settings" aria-hidden="true"><Settings /></span>
+            <span className="os-icon os-icon-lg os-icon-settings" aria-hidden="true"><SettingsGlyph /></span>
             <span>Settings</span>
           </motion.button>
         </div>
@@ -193,5 +193,23 @@ function SettingsApp({ pref, onChange }: { pref: OsThemePref; onChange: (value: 
         ))}
       </div>
     </div>
+  );
+}
+
+function SettingsGlyph() {
+  const teeth = Array.from({ length: 24 }, (_, i) => i * 15);
+  return (
+    <svg viewBox="0 0 100 100">
+      <g className="sg-outer">
+        {teeth.map((deg) => <rect key={deg} x="47" y="8" width="6" height="10" rx="1.5" transform={`rotate(${deg} 50 50)`} />)}
+        <circle cx="50" cy="50" r="34" />
+      </g>
+      <circle className="sg-ring" cx="50" cy="50" r="27" />
+      <g className="sg-inner">
+        {Array.from({ length: 6 }, (_, i) => i * 60).map((deg) => <rect key={deg} x="48" y="26" width="4" height="22" rx="2" transform={`rotate(${deg} 50 50)`} />)}
+        <circle cx="50" cy="50" r="9" />
+      </g>
+      <circle className="sg-hub" cx="50" cy="50" r="4" />
+    </svg>
   );
 }
