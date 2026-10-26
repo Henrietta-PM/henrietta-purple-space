@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { extractApp, folderName, moveTile, restoreLayout, type AppLayout } from "./app-layout";
+import { extractApp, folderName, moveTile, restoreLayout, type AppLayout } from "../src/components/os/app-layout";
 
 const defaults: AppLayout = { home: [{ id: "camera", apps: ["camera"] }, { id: "photos", apps: ["photos"] }], dock: [] };
 const catalog = [{ id: "camera", name: "Camera", category: "Photo & Video" }, { id: "photos", name: "Photos", category: "Photo & Video" }];
