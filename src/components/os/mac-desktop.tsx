@@ -112,7 +112,7 @@ export function MacDesktop() {
   return (
     <div className="mac-shell" style={{ backgroundImage: `url(${wallpaper})` }}>
       <div className="mac-wallpaper-tint" />
-      <ExplorationNotifications enabled={!locked} activeApp={focused?.id} onLaunch={launch} />
+      <ExplorationNotifications enabled={!locked} activeApp={focused?.id} onLaunch={(id) => launch(id, id === "letter" ? "letter" : undefined)} />
       <nav className="mac-menubar" aria-label="Menu bar">
         <div className="mac-menubar-left">
           <AppleLogo />
