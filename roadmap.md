@@ -8,4 +8,4 @@
 - [x] Add and verify dismissible exploration notifications on Mac and iPhone.
 - [x] Add Camera and Photos with optional photos, consent and immediate public shout-outs.
 - [x] Add private reporting and visitor spam protection, then test submission and gallery readback.
-- [ ] Add visitor-local app rearranging and automatically named folders on phone and desktop, then verify both flows.
+- [x] Add visitor-local app rearranging and automatically named folders on phone and desktop, then verify both flows.
