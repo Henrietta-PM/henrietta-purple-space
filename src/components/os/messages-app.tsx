@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { format } from "date-fns";
-import { ArrowUp, ChevronLeft, ChevronRight, Flag, Info, ListFilter, Search, SquarePen } from "lucide-react";
+import { format, isThisWeek, isToday, isYesterday } from "date-fns";
+import { ArrowUp, ChevronLeft, ChevronRight, Flag, Info, ListFilter, Mic, Search, SquarePen } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,7 @@ import { ReportDialog, sendVisitorMessage, useVisitorMessages } from "./visitor-
 import "./messages-app.css";
 
 const messageSchema = z.object({ name: z.string().trim().min(1).max(40), message: z.string().trim().min(1).max(240) });
+const readStorageKey = "henrietta-messages-read";
 
 type Selection = { kind: "pinned"; index: number } | { kind: "visitor"; id: string } | { kind: "new" };
 
@@ -18,11 +19,30 @@ function MessageAvatar({ name }: { name: string }) {
   return <span className="am-avatar" aria-hidden="true">{name.split(" ").map((part) => part.charAt(0)).join("").slice(0, 2).toUpperCase()}</span>;
 }
 
+function listTime(value: string) {
+  const date = new Date(value);
+  if (isToday(date)) return format(date, "HH:mm");
+  if (isYesterday(date)) return "Yesterday";
+  if (isThisWeek(date)) return format(date, "EEEE");
+  return format(date, "dd/MM/yyyy");
+}
+
+function loadRead(): string[] {
+  try {
+    const parsed: unknown = JSON.parse(localStorage.getItem(readStorageKey) ?? "[]");
+    return Array.isArray(parsed) ? parsed.filter((item): item is string => typeof item === "string").slice(-300) : [];
+  } catch {
+    return [];
+  }
+}
+
 export default function MessagesApp({ compact = false }: { compact?: boolean }) {
   const [active, setActive] = useState<Selection | undefined>();
   const [search, setSearch] = useState("");
   const [details, setDetails] = useState(false);
   const [filter, setFilter] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [read, setRead] = useState<string[]>(loadRead);
   const [name, setName] = useState("");
   const [draft, setDraft] = useState("");
   const [consent, setConsent] = useState(false);
@@ -35,8 +55,20 @@ export default function MessagesApp({ compact = false }: { compact?: boolean }) 
   const visitors = visitorMessages.filter((item) => `${item.display_name} ${item.message}`.toLowerCase().includes(query));
   const person = active?.kind === "pinned" ? testimonials[active.index] : undefined;
   const visitor = active?.kind === "visitor" ? visitorMessages.find((item) => item.id === active.id) : undefined;
-  const open = (selection: Selection) => { setActive(selection); setDetails(false); };
-  const searchField = <label className="am-search"><Search aria-hidden="true" /><input placeholder="Search" aria-label="Search messages" value={search} onChange={(event) => setSearch(event.target.value)} /></label>;
+  const markRead = (id: string) => {
+    setRead((current) => {
+      if (current.includes(id)) return current;
+      const next = [...current, id].slice(-300);
+      try { localStorage.setItem(readStorageKey, JSON.stringify(next)); } catch { /* storage unavailable */ }
+      return next;
+    });
+  };
+  const open = (selection: Selection) => {
+    setActive(selection);
+    setDetails(false);
+    if (selection.kind === "visitor") markRead(selection.id);
+  };
+  const searchField = <label className="am-search"><Search aria-hidden="true" /><input placeholder="Search" aria-label="Search messages" value={search} onChange={(event) => setSearch(event.target.value)} />{compact && <Mic className="am-mic" aria-hidden="true" />}</label>;
 
   const send = async () => {
     const parsed = messageSchema.safeParse({ name, message: draft });
@@ -63,22 +95,37 @@ export default function MessagesApp({ compact = false }: { compact?: boolean }) 
     {(!compact || !showThread) && <section className="am-conversations">
       <header className="am-list-top">
         <div className="am-list-controls">
-          <Button variant="ghost" size="icon" className="am-control" aria-label="Message filters" title="Filters" onClick={() => setFilter((value) => !value)}><ListFilter /></Button>
-          {!compact && <Button variant="ghost" size="icon" className="am-control" aria-label="New message" title="New message" onClick={() => open({ kind: "new" })}><SquarePen /></Button>}
+          {compact
+            ? <Button variant="ghost" className="am-control am-edit" aria-pressed={editing} onClick={() => setEditing((value) => !value)}>{editing ? "Done" : "Edit"}</Button>
+            : <Button variant="ghost" size="icon" className="am-control" aria-label="Message filters" title="Filters" onClick={() => setFilter((value) => !value)}><ListFilter /></Button>}
+          {compact && <h1>Messages</h1>}
+          {compact
+            ? <Button variant="ghost" size="icon" className="am-control" aria-label="Message filters" title="Filters" onClick={() => setFilter((value) => !value)}><ListFilter /></Button>
+            : <Button variant="ghost" size="icon" className="am-control" aria-label="New message" title="New message" onClick={() => open({ kind: "new" })}><SquarePen /></Button>}
         </div>
-        {filter && <Button variant="ghost" className="am-control" onClick={() => { setSearch(""); setFilter(false); }}>All Messages</Button>}
-        {compact && <h1>Messages</h1>}
+        {filter && <div className="am-filter-row"><span>Showing all messages</span><Button variant="ghost" className="am-control" onClick={() => { setSearch(""); setFilter(false); }}>Done</Button></div>}
         {!compact && searchField}
       </header>
       <div className="am-rows">
         {pinned.length > 0 && <div className="am-pinned" aria-label="Pinned">
           {pinned.map((item) => <Button key={item.author} variant="ghost" className={`am-pin ${active?.kind === "pinned" && active.index === item.index ? "selected" : ""}`} onClick={() => open({ kind: "pinned", index: item.index })}>
-            <MessageAvatar name={item.author} /><span>{item.author.split(" ")[0]}</span>
+            <MessageAvatar name={item.author} /><span className="am-pin-name">{item.author.split(" ")[0]}</span>
           </Button>)}
         </div>}
-        {visitors.map((item) => <Button key={item.id} variant="ghost" className={`am-row ${active?.kind === "visitor" && active.id === item.id ? "selected" : ""}`} onClick={() => open({ kind: "visitor", id: item.id })}>
-          <MessageAvatar name={item.display_name} /><span className="am-preview"><span className="am-preview-heading"><strong>{item.display_name}</strong><small>{format(new Date(item.created_at), "d MMM")}</small></span><span className="am-preview-text">{item.message}</span></span>
+        {!compact && pinned.map((item) => <Button key={`row-${item.author}`} variant="ghost" className={`am-row ${active?.kind === "pinned" && active.index === item.index ? "selected" : ""}`} onClick={() => open({ kind: "pinned", index: item.index })}>
+          <span className="am-unread" aria-hidden="true" />
+          <MessageAvatar name={item.author} /><span className="am-preview"><span className="am-preview-heading"><strong>{item.author}</strong></span><span className="am-preview-text">{item.quote}</span></span>
         </Button>)}
+        {visitors.map((item) => {
+          const unread = !read.includes(item.id);
+          return <div key={item.id} className="am-row-wrap">
+            <Button variant="ghost" className={`am-row ${active?.kind === "visitor" && active.id === item.id ? "selected" : ""}`} aria-label={`${item.display_name}${unread ? ", unread" : ""}`} onClick={() => open({ kind: "visitor", id: item.id })}>
+              <span className={`am-unread ${unread ? "on" : ""}`} aria-hidden="true" />
+              <MessageAvatar name={item.display_name} /><span className="am-preview"><span className="am-preview-heading"><strong>{item.display_name}</strong><small>{listTime(item.created_at)}{compact && <ChevronRight aria-hidden="true" />}</small></span><span className="am-preview-text">{item.message}</span></span>
+            </Button>
+            {compact && editing && <Button variant="ghost" size="icon" className="am-row-report" aria-label={`Report message from ${item.display_name}`} onClick={() => setReportId(item.id)}><Flag /></Button>}
+          </div>;
+        })}
         {pinned.length === 0 && visitors.length === 0 && <p className="am-empty">No Results</p>}
       </div>
       {compact && <div className="am-list-bottom">{searchField}<Button variant="ghost" size="icon" className="am-control am-new-bottom" aria-label="New message" title="New message" onClick={() => open({ kind: "new" })}><SquarePen /></Button></div>}
