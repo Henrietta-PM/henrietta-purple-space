@@ -192,3 +192,6 @@
 .apple-maps .jm-steps li button > span:nth-child(2) { padding:12px 0; border-bottom:0; }
 .apple-maps .jm-steps li button > svg:last-child { width:16px; height:16px; color:hsl(var(--os-ink) / .3); }
 .apple-maps .jm-steps small { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; font-size:13px; }
+.apple-maps-phone .jm-drag { touch-action:none; cursor:grab; position:relative; }
+.apple-maps-phone .jm-drag::before { content:""; position:absolute; inset:-14px -60px; }
+.apple-maps-phone .os-maps-sheet { padding-top:6px; }
