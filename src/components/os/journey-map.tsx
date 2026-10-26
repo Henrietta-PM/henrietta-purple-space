@@ -123,6 +123,7 @@ export default function JourneyMap({ compact }: { compact: boolean }) {
               <div><Clock /><small>Your time</small><strong>{timeIn(visitor.timezone)}</strong></div>
               <div><Clock /><small>Lagos time</small><strong>{timeIn("Africa/Lagos")}</strong></div>
             </div>
+            <p className="jm-text">{journeySteps[2].text}</p>
             <p className="jm-text">{diff === 0 ? "We share the same time zone, so working hours line up." : `You are ${Math.abs(diff)} hour${Math.abs(diff) === 1 ? "" : "s"} ${diff > 0 ? "ahead of" : "behind"} Lagos.`} Distance is a straight line, flight time is an estimate.</p>
           </div>
         ) : (
@@ -143,6 +144,7 @@ export default function JourneyMap({ compact }: { compact: boolean }) {
                   <span className="os-maps-dot jm-dot-green">3</span>
                   <span><strong>Where I'm headed</strong><small>Enter your city to see how far Lagos is from you</small></span>
                 </div>
+                <p className="jm-text">{journeySteps[2].text}</p>
               </li>
             </ol>
             <form className="jm-search" onSubmit={findCity}>
