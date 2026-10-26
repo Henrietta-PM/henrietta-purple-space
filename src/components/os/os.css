@@ -716,3 +716,4 @@ button.mw-weather { cursor: pointer; text-align: left; font: inherit; color: inh
   .os-love-actions button { height:32px; padding:0 10px; font-size:12px; border-radius:999px; gap:4px; }
   .os-love-actions svg { width:14px; height:14px; }
 }
+.os-love-actions button:first-child { background:hsl(var(--os-ink) / .08); color:hsl(var(--os-ink)); border:none; box-shadow:none; }
