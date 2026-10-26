@@ -31,15 +31,16 @@ const App = () => (
           <RouteSeo />
           <AnnouncementBanner />
           <Routes>
-            <Route path="/" element={<Index />} />
+            <Route path="/" element={<Suspense fallback={<div className="min-h-screen" />}><Space /></Suspense>} />
+            <Route path="/classic" element={<Index />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/cv" element={<CV />} />
             <Route path="/letter" element={<Letter />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/portfolio-guide" element={<PortfolioGuide />} />
-            <Route path="/space" element={<Suspense fallback={<div className="min-h-screen" />}><Space /></Suspense>} />
-            <Route path="/museum" element={<Navigate to="/space" replace />} />
+            <Route path="/space" element={<Navigate to="/" replace />} />
+            <Route path="/museum" element={<Navigate to="/" replace />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
