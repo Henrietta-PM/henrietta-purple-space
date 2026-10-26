@@ -5,6 +5,11 @@
 .am-control { color:hsl(var(--messages-blue)); }
 .am-list-controls .am-control { border-radius:50%; background:hsl(var(--os-ink) / .06); }
 .am-list-top h1 { font-size:34px; font-weight:700; line-height:1.2; margin:8px 0 16px; }
+.am-phone .am-list-top { position:relative; padding:8px 18px 12px; }
+.am-phone .am-list-top h1 { font-size:20px; text-align:center; margin:0; line-height:38px; }
+.am-phone .am-list-controls { position:absolute; right:16px; top:8px; }
+.am-list-bottom { flex-shrink:0; padding:8px 16px 4px; }
+.am-list-bottom .am-search { margin-bottom:0; border-radius:24px; min-height:44px; }
 .am-search { display:flex; gap:6px; align-items:center; padding:9px 12px; border-radius:18px; background:hsl(var(--os-ink) / .07); margin-bottom:12px; color:hsl(var(--os-ink-soft)); }
 .am-search svg { width:18px; height:18px; flex-shrink:0; }
 .am-search input { width:100%; min-width:0; background:transparent; outline:none; font-size:17px; color:hsl(var(--os-ink)); }
