@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from "react";
+import { toast } from "sonner";
 import { Activity, MapPin, MessageCircle, Linkedin, Twitter, ArrowUpRight, ChevronLeft, Briefcase, Calendar, Download, FileText, Globe, Heart, Instagram, PenLine, ListChecks, Mail, MoreHorizontal, PenSquare, Search, Send, Share, ShoppingBag, StickyNote, User, type LucideIcon } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -326,14 +327,28 @@ function MailCompose({ onCancel }: { onCancel: () => void }) {
   );
 }
 
+async function shareContact() {
+  const url = window.location.origin;
+  try {
+    if (navigator.share) {
+      await navigator.share({ title: "Henrietta Onwuneme, Product Manager", url });
+      return;
+    }
+    await navigator.clipboard.writeText(url);
+    toast.success("Link copied");
+  } catch {
+    // Visitor closed the share sheet
+  }
+}
+
 function ContactApp() {
   const [composing, setComposing] = useState(false);
   if (composing) return <MailCompose onCancel={() => setComposing(false)} />;
   const actions = [
     { label: "mail", Icon: Mail, onClick: () => setComposing(true) },
     { label: "book", Icon: Calendar, onClick: () => window.open(HIRE_CALENDAR_URL, "_blank", "noopener,noreferrer") },
-    { label: "website", Icon: Globe, onClick: () => { window.location.href = "/"; } },
-    { label: "more", Icon: MoreHorizontal, onClick: () => { window.location.href = "/contact"; } },
+    { label: "linkedin", Icon: Linkedin, onClick: () => window.open(externalLinks.linkedin, "_blank", "noopener,noreferrer") },
+    { label: "share", Icon: Share, onClick: shareContact },
   ];
   return (
     <div className="os-contact">
