@@ -5,11 +5,11 @@ import jpeg from "npm:jpeg-js@0.4.4";
 
 const postSchema = z.object({
   name: z.string().trim().min(1).max(40),
-  message: z.string().trim().min(1).max(240),
+  message: z.string().trim().max(240).default(""),
   consent: z.literal(true),
   website: z.string().max(0).optional(),
   photo: z.string().max(2800000).optional(),
-});
+}).refine((value) => value.message.length > 0 || Boolean(value.photo));
 const reportSchema = z.object({ id: z.string().uuid(), reason: z.enum(["Inappropriate content", "Spam", "Privacy concern"]) });
 const reply = (data: unknown, status = 200) => new Response(JSON.stringify(data), { status, headers: { ...corsHeaders, "Content-Type": "application/json", "Cache-Control": "no-store" } });
 
