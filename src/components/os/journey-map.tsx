@@ -5,6 +5,7 @@ import "leaflet/dist/leaflet.css";
 import { ChevronLeft, Navigation, Plane, Clock, Ruler, Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { featuredProjects } from "@/data/projects";
+import { journeySteps } from "@/components/JourneySection";
 import { friendlyDistance, haversineKm, flightHours } from "./journey-math";
 
 type Stop = { id: string; title: string; subtitle: string; text: string; lat: number; lng: number; tone: "red" | "blue" | "green"; glyph: string };
@@ -12,8 +13,8 @@ type Stop = { id: string; title: string; subtitle: string; text: string; lat: nu
 const LAGOS = { lat: 6.4549, lng: 3.4246 };
 
 const stops: Stop[] = [
-  { id: "uniuyo", title: "University of Uyo", subtitle: "Uyo, Akwa Ibom", text: "Where I started. I studied architecture here and learned to see products as systems that serve people.", lat: 5.0406, lng: 7.9757, tone: "red", glyph: "1" },
-  { id: "lagos", title: "Lagos Island", subtitle: "Lagos, Nigeria", text: "Where I build from. Everything I have shipped so far was built from Lagos.", lat: LAGOS.lat, lng: LAGOS.lng, tone: "blue", glyph: "2" },
+  { id: "uniuyo", title: "University of Uyo", subtitle: "Uyo, Akwa Ibom", text: `${journeySteps[0].title}. I studied architecture here. ${journeySteps[0].text}`, lat: 5.0406, lng: 7.9757, tone: "red", glyph: "1" },
+  { id: "lagos", title: "Lagos Island", subtitle: "Lagos, Nigeria", text: `${journeySteps[1].title}, from Lagos. ${journeySteps[1].text}`, lat: LAGOS.lat, lng: LAGOS.lng, tone: "blue", glyph: "2" },
 ];
 
 type Visitor = { name: string; lat: number; lng: number; timezone: string; country?: string };
