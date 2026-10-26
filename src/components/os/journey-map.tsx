@@ -33,7 +33,7 @@ function FlyTo({ target, bounds, compact }: { target: [number, number] | null; b
   const map = useMap();
   useEffect(() => {
     if (bounds) map.flyToBounds(bounds, { paddingTopLeft: compact ? [40, 70] : [340, 60], paddingBottomRight: compact ? [40, 380] : [60, 60], duration: 1.2 });
-    else if (target) map.flyTo(target, 13, { duration: 1.2 });
+    else if (target) { const z = 13; const pt = map.project(target, z).add([0, compact ? map.getSize().y * 0.22 : -0]).subtract(compact ? [0, 0] : [-150, 0]); map.flyTo(map.unproject(pt, z), z, { duration: 1.2 }); }
   }, [map, target, bounds, compact]);
   return null;
 }
