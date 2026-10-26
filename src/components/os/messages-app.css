@@ -56,4 +56,21 @@
 .am-list-bottom .am-search { background:hsl(var(--apple-glass) / .9); box-shadow:var(--apple-shadow); backdrop-filter:blur(24px); min-height:50px; }
 .am-thread-header .am-back,.am-thread-header .am-details { border-radius:50%; background:hsl(var(--apple-glass) / .8); box-shadow:var(--apple-shadow); }
 .am-phone .am-thread-header .am-details { width:40px; height:40px; }
-.am-thread-label { display:none; }
+.am-thread-label { display:none; }.am-list-controls { gap:8px; justify-content:flex-end; }
+.am-pinned { display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; padding:8px 0 16px; border-bottom:.5px solid hsl(var(--os-line) / .5); }
+.am-pinned .am-pin { display:flex; flex-direction:column; gap:6px; height:auto; padding:6px 0; border-radius:16px; color:hsl(var(--os-ink)); white-space:nowrap; }
+.am-pinned .am-pin.selected { background:hsl(var(--messages-blue) / .15); }
+.am-pinned .am-avatar { width:72px; height:72px; font-size:28px; }
+.am-mac .am-pinned .am-avatar { width:56px; height:56px; font-size:22px; }
+.am-pinned .am-pin span:last-child { font-size:12px; color:hsl(var(--os-ink-soft)); max-width:100%; overflow:hidden; text-overflow:ellipsis; }
+.am-preview-heading small { font-size:14px; font-weight:400; color:hsl(var(--os-ink-soft)); }
+.am-time { text-align:center; font-size:11px; font-weight:500; color:hsl(var(--os-ink-soft)); margin-bottom:12px; }
+.am-compose-intro { display:flex; flex-direction:column; gap:12px; }
+.am-to { font-size:15px; color:hsl(var(--os-ink-soft)); padding-bottom:10px; border-bottom:.5px solid hsl(var(--os-line) / .5); }
+.am-to span { color:hsl(var(--messages-blue)); }
+.am-name { font-size:16px; padding:10px 14px; border-radius:14px; background:hsl(var(--os-ink) / .06); color:hsl(var(--os-ink)); outline:none; }
+.am-consent { display:flex; gap:8px; align-items:center; font-size:13px; color:hsl(var(--os-ink-soft)); }
+.am-composer { display:flex; gap:8px; align-items:center; padding:8px 12px 10px; flex-shrink:0; }
+.am-composer input { flex:1; min-width:0; font-size:16px; padding:9px 16px; border-radius:999px; border:.5px solid hsl(var(--os-line)); background:transparent; color:hsl(var(--os-ink)); outline:none; }
+.am-send { width:34px; height:34px; border-radius:50%; background:hsl(var(--messages-blue)); color:hsl(var(--os-on-dark)); }
+.am-send:hover { background:hsl(var(--messages-blue) / .9); }
