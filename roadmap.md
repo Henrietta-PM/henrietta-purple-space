@@ -16,3 +16,4 @@
 - [x] Update Apple app navigation and control styling against iOS 26 and macOS Tahoe references, preserving portfolio content and visitor features.
 - [x] Verify updated app navigation on short and tall phones and Mac; test camera capture without uploading and load live weather.
 - [ ] Verify exact visual matching for every Apple app. Blocked by incomplete version-specific reference screenshots; current screens are not verified as exact matches.
+- [x] Fix the Automatic switch thumb and verify journey expand/collapse arrows.

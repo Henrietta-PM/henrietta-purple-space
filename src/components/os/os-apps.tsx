@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { toast } from "sonner";
-import { Activity, MapPin, MessageCircle, Linkedin, Twitter, ArrowUpRight, ChevronLeft, ChevronRight, Briefcase, Calendar, Download, FileText, Heart, Instagram, PenLine, ListChecks, Mail, MoreHorizontal, PenSquare, Search, Send, Share, ShoppingBag, StickyNote, User, Folder, Grid2X2, List, Check, SlidersHorizontal, Navigation, type LucideIcon } from "lucide-react";
+import { Activity, MapPin, MessageCircle, Linkedin, Twitter, ArrowUpRight, ChevronLeft, ChevronRight, ChevronDown, Briefcase, Calendar, Download, FileText, Heart, Instagram, PenLine, ListChecks, Mail, MoreHorizontal, PenSquare, Search, Send, Share, ShoppingBag, StickyNote, User, Folder, Grid2X2, List, Check, SlidersHorizontal, Navigation, type LucideIcon } from "lucide-react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import HeartModal from "@/components/HeartModal";
@@ -690,7 +690,7 @@ function RemindersApp({ compact }: { compact: boolean }) {
 }
 
 function JourneyApp({ compact }: { compact: boolean }) {
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState<number | null>(0);
   const [query, setQuery] = useState("");
   return (
     <div className={`os-maps apple-maps ${compact ? "apple-maps-phone" : "apple-maps-mac"}`}>
@@ -704,9 +704,9 @@ function JourneyApp({ compact }: { compact: boolean }) {
         <ol>
           {journeySteps.map((step, index) => ({ ...step, index })).filter((step) => `${step.title} ${step.text}`.toLowerCase().includes(query.toLowerCase())).map((step) => (
             <li key={step.title}>
-              <Button variant="ghost" className={active === step.index ? "on" : ""} onClick={() => setActive(step.index)}>
+              <Button variant="ghost" className={active === step.index ? "on" : ""} aria-expanded={active === step.index} onClick={() => setActive((current) => current === step.index ? null : step.index)}>
                 <span className="os-maps-dot">{step.index + 1}</span>
-                <span><strong>{step.title}</strong>{active === step.index && <small>{step.text}</small>}</span><ChevronRight />
+                <span><strong>{step.title}</strong>{active === step.index && <small>{step.text}</small>}</span>{active === step.index ? <ChevronDown aria-hidden="true" /> : <ChevronRight aria-hidden="true" />}
               </Button>
             </li>
           ))}
