@@ -98,7 +98,7 @@
 .os-notes-app .an-note-row, .os-notes-app .an-folder-row { color:hsl(var(--os-ink)) !important; transition:background-color .15s; }
 .os-notes-app .an-note-row:hover, .os-notes-app .an-folder-row:hover { background:hsl(var(--os-ink) / .05) !important; }
 .os-notes-app .an-note-row:active, .os-notes-app .an-folder-row:active { background:hsl(var(--os-ink) / .1) !important; }
-.os-notes-app .an-note-row.selected { background:hsl(var(--notes-accent) / .9) !important; }
+.os-notes-app .an-note-row.selected, .os-notes-app .an-sidebar .an-folder-row { background:hsl(var(--notes-selected)) !important; }
 .os-notes-app .an-back, .os-notes-app .an-icon { color:hsl(var(--notes-accent)) !important; }
 .os-notes-app .an-back:hover, .os-notes-app .an-icon:hover { background:transparent !important; opacity:.7; }
 .os-notes-app .an-back:active, .os-notes-app .an-icon:active { opacity:.45; }
