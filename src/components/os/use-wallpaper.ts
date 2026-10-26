@@ -6,7 +6,7 @@ import hero3 from "@/assets/henrietta-hero-3.jpg";
 import hero4 from "@/assets/henrietta-hero-4.jpg";
 
 export const wallpapers = [hero, hero1, hero2, hero3, hero4];
-export const lockWallpaper = hero;
+export { lockWallpaper } from "./lock-wallpaper";
 
 const ROTATE_MS = 6000;
 

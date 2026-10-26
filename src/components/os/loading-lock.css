@@ -1,0 +1,21 @@
+.entry-lock-root { position:fixed; inset:40px 0 0; z-index:40; overflow:hidden; }
+.entry-lock { position:absolute; inset:0; z-index:40; display:flex; flex-direction:column; align-items:center; color:hsl(var(--os-on-dark)); background:hsl(var(--camera-paper)); font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif; overflow:hidden; }
+.entry-lock-wallpaper { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 25%; }
+.entry-lock::after { content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(180deg,hsl(var(--camera-paper) / .25),hsl(var(--camera-paper) / .6)); }
+.entry-lock-clock { position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; padding-top:48px; gap:2px; }
+.entry-lock-clock > svg { width:16px; height:16px; margin-bottom:6px; }
+.entry-lock-clock > span { font-size:17px; font-weight:600; }
+.entry-lock-clock > strong { font-size:88px; line-height:1; font-weight:700; letter-spacing:0; }
+.entry-lock-bottom { position:relative; z-index:1; margin-top:auto; display:flex; flex-direction:column; align-items:center; gap:8px; padding:0 0 18px; font-size:14px; }
+.entry-lock-bottom > svg { width:22px; height:22px; }
+.entry-lock-bottom i { width:134px; height:5px; border-radius:3px; background:hsl(var(--os-on-dark)); margin-top:6px; }
+.entry-lock-mac .entry-lock-clock { padding-top:72px; }
+.entry-lock-mac .entry-lock-clock > svg { display:none; }
+.entry-lock-mac .entry-lock-clock > span { font-size:24px; }
+.entry-lock-mac .entry-lock-clock > strong { font-size:112px; }
+.entry-lock-account { position:absolute; z-index:1; bottom:12%; display:flex; flex-direction:column; align-items:center; gap:12px; }
+.entry-lock-account > img { width:72px; height:72px; border-radius:50%; object-fit:cover; }
+.entry-lock-account > strong { font-size:17px; }
+.entry-lock-account .entry-lock-open { border-radius:24px; color:hsl(var(--os-on-dark)); background:hsl(var(--os-on-dark) / .16); backdrop-filter:blur(24px); }
+.entry-lock-account .entry-lock-open:hover { background:hsl(var(--os-on-dark) / .25); }
+@media (max-height:500px) { .entry-lock-mac .entry-lock-clock { padding-top:22px; } .entry-lock-mac .entry-lock-clock > strong { font-size:72px; } .entry-lock-account { bottom:6%; } }

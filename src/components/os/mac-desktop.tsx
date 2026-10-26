@@ -12,6 +12,7 @@ import ExplorationNotifications from "./exploration-notifications";
 import AppOrganizer, { AppZone } from "./app-organizer";
 import { desktopLayout } from "./app-catalog";
 import type { NoteId } from "@/data/notes";
+import { LoadingLock } from "./loading-lock";
 
 interface WindowState {
   id: AppId;
@@ -78,6 +79,7 @@ function MacWindow({ win, index, focused, bounds, onFocus, onClose, onMinimize, 
 }
 
 export function MacDesktop() {
+  const [locked, setLocked] = useState(true);
   const now = useClock();
   const { theme, toggle: toggleTheme } = useOsTheme();
   const bounds = useRef<HTMLDivElement>(null);
@@ -110,7 +112,7 @@ export function MacDesktop() {
   return (
     <div className="mac-shell" style={{ backgroundImage: `url(${wallpaper})` }}>
       <div className="mac-wallpaper-tint" />
-      <ExplorationNotifications activeApp={focused?.id} onLaunch={launch} />
+      <ExplorationNotifications enabled={!locked} activeApp={focused?.id} onLaunch={launch} />
       <nav className="mac-menubar" aria-label="Menu bar">
         <div className="mac-menubar-left">
           <AppleLogo />
@@ -155,6 +157,7 @@ export function MacDesktop() {
         <AppZone zone="dock" className="os-mac-dock-apps" />
       </nav>
       </AppOrganizer>
+      {locked && <LoadingLock desktop onUnlock={() => setLocked(false)} />}
     </div>
   );
 }
