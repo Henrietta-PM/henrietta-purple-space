@@ -659,3 +659,6 @@ button.mw:hover { transform:translateY(-2px); }
 .mw { border:0 !important; box-shadow:inset 0 0.5px 0 hsl(0 0% 100% / .22) !important; transform:translateZ(0); backface-visibility:hidden; isolation:isolate; backdrop-filter:blur(40px) saturate(1.6); -webkit-backdrop-filter:blur(40px) saturate(1.6); }
 button.mw { transition:opacity .15s ease; }
 button.mw:hover { transform:translateZ(0); opacity:.92; }
+.mac-battery { display:flex; align-items:center; gap:5px; font-size:12px; }
+.mac-battery svg, .mac-menubar-right > svg { width:auto !important; height:12px !important; }
+.mac-menubar-left > svg { width:14px !important; height:16px !important; margin-top:-2px; }
