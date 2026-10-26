@@ -55,3 +55,4 @@
 .mac-dock .os-organized-tile .os-tile-name { display:block; position:absolute; bottom:calc(100% + 8px); left:50%; transform:translateX(-50%) scale(.77); padding:3px 10px; border-radius:6px; font-size:11px; white-space:nowrap; color:hsl(var(--os-on-dark)); background:hsl(var(--os-glass)); backdrop-filter:blur(12px); opacity:0; pointer-events:none; transition:opacity .15s; }
 .mac-dock .os-organized-tile:hover .os-tile-name { opacity:1; }
 .os-mac-dock-apps .mac-dock-divider { width:1px; height:44px; margin:0 6px 6px; background:hsl(var(--os-on-dark) / .35); }
+.mac-dock .os-organized-tile .os-tile-name { width:auto; max-width:none; overflow:visible; text-overflow:clip; font-size:13px; padding:4px 12px; transform:translateX(-50%); bottom:calc(100% + 6px); }
