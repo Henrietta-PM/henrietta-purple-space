@@ -118,3 +118,12 @@
 .apple-contact-mac .os-contact-actions button { height:auto; }
 .os-contact-actions button { padding:12px 2px; }
 .apple-phone .apple-tabbar:has(button:only-child) { display:none; }
+.apple-app-layout button:hover,.apple-settings button:hover { color:hsl(var(--os-ink)); background:hsl(var(--os-ink) / .05); }
+.apple-health .os-health-card:hover { background:hsl(var(--apple-paper)); }
+.apple-settings .apple-appearance button:hover { background:transparent; }
+.apple-settings button:focus-visible { outline:2px solid hsl(var(--apple-blue)); }
+.apple-settings button[role=radio] { border-radius:0; }
+.apple-settings button[role=switch] { background:hsl(var(--os-ink) / .2); }
+.apple-settings button[role=switch][data-state=checked] { background:hsl(var(--os-max)); }
+.os-contact-group button.os-contact-row { height:auto; min-height:66px; align-items:flex-start; justify-content:center; border-radius:0; padding:11px 14px; }
+.os-contact-actions button:hover { color:hsl(var(--apple-blue)); }
