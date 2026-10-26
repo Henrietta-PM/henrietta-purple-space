@@ -188,16 +188,15 @@ export function AppLibrary({ onOpenProject, onLaunch }: { onOpenProject: (name: 
       ) : (
         <div className="os-lib-grid">
           {folders.map((folder) => {
-            const [a, b, ...rest] = folder.items;
+            const big = folder.items.length <= 4 ? folder.items : folder.items.slice(0, 3);
+            const rest = folder.items.length <= 4 ? [] : folder.items.slice(3, 7);
             return (
               <div key={folder.name} className="os-lib-folder">
                 <div className="os-lib-box">
-                  {a && <LibraryTile item={a} />}
-                  {b && <LibraryTile item={b} />}
-                  {rest.length === 1 && <LibraryTile item={rest[0]} />}
-                  {rest.length > 1 && (
+                  {big.map((item) => <LibraryTile key={item.key} item={item} />)}
+                  {rest.length > 0 && (
                     <div className="os-lib-mini">
-                      {rest.slice(0, 4).map((item) => <LibraryTile key={item.key} item={item} />)}
+                      {rest.map((item) => <LibraryTile key={item.key} item={item} />)}
                     </div>
                   )}
                 </div>

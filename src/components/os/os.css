@@ -579,3 +579,4 @@ button.mw:hover { transform:translateY(-2px); }
 .os-lib-tile { overflow:hidden; border-radius:23%; }
 .os-lib-tile .os-icon { border-radius:inherit !important; }
 .ios-lib-page .os-lib-folder { font-size:12px; font-weight:500; gap:6px; }
+.os-lib-mini .os-cal .os-cal-day { font-size:5px; } .os-lib-mini .os-cal .os-cal-date { font-size:11px; }
