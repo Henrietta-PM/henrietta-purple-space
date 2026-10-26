@@ -5,6 +5,7 @@ import "leaflet/dist/leaflet.css";
 import { ChevronLeft, Navigation, Plane, Clock, Ruler, Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { featuredProjects } from "@/data/projects";
+import { journeySteps } from "@/components/JourneySection";
 import { friendlyDistance, haversineKm, flightHours } from "./journey-math";
 
 type Stop = { id: string; title: string; subtitle: string; text: string; lat: number; lng: number; tone: "red" | "blue" | "green"; glyph: string };
@@ -12,8 +13,8 @@ type Stop = { id: string; title: string; subtitle: string; text: string; lat: nu
 const LAGOS = { lat: 6.4549, lng: 3.4246 };
 
 const stops: Stop[] = [
-  { id: "uniuyo", title: "University of Uyo", subtitle: "Uyo, Akwa Ibom", text: "Where I started. I studied architecture here and learned to see products as systems that serve people.", lat: 5.0406, lng: 7.9757, tone: "red", glyph: "1" },
-  { id: "lagos", title: "Lagos Island", subtitle: "Lagos, Nigeria", text: "Where I build from. Everything I have shipped so far was built from Lagos.", lat: LAGOS.lat, lng: LAGOS.lng, tone: "blue", glyph: "2" },
+  { id: "uniuyo", title: "University of Uyo", subtitle: "Uyo, Akwa Ibom", text: `${journeySteps[0].title}. I studied architecture here. ${journeySteps[0].text}`, lat: 5.0406, lng: 7.9757, tone: "red", glyph: "1" },
+  { id: "lagos", title: "Lagos Island", subtitle: "Lagos, Nigeria", text: `${journeySteps[1].title}, from Lagos. ${journeySteps[1].text}`, lat: LAGOS.lat, lng: LAGOS.lng, tone: "blue", glyph: "2" },
 ];
 
 type Visitor = { name: string; lat: number; lng: number; timezone: string; country?: string };
@@ -82,7 +83,7 @@ export default function JourneyMap({ compact }: { compact: boolean }) {
       <MapContainer className="apple-map-frame jm-map" center={[6, 5.5]} zoom={6} zoomControl={false} attributionControl>
         <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; OpenStreetMap contributors" />
         <FlyTo target={focus.target} bounds={focus.bounds} compact={compact} />
-        <Polyline positions={stops.map((s) => [s.lat, s.lng])} pathOptions={{ className: "jm-route" }} />
+        <Polyline positions={stops.map((s): [number, number] => [s.lat, s.lng])} pathOptions={{ className: "jm-route" }} />
         {visitor && <Polyline positions={[[LAGOS.lat, LAGOS.lng], [visitor.lat, visitor.lng]]} pathOptions={{ className: "jm-route jm-route-you", dashArray: "2 8" }} />}
         {stops.map((s) => <Marker key={s.id} position={[s.lat, s.lng]} icon={icons[s.id]} eventHandlers={{ click: () => open(s) }} />)}
         {visitor && <Marker position={[visitor.lat, visitor.lng]} icon={youIcon} eventHandlers={{ click: () => setSelected("you") }} />}
@@ -122,6 +123,7 @@ export default function JourneyMap({ compact }: { compact: boolean }) {
               <div><Clock /><small>Your time</small><strong>{timeIn(visitor.timezone)}</strong></div>
               <div><Clock /><small>Lagos time</small><strong>{timeIn("Africa/Lagos")}</strong></div>
             </div>
+            <p className="jm-text">{journeySteps[2].text}</p>
             <p className="jm-text">{diff === 0 ? "We share the same time zone, so working hours line up." : `You are ${Math.abs(diff)} hour${Math.abs(diff) === 1 ? "" : "s"} ${diff > 0 ? "ahead of" : "behind"} Lagos.`} Distance is a straight line, flight time is an estimate.</p>
           </div>
         ) : (
@@ -142,6 +144,7 @@ export default function JourneyMap({ compact }: { compact: boolean }) {
                   <span className="os-maps-dot jm-dot-green">3</span>
                   <span><strong>Where I'm headed</strong><small>Enter your city to see how far Lagos is from you</small></span>
                 </div>
+                <p className="jm-text">{journeySteps[2].text}</p>
               </li>
             </ol>
             <form className="jm-search" onSubmit={findCity}>
