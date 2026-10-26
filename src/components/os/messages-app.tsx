@@ -114,6 +114,8 @@ export default function MessagesApp({ compact = false }: { compact?: boolean }) 
     const parsed = messageSchema.safeParse({ name: replying ? visitor.name : name, message: draft });
     if (!parsed.success) { toast.error("Add your name and a message."); return; }
     if (!replying && !consent) { toast.error("Please agree to show your message publicly."); return; }
+    const wait = secondsUntilNextMessage();
+    if (wait > 0) { toast.error(`You can send one message a minute. Try again in ${wait} seconds.`); return; }
     setSending(true);
     try {
       const result = await sendVisitorMessage(parsed.data.name, parsed.data.message);

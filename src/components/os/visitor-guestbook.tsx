@@ -7,7 +7,7 @@ import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { supabase } from "@/integrations/supabase/client";
-import { friendlyError } from "@/lib/friendly-error";
+import { friendlyError, RateLimitError } from "@/lib/friendly-error";
 import { wallpapers } from "./use-wallpaper";
 import "./visitor-guestbook.css";
 import { AppleSearch, AppleSections } from "./apple-app-chrome";
@@ -18,8 +18,19 @@ const shoutSchema = z.object({ name: nameSchema, message: z.string().trim().min(
 
 async function invokeGuestbook(body?: unknown) {
   const { data, error } = await supabase.functions.invoke("visitor-guestbook", { method: body ? "POST" : "GET", ...(body ? { body } : {}) });
-  if (error) throw error;
+  if (error) {
+    const status = (error as { context?: { status?: number } }).context?.status;
+    if (status === 429) throw new RateLimitError();
+    throw error;
+  }
   return data;
+}
+
+const lastSentKey = "henrietta-last-message-at";
+
+export function secondsUntilNextMessage(): number {
+  const last = Number(localStorage.getItem(lastSentKey) ?? 0);
+  return Math.max(0, Math.ceil((last + 60000 - Date.now()) / 1000));
 }
 
 export function useVisitorPosts(enabled = true) {
@@ -50,6 +61,7 @@ function saveOwnedMessages(owned: Record<string, string>) {
 
 export async function sendVisitorMessage(name: string, message: string) {
   const result = await invokeGuestbook({ name, message, consent: true, kind: "message" });
+  localStorage.setItem(lastSentKey, String(Date.now()));
   if (result?.id && result?.deleteToken) saveOwnedMessages({ ...loadOwnedMessages(), [result.id]: result.deleteToken });
   return result;
 }
