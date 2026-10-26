@@ -6,7 +6,7 @@ import { useOsTheme, type OsThemePref } from "./use-os-theme";
 import { AnimatePresence, motion } from "framer-motion";
 import { format } from "date-fns";
 import { Check, Navigation, Settings } from "lucide-react";
-import { IosBattery, IosSignal, IosWifi } from "./status-icons";
+import { IosBattery, IosNetwork, IosSignal } from "./status-icons";
 import portrait from "@/assets/henrietta-portrait.jpg";
 import { AppContent, AppIcon, AppLibrary, appTitles, externalLinks, isLink, launchers, type AppId, type LauncherId } from "./os-apps";
 import { useClock } from "./use-clock";
@@ -48,7 +48,7 @@ export function IphoneHome() {
   const StatusBar = ({ light }: { light: boolean }) => (
     <div className={`ios-status ${light ? "light" : ""}`}>
       <span>{format(now, "HH:mm")}</span>
-      <span className="ios-status-icons"><IosSignal /><IosWifi /><IosBattery /></span>
+      <span className="ios-status-icons"><IosSignal /><IosNetwork /><IosBattery /></span>
     </div>
   );
 
