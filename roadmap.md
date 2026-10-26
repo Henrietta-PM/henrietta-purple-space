@@ -10,3 +10,4 @@
 - [x] Add private reporting and visitor spam protection, then test submission and gallery readback.
 - [x] Add visitor-local app rearranging and automatically named folders on phone and desktop, then verify both flows.
 - [x] Replace folder modals with Apple-style folders and verify dragging apps out on phone and desktop.
+- [ ] Add an About Me note opened by the widget, and a browsable Notes app preserving the letter; verify phone and desktop.
