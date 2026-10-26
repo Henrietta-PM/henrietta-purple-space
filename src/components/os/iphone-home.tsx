@@ -12,7 +12,7 @@ import { IphoneLock } from "./iphone-lock";
 import ExplorationNotifications from "./exploration-notifications";
 import AppOrganizer, { AppZone } from "./app-organizer";
 import { phoneLayout } from "./app-catalog";
-import { aboutMeNote, type NoteId } from "@/data/notes";
+import { type NoteId } from "@/data/notes";
 import SettingsApp from "./settings-app";
 
 export function IphoneHome() {
