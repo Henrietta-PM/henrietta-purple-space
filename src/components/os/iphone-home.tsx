@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { describe, fetchLagosWeather } from "./mac-widgets";
-import { useOsTheme, type OsThemePref } from "./use-os-theme";
 import { AnimatePresence, motion } from "framer-motion";
 import { format } from "date-fns";
-import { Check, Navigation } from "lucide-react";
+import { Navigation } from "lucide-react";
 import { IosBattery, IosNetwork, IosSignal } from "./status-icons";
 import { useWallpaper } from "./use-wallpaper";
 import { AppContent, AppLibrary, appTitles, externalLinks, isLink, type AppId, type LauncherId } from "./os-apps";
@@ -14,6 +13,7 @@ import ExplorationNotifications from "./exploration-notifications";
 import AppOrganizer, { AppZone } from "./app-organizer";
 import { phoneLayout } from "./app-catalog";
 import { aboutMeNote, type NoteId } from "@/data/notes";
+import SettingsApp from "./settings-app";
 
 export function IphoneHome() {
   const now = useClock();
@@ -42,7 +42,6 @@ export function IphoneHome() {
     const timer = window.setTimeout(() => setShowHint(false), 3500);
     return () => window.clearTimeout(timer);
   }, [open]);
-  const { pref, setPref } = useOsTheme();
   const { data: weather } = useQuery({ queryKey: ["lagos-weather"], queryFn: fetchLagosWeather, staleTime: 30 * 60 * 1000, retry: 1 });
   const sky = describe(weather?.code ?? 2);
 
@@ -136,7 +135,7 @@ export function IphoneHome() {
           >
             <StatusBar light={false} />
             <div className="ios-app-body">
-              {open === "settings" ? <SettingsApp pref={pref} onChange={setPref} /> : <AppContent id={open} compact initialNote={open === "letter" ? initialNote : undefined} projectName={open === "projects" ? projectName : undefined} onLaunch={(id) => { setProjectName(undefined); launch(id); }} />}
+              {open === "settings" ? <SettingsApp compact /> : <AppContent id={open} compact initialNote={open === "letter" ? initialNote : undefined} projectName={open === "projects" ? projectName : undefined} onLaunch={(id) => { setProjectName(undefined); launch(id); }} />}
             </div>
             {showHint && <motion.span className="ios-home-hint" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>Swipe up or tap the bar to go home</motion.span>}
             <motion.button
@@ -158,25 +157,3 @@ export function IphoneHome() {
   );
 }
 
-const themeOptions: { value: OsThemePref; label: string; note: string }[] = [
-  { value: "system", label: "Automatic", note: "Match this phone's setting" },
-  { value: "light", label: "Light", note: "Always light" },
-  { value: "dark", label: "Dark", note: "Always dark" },
-];
-
-function SettingsApp({ pref, onChange }: { pref: OsThemePref; onChange: (value: OsThemePref) => void }) {
-  return (
-    <div className="ios-settings">
-      <h1>Display &amp; Brightness</h1>
-      <p className="ios-settings-label">Appearance</p>
-      <div className="ios-settings-group" role="radiogroup" aria-label="Appearance">
-        {themeOptions.map((option) => (
-          <button key={option.value} role="radio" aria-checked={pref === option.value} onClick={() => onChange(option.value)}>
-            <span><strong>{option.label}</strong><small>{option.note}</small></span>
-            {pref === option.value && <Check aria-hidden="true" />}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}

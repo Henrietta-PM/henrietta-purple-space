@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { toast } from "sonner";
-import { Activity, MapPin, MessageCircle, Linkedin, Twitter, ArrowUpRight, ChevronLeft, Briefcase, Calendar, Download, FileText, Heart, Instagram, PenLine, ListChecks, Mail, MoreHorizontal, PenSquare, Search, Send, Share, ShoppingBag, StickyNote, User, type LucideIcon } from "lucide-react";
+import { Activity, MapPin, MessageCircle, Linkedin, Twitter, ArrowUpRight, ChevronLeft, ChevronRight, Briefcase, Calendar, Download, FileText, Heart, Instagram, PenLine, ListChecks, Mail, MoreHorizontal, PenSquare, Search, Send, Share, ShoppingBag, StickyNote, User, Folder, Grid2X2, List, Check, SlidersHorizontal, Navigation, type LucideIcon } from "lucide-react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import HeartModal from "@/components/HeartModal";
@@ -28,6 +28,7 @@ import { CameraApp, PhotosApp, ReportDialog, ShoutOutComposer, useVisitorPosts }
 import { Camera, Images } from "lucide-react";
 import NotesApp from "./notes-app";
 import type { NoteId } from "@/data/notes";
+import { AppleSearch, AppleSections } from "./apple-app-chrome";
 
 export type AppId = "projects" | "cv" | "letter" | "contact" | "shop" | "love" | "messages" | "health" | "reminders" | "maps" | "weather" | "camera" | "photos";
 export type LinkId = "hire" | "instagram" | "linkedin" | "x";
@@ -233,6 +234,8 @@ function FolderGlyph() {
 
 function ProjectsApp({ compact, initial }: { compact: boolean; initial?: string }) {
   const [query, setQuery] = useState("");
+  const [view, setView] = useState<"grid" | "list">("grid");
+  const [section, setSection] = useState("browse");
   const [folder, setFolder] = useState<string | null>(null);
   const [selected, setSelected] = useState<Project | null>(() => allProjects.find((p) => p.name === initial) ?? null);
 
@@ -247,35 +250,38 @@ function ProjectsApp({ compact, initial }: { compact: boolean; initial?: string 
   const current = fileFolders.find((f) => f.name === folder);
   const q = query.trim().toLowerCase();
   const list = (current ? current.items() : allProjects).filter((p) => !q || `${p.name} ${p.tags.join(" ")}`.toLowerCase().includes(q));
-  const showFolders = !current && !q;
+  const showFolders = !current && !q && section === "browse";
 
   return (
-    <div className="os-files-app">
-      <div className="os-files-nav">
-        {current ? <button className="os-files-back" onClick={() => setFolder(null)}><ChevronLeft aria-hidden="true" /> Projects</button> : <span />}
-        <MoreHorizontal className="os-files-more" aria-hidden="true" />
-      </div>
-      <h2 className="os-large-title">{current ? current.name : "Projects"}</h2>
-      <label className="os-search-field"><Search aria-hidden="true" /><input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search" aria-label="Search projects" /></label>
+    <AppleSections compact={compact} title={compact ? "Files" : "Finder"} sections={[{ id: "browse", label: "Browse", icon: Folder }, { id: "all", label: "Projects", icon: Briefcase }, { id: "search", label: "Search", icon: Search }]} selected={section} onSelect={(id) => { setSection(id); setFolder(null); setQuery(""); }}>
+    <div className={`os-files-app apple-files ${view === "list" ? "apple-files-list" : ""}`}>
+      <header className="apple-toolbar">
+        {current ? <Button variant="ghost" size="icon" aria-label="Back to project folders" onClick={() => setFolder(null)}><ChevronLeft /></Button> : <span />}
+        <h2>{compact ? "" : current?.name ?? "Projects"}</h2>
+        <Button variant="ghost" size="icon" aria-label={view === "grid" ? "View projects as list" : "View projects as icons"} title={view === "grid" ? "List view" : "Icon view"} onClick={() => setView(view === "grid" ? "list" : "grid")}>{view === "grid" ? <List /> : <Grid2X2 />}</Button>
+      </header>
+      {compact && <h2 className="os-large-title">{current ? current.name : section === "search" ? "Search" : "Projects"}</h2>}
+      <AppleSearch value={query} onChange={setQuery} label="Search projects" />
       <div className="os-files-grid">
         {showFolders && fileFolders.map((f) => (
-          <button key={f.name} className="os-files-item" onClick={() => setFolder(f.name)}>
+          <Button variant="ghost" key={f.name} className="os-files-item" onClick={() => setFolder(f.name)}>
             <FolderGlyph />
             <strong>{f.name}</strong>
             <small>{f.items().length} items</small>
-          </button>
+          </Button>
         ))}
         {!showFolders && list.map((p) => (
-          <button key={p.name} className="os-files-item" onClick={() => setSelected(p)}>
+          <Button variant="ghost" key={p.name} className="os-files-item" onClick={() => setSelected(p)}>
             <span className="os-files-thumb"><img src={p.image} alt="" loading="lazy" /></span>
             <strong>{p.name}</strong>
             <small>{p.tags[0] ?? "Project"}</small>
-          </button>
+          </Button>
         ))}
         {!showFolders && list.length === 0 && <p className="os-muted">No results</p>}
       </div>
       {showFolders && <p className="os-files-count">{fileFolders.length} folders, {allProjects.length} projects</p>}
     </div>
+    </AppleSections>
   );
 }
 
@@ -389,7 +395,7 @@ async function shareContact() {
   await copyShareLink();
 }
 
-function ContactApp() {
+function ContactApp({ compact }: { compact: boolean }) {
   const [composing, setComposing] = useState(false);
   if (composing) return <MailCompose onCancel={() => setComposing(false)} />;
   const actions = [
@@ -399,6 +405,9 @@ function ContactApp() {
     { label: "share", Icon: Share, onClick: shareContact },
   ];
   return (
+    <AppleSections compact={compact} title="Contacts" sections={[{ id: "contacts", label: "Contacts", icon: User }]} selected="contacts" onSelect={() => undefined}>
+    <div className={compact ? "" : "apple-contact-mac"}>
+    <header className="apple-toolbar"><span /><h2>Contacts</h2><Button variant="ghost" size="icon" aria-label="Share contact" title="Share contact" onClick={shareContact}><Share /></Button></header>
     <div className="os-contact">
       <div className="os-contact-hero">
         <img src={portrait} alt="Henrietta Onwuneme" className="os-contact-avatar" />
@@ -407,11 +416,11 @@ function ContactApp() {
       </div>
       <div className="os-contact-actions">
         {actions.map(({ label, Icon, onClick }) => (
-          <button key={label} onClick={onClick}><Icon aria-hidden="true" /><span>{label}</span></button>
+          <Button variant="ghost" key={label} onClick={onClick}><Icon aria-hidden="true" /><span>{label}</span></Button>
         ))}
       </div>
       <div className="os-contact-group">
-        <button className="os-contact-row" onClick={() => setComposing(true)}><span>email</span>{CONTACT_EMAIL}</button>
+        <Button variant="ghost" className="os-contact-row" onClick={() => setComposing(true)}><span>email</span>{CONTACT_EMAIL}</Button>
         <a className="os-contact-row" href={HIRE_CALENDAR_URL} onClick={openHireCalendar} target="_blank" rel="noopener noreferrer"><span>calendar</span>Book a hiring call</a>
         <div className="os-contact-row"><span>location</span><em>Lagos, Nigeria</em></div>
       </div>
@@ -421,6 +430,8 @@ function ContactApp() {
         <a className="os-contact-row" href={externalLinks.instagram} target="_blank" rel="noopener noreferrer"><span>Instagram</span>@henriettaofpm</a>
       </div>
     </div>
+    </div>
+    </AppleSections>
   );
 }
 
@@ -529,16 +540,16 @@ export function AppContent({ id, compact = false, projectName, initialNote, onLa
     case "projects": return <ProjectsApp compact={compact} initial={projectName} />;
     case "cv": return <CvApp compact={compact} />;
     case "letter": return <NotesApp key={initialNote ?? "all-notes"} compact={compact} initialNote={initialNote} letter={<LetterApp />} />;
-    case "contact": return <ContactApp />;
+    case "contact": return <ContactApp compact={compact} />;
     case "shop": return <ShopApp />;
     case "love": return <LoveApp />;
     case "messages": return <MessagesApp compact={compact} />;
-    case "health": return <SkillsApp />;
-    case "reminders": return <RemindersApp />;
-    case "maps": return <JourneyApp />;
-    case "weather": return <WeatherApp />;
+    case "health": return <SkillsApp compact={compact} />;
+    case "reminders": return <RemindersApp compact={compact} />;
+    case "maps": return <JourneyApp compact={compact} />;
+    case "weather": return <WeatherApp compact={compact} />;
     case "camera": return <CameraApp onOpen={onLaunch} />;
-    case "photos": return <PhotosApp />;
+    case "photos": return <PhotosApp compact={compact} />;
   }
 }
 
@@ -615,87 +626,88 @@ export function ProjectIcon({ project, size = "md" }: { project: Project; size?:
   );
 }
 
-function SkillsApp() {
+function SkillsApp({ compact }: { compact: boolean }) {
   const groups = [
     { title: "Soft Skills", tone: "soft", items: skillCategories.softSkills },
     { title: "Technical Skills", tone: "tech", items: skillCategories.technicalSkills },
     { title: "Tools", tone: "tools", items: skillCategories.tools },
   ];
   const [open, setOpen] = useState<string | null>(null);
+  const [section, setSection] = useState("summary");
+  const [query, setQuery] = useState("");
   return (
+    <div className="apple-health apple-height">
+    <AppleSections compact={compact} title="Health" sections={[{ id: "summary", label: "Summary", icon: Heart }, { id: "browse", label: "Browse", icon: Grid2X2 }, { id: "search", label: "Search", icon: Search }]} selected={section} onSelect={setSection}>
     <div className="os-health">
       <span className="os-health-date">{format(new Date(), "EEEE d MMMM").toUpperCase()}</span>
-      <h2 className="os-large-title">Summary</h2>
-      <p className="os-health-section">Pinned</p>
-      {groups.map((group) => {
+      <h2 className="os-large-title">{section === "summary" ? "Summary" : section === "browse" ? "Browse" : "Search"}</h2>
+      {section === "search" && <AppleSearch value={query} onChange={setQuery} label="Search skills" />}
+      <p className="os-health-section">{section === "summary" ? "Pinned" : "Skills"}</p>
+      {groups.filter((group) => `${group.title} ${group.items.join(" ")}`.toLowerCase().includes(query.toLowerCase())).map((group) => {
         const expanded = open === group.title;
         const shown = expanded ? group.items : group.items.slice(0, 4);
         return (
-          <button key={group.title} className={`os-health-card os-health-${group.tone}`} onClick={() => setOpen(expanded ? null : group.title)} aria-expanded={expanded}>
+          <Button variant="ghost" key={group.title} className={`os-health-card os-health-${group.tone}`} onClick={() => setOpen(expanded ? null : group.title)} aria-expanded={expanded}>
             <span className="os-health-head"><Activity aria-hidden="true" /><strong>{group.title}</strong><ChevronLeft className="os-health-chev" aria-hidden="true" /></span>
             <span className="os-health-value"><b>{group.items.length}</b> skills</span>
             <span className="os-health-list">{shown.join(" · ")}{!expanded && group.items.length > 4 ? ` · +${group.items.length - 4} more` : ""}</span>
-          </button>
+          </Button>
         );
       })}
+    </div>
+    </AppleSections>
     </div>
   );
 }
 
-function RemindersApp() {
+function RemindersApp({ compact }: { compact: boolean }) {
   const [done, setDone] = useState<string[]>([]);
+  const [section, setSection] = useState("all");
+  const [query, setQuery] = useState("");
   const toggle = (id: string) => setDone((list) => (list.includes(id) ? list.filter((x) => x !== id) : [...list, id]));
   return (
+    <div className="apple-reminders apple-height">
+    <AppleSections compact={compact} title="Reminders" sections={[{ id: "all", label: "All", icon: ListChecks }, { id: "completed", label: "Completed", icon: Check }, { id: "search", label: "Search", icon: Search }]} selected={section} onSelect={setSection}>
+    <header className="apple-toolbar"><span /><h2>Reminders</h2><span /></header>
     <div className="os-rem">
-      <h2 className="os-rem-title">How I Work</h2>
+      <h2 className="os-rem-title">How I Work <span>{workSteps.length - done.length}</span></h2>
+      {section === "search" && <AppleSearch value={query} onChange={setQuery} label="Search work steps" />}
       <ul>
-        {workSteps.map((step) => {
+        {workSteps.filter((step) => (section !== "completed" || done.includes(step.number)) && `${step.title} ${step.text}`.toLowerCase().includes(query.toLowerCase())).map((step) => {
           const checked = done.includes(step.number);
           return (
             <li key={step.number}>
-              <button className={`os-rem-check ${checked ? "on" : ""}`} onClick={() => toggle(step.number)} aria-pressed={checked} aria-label={`Mark ${step.title} done`} />
+              <Button variant="ghost" size="icon" className={`os-rem-check ${checked ? "on" : ""}`} onClick={() => toggle(step.number)} aria-pressed={checked} aria-label={`Mark ${step.title} ${checked ? "not done" : "done"}`}>{checked && <Check />}</Button>
               <span className={checked ? "os-rem-done" : ""}><strong>{step.title}</strong><small>{step.text}</small></span>
             </li>
           );
         })}
       </ul>
     </div>
+    </AppleSections>
+    </div>
   );
 }
 
-const pinSpots = [{ x: 22, y: 70 }, { x: 52, y: 42 }, { x: 80, y: 22 }];
-
-function JourneyApp() {
+function JourneyApp({ compact }: { compact: boolean }) {
   const [active, setActive] = useState(0);
+  const [query, setQuery] = useState("");
   return (
-    <div className="os-maps">
-      <svg className="os-maps-canvas" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-        <rect width="100" height="100" className="os-map-land" />
-        <path d="M60 0 C 70 30, 95 35, 100 60 L100 0 Z" className="os-map-water" />
-        <rect x="6" y="12" width="22" height="18" rx="3" className="os-map-park" />
-        <rect x="62" y="68" width="26" height="20" rx="3" className="os-map-park" />
-        <path d="M0 55 L100 48 M0 85 L100 78 M35 0 L40 100 M70 0 L66 100" className="os-map-road" />
-        <path d="M0 30 L100 20 M15 0 L12 100 M88 0 L92 100" className="os-map-street" />
-        <polyline points={pinSpots.map((p) => `${p.x},${p.y}`).join(" ")} className="os-map-route" />
-      </svg>
-      <div className="os-maps-pins">
-        {pinSpots.map((spot, index) => (
-          <button key={index} className={`os-maps-pin ${active === index ? "on" : ""}`} style={{ left: `${spot.x}%`, top: `${spot.y}%` }} onClick={() => setActive(index)} aria-label={journeySteps[index].title}>
-            <span>{index + 1}</span>
-          </button>
-        ))}
-      </div>
+    <div className={`os-maps apple-maps ${compact ? "apple-maps-phone" : "apple-maps-mac"}`}>
+      <iframe className="apple-map-frame" title="Map of Lagos" src="https://www.openstreetmap.org/export/embed.html?bbox=3.26%2C6.35%2C3.6%2C6.62&layer=mapnik" loading="lazy" />
+      <a className="apple-map-location" href="https://maps.apple.com/?q=Lagos%2C%20Nigeria" target="_blank" rel="noopener noreferrer" aria-label="Open Lagos in Apple Maps" title="Open in Apple Maps"><Navigation /></a>
       <div className="os-maps-sheet">
         <span className="os-maps-grabber" aria-hidden="true" />
-        <h2>Journey</h2>
+        <AppleSearch value={query} onChange={setQuery} label="Search my journey" />
+        <h2>My Journey</h2>
         <small className="os-maps-sub">Architecture to Product Management · {journeySteps.length} stops</small>
         <ol>
-          {journeySteps.map((step, index) => (
+          {journeySteps.map((step, index) => ({ ...step, index })).filter((step) => `${step.title} ${step.text}`.toLowerCase().includes(query.toLowerCase())).map((step) => (
             <li key={step.title}>
-              <button className={active === index ? "on" : ""} onClick={() => setActive(index)}>
-                <span className="os-maps-dot">{index + 1}</span>
-                <span><strong>{step.title}</strong><small>{step.text}</small></span>
-              </button>
+              <Button variant="ghost" className={active === step.index ? "on" : ""} onClick={() => setActive(step.index)}>
+                <span className="os-maps-dot">{step.index + 1}</span>
+                <span><strong>{step.title}</strong>{active === step.index && <small>{step.text}</small>}</span><ChevronRight />
+              </Button>
             </li>
           ))}
         </ol>

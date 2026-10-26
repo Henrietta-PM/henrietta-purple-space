@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { ChevronLeft, ChevronRight, Flag, Image as ImageIcon, LayoutGrid, RefreshCw, SwitchCamera, X, Zap } from "lucide-react";
+import { ChevronLeft, ChevronRight, Flag, Image as ImageIcon, LayoutGrid, RefreshCw, SwitchCamera, X, Search, SlidersHorizontal, Share, Info } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { format } from "date-fns";
@@ -10,6 +10,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { friendlyError } from "@/lib/friendly-error";
 import { wallpapers } from "./use-wallpaper";
 import "./visitor-guestbook.css";
+import { AppleSearch, AppleSections } from "./apple-app-chrome";
 
 export interface Visit { id: string; display_name: string; message: string; photo_url: string | null; created_at: string }
 const nameSchema = z.string().trim().min(1).max(40);
@@ -119,10 +120,10 @@ export function CameraApp({ onOpen }: { onOpen?: (id: "photos") => void }) {
 
   return (
     <div className="cam-app">
-      <div className="cam-top"><Zap aria-hidden="true" /><span className="cam-top-dot" /><Button variant="ghost" size="icon" className="cam-round" aria-label="Choose from your photos" onClick={() => fileInput.current?.click()}><ImageIcon /></Button></div>
+      <div className="cam-top"><span /><span className="cam-top-dot" /><Button variant="ghost" size="icon" className="cam-round" aria-label="Choose from your photos" title="Choose photo" onClick={() => fileInput.current?.click()}><ImageIcon /></Button></div>
       <div className="cam-view">
         {photo ? <img src={photo} alt="Your photo" /> : stream ? <video ref={video} autoPlay playsInline muted aria-label="Camera preview" className={facing === "user" ? "is-mirror" : ""} /> : (
-          <button type="button" className="cam-allow" onClick={() => start()} disabled={starting}>{starting ? "Starting camera..." : "Tap to turn on the camera"}<small>Nothing is shared until you post it.</small></button>
+          <Button variant="ghost" type="button" className="cam-allow" onClick={() => start()} disabled={starting}>{starting ? "Starting camera..." : "Turn on camera"}</Button>
         )}
         {flash && <span className="cam-flash" />}
       </div>
@@ -134,10 +135,10 @@ export function CameraApp({ onOpen }: { onOpen?: (id: "photos") => void }) {
         </form>
       ) : (
         <>
-          <div className="cam-modes" aria-hidden="true"><span>VIDEO</span><span className="on">PHOTO</span><span>PORTRAIT</span></div>
+          <div className="cam-modes"><span className="on">PHOTO</span></div>
           <div className="cam-bar">
-            <button type="button" className="cam-thumb" aria-label="Open Photos" onClick={() => onOpen?.("photos")}><img src={lastPhoto} alt="" /></button>
-            <button type="button" className="cam-shutter" aria-label="Take photo" onClick={shutter}><span /></button>
+            <Button variant="ghost" size="icon" type="button" className="cam-thumb" aria-label="Open Photos" onClick={() => onOpen?.("photos")}><img src={lastPhoto} alt="" /></Button>
+            <Button variant="ghost" size="icon" type="button" className="cam-shutter" aria-label="Take photo" onClick={shutter}><span /></Button>
             <Button variant="ghost" size="icon" className="cam-round cam-flip" aria-label="Switch camera" onClick={flip}><SwitchCamera /></Button>
           </div>
         </>
@@ -149,56 +150,59 @@ export function CameraApp({ onOpen }: { onOpen?: (id: "photos") => void }) {
 
 interface Shot { id: string; src: string; date?: string; by?: string; visitId?: string }
 
-export function PhotosApp() {
+export function PhotosApp({ compact = false }: { compact?: boolean }) {
   const { data: posts = [], isLoading, isError, refetch } = useVisitorPosts();
-  const [tab, setTab] = useState<"library" | "albums">("library");
+  const [tab, setTab] = useState("library");
+  const [query, setQuery] = useState("");
+  const [info, setInfo] = useState(false);
   const [album, setAlbum] = useState<"all" | "henrietta" | "visitors">("all");
   const [index, setIndex] = useState<number | null>(null);
   const [reportId, setReportId] = useState<string | null>(null);
-  const visitors: Shot[] = posts.filter((post) => post.photo_url).map((post) => ({ id: post.id, src: post.photo_url!, date: post.created_at, by: post.display_name, visitId: post.id }));
+  const visitors: Shot[] = posts.flatMap((post) => post.photo_url ? [{ id: post.id, src: post.photo_url, date: post.created_at, by: post.display_name, visitId: post.id }] : []);
   const mine: Shot[] = wallpapers.map((src, i) => ({ id: `h-${i}`, src, by: "Henrietta" }));
-  const shots = album === "henrietta" ? mine : album === "visitors" ? visitors : [...visitors, ...mine];
+  const shots = (album === "henrietta" ? mine : album === "visitors" ? visitors : [...visitors, ...mine]).filter((shot) => `${shot.by ?? ""} ${shot.date ?? ""}`.toLowerCase().includes(query.toLowerCase()));
   const current = index === null ? null : shots[index];
   const title = album === "henrietta" ? "Henrietta" : album === "visitors" ? "Visitors" : "Library";
   const albums = [{ id: "henrietta" as const, name: "Henrietta", items: mine }, { id: "visitors" as const, name: "Visitors", items: visitors }];
 
   return (
-    <div className="ph-app">
+    <AppleSections compact={compact} title="Photos" sections={[{ id: "library", label: "Library", icon: ImageIcon }, { id: "albums", label: compact ? "Collections" : "Albums", icon: LayoutGrid }, { id: "search", label: "Search", icon: Search }]} selected={tab} onSelect={(id) => { setTab(id); setAlbum("all"); setQuery(""); }}>
+    <div className={`ph-app ${compact ? "ph-phone" : "ph-mac"}`}>
       <header className="ph-head">
         {album !== "all" && <Button variant="ghost" size="icon" aria-label="Back to albums" onClick={() => { setAlbum("all"); setTab("albums"); }}><ChevronLeft /></Button>}
-        <h2>{tab === "albums" && album === "all" ? "Albums" : title}</h2>
+        <h2>{tab === "albums" && album === "all" ? compact ? "Collections" : "Albums" : tab === "search" ? "Search" : title}</h2>
+        <span className="ph-profile">H</span>
       </header>
+      {tab === "search" && <div className="ph-search"><AppleSearch value={query} onChange={setQuery} label="Search photos" /></div>}
       <div className="ph-body">
         {tab === "albums" && album === "all" ? (
           <div className="ph-albums">{albums.map((item) => (
-            <button key={item.id} type="button" className="ph-album" onClick={() => { setAlbum(item.id); setTab("library"); }}>
+            <Button variant="ghost" key={item.id} type="button" className="ph-album" onClick={() => { setAlbum(item.id); setTab("library"); }}>
               <span className="ph-album-cover">{item.items[0] ? <img src={item.items[0].src} alt="" loading="lazy" referrerPolicy="no-referrer" /> : <ImageIcon />}</span>
               <strong>{item.name}</strong><small>{item.items.length}</small>
-            </button>
+            </Button>
           ))}</div>
         ) : (
           <>
             {isError && album !== "henrietta" && <p className="ph-note">Visitor photos couldn't load. <button type="button" onClick={() => refetch()}><RefreshCw className="inline h-3 w-3" /> Try again</button></p>}
             {isLoading && album !== "henrietta" && <p className="ph-note">Loading visitor photos...</p>}
             <div className="ph-grid">{shots.map((shot, i) => (
-              <button key={shot.id} type="button" className="ph-tile" aria-label={`Open photo by ${shot.by}`} onClick={() => setIndex(i)}><img src={shot.src} alt="" loading="lazy" referrerPolicy="no-referrer" /></button>
+              <Button variant="ghost" key={shot.id} type="button" className="ph-tile" aria-label={`Open photo by ${shot.by}`} onClick={() => { setIndex(i); setInfo(false); }}><img src={shot.src} alt="" loading="lazy" referrerPolicy="no-referrer" /></Button>
             ))}</div>
             <p className="ph-count">{shots.length} Photos</p>
           </>
         )}
       </div>
-      <nav className="ph-tabs" aria-label="Photos sections">
-        <button type="button" className={tab === "library" && album === "all" ? "on" : ""} onClick={() => { setAlbum("all"); setTab("library"); }}><ImageIcon />Library</button>
-        <button type="button" className={tab === "albums" || album !== "all" ? "on" : ""} onClick={() => { setAlbum("all"); setTab("albums"); }}><LayoutGrid />Albums</button>
-      </nav>
       <Dialog open={current !== null} onOpenChange={(open) => { if (!open) setIndex(null); }}>
         <DialogContent className="ph-viewer"><DialogTitle className="sr-only">Photo</DialogTitle>
           {current && index !== null && <>
             <header className="ph-viewer-head"><strong>{current.by}</strong>{current.date && <time dateTime={current.date}>{format(new Date(current.date), "d MMMM yyyy")}</time>}</header>
             <img className="ph-full" src={current.src} alt={`Photo by ${current.by}`} referrerPolicy="no-referrer" />
+            {info && <p className="ph-photo-info">{current.by}{current.date && ` · ${format(new Date(current.date), "d MMMM yyyy")}`}</p>}
             <footer className="ph-viewer-bar">
               <Button variant="ghost" size="icon" disabled={index <= 0} aria-label="Previous photo" onClick={() => setIndex(index - 1)}><ChevronLeft /></Button>
-              {current.visitId ? <Button variant="ghost" size="icon" aria-label="Report photo" onClick={() => { setReportId(current.visitId!); setIndex(null); }}><Flag /></Button> : <span />}
+              <Button variant="ghost" size="icon" aria-label="Photo information" onClick={() => setInfo((value) => !value)}><Info /></Button>
+              {current.visitId ? <Button variant="ghost" size="icon" aria-label="Report photo" onClick={() => { setReportId(current.visitId ?? null); setIndex(null); }}><Flag /></Button> : <span />}
               <Button variant="ghost" size="icon" disabled={index >= shots.length - 1} aria-label="Next photo" onClick={() => setIndex(index + 1)}><ChevronRight /></Button>
             </footer>
           </>}
@@ -206,6 +210,7 @@ export function PhotosApp() {
       </Dialog>
       <ReportDialog id={reportId} onClose={() => setReportId(null)} />
     </div>
+    </AppleSections>
   );
 }
 

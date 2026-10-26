@@ -4,20 +4,20 @@
 .visitor-report { display:flex; flex-direction:column; gap:12px; }
 
 /* Camera, styled after the iOS Camera app */
-.cam-app { --cam-bg: 0 0% 0%; --cam-fg: 0 0% 100%; --cam-yellow: 48 100% 52%; height:100%; min-height:100%; display:flex; flex-direction:column; background:hsl(var(--cam-bg)); color:hsl(var(--cam-fg)); }
+.cam-app { --cam-bg: var(--camera-paper); --cam-fg: var(--camera-ink); --cam-yellow: var(--camera-accent); height:100%; min-height:0; display:flex; flex-direction:column; background:hsl(var(--cam-bg)); color:hsl(var(--cam-fg)); }
 .cam-top { flex:none; display:flex; align-items:center; justify-content:space-between; padding:10px 16px; }
 .cam-top > svg { width:20px; height:20px; }
 .cam-top-dot { width:6px; height:6px; border-radius:50%; background:hsl(var(--cam-fg) / .3); }
 .cam-round { border-radius:50%; color:hsl(var(--cam-fg)); background:hsl(var(--cam-fg) / .12); }
 .cam-round:hover { background:hsl(var(--cam-fg) / .2); color:hsl(var(--cam-fg)); }
-.cam-view { position:relative; flex:1 1 auto; min-height:160px; overflow:hidden; display:grid; place-items:center; background:hsl(0 0% 8%); }
+.cam-view { position:relative; flex:1 1 auto; min-height:80px; overflow:hidden; display:grid; place-items:center; background:hsl(var(--camera-view)); }
 .cam-view video, .cam-view img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
 .cam-view video.is-mirror { transform:scaleX(-1); }
 .cam-allow { display:flex; flex-direction:column; gap:6px; align-items:center; padding:20px; font-size:15px; color:hsl(var(--cam-fg)); }
 .cam-allow small { font-size:12px; color:hsl(var(--cam-fg) / .6); }
 .cam-flash { position:absolute; inset:0; background:hsl(var(--cam-fg)); animation:cam-flash .18s ease-out forwards; }
 @keyframes cam-flash { from { opacity:.9; } to { opacity:0; } }
-.cam-modes { flex:none; display:flex; justify-content:center; gap:22px; padding:12px 0 6px; font-size:12px; font-weight:600; letter-spacing:.06em; color:hsl(var(--cam-fg) / .7); }
+.cam-modes { flex:none; display:flex; justify-content:center; gap:22px; padding:18px 0 6px; font-size:16px; font-weight:600; letter-spacing:0; color:hsl(var(--cam-fg) / .7); }
 .cam-modes .on { color:hsl(var(--cam-yellow)); }
 .cam-bar { flex:none; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; padding:10px 28px 34px; }
 .cam-thumb { justify-self:start; width:46px; height:46px; border-radius:8px; overflow:hidden; border:1.5px solid hsl(var(--cam-fg) / .9); }
@@ -35,11 +35,11 @@
 @media (max-height:640px) { .cam-bar { padding-bottom:20px; } .cam-shutter { width:62px; height:62px; } .cam-shutter span { width:50px; height:50px; } .cam-modes { padding-top:6px; } }
 
 /* Photos, styled after the iOS Photos app */
-.ph-app { --ph-bg: 0 0% 0%; --ph-fg: 0 0% 100%; height:100%; min-height:100%; display:flex; flex-direction:column; background:hsl(var(--ph-bg)); color:hsl(var(--ph-fg)); }
-.ph-head { flex:none; display:flex; align-items:center; gap:4px; padding:14px 16px 10px; border-bottom:1px solid hsl(var(--ph-fg) / .1); }
-.ph-head h2 { font-size:22px; font-weight:700; }
+.ph-app { --ph-bg: var(--apple-paper); --ph-fg: var(--os-ink); height:100%; min-height:0; display:flex; flex-direction:column; background:hsl(var(--ph-bg)); color:hsl(var(--ph-fg)); }
+.ph-head { flex:none; display:flex; align-items:center; gap:4px; padding:18px 18px 20px; }
+.ph-head h2 { font-size:34px; font-weight:700; flex:1; }
 .ph-head button { color:hsl(var(--os-icon-projects)); }
-.ph-body { flex:1 1 auto; overflow-y:auto; padding:10px 10px 0; }
+.ph-body { flex:1 1 auto; min-height:0; overflow-y:auto; padding:0; }
 .ph-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:3px; }
 @media (min-width:600px) { .ph-grid { grid-template-columns:repeat(4,minmax(0,1fr)); } }
 .ph-tile { display:block; aspect-ratio:1; overflow:hidden; background:hsl(var(--ph-fg) / .08); }
@@ -58,7 +58,7 @@
 .ph-tabs button { display:flex; flex-direction:column; align-items:center; gap:3px; font-size:11px; color:hsl(var(--ph-fg) / .5); }
 .ph-tabs button svg { width:20px; height:20px; }
 .ph-tabs button.on { color:hsl(var(--ph-fg)); }
-.ph-viewer { --ph-fg: 0 0% 100%; padding:0; gap:0; overflow:hidden; background:hsl(0 0% 0%); color:hsl(var(--ph-fg)); border:none; }
+.ph-viewer { --ph-fg: var(--camera-ink); padding:0; gap:0; overflow:hidden; background:hsl(var(--camera-paper)); color:hsl(var(--ph-fg)); border:none; }
 .ph-viewer > button { color:hsl(var(--ph-fg)); }
 .ph-viewer-head { display:flex; flex-direction:column; align-items:center; padding:14px 44px 10px; font-size:14px; }
 .ph-viewer-head time { font-size:12px; color:hsl(var(--ph-fg) / .6); }
@@ -70,3 +70,17 @@
 .shout-form { --cam-fg: var(--os-ink); display:flex; flex-direction:column; gap:10px; margin:12px 0 4px; padding:14px; border-radius:14px; background:hsl(var(--os-ink) / .06); }
 .shout-form-head { display:flex; align-items:center; justify-content:space-between; }
 .shout-form textarea { resize:none; }
+.cam-bar .cam-shutter { padding:0; width:78px; height:78px; background:transparent; }
+.cam-bar .cam-thumb { padding:0; width:46px; height:46px; }
+.cam-allow { height:auto; color:hsl(var(--cam-fg)); white-space:normal; }
+.cam-review { max-height:50%; overflow:auto; }
+.cam-top { min-height:48px; }
+.ph-profile { width:34px; height:34px; display:grid; place-items:center; border-radius:50%; background:hsl(var(--apple-blue) / .12); color:hsl(var(--apple-blue)); font-weight:600; }
+.ph-search { padding:0 18px 16px; }
+.ph-grid .ph-tile { padding:0; height:auto; border-radius:0; min-width:0; }
+.ph-grid .ph-tile img { width:100%; height:100%; }
+.ph-albums { padding:16px 18px; }
+.ph-albums .ph-album { display:flex; height:auto; padding:0; border-radius:0; align-items:stretch; justify-content:flex-start; white-space:normal; color:hsl(var(--os-ink)); }
+.ph-album-cover { width:100%; border-radius:20px; }
+.ph-mac .ph-head h2 { font-size:24px; }
+.ph-photo-info { text-align:center; padding:10px; font-size:13px; }

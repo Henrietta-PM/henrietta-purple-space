@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { Navigation } from "lucide-react";
+import { Navigation, MapPin, CalendarDays } from "lucide-react";
 import { describe } from "./mac-widgets";
+import { AppleSections } from "./apple-app-chrome";
 
 interface Forecast {
   temp: number;
@@ -45,7 +46,7 @@ async function fetchForecast(): Promise<Forecast> {
   };
 }
 
-export default function WeatherApp() {
+export default function WeatherApp({ compact = false }: { compact?: boolean }) {
   const { data, isError } = useQuery({ queryKey: ["lagos-forecast"], queryFn: fetchForecast, staleTime: 30 * 60 * 1000, retry: 1 });
   const sky = describe(data?.code ?? 2);
   const weekLow = data ? Math.min(...data.days.map((d) => d.low)) : 0;
@@ -53,7 +54,8 @@ export default function WeatherApp() {
   const span = Math.max(1, weekHigh - weekLow);
 
   return (
-    <div className="wx-app">
+    <AppleSections compact={compact} title="Weather" sections={[{ id: "lagos", label: "Lagos", icon: MapPin }]} selected="lagos" onSelect={() => undefined}>
+    <div className={`wx-app ${compact ? "wx-phone" : "wx-mac"}`}>
       <header className="wx-hero">
         <span className="wx-place">Lagos <Navigation aria-hidden="true" /></span>
         <span className="wx-temp">{data ? `${data.temp}°` : "--"}</span>
@@ -80,7 +82,7 @@ export default function WeatherApp() {
           </section>
 
           <section className="wx-card">
-            <p className="wx-cap">7-day forecast</p>
+            <p className="wx-cap"><CalendarDays />7-day forecast</p>
             {data.days.map((d, i) => {
               const s = describe(d.code);
               return (
@@ -101,10 +103,10 @@ export default function WeatherApp() {
             <section className="wx-card wx-tile"><p className="wx-cap">Feels like</p><strong>{data.feels}°</strong></section>
             <section className="wx-card wx-tile"><p className="wx-cap">Humidity</p><strong>{data.humidity}%</strong></section>
             <section className="wx-card wx-tile"><p className="wx-cap">Wind</p><strong>{data.wind} km/h</strong></section>
-            <section className="wx-card wx-tile"><p className="wx-cap">Hello from</p><strong>Lagos</strong></section>
           </div>
         </>
       )}
     </div>
+    </AppleSections>
   );
 }
