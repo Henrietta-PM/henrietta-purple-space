@@ -1,7 +1,8 @@
 import { useCallback, useRef, useState } from "react";
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import { format } from "date-fns";
-import { Apple, BatteryFull, Moon, Sun, Wifi } from "lucide-react";
+import { Apple, Moon, Sun } from "lucide-react";
+import { IosBattery, MacWifi } from "./status-icons";
 import { useOsTheme } from "./use-os-theme";
 import portrait from "@/assets/henrietta-portrait.jpg";
 import { AppContent, AppIcon, appTitles, externalLinks, isLink, launchers, type AppId, type LauncherId } from "./os-apps";
@@ -107,9 +108,9 @@ export function MacDesktop() {
         </div>
         <div className="mac-menubar-right">
           <button onClick={toggleTheme} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>{theme === "dark" ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}</button>
-          <Wifi aria-hidden="true" />
-          <BatteryFull aria-hidden="true" />
-          <span>{format(now, "EEE d MMM  HH:mm")}</span>
+          <MacWifi />
+          <IosBattery />
+          <span>{format(now, "EEE d MMM HH:mm")}</span>
         </div>
       </nav>
 
