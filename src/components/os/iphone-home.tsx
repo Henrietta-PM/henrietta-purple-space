@@ -12,7 +12,7 @@ import { IphoneLock } from "./iphone-lock";
 import ExplorationNotifications from "./exploration-notifications";
 import AppOrganizer, { AppZone } from "./app-organizer";
 import { phoneLayout } from "./app-catalog";
-import { aboutMeNote, type NoteId } from "@/data/notes";
+import { type NoteId } from "@/data/notes";
 import SettingsApp from "./settings-app";
 
 export function IphoneHome() {
@@ -93,7 +93,7 @@ export function IphoneHome() {
               <span className="ios-w-notes-head">Notes</span>
               <div className="ios-w-notes-body">
                 <strong>Hi, I'm <span className="font-handwritten">Henrietta.</span></strong>
-                <p>{aboutMeNote.preview}</p>
+                <p>Architect turned Product Manager in Lagos. 5+ MVPs shipped, 85% dev time saved. Tap to read how I work and what I build.</p>
               </div>
             </button>
             <small>Notes</small>
