@@ -91,3 +91,45 @@
 .am-compose-placeholder { justify-content:flex-start; flex:1; min-width:0; height:34px; padding:6px 12px; border:.5px solid hsl(var(--os-line)); border-radius:999px; color:hsl(var(--os-ink-soft)); font-size:13px; font-weight:400; }
 .am-phone .am-compose-placeholder { height:38px; font-size:16px; }
 .am-phone .am-composer { padding-bottom:12px; }
+/* iOS 26 list: Edit pill, centered title, filter circle */
+.am-phone .am-list-top { padding:6px 16px 4px; }
+.am-phone .am-list-controls { position:static; display:grid; grid-template-columns:auto 1fr auto; align-items:center; height:52px; }
+.am-phone .am-list-top h1 { font-size:17px; font-weight:600; line-height:1; text-align:center; margin:0; }
+.am-phone .am-list-controls .am-control { width:48px; height:48px; border-radius:999px; color:hsl(var(--os-ink)); background:hsl(var(--apple-glass) / .9); box-shadow:var(--apple-shadow); backdrop-filter:blur(24px); }
+.am-phone .am-list-controls .am-control svg { width:22px; height:22px; }
+.am-phone .am-list-controls .am-edit { width:auto; min-width:62px; padding:0 18px; font-size:17px; font-weight:400; }
+.am-filter-row { display:flex; justify-content:space-between; align-items:center; padding:10px 4px 2px; font-size:15px; color:hsl(var(--os-ink-soft)); }
+.am-filter-row .am-control { color:hsl(var(--messages-blue)); background:transparent; box-shadow:none; height:32px; }
+.am-phone .am-rows { padding:0 0 16px; }
+.am-phone .am-pinned { padding:18px 12px 20px; gap:4px; border-bottom:0; }
+.am-phone .am-pinned .am-pin { gap:8px; padding:0; }
+.am-phone .am-pinned .am-pin:hover { background:transparent; }
+.am-phone .am-pinned .am-avatar { width:88px; height:88px; font-size:36px; font-weight:600; }
+.am-phone .am-pin-name { font-size:13px; color:hsl(var(--os-ink-soft)); }
+.am-row-wrap { position:relative; display:flex; align-items:center; }
+.am-row-wrap .am-row { flex:1; }
+.am-unread { width:10px; height:10px; border-radius:50%; flex-shrink:0; background:transparent; }
+.am-unread.on { background:hsl(var(--messages-blue)); }
+.am-phone .am-rows .am-row { gap:10px; padding:0 16px 0 8px; min-height:88px; }
+.am-phone .am-rows .am-row:hover { background:transparent; }
+.am-phone .am-avatar { width:46px; height:46px; font-size:18px; }
+.am-phone .am-preview { padding:10px 0; gap:2px; }
+.am-phone .am-preview-heading strong { font-size:17px; }
+.am-phone .am-preview-heading small { display:flex; align-items:center; gap:6px; font-size:15px; }
+.am-phone .am-preview-text { font-size:15px; }
+.am-row-report { color:hsl(var(--destructive)); margin-right:8px; flex-shrink:0; }
+.am-mic { width:20px; height:20px; flex-shrink:0; color:hsl(var(--os-ink-soft)); }
+
+/* macOS Tahoe sidebar: pinned avatars, then conversation previews */
+.am-mac .am-pinned { padding:6px 4px 10px; }
+.am-mac .am-pinned .am-pin { padding:6px 0 4px; border-radius:10px; }
+.am-mac .am-pin-name { font-size:11px; color:hsl(var(--os-ink-soft)); }
+.am-mac .am-rows .am-row { gap:8px; padding:0 8px 0 2px; min-height:64px; border-radius:10px; margin-bottom:2px; }
+.am-mac .am-rows .am-row .am-unread { width:8px; height:8px; }
+.am-mac .am-preview { border-bottom:0; padding:8px 0; gap:1px; }
+.am-mac .am-preview-heading strong { font-size:13px; font-weight:600; }
+.am-mac .am-preview-heading small { font-size:11px; }
+.am-mac .am-preview-text { font-size:12px; line-height:1.35; }
+.am-mac .am-rows .am-row.selected, .am-mac .am-rows .am-row.selected:hover { background:hsl(var(--messages-blue)); color:hsl(var(--os-on-dark)); }
+.am-mac .am-rows .am-row.selected .am-preview-text, .am-mac .am-rows .am-row.selected small { color:hsl(var(--os-on-dark) / .85); }
+.am-mac .am-search { background:hsl(var(--os-ink) / .06); padding:5px 8px; border-radius:8px; }
