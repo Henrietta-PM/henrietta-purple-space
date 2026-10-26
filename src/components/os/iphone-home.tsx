@@ -152,7 +152,7 @@ export function IphoneHome() {
           </motion.section>
         )}
       </AnimatePresence>
-      <AnimatePresence>{locked && <IphoneLock key="lock" now={now} onUnlock={(app) => { setLocked(false); if (app) window.setTimeout(() => launch(app), 350); }} />}</AnimatePresence>
+      <AnimatePresence>{locked && <IphoneLock key="lock" now={now} onUnlock={(app) => { setLocked(false); if (app) window.setTimeout(() => { launch(app); if (app === "letter") setInitialNote("letter"); }, 350); }} />}</AnimatePresence>
     </div>
   );
 }
