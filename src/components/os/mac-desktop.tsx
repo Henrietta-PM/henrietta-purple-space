@@ -113,7 +113,7 @@ export function MacDesktop() {
     <div className="mac-shell" style={{ backgroundImage: `url(${wallpaper})` }}>
       <div className="mac-wallpaper-tint" />
       <ExplorationNotifications enabled={!locked} activeApp={focused?.id} onLaunch={(id) => launch(id, id === "letter" ? "letter" : undefined)} />
-      <nav className="mac-menubar" aria-label="Menu bar">
+      {!locked && <nav className="mac-menubar" aria-label="Menu bar">
         <div className="mac-menubar-left">
           <AppleLogo />
           <strong>{focused ? appTitles[focused.id].replace("Henrietta-Onwuneme-CV.pdf", "Preview") : "Finder"}</strong>
@@ -127,7 +127,7 @@ export function MacDesktop() {
           <MacBattery />
           <span>{format(now, "EEE d MMM HH:mm")}</span>
         </div>
-      </nav>
+      </nav>}
 
       <AppOrganizer storageKey="portfolio-desktop-apps-v1" defaults={desktopLayout} openIds={windows.map((win) => win.id)} onLaunch={(app) => { if (app.launcher) launch(app.launcher, app.id === "shortcut:letter" ? "letter" : undefined); }}>
       <div ref={bounds} className="mac-desktop">
@@ -153,9 +153,9 @@ export function MacDesktop() {
         </AnimatePresence>
       </div>
 
-      <nav className="mac-dock" aria-label="Dock">
+      {!locked && <nav className="mac-dock" aria-label="Dock">
         <AppZone zone="dock" className="os-mac-dock-apps" />
-      </nav>
+      </nav>}
       </AppOrganizer>
       {locked && <LoadingLock desktop onUnlock={() => setLocked(false)} />}
     </div>
