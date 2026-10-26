@@ -219,7 +219,10 @@ export function PhotosApp({ compact = false }: { compact?: boolean }) {
     <div className={`ph-app ${compact ? "ph-phone" : "ph-mac"}`}>
       <header className="ph-head">
         {album !== "all" && <Button variant="ghost" size="icon" aria-label="Back to albums" onClick={() => { setAlbum("all"); setTab("albums"); }}><ChevronLeft /></Button>}
-        <h2>{tab === "albums" && album === "all" ? compact ? "Collections" : "Albums" : tab === "search" ? "Search" : title}</h2>
+        <div className="min-w-0 flex-1">
+          <h2>{tab === "albums" && album === "all" ? compact ? "Collections" : "Albums" : tab === "search" ? "Search" : title}</h2>
+          {title === "Visitors" && tab !== "search" && <p className="text-xs text-muted-foreground">Photos of people who stopped by</p>}
+        </div>
         <span className="ph-profile">H</span>
       </header>
       {tab === "search" && <div className="ph-search"><AppleSearch value={query} onChange={setQuery} label="Search photos" /></div>}
