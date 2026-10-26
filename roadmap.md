@@ -18,4 +18,4 @@
 - [ ] Verify exact visual matching for every Apple app. Blocked by incomplete version-specific reference screenshots; current screens are not verified as exact matches.
 - [x] Fix the Automatic switch thumb and verify journey expand/collapse arrows.
 - [x] Remove the pre-lock loading flash and add Mac lock-screen entry; verify fresh phone and desktop loads and unlock, including delayed app loading.
-- [ ] Correct Messages phone and Mac layouts against Apple references, preserving pinned testimonials and public messaging.
+- [x] Correct Messages phone and Mac layouts against Apple references, preserving pinned testimonials and public messaging; verified lists, threads and composing without public submission.
