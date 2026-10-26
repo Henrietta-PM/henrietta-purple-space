@@ -141,3 +141,8 @@
 .am-outgoing::before { content:""; position:absolute; right:-6px; bottom:0; width:16px; height:18px; background:hsl(var(--messages-blue)); border-bottom-left-radius:14px; }
 .am-outgoing::after { content:""; position:absolute; right:-10px; bottom:-1px; width:10px; height:20px; background:hsl(var(--messages-paper)); border-bottom-left-radius:10px; }
 .am-mac .am-outgoing { font-size:13px; max-width:80%; padding:8px 12px; border-radius:16px; }
+.am-bubble-group { display:flex; flex-direction:column; margin-bottom:4px; }
+.am-bubble-wrap { position:relative; display:flex; justify-content:flex-end; align-items:center; }
+.am-bubble-wrap .am-outgoing { position:relative; z-index:1; touch-action:pan-y; cursor:grab; }
+.am-bubble-delete { position:absolute; right:8px; width:44px; height:32px; border-radius:16px; }
+.am-delivered { text-align:right; font-size:11px; color:hsl(var(--os-ink) / .5); margin:2px 4px 0 0; }
