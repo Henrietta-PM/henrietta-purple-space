@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { motion } from "framer-motion";
 import { ArrowUp, Square, Calendar, RotateCcw } from "lucide-react";
 import { toast } from "sonner";
@@ -14,7 +14,8 @@ export default function ProductChallenge() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const controller = useRef<AbortController | null>(null);
-  const submit = async (event: React.FormEvent) => {
+  useEffect(() => () => controller.current?.abort(), []);
+  const submit = async (event: FormEvent) => {
     event.preventDefault();
     if (busy || challenge.trim().length < 20) return;
     setBusy(true); setAnswer(""); setError("");
@@ -67,7 +68,7 @@ export default function ProductChallenge() {
     {busy && !answer && <p role="status" className="pc-caption">Considering your challenge…</p>}
     {error && <p role="alert" className="pc-error">{error}</p>}
     {answer && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="pc-result">
-      <h3>A suggested approach</h3><div className="pc-answer">{answer}</div>
+      <h3>A suggested approach</h3><div className="pc-answer">{answer.split("\n").map((line, index) => /^#{1,4}\s/.test(line) ? <h4 key={index}>{line.replace(/^#{1,4}\s+/, "")}</h4> : <span key={index}>{line}{"\n"}</span>)}</div>
       {!busy && <><p className="pc-caption">An AI recommendation, not a commitment or a guaranteed outcome.</p><div className="pc-actions"><Button onClick={openHireCalendar}><Calendar aria-hidden="true" />Discuss with Henrietta</Button><Button variant="ghost" onClick={() => { setAnswer(""); setError(""); }}><RotateCcw aria-hidden="true" />Start again</Button></div></>}
     </motion.div>}
   </section>;

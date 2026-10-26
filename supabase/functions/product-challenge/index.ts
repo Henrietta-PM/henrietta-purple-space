@@ -1,5 +1,7 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { createResponsesCall } from "../_shared/responses.ts";
+import { getLovableAiGatewayResponseHeaders } from "../_shared/run-id.ts";
+import { isValidChallenge } from "./validation.ts";
 
 const allowedOrigins = new Set(["http://localhost:8080", "https://henriettaofpm.online", "https://www.henriettaofpm.online", "https://hirehenrietta.lovable.app", "https://id-preview--1fbb70ac-9159-464a-b1cf-9b99dfbd6927.lovable.app"]);
 
@@ -25,7 +27,7 @@ Deno.serve(async (request) => {
     if (raw.length > 12000) return json(400, "Please keep your challenge under 2,000 characters.");
     let body: { challenge?: unknown };
     try { body = JSON.parse(raw); } catch { return json(400, "Please enter a product challenge."); }
-    if (typeof body.challenge !== "string" || body.challenge.trim().length < 20 || body.challenge.length > 2000) return json(400, "Describe your challenge in 20 to 2,000 characters.");
+    if (!isValidChallenge(body.challenge)) return json(400, "Describe your challenge in 20 to 2,000 characters.");
     const db = createClient(url, serviceKey);
     const { data: paused, error: stateError } = await db.from("product_challenge_ai_state").select("status,message").eq("id", "default").maybeSingle();
     if (stateError) return json(503, "The challenge tool is temporarily unavailable.");
@@ -45,7 +47,8 @@ Write four short sections with these exact titles. For each, give specific pract
     const { result } = createResponsesCall(request, { baseURL: "https://ai.gateway.lovable.dev/v1", apiKey: key, model: "openai/gpt-6-astra" }, [{ role: "user", content: body.challenge.trim() }], instructions);
     // Read the first event before sending headers so upstream denials keep their status.
     const iterator = result.fullStream[Symbol.asyncIterator]();
-    const first = await iterator.next();
+    let first = await iterator.next();
+    while (!first.done && ["start", "start-step"].includes(first.value.type)) first = await iterator.next();
     const handleError = async (error: unknown) => {
       const value = error as { statusCode?: number; responseBody?: string };
       const status = value.statusCode || 502;
@@ -86,7 +89,7 @@ Write four short sections with these exact titles. For each, give specific pract
       },
       async cancel() { await iterator.return?.(); },
     });
-    return new Response(stream, { headers: { ...headers, "Content-Type": "application/x-ndjson", "Cache-Control": "no-store" } });
+    return new Response(stream, { headers: getLovableAiGatewayResponseHeaders(await result.response.then((value) => value.headers), { ...headers, "Content-Type": "application/x-ndjson", "Cache-Control": "no-store" }) });
   } catch (error) {
     if (request.signal.aborted) return json(499, "Recommendation stopped.");
     return json(500, "The challenge tool is temporarily unavailable. Please try again later.");
