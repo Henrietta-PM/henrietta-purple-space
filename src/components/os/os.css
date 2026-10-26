@@ -92,7 +92,13 @@
 /* iPhone */
 .ios-status { position:relative; z-index:5; display:flex; justify-content:space-between; align-items:center; padding:12px 28px 6px; font-size:15px; font-weight:600; }
 .ios-status.light { color:hsl(var(--os-on-dark)); }
-.ios-status-icons { display:flex; align-items:center; gap:5px; } .ios-status-icons svg { width:auto; height:12px; } .ios-status-icons svg:last-child { height:13px; }
+.ios-status-icons { display:flex; align-items:center; gap:6px; line-height:1; } .ios-status-icons svg { display:block; height:12px; width:auto; }
+.ios-net { font-size:14px; font-weight:600; letter-spacing:-.2px; line-height:12px; }
+.ios-battery { display:flex; align-items:center; gap:1px; }
+.ios-battery-body { position:relative; width:26px; height:13px; border-radius:4px; background:currentColor; background:color-mix(in srgb, currentColor 35%, transparent); overflow:hidden; display:flex; align-items:center; justify-content:center; }
+.ios-battery-fill { position:absolute; left:0; top:0; bottom:0; background:currentColor; }
+.ios-battery-text { position:relative; font-size:10px; font-weight:700; letter-spacing:-.3px; color:hsl(240 10% 8%); mix-blend-mode:normal; }
+.ios-battery-cap { width:1.5px; height:4.5px; border-radius:0 1px 1px 0; background:color-mix(in srgb, currentColor 45%, transparent); }
 .ios-home { position:relative; z-index:2; padding:12px 22px; }
 .ios-widget { transform:translateZ(0); will-change:transform; isolation:isolate; padding:18px; border-radius:22px; color:hsl(var(--os-on-dark)); background:hsl(var(--os-glass-dark)); backdrop-filter:blur(24px); border:1px solid hsl(0 0% 100% / .15); margin-bottom:26px; }
 .ios-widget span { font-size:13px; opacity:.8; }
