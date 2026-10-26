@@ -2,7 +2,8 @@ import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { MapContainer, TileLayer, Marker, Polyline, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { ChevronLeft, Navigation, Plane, Clock, Ruler, Search, X } from "lucide-react";
+import { ChevronRight, LocateFixed, Map as MapIcon, Navigation, Plane, Clock, Route, Ruler, Search, X } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { featuredProjects } from "@/data/projects";
 import { journeySteps } from "@/components/JourneySection";
@@ -16,6 +17,8 @@ const stops: Stop[] = [
   { id: "uniuyo", title: "University of Uyo", subtitle: "Uyo, Akwa Ibom", text: `${journeySteps[0].title}. I studied architecture here. ${journeySteps[0].text}`, lat: 5.0406, lng: 7.9757, tone: "red", glyph: "1" },
   { id: "lagos", title: "Lagos Island", subtitle: "Lagos, Nigeria", text: `${journeySteps[1].title}, from Lagos. ${journeySteps[1].text}`, lat: LAGOS.lat, lng: LAGOS.lng, tone: "blue", glyph: "2" },
 ];
+
+const fade = { initial: { opacity: 0, y: 8 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -6 }, transition: { duration: 0.18 } };
 
 type Visitor = { name: string; lat: number; lng: number; timezone: string; country?: string };
 
@@ -92,69 +95,91 @@ export default function JourneyMap({ compact }: { compact: boolean }) {
 
       <div className="os-maps-sheet">
         <span className="os-maps-grabber" aria-hidden="true" />
+        <AnimatePresence mode="wait" initial={false}>
         {stop ? (
-          <div className="jm-card">
+          <motion.div key={stop.id} className="jm-card" {...fade}>
             <div className="jm-card-head">
-              <Button variant="ghost" size="icon" className="jm-round" aria-label="Back to my journey" onClick={back}><ChevronLeft /></Button>
-              <Button variant="ghost" size="icon" className="jm-round" aria-label="Close" onClick={back}><X /></Button>
-            </div>
-            <h2>{stop.title}</h2>
-            <small className="os-maps-sub">{stop.subtitle}</small>
-            <a className="jm-primary" href={`https://maps.apple.com/?ll=${stop.lat},${stop.lng}&q=${encodeURIComponent(stop.title)}`} target="_blank" rel="noopener noreferrer">Open in Apple Maps</a>
-            <p className="jm-text">{stop.text}</p>
-            {stop.id === "lagos" && (
-              <div className="jm-group">
-                <h3>Built from here</h3>
-                {featuredProjects.map((p) => <div key={p.name} className="jm-row"><strong>{p.name}</strong></div>)}
+              <div>
+                <h2>{stop.title}</h2>
+                <small className="os-maps-sub">{stop.subtitle} · Stop {stop.glyph} of 3</small>
               </div>
-            )}
-          </div>
-        ) : selected === "you" && visitor ? (
-          <div className="jm-card">
-            <div className="jm-card-head">
-              <Button variant="ghost" size="icon" className="jm-round" aria-label="Back to my journey" onClick={back}><ChevronLeft /></Button>
               <Button variant="ghost" size="icon" className="jm-round" aria-label="Close" onClick={back}><X /></Button>
             </div>
-            <h2>Lagos to {visitor.name}</h2>
-            <small className="os-maps-sub">Where I'm headed: your team{visitor.country ? `, ${visitor.country}` : ""}</small>
+            <div className="jm-actions">
+              <a className="jm-action jm-action-primary" href={`https://maps.apple.com/?ll=${stop.lat},${stop.lng}&q=${encodeURIComponent(stop.title)}`} target="_blank" rel="noopener noreferrer"><MapIcon /><span>Apple Maps</span></a>
+              <button type="button" className="jm-action" onClick={() => open(stop)}><LocateFixed /><span>Zoom in</span></button>
+              <button type="button" className="jm-action" onClick={back}><Route /><span>Journey</span></button>
+            </div>
+            <h3 className="jm-section">About</h3>
+            <div className="jm-group"><p className="jm-text">{stop.text}</p></div>
+            {stop.id === "lagos" && (
+              <>
+                <h3 className="jm-section">Built from here</h3>
+                <div className="jm-group">
+                  {featuredProjects.map((p) => <div key={p.name} className="jm-row"><span className="jm-row-dot" aria-hidden="true" /><strong>{p.name}</strong></div>)}
+                </div>
+              </>
+            )}
+            <div className="jm-nav">
+              {stops.map((s) => <button key={s.id} type="button" className={s.id === stop.id ? "on" : ""} onClick={() => open(s)} aria-label={s.title}><span className={`os-maps-dot jm-dot-${s.tone}`}>{s.glyph}</span></button>)}
+            </div>
+          </motion.div>
+        ) : selected === "you" && visitor ? (
+          <motion.div key="you" className="jm-card" {...fade}>
+            <div className="jm-card-head">
+              <div>
+                <h2>Lagos to {visitor.name}</h2>
+                <small className="os-maps-sub">Where I'm headed{visitor.country ? ` · ${visitor.country}` : ""}</small>
+              </div>
+              <Button variant="ghost" size="icon" className="jm-round" aria-label="Close" onClick={back}><X /></Button>
+            </div>
             <div className="jm-stats">
               <div><Ruler /><small>Distance</small><strong>{friendlyDistance(km)}</strong></div>
               <div><Plane /><small>Flight time</small><strong>about {flightHours(km)}</strong></div>
               <div><Clock /><small>Your time</small><strong>{timeIn(visitor.timezone)}</strong></div>
               <div><Clock /><small>Lagos time</small><strong>{timeIn("Africa/Lagos")}</strong></div>
             </div>
-            <p className="jm-text">{journeySteps[2].text}</p>
-            <p className="jm-text">{diff === 0 ? "We share the same time zone, so working hours line up." : `You are ${Math.abs(diff)} hour${Math.abs(diff) === 1 ? "" : "s"} ${diff > 0 ? "ahead of" : "behind"} Lagos.`} Distance is a straight line, flight time is an estimate.</p>
-          </div>
+            <h3 className="jm-section">About</h3>
+            <div className="jm-group">
+              <p className="jm-text">{journeySteps[2].text}</p>
+              <p className="jm-text jm-muted">{diff === 0 ? "We share the same time zone, so working hours line up." : `You are ${Math.abs(diff)} hour${Math.abs(diff) === 1 ? "" : "s"} ${diff > 0 ? "ahead of" : "behind"} Lagos.`} Distance is a straight line, flight time is an estimate.</p>
+            </div>
+            <button type="button" className="jm-link" onClick={() => { setVisitor(null); setQuery(""); back(); }}>Try another city</button>
+          </motion.div>
         ) : (
-          <>
-            <h2>My Journey</h2>
-            <small className="os-maps-sub">Architecture to Product Management</small>
-            <ol>
+          <motion.div key="home" {...fade}>
+            <form className="jm-search" onSubmit={findCity}>
+              <Search aria-hidden="true" />
+              <input id="jm-city" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Where are you? Enter your city" aria-label="Your city" maxLength={80} />
+              {query.trim() && <Button type="submit" size="sm" disabled={searching}>{searching ? "Finding" : "Go"}</Button>}
+            </form>
+            {error && <p className="jm-error" role="alert">{error}</p>}
+            <div className="jm-guide">
+              <span className="jm-guide-badge">Guide</span>
+              <h2>My Journey</h2>
+              <small className="os-maps-sub">Architecture to Product Management · 3 stops</small>
+            </div>
+            <ol className="jm-group jm-steps">
               {stops.map((s) => (
                 <li key={s.id}>
                   <Button variant="ghost" onClick={() => open(s)}>
                     <span className={`os-maps-dot jm-dot-${s.tone}`}>{s.glyph}</span>
-                    <span><strong>{s.title}</strong><small>{s.id === "uniuyo" ? "Studied architecture" : "Where I build from"}</small></span>
+                    <span><strong>{s.title}</strong><small>{s.id === "uniuyo" ? "Where I started · Studied architecture" : "What I've built · Where I build from"}</small></span>
+                    <ChevronRight />
                   </Button>
                 </li>
               ))}
               <li>
-                <div className="jm-next">
+                <Button variant="ghost" onClick={() => document.getElementById("jm-city")?.focus()}>
                   <span className="os-maps-dot jm-dot-green">3</span>
-                  <span><strong>Where I'm headed</strong><small>Enter your city to see how far Lagos is from you</small></span>
-                </div>
-                <p className="jm-text">{journeySteps[2].text}</p>
+                  <span><strong>Where I'm headed</strong><small>{journeySteps[2].text}</small></span>
+                  <ChevronRight />
+                </Button>
               </li>
             </ol>
-            <form className="jm-search" onSubmit={findCity}>
-              <Search aria-hidden="true" />
-              <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Your city" aria-label="Your city" maxLength={80} />
-              <Button type="submit" size="sm" disabled={searching || !query.trim()}>{searching ? "Finding" : "Go"}</Button>
-            </form>
-            {error && <p className="jm-error" role="alert">{error}</p>}
-          </>
+          </motion.div>
         )}
+        </AnimatePresence>
       </div>
     </div>
   );
