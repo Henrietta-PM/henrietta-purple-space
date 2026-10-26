@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
 import { aboutMeNote, portfolioNotes, type NoteId } from "@/data/notes";
+import EditableNote from "./editable-note";
 import "./notes-app.css";
 
 export default function NotesApp({ initialNote, letter, compact = false }: { initialNote?: NoteId; letter: ReactNode; compact?: boolean }) {
@@ -40,7 +41,7 @@ export default function NotesApp({ initialNote, letter, compact = false }: { ini
   </div>;
   const folderList = <div className="an-folder-list"><h2>On My {compact ? "iPhone" : "Mac"}</h2><Button variant="ghost" className="an-folder-row" onClick={() => { setFolders(false); setSelected(undefined); }}><Folder /><span>Notes</span><small>{portfolioNotes.length}</small>{compact && <ChevronRight />}</Button></div>;
   const reader = <div className="os-notes-reading" ref={readingRef}>
-    {selected === "about-me" ? <article><h1>{aboutMeNote.title}</h1><h2>{aboutMeNote.greeting}</h2><p>{aboutMeNote.preview}</p><p>{aboutMeNote.intro}</p><p>{aboutMeNote.highlightsLead}</p><ul className="os-notes-highlights">{aboutMeNote.highlights.map((highlight) => <li key={highlight}>{highlight}</li>)}</ul>{aboutMeNote.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}<p className="font-handwritten os-note-sign">Henrietta</p></article> : letter}
+    {selected && <EditableNote key={selected} noteId={selected}>{selected === "about-me" ? <article><h1>{aboutMeNote.title}</h1><h2>{aboutMeNote.greeting}</h2><p>{aboutMeNote.preview}</p><p>{aboutMeNote.intro}</p><p>{aboutMeNote.highlightsLead}</p><ul className="os-notes-highlights">{aboutMeNote.highlights.map((highlight) => <li key={highlight}>{highlight}</li>)}</ul>{aboutMeNote.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}<p className="font-handwritten os-note-sign">Henrietta</p></article> : letter}</EditableNote>}
   </div>;
 
   return (
