@@ -11,6 +11,11 @@ const postSchema = z.object({
   photo: z.string().max(2800000).optional(),
 }).refine((value) => value.message.length > 0 || Boolean(value.photo));
 const reportSchema = z.object({ id: z.string().uuid(), reason: z.enum(["Inappropriate content", "Spam", "Privacy concern"]) });
+const moderateSchema = z.object({ action: z.literal("moderate"), id: z.string().uuid(), token: z.string().uuid(), decision: z.enum(["keep", "delete"]) });
+const REPORT_THRESHOLD = 3;
+const SITE_URL = "https://hirehenrietta.lovable.app";
+const OWNER_EMAIL = "mypvrplespace@gmail.com";
+const escapeHtml = (value: string) => value.replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char] as string));
 const reply = (data: unknown, status = 200) => new Response(JSON.stringify(data), { status, headers: { ...corsHeaders, "Content-Type": "application/json", "Cache-Control": "no-store" } });
 
 Deno.serve(async (req) => {
@@ -33,19 +38,40 @@ Deno.serve(async (req) => {
     if (raw.length > 2900000) return reply({ error: "Please choose a smaller photo." }, 413);
     let body;
     try { body = JSON.parse(raw); } catch { return reply({ error: "Please check your submission." }, 400); }
+    if (body.action === "moderate") {
+      const decision = moderateSchema.safeParse(body);
+      if (!decision.success) return reply({ error: "This link is not valid." }, 400);
+      const { id, token } = decision.data;
+      const { data: entry } = await admin.from("visitor_moderation").select("token,resolved_at").eq("post_id", id).maybeSingle();
+      if (!entry || entry.token !== token) return reply({ error: "This link is not valid." }, 403);
+      if (entry.resolved_at) return reply({ error: "This post was already handled." }, 409);
+      if (decision.data.decision === "keep") {
+        await admin.from("visitor_posts").update({ hidden: false }).eq("id", id);
+        await admin.from("visitor_reports").delete().eq("post_id", id);
+      } else {
+        const { data: post } = await admin.from("visitor_posts").select("photo_path").eq("id", id).maybeSingle();
+        if (post?.photo_path) await admin.storage.from("visitor-photos").remove([post.photo_path]);
+        await admin.from("visitor_reports").delete().eq("post_id", id);
+        await admin.from("visitor_posts").delete().eq("id", id);
+      }
+      await admin.from("visitor_moderation").update({ resolved_at: new Date().toISOString() }).eq("post_id", id);
+      return reply({ success: true, decision: decision.data.decision });
+    }
     const reporting = body.action === "report";
     const parsed = reporting ? reportSchema.safeParse(body) : postSchema.safeParse(body);
     if (!parsed.success) return reply({ error: "Please check your name, message and consent." }, 400);
     const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
     const hash = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(`${Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")}:${ip}`));
-    const key = `${reporting ? "report" : "post"}:${Array.from(new Uint8Array(hash), (byte) => byte.toString(16).padStart(2, "0")).join("")}`;
+    const visitorHash = Array.from(new Uint8Array(hash), (byte) => byte.toString(16).padStart(2, "0")).join("");
+    const key = `${reporting ? "report" : "post"}:${visitorHash}`;
     const { data: allowed, error: limitError } = await admin.rpc("claim_visitor_request", { request_key: key });
     if (limitError) throw limitError;
     if (!allowed) return reply({ error: "Please wait a minute before submitting again." }, 429);
     if (reporting) {
       const report = reportSchema.parse(body);
-      const { error } = await admin.from("visitor_reports").insert({ post_id: report.id, reason: report.reason });
+      const { data: token, error } = await admin.rpc("record_visitor_report", { _post_id: report.id, _reason: report.reason, _reporter_hash: visitorHash, _threshold: REPORT_THRESHOLD });
       if (error) throw error;
+      if (token) await emailOwner(admin, report.id, token as string);
       return reply({ success: true });
     }
     const post = postSchema.parse(body);
@@ -73,3 +99,33 @@ Deno.serve(async (req) => {
     return reply({ error: "We couldn't complete that. Please try again shortly." }, 500);
   }
 });
+// deno-lint-ignore no-explicit-any
+async function emailOwner(admin: any, postId: string, token: string) {
+  const apiKey = Deno.env.get("RESEND_API_KEY");
+  if (!apiKey) { console.error("RESEND_API_KEY missing, report email not sent"); return; }
+  const { data: post } = await admin.from("visitor_posts").select("display_name,message,photo_path,created_at").eq("id", postId).maybeSingle();
+  const { data: reports } = await admin.from("visitor_reports").select("reason").eq("post_id", postId);
+  let photoUrl: string | null = null;
+  if (post?.photo_path) {
+    const { data } = await admin.storage.from("visitor-photos").createSignedUrl(post.photo_path, 60 * 60 * 24 * 7);
+    photoUrl = data?.signedUrl ?? null;
+  }
+  const reasons = (reports ?? []).map((row: { reason: string }) => `<li>${escapeHtml(row.reason)}</li>`).join("");
+  const link = (decision: string) => `${SITE_URL}/moderate?id=${postId}&token=${token}&decision=${decision}`;
+  const html = `<div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;padding:20px;color:#111">
+    <h2 style="margin:0 0 12px">A visitor post was hidden</h2>
+    <p>${REPORT_THRESHOLD} different visitors reported this post, so it is hidden from your site until you decide.</p>
+    <p><strong>From:</strong> ${escapeHtml(post?.display_name ?? "Unknown")}</p>
+    ${post?.message ? `<p><strong>Message:</strong> ${escapeHtml(post.message)}</p>` : ""}
+    ${photoUrl ? `<p><img src="${photoUrl}" alt="Reported photo" style="max-width:100%;border-radius:8px"/></p>` : ""}
+    <p><strong>Reasons:</strong></p><ul>${reasons}</ul>
+    <p><a href="${link("keep")}" style="display:inline-block;padding:10px 18px;background:#6d28d9;color:#fff;border-radius:8px;text-decoration:none;margin-right:8px">Keep it up</a>
+    <a href="${link("delete")}" style="display:inline-block;padding:10px 18px;background:#b91c1c;color:#fff;border-radius:8px;text-decoration:none">Delete</a></p>
+  </div>`;
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
+    body: JSON.stringify({ from: "Portfolio <onboarding@resend.dev>", to: [OWNER_EMAIL], subject: "A visitor post was reported and hidden", html }),
+  });
+  if (!response.ok) console.error("Report email failed", response.status);
+}

@@ -59,6 +59,27 @@ export type Database = {
         }
         Relationships: []
       }
+      visitor_moderation: {
+        Row: {
+          created_at: string
+          post_id: string
+          resolved_at: string | null
+          token: string
+        }
+        Insert: {
+          created_at?: string
+          post_id: string
+          resolved_at?: string | null
+          token?: string
+        }
+        Update: {
+          created_at?: string
+          post_id?: string
+          resolved_at?: string | null
+          token?: string
+        }
+        Relationships: []
+      }
       visitor_posts: {
         Row: {
           created_at: string
@@ -92,18 +113,21 @@ export type Database = {
           id: string
           post_id: string
           reason: string
+          reporter_hash: string | null
         }
         Insert: {
           created_at?: string
           id?: string
           post_id: string
           reason: string
+          reporter_hash?: string | null
         }
         Update: {
           created_at?: string
           id?: string
           post_id?: string
           reason?: string
+          reporter_hash?: string | null
         }
         Relationships: [
           {
@@ -121,6 +145,15 @@ export type Database = {
     }
     Functions: {
       claim_visitor_request: { Args: { request_key: string }; Returns: boolean }
+      record_visitor_report: {
+        Args: {
+          _post_id: string
+          _reason: string
+          _reporter_hash: string
+          _threshold?: number
+        }
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never

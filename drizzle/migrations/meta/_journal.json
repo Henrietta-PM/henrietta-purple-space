@@ -22,6 +22,13 @@
       "when": 1792979105049,
       "tag": "0002_allow_photo_only_visits",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1792980134958,
+      "tag": "0003_report_threshold_moderation",
+      "breakpoints": true
     }
   ]
 }
