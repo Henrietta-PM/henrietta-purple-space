@@ -67,3 +67,10 @@
 .mac-dock .os-organized-tile .os-tile-name::after { content:""; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:5px solid transparent; border-top-color:hsl(240 4% 22% / .9); }
 .mac-dock .os-organized-dot { position:absolute; bottom:0; left:50%; transform:translateX(-50%); }
 .mac-dock .os-organized-tile .os-tile-name { bottom:calc(100% + 22px); }
+.mac-dock { --dock-icon:min(44px, calc((100vw - 120px) / 19)); padding:4px 5px !important; max-width:calc(100% - 16px); }
+.os-mac-dock-apps.os-app-zone { min-height:0; align-items:flex-end; }
+.mac-dock .os-tile-slot { flex:0 0 calc(var(--dock-icon) + 2px); }
+.mac-dock .os-organized-tile { width:var(--dock-icon); height:auto; padding:0 0 5px; }
+.mac-dock .os-organized-tile > .os-icon, .mac-dock .os-folder-icon { width:var(--dock-icon) !important; height:var(--dock-icon) !important; }
+.os-mac-dock-apps .mac-dock-divider { height:calc(var(--dock-icon) - 6px); }
+.mac-dock .os-organized-tile .os-tile-name { bottom:calc(100% + 14px); }
