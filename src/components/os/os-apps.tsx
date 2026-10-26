@@ -20,7 +20,7 @@ import prdTemplateOverview from "@/assets/prd-template-overview.png";
 import { differenceInDays, differenceInHours, differenceInMinutes, format } from "date-fns";
 import { HIRE_CALENDAR_URL, openHireCalendar } from "@/lib/booking";
 import { skillCategories } from "@/pages/CV";
-import { testimonials } from "@/components/Testimonials";
+import MessagesApp from "./messages-app";
 import { journeySteps } from "@/components/JourneySection";
 import { workSteps } from "@/components/HowIWork";
 import WeatherApp from "./weather-app";
@@ -532,7 +532,7 @@ export function AppContent({ id, compact = false, projectName, initialNote, onLa
     case "contact": return <ContactApp />;
     case "shop": return <ShopApp />;
     case "love": return <LoveApp />;
-    case "messages": return <MessagesApp />;
+    case "messages": return <MessagesApp compact={compact} />;
     case "health": return <SkillsApp />;
     case "reminders": return <RemindersApp />;
     case "maps": return <JourneyApp />;
@@ -612,53 +612,6 @@ export function ProjectIcon({ project, size = "md" }: { project: Project; size?:
     <span className={`os-icon os-icon-${size} os-img-icon ${logo ? "os-logo-icon" : ""}`} aria-hidden="true">
       <img src={logo ?? project.image} alt="" />
     </span>
-  );
-}
-
-const messageTimes = ["Yesterday", "Tuesday", "Monday"];
-
-function Avatar({ name, large = false }: { name: string; large?: boolean }) {
-  const initials = name.split(" ").map((part) => part.charAt(0)).join("").slice(0, 2);
-  return <span className={`os-msg-avatar ${large ? "os-msg-avatar-lg" : ""}`}>{initials}</span>;
-}
-
-function MessagesApp() {
-  const [active, setActive] = useState<number | null>(null);
-  const person = active === null ? null : testimonials[active];
-  if (person) {
-    return (
-      <div className="os-msg os-msg-chat">
-        <div className="os-msg-head">
-          <button className="os-msg-back" onClick={() => setActive(null)} aria-label="Back to Messages"><ChevronLeft aria-hidden="true" /></button>
-          <Avatar name={person.author} large />
-          <strong>{person.author} <ChevronLeft className="os-msg-chev" aria-hidden="true" /></strong>
-        </div>
-        <div className="os-msg-thread">
-          <span className="os-msg-stamp">iMessage<br />{messageTimes[active ?? 0]}</span>
-          <p className="os-bubble os-bubble-in">{person.quote}</p>
-          <span className="os-msg-role">{person.role}</span>
-        </div>
-      </div>
-    );
-  }
-  return (
-    <div className="os-msg">
-      <h2 className="os-large-title">Messages</h2>
-      <label className="os-search-field"><Search aria-hidden="true" /><input placeholder="Search" aria-label="Search messages" /></label>
-      <ul className="os-msg-list">
-        {testimonials.map((item, index) => (
-          <li key={item.author}>
-            <button onClick={() => setActive(index)}>
-              <Avatar name={item.author} />
-              <span className="os-msg-preview">
-                <span className="os-msg-row"><strong>{item.author}</strong><time>{messageTimes[index]}</time></span>
-                <span>{item.quote}</span>
-              </span>
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
   );
 }
 
