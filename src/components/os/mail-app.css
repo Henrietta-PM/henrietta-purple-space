@@ -13,6 +13,7 @@
 .mail-app .mail-tool:hover { background:hsl(var(--os-ink) / .06); }
 .mail-app .mail-send { background:hsl(var(--apple-blue)); color:hsl(var(--os-on-dark)); }
 .mail-app .mail-send:hover { background:hsl(var(--apple-blue) / .85); }
+.mail-app .mail-send svg { color:hsl(var(--os-on-dark)); }
 .mail-app .mail-cancel { color:hsl(var(--apple-blue)); padding:4px 0; background:transparent; }
 .mail-content { flex:1; min-height:0; overflow:auto; }
 .mail-empty { height:100%; min-height:160px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; color:hsl(var(--os-ink-soft)); }
