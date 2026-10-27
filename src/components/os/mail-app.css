@@ -108,3 +108,4 @@
 .os-icon.os-apple-mail { background:hsl(var(--apple-blue)); color:hsl(var(--os-on-dark)); }
 .os-icon.os-apple-mail svg { width:80%; height:80%; }
 .mail-search-pill input { border:0; box-shadow:none; appearance:none; } .mail-search-pill input:focus, .mail-search-pill input:focus-visible { outline:none; box-shadow:none; } .mail-search-pill:focus-within { box-shadow:0 0 0 3px hsl(var(--apple-blue) / .3); }
+.mail-app.mail-mac .mail-row { width:auto; margin:0 8px; box-sizing:border-box; } .mail-app.mail-mac .mail-row.active { background:hsl(var(--primary)); color:hsl(var(--primary-foreground)); } .mail-app.mail-mac .mail-row.active::after { display:none; } .mail-mac .mail-column { overflow:hidden; } .mail-mac .mail-column .mail-list { overflow-x:hidden; }
