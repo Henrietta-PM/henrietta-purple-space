@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://hirehenrietta.lovable.app/sitemap.xml
+Sitemap: https://henriettaofpm.online/sitemap.xml
