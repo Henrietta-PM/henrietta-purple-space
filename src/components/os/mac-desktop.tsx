@@ -102,7 +102,7 @@ export function MacDesktop() {
       return;
     }
     setWindows((list) => (list.some((w) => w.id === id)
-      ? list.map((win) => win.id === id && (id === "letter" || id === "projects") ? { ...win, initialNote, projectName, noteEntry: (win.noteEntry ?? 0) + 1 } : win)
+      ? list.map((win) => win.id === id && ((id === "letter" && initialNote !== undefined) || (id === "projects" && projectName !== undefined)) ? { ...win, initialNote, projectName, noteEntry: (win.noteEntry ?? 0) + 1 } : win)
       : [...list, { id, z: topZ + 1, minimized: false, maximized: false, initialNote, projectName, noteEntry: 0 }]));
     focus(id);
   };
