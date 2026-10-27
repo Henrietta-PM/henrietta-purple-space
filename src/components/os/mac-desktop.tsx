@@ -29,6 +29,7 @@ const windowSizes: Record<AppId, { w: number; h: number }> = {
   cv: { w: 640, h: 600 },
   letter: { w: 900, h: 620 },
   contact: { w: 780, h: 600 },
+  mail: { w: 860, h: 600 },
   shop: { w: 640, h: 460 },
   love: { w: 420, h: 560 },
   messages: { w: 860, h: 600 },

@@ -64,5 +64,12 @@ export function restoreLayout(value: unknown, defaults: AppLayout): AppLayout {
       restored[zone].push({ id: raw.id, apps: raw.apps, name: typeof raw.name === "string" ? raw.name.slice(0, 32) : undefined, position });
     }
   }
-  return seen.size === validApps.length ? restored : defaults;
+  const missing = validApps.filter((id) => !seen.has(id));
+  if (missing.some((id) => id !== "mail")) return defaults;
+  for (const [zone, tiles] of Object.entries(defaults)) {
+    for (const tile of tiles) {
+      if (tile.apps.length === 1 && missing.includes(tile.apps[0])) restored[zone].push({ ...tile, apps: [...tile.apps] });
+    }
+  }
+  return restored;
 }

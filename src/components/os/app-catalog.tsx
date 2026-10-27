@@ -12,7 +12,7 @@ export interface OrganizedApp extends LayoutApp {
 const categoryFor = (id: LauncherId): string => {
   if (["camera", "photos"].includes(id)) return "Photo & Video";
   if (["instagram", "linkedin", "x", "contact", "love", "messages"].includes(id)) return "Social";
-  if (["letter", "reminders", "hire"].includes(id)) return "Productivity";
+  if (["letter", "reminders", "hire", "mail"].includes(id)) return "Productivity";
   return "Portfolio";
 };
 
@@ -26,7 +26,7 @@ export const appCatalog: OrganizedApp[] = [
 const tiles = (ids: string[]) => ids.map((id) => ({ id, apps: [id] }));
 export const phoneLayout: AppLayout = {
   home0: tiles(["projects", "cv", "messages", "health", "reminders", "maps", "shop", "camera", "photos", "settings"]),
-  home1: tiles([...allProjects.map((project) => `project:${project.name}`), "instagram", "linkedin", "x"]),
+  home1: tiles(["mail", ...allProjects.map((project) => `project:${project.name}`), "instagram", "linkedin", "x"]),
   dock: tiles(["contact", "love", "letter", "hire"]),
 };
 export const desktopLayout: AppLayout = {

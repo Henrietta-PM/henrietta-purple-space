@@ -29,8 +29,9 @@ import ShopApp from "./shop-app";
 import JourneyMap from "./journey-map";
 import type { NoteId } from "@/data/notes";
 import { AppleSearch, AppleSections } from "./apple-app-chrome";
+import MailApp from "./mail-app";
 
-export type AppId = "projects" | "cv" | "letter" | "contact" | "shop" | "love" | "messages" | "health" | "reminders" | "maps" | "weather" | "camera" | "photos";
+export type AppId = "projects" | "cv" | "letter" | "contact" | "mail" | "shop" | "love" | "messages" | "health" | "reminders" | "maps" | "weather" | "camera" | "photos";
 export type LinkId = "hire" | "instagram" | "linkedin" | "x";
 export type LauncherId = AppId | LinkId;
 
@@ -55,6 +56,7 @@ export const launchers: Launcher[] = [
   { id: "cv", name: "CV", icon: FileText, tone: "cv" },
   { id: "letter", name: "Notes", icon: StickyNote, tone: "letter" },
   { id: "contact", name: "Contacts", icon: Mail, tone: "contact" },
+  { id: "mail", name: "Mail", icon: Mail, tone: "mail" },
   { id: "shop", name: "Shop", icon: ShoppingBag, tone: "shop" },
   { id: "love", name: "Love Portfolio", icon: Heart, tone: "love" },
   { id: "messages", name: "Testimonials", icon: MessageCircle, tone: "messages" },
@@ -74,6 +76,7 @@ export const appTitles: Record<AppId, string> = {
   cv: "Henrietta-Onwuneme-CV.pdf",
   letter: "Notes",
   contact: "Contact",
+  mail: "Mail",
   shop: "Shop",
   love: "Love Portfolio",
   messages: "Testimonials",
@@ -156,7 +159,7 @@ function LibraryTile({ item }: { item: LibItem }) {
 const libraryFolders: { name: string; ids: LauncherId[] }[] = [
   { name: "About Me", ids: ["cv", "letter", "health", "maps", "reminders"] },
   { name: "Social", ids: ["love", "instagram", "linkedin", "x", "messages", "camera", "photos"] },
-  { name: "Productivity", ids: ["hire", "contact", "shop"] },
+  { name: "Productivity", ids: ["hire", "contact", "mail", "shop"] },
 ];
 
 export function AppLibrary({ onOpenProject, onLaunch }: { onOpenProject: (name: string) => void; onLaunch: (id: LauncherId) => void }) {
@@ -328,24 +331,7 @@ function LetterApp() {
 const CONTACT_EMAIL = "mypvrplespace@gmail.com";
 
 function MailCompose({ onCancel }: { onCancel: () => void }) {
-  const [subject, setSubject] = useState("Let's work together");
-  const [body, setBody] = useState("Hi Henrietta,\n\n");
-  const send = () => {
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  };
-  return (
-    <div className="os-mail">
-      <div className="os-mail-bar">
-        <button onClick={onCancel}>Cancel</button>
-        <strong>New Message</strong>
-        <button className="os-mail-send" onClick={send} aria-label="Send email"><Send /></button>
-      </div>
-      <div className="os-mail-field"><span>To:</span><em>Henrietta Onwuneme</em></div>
-      <div className="os-mail-field"><span>Cc/Bcc, From:</span><em className="os-muted">you</em></div>
-      <label className="os-mail-field"><span>Subject:</span><input value={subject} onChange={(e) => setSubject(e.target.value.slice(0, 150))} /></label>
-      <textarea className="os-mail-body" value={body} onChange={(e) => setBody(e.target.value.slice(0, 3000))} aria-label="Message" />
-    </div>
-  );
+  return <MailApp initialCompose onCancel={onCancel} />;
 }
 
 const SHARE_URL = "https://hirehenrietta.lovable.app";
@@ -547,6 +533,7 @@ export function AppContent({ id, compact = false, projectName, initialNote, onLa
     case "cv": return <CvApp compact={compact} />;
     case "letter": return <NotesApp key={initialNote ?? "all-notes"} compact={compact} initialNote={initialNote} letter={<LetterApp />} />;
     case "contact": return <ContactApp compact={compact} />;
+    case "mail": return <MailApp compact={compact} />;
     case "shop": return <ShopApp compact={compact} />;
     case "love": return <LoveApp />;
     case "messages": return <MessagesApp compact={compact} />;
@@ -560,6 +547,7 @@ export function AppContent({ id, compact = false, projectName, initialNote, onLa
 }
 
 export function AppIcon({ launcher, size = "md" }: { launcher: Launcher; size?: "sm" | "md" | "lg" }) {
+  if (launcher.id === "mail") return <span className={`os-icon os-icon-${size} os-apple-mail`} aria-hidden="true"><svg viewBox="0 0 60 60" fill="currentColor"><rect x="8" y="14" width="44" height="32" rx="4" /><path d="m9 16 21 17 21-17M9 45l15-14m27 14L36 31" fill="none" stroke="hsl(var(--apple-blue))" strokeWidth="2" /></svg></span>;
   if (launcher.id === "camera") return <ImageIcon src={appleCameraIcon} size={size} />;
   if (launcher.id === "photos") return <ImageIcon src={applePhotosIcon} size={size} />;
   if (launcher.id === "hire") return <CalendarIcon size={size} />;
