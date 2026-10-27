@@ -42,8 +42,9 @@ export default function AppOrganizer({ storageKey, defaults, mobile = false, onL
       const rect = dock.getBoundingClientRect();
       const parent = controls.offsetParent?.getBoundingClientRect();
       if (!parent) return;
-      controls.style.right = "12px";
-      controls.style.bottom = `${parent.bottom - rect.bottom}px`;
+      const width = controls.offsetWidth || 30;
+      controls.style.right = `${Math.max(8, parent.right - rect.right - width - 10)}px`;
+      controls.style.bottom = `${parent.bottom - rect.bottom + (rect.height - (controls.offsetHeight || 30)) / 2}px`;
     };
     place();
     const timers = [200, 600, 1200].map((ms) => window.setTimeout(place, ms));
