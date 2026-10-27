@@ -23,4 +23,4 @@
 - [x] Remove the Challenge tab from How I Work at the owner's request, retaining the original process.
 - [x] Recommend complementary interactive apps and a video wallpaper approach without changing the existing slideshow.
 - [ ] Add Aki briefcase-walk wallpaper with sound. Blocked by needing the exact clip or link from the owner; research did not verify the matching footage and audio.
-- [ ] Add Apple-style Mail on phone and Mac with direct delivery to the owner's email. Blocked by sender-domain setup for app email delivery.
+- [ ] Add Apple-style Mail on phone and Mac using the existing email service, then verify composing, drafts and direct sending.
