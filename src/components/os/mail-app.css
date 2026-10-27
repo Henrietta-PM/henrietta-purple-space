@@ -90,7 +90,7 @@
 .mail-column-head div { display:flex; flex-direction:column; }
 .mail-column-head strong { font-size:15px; font-weight:700; }
 .mail-column-head span { font-size:11px; color:hsl(var(--os-ink-soft)); }
-.mail-mac-search { flex:none; height:30px; margin:4px 12px 8px; padding:0 10px; box-shadow:none; background:hsl(var(--os-ink) / .06); }
+.mail-mac-search { flex:none; backdrop-filter:none; -webkit-backdrop-filter:none; transform:translateZ(0); height:30px; margin:4px 12px 8px; padding:0 10px; box-shadow:none; background:hsl(var(--os-ink) / .06); }
 .mail-mac-search input { font-size:13px; }
 .mail-mac .mail-row { padding:8px 12px 8px 2px; }
 .mail-mac .mail-row::after { left:20px; }
@@ -107,3 +107,4 @@
 .mail-mac .mail-sheet { width:min(560px, 92%); height:min(480px, 88%); border-radius:14px; box-shadow:0 20px 50px hsl(240 20% 4% / .3); }
 .os-icon.os-apple-mail { background:hsl(var(--apple-blue)); color:hsl(var(--os-on-dark)); }
 .os-icon.os-apple-mail svg { width:80%; height:80%; }
+.mail-search-pill input { border:0; box-shadow:none; appearance:none; } .mail-search-pill input:focus, .mail-search-pill input:focus-visible { outline:none; box-shadow:none; } .mail-search-pill:focus-within { box-shadow:0 0 0 3px hsl(var(--apple-blue) / .3); }
