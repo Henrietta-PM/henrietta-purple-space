@@ -3,7 +3,7 @@
 .ios-app-body:has(.safari-app) { overflow:hidden; padding:0 0 28px; min-height:0; }
 .safari-toolbar { display:flex; align-items:center; gap:8px; padding:8px 12px; background:hsl(var(--os-titlebar) / .9); border-bottom:1px solid hsl(var(--os-line) / .4); flex:none; }
 .safari-app button { color:inherit; }
-.safari-app button:hover { background:hsl(var(--os-ink) / .06); }
+.safari-app button:hover { background:hsl(var(--os-ink) / .06); color:hsl(var(--os-ink)); }
 .safari-app button:focus-visible { outline:2px solid hsl(var(--apple-blue)); outline-offset:2px; }
 .safari-toolbar button,.safari-bottom button { width:34px; height:34px; flex:none; border-radius:50%; }
 .safari-toolbar svg,.safari-bottom svg { width:18px; height:18px; }
@@ -55,6 +55,7 @@
 .safari-blocked h2 { font-size:22px; font-weight:600; margin-bottom:12px; }
 .safari-blocked p { font-size:14px; line-height:1.6; color:hsl(var(--os-ink-soft)); margin-bottom:18px; }
 .safari-blocked button { border-radius:20px; background:hsl(var(--apple-blue)); color:hsl(var(--os-on-dark)); }
+.safari-blocked button:hover { background:hsl(var(--apple-blue) / .85); color:hsl(var(--os-on-dark)); }
 .safari-bottom { display:flex; flex:none; align-items:center; justify-content:space-around; padding:4px 12px; background:hsl(var(--os-titlebar) / .94); }
 .safari-mobile .safari-toolbar { order:3; border:0; padding:8px 14px 4px; }
 .safari-mobile .safari-address { border-radius:24px; min-height:44px; }
