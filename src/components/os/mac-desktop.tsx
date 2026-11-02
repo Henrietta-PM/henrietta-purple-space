@@ -16,6 +16,7 @@ import { LoadingLock } from "./loading-lock";
 import type { SafariRequest } from "./safari-app";
 import { activateOsAudio, playOsSound, useOsInteractionSounds } from "./os-sounds";
 import SoundToggle from "./sound-toggle";
+import MacLockNotifications from "./mac-lock-notifications";
 
 interface WindowState {
   id: AppId;
@@ -180,11 +181,11 @@ export function MacDesktop() {
         <AppZone zone="dock" className="os-mac-dock-apps" />
       </nav>}
       </AppOrganizer>
-      {locked && <LoadingLock desktop onUnlock={() => { activateOsAudio(); playOsSound("unlock"); setLocked(false); }} onNotice={(app, title) => {
+      {locked && <LoadingLock desktop onUnlock={() => { activateOsAudio(); playOsSound("unlock"); setLocked(false); }}><MacLockNotifications onNotice={(app, title) => {
         activateOsAudio();
         setLocked(false);
         launch(app, app === "letter" ? "letter" : undefined, app === "projects" ? title : undefined);
-      }} />}
+      }} /></LoadingLock>}
     </div>
   );
 }
