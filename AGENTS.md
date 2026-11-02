@@ -1,6 +1,6 @@
 # Project rules
 
-- Share OS audio playback and visitor-local mute state between both shells; use an externalized recording for notification audio, activate only after visitor interaction and silence hidden tabs so browser autoplay limits and visitor preferences are respected. Phone Silent Mode lives in Settings, while Mac retains its menu-bar sound control.
+- Share OS audio playback and visitor-local mute state between both shells; use separate externalized recordings for lock-screen arrivals and exploration notifications, activate only after visitor interaction and silence hidden tabs so browser autoplay limits and visitor preferences are respected. Interaction feedback uses feature-detected browser vibration, never fabricated Apple app-opening sounds. Phone Silent Mode lives in Settings, while Mac retains its menu-bar sound control.
 
 - Serve the fixed downloadable CV through a Lovable Assets pointer so the uploaded PDF stays outside source control.
 - Render the OS CV as a readable timeline document using exports shared with the classic CV page, with the fixed PDF available through Download CV; Skills uses the same skill data with distinct summary, category and search views.
