@@ -13,6 +13,10 @@ interface SafariTab { id: number; history: SafariPage[]; index: number }
 export interface SafariRequest { url: string; projectName?: string; mode: "tour" | "website"; entry: number }
 const projects = [...featuredProjects, ...projectsData].filter((project, index, list) => list.findIndex((item) => item.name === project.name) === index);
 
+function PageMenuGlyph() {
+  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" aria-hidden="true"><rect x="4" y="3" width="16" height="10" rx="2" /><path d="M4 17h16M4 21h10" /></svg>;
+}
+
 function ProjectTour({ project, onWebsite }: { project: Project; onWebsite: () => void }) {
   const [chapter, setChapter] = useState(0);
   const reducedMotion = useReducedMotion();
@@ -85,7 +89,7 @@ export default function SafariApp({ compact = false, request }: { compact?: bool
     return destination?.projectName ?? (destination ? new URL(destination.url).hostname : "Start Page");
   };
   const displayAddress = page?.mode === "tour" ? "henriettaofpm.online" : page ? new URL(page.url).hostname.replace(/^www\./, "") : "Search or enter website name";
-  const pageMenu = <DropdownMenu><DropdownMenuTrigger asChild><Button variant="ghost" size="icon" aria-label="Page menu" title="Page menu"><PanelsTopLeft /></Button></DropdownMenuTrigger><DropdownMenuContent className="safari-menu" align="start">{project && <DropdownMenuItem onSelect={() => navigate({ ...page, url:page?.url ?? "https://henriettaofpm.online", mode:"tour" })}><BookOpen />View project tour</DropdownMenuItem>}<DropdownMenuItem onSelect={() => setReload((value) => value + 1)}><RotateCw />Reload</DropdownMenuItem>{page?.mode === "website" && <DropdownMenuItem onSelect={() => window.open(page.url,"_blank","noopener,noreferrer")}><ArrowUpRight />Open in browser</DropdownMenuItem>}</DropdownMenuContent></DropdownMenu>;
+  const pageMenu = <DropdownMenu><DropdownMenuTrigger asChild><Button variant="ghost" size="icon" aria-label="Page menu" title="Page menu"><PageMenuGlyph /></Button></DropdownMenuTrigger><DropdownMenuContent className="safari-menu" align="start">{project && <DropdownMenuItem onSelect={() => navigate({ ...page, url:page?.url ?? "https://henriettaofpm.online", mode:"tour" })}><BookOpen />View project tour</DropdownMenuItem>}<DropdownMenuItem onSelect={() => setReload((value) => value + 1)}><RotateCw />Reload</DropdownMenuItem>{page?.mode === "website" && <DropdownMenuItem onSelect={() => window.open(page.url,"_blank","noopener,noreferrer")}><ArrowUpRight />Open in browser</DropdownMenuItem>}</DropdownMenuContent></DropdownMenu>;
   const addressForm = <form className="safari-address" onSubmit={(event) => {
     event.preventDefault();
     const url = safeWebsiteUrl(address);
