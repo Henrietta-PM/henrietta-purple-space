@@ -14,6 +14,7 @@ import AppOrganizer, { AppZone } from "./app-organizer";
 import { phoneLayout } from "./app-catalog";
 import { aboutMeNote, type NoteId } from "@/data/notes";
 import SettingsApp from "./settings-app";
+import type { SafariRequest } from "./safari-app";
 
 export function IphoneHome() {
   const now = useClock();
@@ -23,6 +24,8 @@ export function IphoneHome() {
   const [page, setPage] = useState(0);
   const [projectName, setProjectName] = useState<string | undefined>();
   const [initialNote, setInitialNote] = useState<NoteId | undefined>();
+  const [safariRequest, setSafariRequest] = useState<SafariRequest>();
+  const safariEntry = useRef(0);
   const pagesRef = useRef<HTMLDivElement>(null);
   const settleTimer = useRef<number>();
   const handlePagesScroll = (element: HTMLDivElement) => {
@@ -135,7 +138,7 @@ export function IphoneHome() {
           >
             <StatusBar light={false} />
             <div className="ios-app-body">
-              {open === "settings" ? <SettingsApp compact /> : <AppContent id={open} compact initialNote={open === "letter" ? initialNote : undefined} projectName={open === "projects" ? projectName : undefined} onLaunch={(id) => { setProjectName(undefined); launch(id); }} />}
+              {open === "settings" ? <SettingsApp compact /> : <AppContent id={open} compact initialNote={open === "letter" ? initialNote : undefined} projectName={open === "projects" ? projectName : undefined} safariRequest={safariRequest} onOpenSafari={(url, name, mode = "website") => { setSafariRequest({ url, projectName:name, mode, entry:++safariEntry.current }); setOpen("safari"); }} onLaunch={(id) => { setProjectName(undefined); launch(id); }} />}
             </div>
             {showHint && <motion.span className="ios-home-hint" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>Swipe up or tap the bar to go home</motion.span>}
             <motion.button

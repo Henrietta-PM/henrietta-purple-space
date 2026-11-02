@@ -13,6 +13,7 @@ import AppOrganizer, { AppZone } from "./app-organizer";
 import { desktopLayout } from "./app-catalog";
 import type { NoteId } from "@/data/notes";
 import { LoadingLock } from "./loading-lock";
+import type { SafariRequest } from "./safari-app";
 
 interface WindowState {
   id: AppId;
@@ -22,6 +23,7 @@ interface WindowState {
   initialNote?: NoteId;
   noteEntry?: number;
   projectName?: string;
+  safariRequest?: SafariRequest;
 }
 
 const windowSizes: Record<AppId, { w: number; h: number }> = {
@@ -30,6 +32,7 @@ const windowSizes: Record<AppId, { w: number; h: number }> = {
   letter: { w: 900, h: 620 },
   contact: { w: 780, h: 600 },
   mail: { w: 860, h: 600 },
+  safari: { w: 960, h: 650 },
   shop: { w: 640, h: 460 },
   love: { w: 420, h: 560 },
   messages: { w: 860, h: 600 },
@@ -41,9 +44,10 @@ const windowSizes: Record<AppId, { w: number; h: number }> = {
   photos: { w: 860, h: 600 },
 };
 
-function MacWindow({ win, index, focused, bounds, onFocus, onClose, onMinimize, onMaximize, onLaunch }: {
+function MacWindow({ win, index, focused, bounds, onFocus, onClose, onMinimize, onMaximize, onLaunch, onOpenSafari }: {
   win: WindowState; index: number; focused: boolean; bounds: React.RefObject<HTMLDivElement>;
   onFocus: () => void; onClose: () => void; onMinimize: () => void; onMaximize: () => void; onLaunch: (id: LauncherId) => void;
+  onOpenSafari: (url: string, projectName?: string, mode?: "tour" | "website") => void;
 }) {
   const controls = useDragControls();
   const size = windowSizes[win.id];
@@ -74,7 +78,7 @@ function MacWindow({ win, index, focused, bounds, onFocus, onClose, onMinimize, 
         <span className="mac-title">{appTitles[win.id]}</span>
       </header>
       <div className="mac-window-body">
-        <AppContent key={win.id === "letter" || win.id === "projects" ? `${win.id}-${win.noteEntry}` : win.id} id={win.id} initialNote={win.initialNote} projectName={win.projectName} onLaunch={onLaunch} />
+        <AppContent key={win.id === "letter" || win.id === "projects" ? `${win.id}-${win.noteEntry}` : win.id} id={win.id} initialNote={win.initialNote} projectName={win.projectName} onLaunch={onLaunch} onOpenSafari={onOpenSafari} safariRequest={win.safariRequest} />
       </div>
     </motion.section>
   );
@@ -87,6 +91,7 @@ export function MacDesktop() {
   const bounds = useRef<HTMLDivElement>(null);
   const wallpaper = useWallpaper();
   const [windows, setWindows] = useState<WindowState[]>([]);
+  const safariEntry = useRef(0);
   const topZ = windows.reduce((max, win) => Math.max(max, win.z), 0);
   const focused = windows.filter((win) => !win.minimized).sort((a, b) => b.z - a.z)[0];
 
@@ -109,6 +114,11 @@ export function MacDesktop() {
   };
 
   const update = (id: AppId, patch: Partial<WindowState>) => setWindows((list) => list.map((w) => (w.id === id ? { ...w, ...patch } : w)));
+  const openSafari = (url: string, projectName?: string, mode: "tour" | "website" = "website") => {
+    const safariRequest = { url, projectName, mode, entry: ++safariEntry.current };
+    setWindows((list) => list.some((win) => win.id === "safari") ? list.map((win) => win.id === "safari" ? { ...win, safariRequest } : win) : [...list, { id:"safari", z:topZ + 1, minimized:false, maximized:false, safariRequest }]);
+    focus("safari");
+  };
   const close = (id: AppId) => setWindows((list) => list.filter((w) => w.id !== id));
 
   return (
@@ -150,6 +160,7 @@ export function MacDesktop() {
               onMinimize={() => update(win.id, { minimized: true })}
               onMaximize={() => update(win.id, { maximized: !win.maximized })}
               onLaunch={launch}
+              onOpenSafari={openSafari}
             />
           ))}
         </AnimatePresence>

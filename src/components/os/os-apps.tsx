@@ -30,8 +30,10 @@ import JourneyMap from "./journey-map";
 import type { NoteId } from "@/data/notes";
 import { AppleSearch, AppleSections } from "./apple-app-chrome";
 import MailApp from "./mail-app";
+import SafariApp, { type SafariRequest } from "./safari-app";
+import { Compass } from "lucide-react";
 
-export type AppId = "projects" | "cv" | "letter" | "contact" | "mail" | "shop" | "love" | "messages" | "health" | "reminders" | "maps" | "weather" | "camera" | "photos";
+export type AppId = "projects" | "cv" | "letter" | "contact" | "mail" | "safari" | "shop" | "love" | "messages" | "health" | "reminders" | "maps" | "weather" | "camera" | "photos";
 export type LinkId = "hire" | "instagram" | "linkedin" | "x";
 export type LauncherId = AppId | LinkId;
 
@@ -57,6 +59,7 @@ export const launchers: Launcher[] = [
   { id: "letter", name: "Notes", icon: StickyNote, tone: "letter" },
   { id: "contact", name: "Contacts", icon: Mail, tone: "contact" },
   { id: "mail", name: "Mail", icon: Mail, tone: "mail" },
+  { id: "safari", name: "Safari", icon: Compass, tone: "safari" },
   { id: "shop", name: "Shop", icon: ShoppingBag, tone: "shop" },
   { id: "love", name: "Love Portfolio", icon: Heart, tone: "love" },
   { id: "messages", name: "Testimonials", icon: MessageCircle, tone: "messages" },
@@ -77,6 +80,7 @@ export const appTitles: Record<AppId, string> = {
   letter: "Notes",
   contact: "Contact",
   mail: "Mail",
+  safari: "Safari",
   shop: "Shop",
   love: "Love Portfolio",
   messages: "Testimonials",
@@ -98,7 +102,7 @@ function ActionBar({ children }: { children: ReactNode }) {
   return <div className="os-action-bar">{children}</div>;
 }
 
-function ProjectDetail({ project, onBack, compact }: { project: Project; onBack: () => void; compact: boolean }) {
+function ProjectDetail({ project, onBack, compact, onOpenSafari }: { project: Project; onBack: () => void; compact: boolean; onOpenSafari?: (url: string, projectName?: string, mode?: "tour" | "website") => void }) {
   const sections = [
     { title: "What it is", paragraphs: [project.overview] },
     { title: "The problem", paragraphs: project.problem ? [project.problem] : [] },
@@ -113,9 +117,7 @@ function ProjectDetail({ project, onBack, compact }: { project: Project; onBack:
       <div className="os-detail-bar">
         <button className="os-back" onClick={onBack}><ChevronLeft aria-hidden="true" /> Projects</button>
         {!compact && project.link !== "#" && (
-          <Button size="sm" asChild>
-            <a href={project.link} target="_blank" rel="noopener noreferrer">Open product <ArrowUpRight /></a>
-          </Button>
+          <Button size="sm" onClick={() => onOpenSafari?.(project.link, project.name, "website")}>Open product <ArrowUpRight /></Button>
         )}
       </div>
       <div className="os-store-head">
@@ -124,11 +126,12 @@ function ProjectDetail({ project, onBack, compact }: { project: Project; onBack:
           <h2 className="os-detail-title">{project.name}</h2>
           <p className="os-muted">{project.tags.join(" · ")}</p>
           {project.link !== "#" && (
-            <a className="os-store-get" href={project.link} target="_blank" rel="noopener noreferrer">Open</a>
+            <Button className="os-store-get" onClick={() => onOpenSafari?.(project.link, project.name, "website")}>Open</Button>
           )}
         </div>
       </div>
       <img src={project.image} alt={`${project.name} product preview`} className="os-detail-image" />
+      <Button variant="ghost" onClick={() => onOpenSafari?.("https://henriettaofpm.online", project.name, "tour")}><Compass /> Explore project tour</Button>
       {sections.map((section) => (
         <section key={section.title} className="os-detail-section">
           <h3>{section.title}</h3>
@@ -137,9 +140,7 @@ function ProjectDetail({ project, onBack, compact }: { project: Project; onBack:
       ))}
       {compact && project.link !== "#" && (
         <ActionBar>
-          <Button size="lg" className="w-full" asChild>
-            <a href={project.link} target="_blank" rel="noopener noreferrer">Open {project.name} <ArrowUpRight /></a>
-          </Button>
+          <Button size="lg" className="w-full" onClick={() => onOpenSafari?.(project.link, project.name, "website")}>Open {project.name} <ArrowUpRight /></Button>
         </ActionBar>
       )}
     </div>
@@ -159,7 +160,7 @@ function LibraryTile({ item }: { item: LibItem }) {
 const libraryFolders: { name: string; ids: LauncherId[] }[] = [
   { name: "About Me", ids: ["cv", "letter", "health", "maps", "reminders"] },
   { name: "Social", ids: ["love", "instagram", "linkedin", "x", "messages", "camera", "photos"] },
-  { name: "Productivity", ids: ["hire", "contact", "mail", "shop"] },
+  { name: "Productivity", ids: ["hire", "contact", "mail", "safari", "shop"] },
 ];
 
 export function AppLibrary({ onOpenProject, onLaunch }: { onOpenProject: (name: string) => void; onLaunch: (id: LauncherId) => void }) {
@@ -235,7 +236,7 @@ function FolderGlyph() {
   return <span className="os-files-glyph" aria-hidden="true"><span /></span>;
 }
 
-function ProjectsApp({ compact, initial }: { compact: boolean; initial?: string }) {
+function ProjectsApp({ compact, initial, onOpenSafari }: { compact: boolean; initial?: string; onOpenSafari?: (url: string, projectName?: string, mode?: "tour" | "website") => void }) {
   const [query, setQuery] = useState("");
   const [view, setView] = useState<"grid" | "list">("grid");
   const [section, setSection] = useState("browse");
@@ -245,7 +246,7 @@ function ProjectsApp({ compact, initial }: { compact: boolean; initial?: string 
   if (selected) {
     return (
       <div className="os-finder-main">
-        <ProjectDetail project={selected} compact={compact} onBack={() => setSelected(null)} />
+        <ProjectDetail project={selected} compact={compact} onBack={() => setSelected(null)} onOpenSafari={onOpenSafari} />
       </div>
     );
   }
@@ -527,9 +528,10 @@ function LoveApp() {
 }
 
 
-export function AppContent({ id, compact = false, projectName, initialNote, onLaunch }: { id: AppId; compact?: boolean; projectName?: string; initialNote?: NoteId; onLaunch?: (id: LauncherId) => void }) {
+export function AppContent({ id, compact = false, projectName, initialNote, onLaunch, onOpenSafari, safariRequest }: { id: AppId; compact?: boolean; projectName?: string; initialNote?: NoteId; onLaunch?: (id: LauncherId) => void; onOpenSafari?: (url: string, projectName?: string, mode?: "tour" | "website") => void; safariRequest?: SafariRequest }) {
   switch (id) {
-    case "projects": return <ProjectsApp compact={compact} initial={projectName} />;
+    case "projects": return <ProjectsApp compact={compact} initial={projectName} onOpenSafari={onOpenSafari} />;
+    case "safari": return <SafariApp compact={compact} request={safariRequest} />;
     case "cv": return <CvApp compact={compact} />;
     case "letter": return <NotesApp key={initialNote ?? "all-notes"} compact={compact} initialNote={initialNote} letter={<LetterApp />} />;
     case "contact": return <ContactApp compact={compact} />;
@@ -547,6 +549,7 @@ export function AppContent({ id, compact = false, projectName, initialNote, onLa
 }
 
 export function AppIcon({ launcher, size = "md" }: { launcher: Launcher; size?: "sm" | "md" | "lg" }) {
+  if (launcher.id === "safari") return <span className={`os-icon os-icon-${size} os-safari-icon`} aria-hidden="true"><span className="os-safari-face"><span className="os-safari-needle" /></span></span>;
   if (launcher.id === "mail") return <span className={`os-icon os-icon-${size} os-apple-mail`} aria-hidden="true"><svg viewBox="0 0 60 60" fill="currentColor"><rect x="8" y="14" width="44" height="32" rx="4" /><path d="m9 16 21 17 21-17M9 45l15-14m27 14L36 31" fill="none" stroke="hsl(var(--apple-blue))" strokeWidth="2" /></svg></span>;
   if (launcher.id === "camera") return <ImageIcon src={appleCameraIcon} size={size} />;
   if (launcher.id === "photos") return <ImageIcon src={applePhotosIcon} size={size} />;

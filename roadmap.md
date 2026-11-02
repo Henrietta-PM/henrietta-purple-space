@@ -24,3 +24,4 @@
 - [x] Recommend complementary interactive apps and a video wallpaper approach without changing the existing slideshow.
 - [ ] Add Aki briefcase-walk wallpaper with sound. Blocked by needing the exact clip or link from the owner; research did not verify the matching footage and audio.
 - [x] Add Mail on phone and Mac using the existing email service; verified drafts, saved sent mail, phone layout and one real test email accepted by the provider. Inbox arrival and pixel-exact Apple matching remain unverified.
+- [x] Add shared Safari with project website links, visual guided tours and safe blocked-site fallback; verified Sally live inside Safari, Mac back/minimized restoration, preserved Projects selection and phone ProxyMedicine fallback/tour. Navigation and saved-layout tests passed.
