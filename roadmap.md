@@ -1,4 +1,4 @@
-- [ ] Remove unwanted project screenshots and expand all case studies in Henrietta's voice using confirmed facts; verify phone and Mac.
+- [x] Remove unwanted project screenshots and expand all case studies in Henrietta's voice using confirmed facts; verified the expanded ProxyMedicine tour and removed screenshot chapter on phone and Mac. Syncu tools remain omitted because none were confirmed.
 - [x] Add the uploaded CV download. Hosted PDF verified; local preview does not serve the asset gateway.
 - [x] Add nonconflicting CV and project details without removing existing experience.
 - [x] Resolve conflicts: StatWell launched 70% faster, Bloomie has 80% overall adoption, keep portfolio contact email.

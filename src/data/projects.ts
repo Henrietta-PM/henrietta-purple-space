@@ -182,7 +182,6 @@ export const projectsData: Project[] = [
     problem: "Tech professionals needed a way to find people to build with and get hands-on experience. Syncu focused on bringing those people together around actual product ideas, so collaboration could become work they could show in a portfolio.",
     whatIDid: "I designed the platform vision and roadmap, ran outreach and engagement, and managed the waitlist. I connected professionals with aligned goals and facilitated 10+ collaborations.\n\nThe work was both product planning and community building. I needed to bring people in, understand what they wanted to work on, and help them find a team.",
     strategy: ["I organised the community around product ideas and project-based teams. The focus was on helping people work together, rather than growing a member count without any collaboration behind it.", "I used outreach and engagement to grow the community and managed the waitlist alongside it. Matching professionals with aligned goals led to 10+ active collaborations."],
-    stack: "The platform tools have not been confirmed for this case study.",
     achievements: [
       "Built and scaled a community of 250+ members.",
       "Enabled 10+ active product collaborations.",
