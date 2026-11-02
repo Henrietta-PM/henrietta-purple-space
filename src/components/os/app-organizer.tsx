@@ -32,7 +32,21 @@ export default function AppOrganizer({ storageKey, defaults, mobile = false, onL
   const [folderId, setFolderId] = useState<string | null>(null);
   const [announcement, setAnnouncement] = useState("");
   const lastPageTurn = useRef(0);
+  const lastDragEnd = useRef(0);
   const controlsRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!editing || hideControls) return;
+    const finishOnEmptyArea = (event: MouseEvent) => {
+      if (active || Date.now() - lastDragEnd.current < 250 || !(event.target instanceof Element)) return;
+      const target = event.target;
+      if (!target.closest(mobile ? ".ios-shell" : ".mac-shell")) return;
+      if (target.closest("button,a,input,textarea,select,[role='button'],[role='dialog'],.mw,.ios-w,.os-tile-slot,.os-organize-controls,.os-folder-view,.mac-menubar,.ios-app")) return;
+      setFolderId(null);
+      setEditing(false);
+    };
+    document.addEventListener("click", finishOnEmptyArea);
+    return () => document.removeEventListener("click", finishOnEmptyArea);
+  }, [editing, active, mobile, hideControls]);
   useEffect(() => {
     if (mobile || hideControls) return;
     const controls = controlsRef.current;
@@ -72,6 +86,7 @@ export default function AppOrganizer({ storageKey, defaults, mobile = false, onL
   }, [folderId]);
   const launch = (app: OrganizedApp) => { setFolderId(null); setEditing(false); onLaunch(app); };
   const endDrag = (event: DragEndEvent) => {
+    lastDragEnd.current = Date.now();
     setActive(null);
     if (!event.over) return;
     const sourceFolder = event.active.data.current?.folderId as string | undefined;
@@ -123,7 +138,7 @@ export default function AppOrganizer({ storageKey, defaults, mobile = false, onL
         </div>}
         <DragOverlay zIndex={150} dropAnimation={null}>{activeTile && <div className="os-drag-preview"><TileIcon tile={activeTile} /></div>}</DragOverlay>
         <AnimatePresence>{folder && <motion.div className="os-folder-layer" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: .18 }}>
-          <Button variant="ghost" className="os-folder-backdrop" aria-label="Close folder" onClick={() => setFolderId(null)} />
+          <Button variant="ghost" className="os-folder-backdrop" aria-label="Close folder" onClick={() => { setFolderId(null); setEditing(false); }} />
           <motion.section className="os-folder-view" role="dialog" aria-label={folder.name ?? "Apps"} initial={{ scale: .85, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: .9, opacity: 0 }} transition={{ type: "spring", stiffness: 380, damping: 32 }}>
             <Input aria-label="Folder name" className="os-folder-name" value={folder.name ?? "Apps"} maxLength={32} onChange={(event) => {
               const name = event.target.value;
