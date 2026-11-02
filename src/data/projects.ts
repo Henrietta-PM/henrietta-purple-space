@@ -6,23 +6,7 @@ import syncuImage from "@/assets/syncu-preview.png";
 import careerpassImage from "@/assets/careerpass-preview.png";
 import targettImage from "@/assets/targett-preview-new.png";
 import nyscImage from "@/assets/nysc-preview.png";
-import mykopa1 from "@/assets/tours/mykopa-1.jpg.asset.json";
-import proxy1 from "@/assets/tours/proxymedicine-1.jpg.asset.json";
-import proxy2 from "@/assets/tours/proxymedicine-2.jpg.asset.json";
-import sally1 from "@/assets/tours/sally-1.jpg.asset.json";
-import sally2 from "@/assets/tours/sally-2.jpg.asset.json";
-import targett1 from "@/assets/tours/targett-1.jpg.asset.json";
-import targett2 from "@/assets/tours/targett-2.jpg.asset.json";
-import targett3 from "@/assets/tours/targett-3.jpg.asset.json";
-import vibestack1 from "@/assets/tours/vibestack-1.jpg.asset.json";
-import vibestack2 from "@/assets/tours/vibestack-2.jpg.asset.json";
-import vibestack3 from "@/assets/tours/vibestack-3.jpg.asset.json";
-import bloomie1 from "@/assets/tours/bloomie-1.jpg.asset.json";
-import careerpass1 from "@/assets/tours/careerpass-1.jpg.asset.json";
-import careerpass2 from "@/assets/tours/careerpass-2.jpg.asset.json";
-import careerpass3 from "@/assets/tours/careerpass-3.jpg.asset.json";
 
-export interface ProjectScreen { src: string; caption: string }
 
 export interface Project {
   name: string;
@@ -38,7 +22,6 @@ export interface Project {
   stack?: string;
   responsibilities?: string[];
   achievements?: string[];
-  screens?: ProjectScreen[];
 }
 
 export const proxyMedicine: Project = {
@@ -50,14 +33,14 @@ export const proxyMedicine: Project = {
   overview:
     "ProxyMedicine is a telehealth platform that combines asynchronous care with AI features running in production inside a regulated clinical service. It covers AI-assisted diagnosis suggestions, prescription refills, lab requests and live consultations.",
   problem:
-    "Patients were dropping out between paying and actually being seen. Acquisition was expensive and the funnel leaked at exactly the point where revenue had already been committed.",
+    "I was asked to improve conversion. Patients were dropping out along the route to care, and bringing in more traffic would not fix that on its own. I needed to understand where people were leaving and what we were asking them to do before they could see a clinician.\n\nThe service also runs in a regulated setting. Any change to onboarding still had to support the identity checks and health information needed for clinical review.",
   whatIDid:
-    "I took the product from concept to production and still own it. I write the PRDs, user stories and acceptance criteria, work with clinicians and engineers on the clinical workflows, and keep the service LegitScript compliant and HIPAA aligned alongside legal.",
+    "I took ProxyMedicine from concept to production and still own the product. It is a live clinical service, not an AI prototype. The LLM features sit alongside prescription refills, lab requests and live consultations.\n\nI write the PRDs, user stories and acceptance criteria, then work with clinicians and engineers on how those flows should work. I also work alongside legal to keep the service LegitScript compliant and HIPAA aligned.\n\nFor the conversion work, I reviewed the traffic, rebuilt acquisition and onboarding mobile first, moved identity verification and health profile completion to after checkout, and planned the subscription and pricing changes with engineering.",
   strategy: [
-    "Three decisions did most of the work.",
-    "First, I checked where the traffic actually came from before touching the design. About 80% of it was mobile and primarily iOS. So I rebuilt acquisition and onboarding mobile first rather than adapting a desktop flow.",
-    "Second, I moved identity verification and health profile completion to immediately after checkout instead of before it. People who have already paid finish forms. People who have not, leave. That single resequencing lifted completion and cut the delay before a clinician could review a case, and it required no new feature to be built.",
-    "Third, I treated pricing as a product surface rather than a commercial afterthought. I planned subscription integration and pricing model changes directly with engineering instead of handing over a spec.",
+    "I started with how people were actually using the service, not with a new feature list.",
+    "About 80% of traffic was mobile, mainly iOS. That told me the mobile journey needed to be the starting point. I rebuilt acquisition and onboarding for that experience instead of making people work through a desktop flow on their phone.",
+    "I moved identity verification and health profile completion to immediately after checkout. I did not remove those steps. I changed when we asked for them, so patients could pay before completing the information needed for care. That improved completion and reduced the delay before clinical review without adding a new feature.",
+    "I worked on subscriptions and pricing with engineering because the payment flow was part of the same problem. I also ran A/B tests on core tasks to check whether people could complete them, rather than judging the changes by how the screens looked.",
   ],
   outcome: [
     "1,400 patients",
@@ -69,7 +52,6 @@ export const proxyMedicine: Project = {
     "40% lift in post-launch user satisfaction from A/B tests on core task completion flows",
     "Contributed to healthcare IP later licensed for $120,000, which became the foundation of StatWell MD",
   ],
-  screens: [{ src: proxy1.url, caption: "Home on mobile. Urgent care from $39.99, refills and a condition search up front." }, { src: proxy2.url, caption: "Step 1 of the visit: pick a condition. Built mobile first, since about 80% of traffic is on phones." }],
   stack: "Cursor, Claude, Figma, Trello, Amplitude, Google Ads, GitHub, Mailchimp, Meta, Lovable.",
 };
 
@@ -82,19 +64,18 @@ export const targett: Project = {
   overview:
     "Targett is an AI-powered search optimization platform that helps businesses improve whether AI assistants recommend their product or website. Planned and built end to end on Lovable with Stripe payments, Resend emails and analytics integrated.",
   problem:
-    "Businesses could see that AI assistants were not recommending them, but had no way to find out why, and no way to fix it that did not take an engineer several days.",
-  whatIDid: "I built and launched the platform, and ran onboarding myself for the first cohort of users.",
+    "A business could find out that AI assistants were not recommending it and still not know what to do next. An audit alone did not solve that. The gap was between seeing the problem and making the changes, which could take an engineer several days.",
+  whatIDid: "I planned and built Targett end to end on Lovable, including Stripe payments, Resend email and analytics. I built the audit, gap detection and auto-fix flows, then added one-click publishing to GitHub and WordPress.\n\nI also onboarded 50+ users myself. I ran their audits with them and used those conversations to understand what they needed help with and decide what to work on next.",
   strategy: [
-    "I onboarded 50+ users through consultative discovery rather than self-serve signup. I sat with them, ran their audits with them, and used what came out of those sessions to set the roadmap. The audits were the research, so discovery and delivery were the same activity instead of two phases.",
-    "On the product itself, I worked the problem through prompt and context engineering rather than content volume, then A/B tested the audit, gap-detection and auto-fix features to find which combination users actually completed.",
-    "The last decision was about where the work ends. Shipping one-click publishing to GitHub and WordPress turned a report into a fix, which is what took the job from days to minutes.",
+    "I did the early onboarding myself rather than relying only on a signup form. Running audits with users let me see the questions they asked and where they needed help. I used that feedback to set the roadmap while the product was already being used.",
+    "I worked on the prompts and context behind the recommendations, then A/B tested the audit, gap-detection and auto-fix features. I wanted to see which combination people actually completed, not just whether the product could produce a long report.",
+    "I did not want the work to stop at a report. One-click publishing to GitHub and WordPress meant users could apply the changes from the same flow. That is what took the work from days to minutes.",
   ],
   outcome: [
     "Raised an AI discoverability score from 44 to 98 in two weeks",
     "50+ users onboarded through consultative discovery",
     "Cut optimisation work from days to minutes",
   ],
-  screens: [{ src: targett1.url, caption: "Enter a website, get an AI discoverability score." }, { src: targett2.url, caption: "The score and its 4-pillar breakdown: crawlability, structured knowledge, content and authority." }, { src: targett3.url, caption: "Credit-based pricing, Free and Pro, billed through Stripe." }],
     stack: "Lovable, Stripe, Resend, GitHub, WordPress, prompt and context engineering.",
 };
 
@@ -107,20 +88,19 @@ export const sally: Project = {
   overview:
     "Sally is an AI personal brand manager. You share your day with a quick voice note or a line of text, and Sally turns it into on-brand posts that sound like you, then schedules and publishes them across LinkedIn and TikTok so you stay consistently visible.",
   problem:
-    "Staying visible professionally takes consistency, and consistency is the thing people run out of first. Most tools generate posts. Almost none remember who you are across months.",
+    "People have things to say about their work, but turning those moments into posts and keeping up with publishing takes time. A tool that generates text still leaves the person to schedule and publish it. It also needs to remember their voice instead of starting again every time.",
   whatIDid:
-    "I scoped and shipped the integration and billing layer, and specified the memory and agent architecture. Launched June 2026 with zero ad spend.",
+    "I built and shipped Sally using AI tooling, and launched it in June 2026 with no ad spend. I shipped the LinkedIn and TikTok developer app integrations, Paddle billing and Resend lifecycle email first.\n\nThen I worked on the long-term memory layer using pgvector, so Sally could become more accurate about a person over months. I also specified an MCP server so external AI agents could use Sally directly.",
   strategy: [
-    "I built the distribution before the cleverness. The LinkedIn and TikTok developer app integrations, Paddle billing and Resend lifecycle email went in early, because a tool that writes well but cannot publish or charge is a demo.",
-    "The second decision was about memory. I specified a long-term memory layer using pgvector so the product gets more accurate about a person the longer they use it, rather than starting from zero each session.",
-    "The third was to open the product up. I specified an MCP server so external AI agents can drive Sally directly, which makes it a component other systems can use instead of a destination people have to visit.",
+    "I started with publishing and billing. A tool that writes well but cannot publish or charge is a demo. LinkedIn, TikTok, Paddle and Resend went in early so the product could support the full journey, not just generate a post.",
+    "I used pgvector for long-term memory because a personal brand manager should not forget the person between sessions. The point was to carry context forward over months, rather than asking someone to explain who they are each time.",
+    "I specified the MCP server so external agents could drive Sally directly. That gives people a way to use it from another AI workflow instead of always coming back to the app.",
   ],
   outcome: [
     "Launched June 2026 with zero ad spend",
     "Live LinkedIn and TikTok publishing, Paddle billing and Resend lifecycle email",
     "pgvector memory layer and an MCP server for external agents",
   ],
-  screens: [{ src: sally1.url, caption: "Share a moment by voice or text and Sally drafts the post." }, { src: sally2.url, caption: "Approved posts go out on schedule, on autopilot." }],
     stack: "LinkedIn and TikTok developer APIs, Paddle, Resend, pgvector, MCP.",
 };
 
@@ -135,13 +115,12 @@ export const projectsData: Project[] = [
     overview:
       "Bloomie AI is a personalized learning platform for children, using AI to deliver adaptive lessons and engaging progress dashboards.",
     problem:
-      "Children's learning products have two users who want different things. The child has to want to come back. The parent has to be able to see it is working.",
-    whatIDid: "I led the product as Product Manager and launched it for children aged 3 to 12 and their parents.",
+      "Bloomie needed to work for children and parents at the same time. A child needs lessons they can stay engaged with. A parent needs to see how the child is progressing. If either side is missing, the learning experience is incomplete.",
+    whatIDid: "I led Bloomie AI as Product Manager and launched it for children aged 3 to 12 and their parents. The product combines adaptive lessons for the child with progress dashboards for the parent.\n\nMy focus was on making those two parts work together: learning that responds to the child, and a clear view of progress for the parent.",
     strategy: [
-      "I treated the parent dashboard as a product surface rather than reporting. Adaptive lessons keep the child engaged, and the progress dashboard is what keeps the parent paying, so both had to be designed rather than one being a by-product of the other.",
+      "I treated the parent dashboard as part of the product, not an extra reporting screen. The child and parent needed different things from the same learning activity, so both experiences mattered.",
     ],
     outcome: ["500+ users in 2 months", "80% adoption of the AI tool"],
-    screens: [{ src: bloomie1.url, caption: "Adaptive learning that changes with each child's pace and progress." }],
     stack: "AI adaptive lessons, progress dashboards.",
   },
   proxyMedicine,
@@ -154,17 +133,16 @@ export const projectsData: Project[] = [
     overview:
       "VibeStack is a design-system generator and prompt workspace for vibe coders. In one prompt it mixes 200k+ icons, curated palettes, font pairings, atmospheres and layout styles into a cohesive theme you can drop into any AI-built app, so prototypes stop looking generic.",
     problem:
-      "AI-built apps all look the same. The tools generate working code and default styling, so every prototype arrives wearing the same clothes.",
-    whatIDid: "I shipped it from zero to live on my own.",
+      "AI tools can produce a working app quickly, but the designs often look alike. I wanted a way to give the builder a clear set of design choices, instead of accepting the same default colours, fonts and layouts every time.",
+    whatIDid: "I took VibeStack from zero to a live product on my own, using AI agents for research, prototyping and production code. I worked on discovery, positioning, pricing experiments, onboarding and growth loops myself.\n\nThe product brings 200k+ icons, palettes, font pairings, atmospheres and layout styles into one theme from a single prompt. The goal was to give an AI builder a consistent design direction it could apply across an app.",
     strategy: [
-      "I used AI agents for prototyping, research and production code, which is what made a solo build realistic in the first place.",
-      "Because there was no team, I kept ownership of the whole stack deliberately rather than by accident: discovery, positioning, pricing experiments, onboarding and growth loops. That meant pricing could be tested against onboarding directly, with no handoff in between.",
+      "AI tooling was my build method. I used agents for research, prototypes and production code, while keeping the product decisions with me. That let me take the idea through to a live product on my own.",
+      "I kept discovery, positioning, pricing and onboarding together. When I tested pricing, I could also change the onboarding around it without waiting for a handoff. The design choices went into a single theme so the output would work together, rather than becoming a list of unrelated suggestions.",
     ],
     outcome: [
       "Shipped from zero to a live product solo",
       "200k+ icons, curated palettes, font pairings and layout styles in one generated theme",
     ],
-    screens: [{ src: vibestack1.url, caption: "One prompt, one theme." }, { src: vibestack2.url, caption: "200k+ icons, palettes, font pairings and atmospheres mixed together." }, { src: vibestack3.url, caption: "The generated instructions an AI builder follows to apply the theme." }],
     stack: "AI coding agents, Lovable.",
   },
   targett,
@@ -177,12 +155,12 @@ export const projectsData: Project[] = [
     overview:
       "An NYSC check-in and clearance platform that replaces a paper process with QR check-in, notifications and admin tooling.",
     problem:
-      "Clearance ran on paper. That meant queues, lost records, and no way for anyone to see what was happening until after it had gone wrong.",
-    whatIDid: "I designed and launched the platform and have kept iterating on it in production.",
+      "NYSC check-in and clearance ran on paper. People had to queue, records could get lost, and staff did not have a clear view of what was happening. Moving the same paper form online would not address all of that. The check-in process itself needed to change.",
+    whatIDid: "I designed, built and launched mykopa.app using AI tooling. I replaced the paper process with QR check-in, notifications and admin tools for the people running clearance.\n\nI still run the product in production. I read its own logs and user feedback, then ship same-day fixes when an issue affects people using it. That matters when the person reporting the problem is standing in a queue at the time.",
     strategy: [
-      "I did not digitise the paper form. I looked at what the queue was actually for and replaced the mechanism: QR-powered check-in, notifications, and admin tooling so staff could resolve problems themselves instead of escalating them.",
-      "Then I ran the product off its own logs. Reading production logs and user feedback directly let me ship same-day fixes for user-facing issues rather than batching them into releases, which matters when the users are standing in a queue at the time.",
-      "I also designed for the wait rather than pretending it away. Adding engagement features that kept people occupied while queuing raised average session time.",
+      "I started with what people were queuing to do. QR check-in replaced the paper step, notifications kept people informed, and admin tools gave staff a way to handle issues themselves.",
+      "I use production logs and feedback to decide what needs fixing. I do not wait for a batch of changes when a user-facing issue is interrupting clearance. I can investigate it and ship a fix the same day.",
+      "I also added engagement features for the time people still spend waiting. Those features raised average session time, but they did not replace the main job of getting people checked in and cleared.",
     ],
     outcome: [
       "6,831 registered users",
@@ -191,7 +169,6 @@ export const projectsData: Project[] = [
       "Same-day production fixes driven by log analysis",
       "Raised average session time",
     ],
-    screens: [{ src: mykopa1.url, caption: "Live sign-in screen with real counts: 6.6k corps members, 82.9k check-ins and 90 events. Sign in by email, biometrics or PIN." }],
     stack: "Lovable, QR check-in, notifications, admin tooling, production log analysis.",
   },
   {
@@ -202,12 +179,10 @@ export const projectsData: Project[] = [
     isLive: false,
     overview:
       "Syncu is a community platform that connects tech professionals to collaborate on product ideas. It enables hands-on experience, real-time portfolio building, and project-based team formation.",
-    responsibilities: [
-      "Designed platform vision and roadmap to support collaborative projects.",
-      "Grew the community to 250+ members through outreach and engagement.",
-      "Facilitated 10+ collaborations by connecting professionals with aligned goals.",
-      "Oversaw waitlist operations, managing 530+ potential users.",
-    ],
+    problem: "Tech professionals needed a way to find people to build with and get hands-on experience. Syncu focused on bringing those people together around actual product ideas, so collaboration could become work they could show in a portfolio.",
+    whatIDid: "I designed the platform vision and roadmap, ran outreach and engagement, and managed the waitlist. I connected professionals with aligned goals and facilitated 10+ collaborations.\n\nThe work was both product planning and community building. I needed to bring people in, understand what they wanted to work on, and help them find a team.",
+    strategy: ["I organised the community around product ideas and project-based teams. The focus was on helping people work together, rather than growing a member count without any collaboration behind it.", "I used outreach and engagement to grow the community and managed the waitlist alongside it. Matching professionals with aligned goals led to 10+ active collaborations."],
+    stack: "The platform tools have not been confirmed for this case study.",
     achievements: [
       "Built and scaled a community of 250+ members.",
       "Enabled 10+ active product collaborations.",
@@ -222,13 +197,10 @@ export const projectsData: Project[] = [
     isLive: false,
     overview:
       "CareerPASS is a psychometric analysis and career recommendation platform. It helps students discover career paths aligned with their strengths through personality and skill assessments.",
-    responsibilities: [
-      "Scoped and managed end-to-end development of the MVP within 8 weeks.",
-      "Created PRDs and coordinated efforts across data analysts, developers, and designers.",
-      "Implemented Trello workflows to track deliverables and dependencies.",
-      "Oversaw integration of psychometric models into the platform.",
-    ],
-    screens: [{ src: careerpass1.url, caption: "Take the assessment to find your strengths." }, { src: careerpass2.url, caption: "Career tracks matched to the results." }, { src: careerpass3.url, caption: "How the psychometric assessment guides the recommendation." }],
+    problem: "CareerPASS was built to help students connect their strengths to possible career paths. The product needed to turn personality and skill assessments into recommendations they could use, rather than leaving them with an assessment result alone.",
+    whatIDid: "I scoped and managed the MVP from start to finish over 8 weeks. I wrote the PRDs and coordinated the data analysts, developers and designers working on it.\n\nI used Trello to track deliverables and dependencies, and oversaw the integration of the psychometric models behind the assessments and recommendations.",
+    strategy: ["I scoped the work around the assessment and recommendation journey so the team could deliver a complete MVP within 8 weeks.", "I tracked deliverables and dependencies in Trello and coordinated the different roles around the same PRDs. The psychometric models had to be integrated into a working product, not left as a separate piece of analysis."],
+    stack: "Trello, psychometric models.",
     achievements: [
       "Delivered MVP on time with full functionality within 8 weeks.",
       "Selected as a Top 5 project at a major career showcase.",
