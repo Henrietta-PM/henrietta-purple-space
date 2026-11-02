@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { playOsSound } from "./os-sounds";
+import { cancelLockAlert, playOsSound } from "./os-sounds";
 import { lockWallpaper } from "./lock-wallpaper";
 import { format } from "date-fns";
 import { ChevronUp, Lock } from "lucide-react";
@@ -24,12 +24,19 @@ const notices: LockNotice[] = [
 
 export function IphoneLock({ now, onUnlock }: { now: Date; onUnlock: (app?: LauncherId) => void }) {
   const [arrived, setArrived] = useState(0);
+  const unlock = (app?: LauncherId) => {
+    cancelLockAlert();
+    onUnlock(app);
+  };
   useEffect(() => {
     const timers = notices.map((_, index) => window.setTimeout(() => {
       setArrived(index + 1);
       playOsSound("lock-notification");
     }, 1000 + index * 3000));
-    return () => timers.forEach(window.clearTimeout);
+    return () => {
+      timers.forEach(window.clearTimeout);
+      cancelLockAlert();
+    };
   }, []);
   return (
     <motion.section
@@ -41,7 +48,7 @@ export function IphoneLock({ now, onUnlock }: { now: Date; onUnlock: (app?: Laun
       drag="y"
       dragConstraints={{ top: 0, bottom: 0 }}
       dragElastic={{ top: 0.6, bottom: 0 }}
-      onDragEnd={(_, info) => { if (info.offset.y < -90 || info.velocity.y < -500) onUnlock(); }}
+      onDragEnd={(_, info) => { if (info.offset.y < -90 || info.velocity.y < -500) unlock(); }}
     >
       <div className="ios-lock-top">
         <Lock aria-hidden="true" />
@@ -55,7 +62,7 @@ export function IphoneLock({ now, onUnlock }: { now: Date; onUnlock: (app?: Laun
             <motion.button
               key={notice.title}
               className="ios-notice"
-              onClick={() => onUnlock(notice.app)}
+              onClick={() => unlock(notice.app)}
               initial={{ opacity: 0, y: 30, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ type: "spring", stiffness: 260, damping: 22 }}
@@ -71,7 +78,7 @@ export function IphoneLock({ now, onUnlock }: { now: Date; onUnlock: (app?: Laun
         })}
       </div>
 
-      <button className="ios-unlock" onClick={() => onUnlock()}>
+      <button className="ios-unlock" onClick={() => unlock()}>
         <motion.span animate={{ y: [0, -6, 0], opacity: [0.6, 1, 0.6] }} transition={{ duration: 2, repeat: Infinity }}>
           <ChevronUp aria-hidden="true" />
           Swipe up to open
