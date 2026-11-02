@@ -7,7 +7,6 @@ const listeners = new Set<() => void>();
 let muted = false;
 try { muted = localStorage.getItem(storageKey) === "true"; } catch { /* Storage is optional. */ }
 let context: AudioContext | undefined;
-let tapTimer: ReturnType<typeof setTimeout> | undefined;
 let lastPlayed = 0;
 let notificationBuffer: Promise<AudioBuffer | undefined> | undefined;
 
@@ -23,6 +22,10 @@ export function soundAllowed(isMuted: boolean, activated: boolean, visible: bool
   return !isMuted && activated && visible;
 }
 
+export function hasAppleSound(kind: OsSound) {
+  return kind === "notification";
+}
+
 export function activateOsAudio() {
   try {
     context ??= new AudioContext();
@@ -32,7 +35,7 @@ export function activateOsAudio() {
 }
 
 export function playOsSound(kind: OsSound) {
-  clearTimeout(tapTimer);
+  if (!hasAppleSound(kind)) return;
   const audio = context;
   if (!soundAllowed(muted, audio?.state === "running", document.visibilityState === "visible") || !audio) return;
   const now = audio.currentTime;
@@ -51,27 +54,6 @@ export function playOsSound(kind: OsSound) {
       source.onended = () => { source.disconnect(); gain.disconnect(); };
     });
     return;
-  }
-  const tone = (frequency: number, delay: number, duration: number, volume: number, endFrequency = frequency) => {
-    const oscillator = audio.createOscillator();
-    const gain = audio.createGain();
-    oscillator.type = "sine";
-    oscillator.frequency.setValueAtTime(frequency, now + delay);
-    oscillator.frequency.exponentialRampToValueAtTime(endFrequency, now + delay + duration);
-    gain.gain.setValueAtTime(0, now + delay);
-    gain.gain.linearRampToValueAtTime(volume, now + delay + 0.008);
-    gain.gain.exponentialRampToValueAtTime(0.0001, now + delay + duration);
-    oscillator.connect(gain);
-    gain.connect(audio.destination);
-    oscillator.start(now + delay);
-    oscillator.stop(now + delay + duration + 0.01);
-    oscillator.onended = () => { oscillator.disconnect(); gain.disconnect(); };
-  };
-  switch (kind) {
-    case "open": tone(440, 0, 0.16, 0.025, 740); break;
-    case "close": tone(620, 0, 0.14, 0.022, 330); break;
-    case "unlock": tone(660, 0, 0.16, 0.03); tone(990, 0.07, 0.22, 0.025); break;
-    case "tap": tone(920, 0, 0.035, 0.018, 600); break;
   }
 }
 
@@ -96,13 +78,10 @@ export function useOsInteractionSounds(enabled: boolean) {
       const control = event.target.closest("button,a,[role='button'],[role='tab'],[role='switch']");
       if (!control?.closest(".mac-shell,.ios-shell") || control.matches(":disabled,[aria-disabled='true']") || control.closest("[data-sound-control]")) return;
       activateOsAudio();
-      clearTimeout(tapTimer);
-      tapTimer = setTimeout(() => playOsSound("tap"), 35);
     };
     document.addEventListener("pointerdown", onPointer, true);
     document.addEventListener("click", onClick, true);
     return () => {
-      clearTimeout(tapTimer);
       document.removeEventListener("pointerdown", onPointer, true);
       document.removeEventListener("click", onClick, true);
     };
