@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useVisitorPosts } from "./visitor-guestbook";
 import { AppIcon, launchers, type AppId, type LauncherId } from "./os-apps";
 import "./exploration-notifications.css";
+import { playOsSound } from "./os-sounds";
 
 type Notice = { app: AppId; title: string; body: string; key?: string };
 const notices: Notice[] = [
@@ -36,6 +37,9 @@ export default function ExplorationNotifications({ enabled = true, mobile = fals
   const { data: visits } = useVisitorPosts(enabled);
   const seen = useRef<Set<string> | null>(null);
   const ownLikes = useRef(0);
+  useEffect(() => {
+    if (enabled && notice) playOsSound("notification");
+  }, [enabled, notice]);
   useEffect(() => {
     const onLike = () => { ownLikes.current += 1; setNotice({ app: "love", key: `own-${Date.now()}`, title: "Love Portfolio", body: "Your like was sent. Thank you for the love!" }); };
     window.addEventListener("portfolio-like", onLike);

@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from "react";
-import { AnimatePresence, motion, useDragControls } from "framer-motion";
+import { AnimatePresence, motion, useDragControls, useReducedMotion } from "framer-motion";
 import { format } from "date-fns";
 import { Moon, Sun } from "lucide-react";
 import { AppleLogo, MacBattery, MacWifiArcs } from "./status-icons";
@@ -14,6 +14,8 @@ import { desktopLayout } from "./app-catalog";
 import type { NoteId } from "@/data/notes";
 import { LoadingLock } from "./loading-lock";
 import type { SafariRequest } from "./safari-app";
+import { activateOsAudio, playOsSound, useOsInteractionSounds } from "./os-sounds";
+import SoundToggle from "./sound-toggle";
 
 interface WindowState {
   id: AppId;
@@ -50,6 +52,7 @@ function MacWindow({ win, index, focused, bounds, onFocus, onClose, onMinimize, 
   onOpenSafari: (url: string, projectName?: string, mode?: "tour" | "website") => void;
 }) {
   const controls = useDragControls();
+  const reducedMotion = useReducedMotion();
   const size = windowSizes[win.id];
   return (
     <motion.section
@@ -67,10 +70,11 @@ function MacWindow({ win, index, focused, bounds, onFocus, onClose, onMinimize, 
         onFocus();
         if (win.id === "safari" && event.target instanceof Element && event.target.closest(".safari-toolbar") && !event.target.closest("button,input,form")) controls.start(event);
       }}
-      initial={{ opacity: 0, scale: 0.85, y: 40 }}
-      animate={win.minimized ? { opacity: 0, scale: 0.2, y: 600 } : { opacity: 1, scale: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.16 } }}
-      transition={{ type: "spring", stiffness: 320, damping: 30 }}
+      initial={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.94, y: 18 }}
+      animate={win.minimized ? { opacity: 0, scale: reducedMotion ? 1 : 0.12, y: reducedMotion ? 0 : 600 } : { opacity: 1, scale: 1, y: 0 }}
+      exit={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.96, y: 8, transition: { duration: 0.18 } }}
+      transition={reducedMotion ? { duration: 0 } : { type: "spring", stiffness: 380, damping: 34 }}
+      style={{ zIndex: win.z, width: win.maximized ? undefined : size.w, height: win.maximized ? undefined : size.h, left: win.maximized ? undefined : `calc(50% - ${size.w / 2}px + ${index * 28 - 40}px)`, top: win.maximized ? undefined : 60 + index * 26, pointerEvents: win.minimized ? "none" : "auto" }}
     >
       <header className="mac-titlebar" onPointerDown={(event) => controls.start(event)} onDoubleClick={onMaximize}>
         <div className="mac-lights">
@@ -89,6 +93,7 @@ function MacWindow({ win, index, focused, bounds, onFocus, onClose, onMinimize, 
 
 export function MacDesktop() {
   const [locked, setLocked] = useState(true);
+  useOsInteractionSounds(true);
   const now = useClock();
   const { theme, toggle: toggleTheme } = useOsTheme();
   const bounds = useRef<HTMLDivElement>(null);
@@ -110,6 +115,7 @@ export function MacDesktop() {
       window.open(externalLinks[id], "_blank", "noopener,noreferrer");
       return;
     }
+    playOsSound(windows.some((win) => win.id === id && !win.minimized) ? "tap" : "open");
     setWindows((list) => (list.some((w) => w.id === id)
       ? list.map((win) => win.id === id && ((id === "letter" && initialNote !== undefined) || (id === "projects" && projectName !== undefined)) ? { ...win, initialNote, projectName, noteEntry: (win.noteEntry ?? 0) + 1 } : win)
       : [...list, { id, z: topZ + 1, minimized: false, maximized: false, initialNote, projectName, noteEntry: 0 }]));
@@ -118,11 +124,12 @@ export function MacDesktop() {
 
   const update = (id: AppId, patch: Partial<WindowState>) => setWindows((list) => list.map((w) => (w.id === id ? { ...w, ...patch } : w)));
   const openSafari = (url: string, projectName?: string, mode: "tour" | "website" = "website") => {
+    playOsSound(windows.some((win) => win.id === "safari" && !win.minimized) ? "tap" : "open");
     const safariRequest = { url, projectName, mode, entry: ++safariEntry.current };
     setWindows((list) => list.some((win) => win.id === "safari") ? list.map((win) => win.id === "safari" ? { ...win, safariRequest } : win) : [...list, { id:"safari", z:topZ + 1, minimized:false, maximized:false, safariRequest }]);
     focus("safari");
   };
-  const close = (id: AppId) => setWindows((list) => list.filter((w) => w.id !== id));
+  const close = (id: AppId) => { playOsSound("close"); setWindows((list) => list.filter((w) => w.id !== id)); };
 
   return (
     <div className="mac-shell" style={{ backgroundImage: `url(${wallpaper})` }}>
@@ -137,6 +144,7 @@ export function MacDesktop() {
           <button onClick={() => launch("contact")}>Contact</button>
         </div>
         <div className="mac-menubar-right">
+          <SoundToggle />
           <button onClick={toggleTheme} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>{theme === "dark" ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}</button>
           <MacWifiArcs />
           <MacBattery />
@@ -160,8 +168,8 @@ export function MacDesktop() {
               bounds={bounds}
               onFocus={() => focus(win.id)}
               onClose={() => close(win.id)}
-              onMinimize={() => update(win.id, { minimized: true })}
-              onMaximize={() => update(win.id, { maximized: !win.maximized })}
+              onMinimize={() => { playOsSound("close"); update(win.id, { minimized: true }); }}
+              onMaximize={() => { playOsSound("open"); update(win.id, { maximized: !win.maximized }); }}
               onLaunch={launch}
               onOpenSafari={openSafari}
             />
@@ -173,7 +181,7 @@ export function MacDesktop() {
         <AppZone zone="dock" className="os-mac-dock-apps" />
       </nav>}
       </AppOrganizer>
-      {locked && <LoadingLock desktop onUnlock={() => setLocked(false)} />}
+      {locked && <LoadingLock desktop onUnlock={() => { activateOsAudio(); playOsSound("unlock"); setLocked(false); }} />}
     </div>
   );
 }

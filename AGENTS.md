@@ -1,5 +1,7 @@
 # Project rules
 
+- Share OS sound synthesis and visitor-local mute state between both shells; activate audio only after visitor interaction and silence hidden tabs so browser autoplay limits and visitor preferences are respected.
+
 - Serve the fixed downloadable CV through a Lovable Assets pointer so the uploaded PDF stays outside source control.
 - Preserve existing portfolio experience and defer conflicting resume facts to the owner instead of silently replacing them.
 - The Mac and iPhone style experience is the site home at /; classic pages stay reachable by URL but nothing in the new experience, sitemap or llms.txt links to them, and OS apps reuse the classic components' exported data so content is never duplicated.

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { describe, fetchLagosWeather } from "./mac-widgets";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { format } from "date-fns";
 import { Navigation } from "lucide-react";
 import { IosBattery, IosNetwork, IosSignal } from "./status-icons";
@@ -15,11 +15,21 @@ import { phoneLayout } from "./app-catalog";
 import { aboutMeNote, type NoteId } from "@/data/notes";
 import SettingsApp from "./settings-app";
 import type { SafariRequest } from "./safari-app";
+import { activateOsAudio, playOsSound, useOsInteractionSounds } from "./os-sounds";
+import SoundToggle from "./sound-toggle";
 
 export function IphoneHome() {
   const now = useClock();
   const [open, setOpen] = useState<AppId | "settings" | null>(null);
   const [locked, setLocked] = useState(true);
+  const reducedMotion = useReducedMotion();
+  useOsInteractionSounds(true);
+  const previousOpen = useRef<typeof open>(null);
+  useEffect(() => {
+    if (previousOpen.current === open) return;
+    playOsSound(open ? "open" : "close");
+    previousOpen.current = open;
+  }, [open]);
   const wallpaper = useWallpaper();
   const [page, setPage] = useState(0);
   const [projectName, setProjectName] = useState<string | undefined>();
@@ -68,6 +78,7 @@ export function IphoneHome() {
     <div className={`ios-shell ${page > 1 ? "ios-on-library" : ""}`} style={{ backgroundImage: `url(${wallpaper})` }}>
       <div className="mac-wallpaper-tint" />
       <StatusBar light />
+      {!locked && !open && <SoundToggle mobile />}
       <ExplorationNotifications mobile enabled={!locked} activeApp={open ?? undefined} onLaunch={(id) => { setProjectName(undefined); launch(id); if (id === "letter") setInitialNote("letter"); }} />
       <AppOrganizer storageKey="portfolio-phone-apps-v1" hideControls={locked} defaults={phoneLayout} mobile onPageEdge={(direction) => {
         const element = pagesRef.current;
@@ -127,10 +138,10 @@ export function IphoneHome() {
             role="dialog"
             aria-label={open === "settings" ? "Settings" : appTitles[open]}
             className="ios-app-screen"
-            initial={{ opacity: 0, scale: 0.3, borderRadius: 60 }}
-            animate={{ opacity: 1, scale: 1, borderRadius: 0 }}
-            exit={{ opacity: 0, scale: 0.3, borderRadius: 60, transition: { duration: 0.22 } }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.88, y: 24, borderRadius: 38 }}
+            animate={{ opacity: 1, scale: 1, y: 0, borderRadius: 0 }}
+            exit={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.86, y: 30, borderRadius: 38, transition: { duration: 0.24, ease: [0.32, 0.72, 0, 1] } }}
+            transition={reducedMotion ? { duration: 0 } : { type: "spring", stiffness: 390, damping: 36 }}
             drag="y"
             dragConstraints={{ top: 0, bottom: 0 }}
             dragElastic={{ top: 0, bottom: 0.4 }}
@@ -155,7 +166,7 @@ export function IphoneHome() {
           </motion.section>
         )}
       </AnimatePresence>
-      <AnimatePresence>{locked && <IphoneLock key="lock" now={now} onUnlock={(app) => { setLocked(false); if (app) window.setTimeout(() => { launch(app); if (app === "letter") setInitialNote("letter"); }, 350); }} />}</AnimatePresence>
+      <AnimatePresence>{locked && <IphoneLock key="lock" now={now} onUnlock={(app) => { activateOsAudio(); playOsSound("unlock"); setLocked(false); if (app) window.setTimeout(() => { launch(app); if (app === "letter") setInitialNote("letter"); }, 350); }} />}</AnimatePresence>
     </div>
   );
 }
