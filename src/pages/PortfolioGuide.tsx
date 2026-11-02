@@ -15,7 +15,7 @@ const principles: Principle[] = [
     title: "Lead with outcomes, not tasks",
     body: "Hiring managers scan for impact first. Open every case study with the result, then explain how you got there.",
     example:
-      "ProxyMedicine: moving identity verification to right after checkout, plus a mobile-first onboarding rebuild, helped scale to 1,400 patients and 15 to 25 encounters daily.",
+      "ProxyMedicine: moving identity verification to right after checkout, plus a mobile-first onboarding rebuild, helped scale to 1,400 patients and 20 to 30 encounters daily.",
   },
   {
     title: "Show the problem you found",
@@ -33,7 +33,7 @@ const principles: Principle[] = [
     title: "Include side projects with real users",
     body: "Side projects prove initiative, especially when they have traction you can measure.",
     example:
-      "NYSC Attendance System, a cloud check-in platform for a public-sector agency: 6,700+ registered users and about 3,200 daily active users.",
+      "NYSC Attendance System, a cloud check-in platform for a public-sector agency: 6,831 registered users and 128,180 visits in the last 90 days.",
   },
   {
     title: "Quantify before and after",
