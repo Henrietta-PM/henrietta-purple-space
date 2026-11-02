@@ -151,8 +151,3 @@
 .safari-favorites img { object-fit:cover; box-shadow:0 1px 3px hsl(var(--os-ink) / .15); transition:transform .15s ease; }
 .safari-favorites button:hover img { transform:scale(1.04); }
 .safari-favorites span { line-height:1.3; }
-.safari-screens { display:flex; gap:18px; overflow-x:auto; scroll-snap-type:x mandatory; padding:4px 2px 12px; }
-.safari-screens figure { flex:0 0 220px; scroll-snap-align:start; margin:0; }
-.safari-screens img { width:100%; aspect-ratio:390/700; object-fit:cover; object-position:top; border-radius:22px; border:1px solid hsl(var(--os-line) / .5); box-shadow:0 10px 30px hsl(var(--os-ink) / .15); }
-.safari-screens figcaption { font-size:12px; line-height:1.45; color:hsl(var(--os-ink-soft)); margin-top:10px; }
-.safari-mobile .safari-screens figure { flex-basis:72%; }
