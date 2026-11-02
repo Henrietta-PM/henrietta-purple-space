@@ -70,7 +70,7 @@ export const proxyMedicine: Project = {
     "Contributed to healthcare IP later licensed for $120,000, which became the foundation of StatWell MD",
   ],
   screens: [{ src: proxy1.url, caption: "Home on mobile. Urgent care from $39.99, refills and a condition search up front." }, { src: proxy2.url, caption: "Step 1 of the visit: pick a condition. Built mobile first, since about 80% of traffic is on phones." }],
-    stack: "Cursor, Lovable, Figma, Jira, Google Analytics, LLM features in production.",
+  stack: "Cursor, Claude, Figma, Trello, Amplitude, Google Ads, GitHub, Mailchimp, Meta, Lovable.",
 };
 
 export const targett: Project = {
