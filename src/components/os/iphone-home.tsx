@@ -16,7 +16,6 @@ import { aboutMeNote, type NoteId } from "@/data/notes";
 import SettingsApp from "./settings-app";
 import type { SafariRequest } from "./safari-app";
 import { activateOsAudio, playOsSound, useOsInteractionSounds } from "./os-sounds";
-import SoundToggle from "./sound-toggle";
 
 export function IphoneHome() {
   const now = useClock();
@@ -78,7 +77,6 @@ export function IphoneHome() {
     <div className={`ios-shell ${page > 1 ? "ios-on-library" : ""}`} style={{ backgroundImage: `url(${wallpaper})` }}>
       <div className="mac-wallpaper-tint" />
       <StatusBar light />
-      {!locked && !open && <SoundToggle mobile />}
       <ExplorationNotifications mobile enabled={!locked} activeApp={open ?? undefined} onLaunch={(id) => { setProjectName(undefined); launch(id); if (id === "letter") setInitialNote("letter"); }} />
       <AppOrganizer storageKey="portfolio-phone-apps-v1" hideControls={locked} defaults={phoneLayout} mobile onPageEdge={(direction) => {
         const element = pagesRef.current;
