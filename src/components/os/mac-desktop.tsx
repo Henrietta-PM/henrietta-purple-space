@@ -55,7 +55,7 @@ function MacWindow({ win, index, focused, bounds, onFocus, onClose, onMinimize, 
     <motion.section
       role="dialog"
       aria-label={appTitles[win.id]}
-      className={`mac-window ${focused ? "focused" : ""} ${win.maximized ? "maximized" : ""}`}
+      className={`mac-window ${win.id === "safari" ? "mac-window-safari" : ""} ${focused ? "focused" : ""} ${win.maximized ? "maximized" : ""}`}
       style={{ zIndex: win.z, width: win.maximized ? undefined : size.w, height: win.maximized ? undefined : size.h, left: win.maximized ? undefined : `calc(50% - ${size.w / 2}px + ${index * 28 - 40}px)`, top: win.maximized ? undefined : 60 + index * 26 }}
       drag={!win.maximized}
       dragControls={controls}
@@ -63,7 +63,10 @@ function MacWindow({ win, index, focused, bounds, onFocus, onClose, onMinimize, 
       dragMomentum={false}
       dragConstraints={bounds}
       dragElastic={0}
-      onPointerDown={onFocus}
+      onPointerDown={(event) => {
+        onFocus();
+        if (win.id === "safari" && event.target instanceof Element && event.target.closest(".safari-toolbar") && !event.target.closest("button,input,form")) controls.start(event);
+      }}
       initial={{ opacity: 0, scale: 0.85, y: 40 }}
       animate={win.minimized ? { opacity: 0, scale: 0.2, y: 600 } : { opacity: 1, scale: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.16 } }}
@@ -75,7 +78,7 @@ function MacWindow({ win, index, focused, bounds, onFocus, onClose, onMinimize, 
           <button aria-label="Minimise window" className="mac-light min" onClick={onMinimize} />
           <button aria-label="Toggle full size" className="mac-light max" onClick={onMaximize} />
         </div>
-        <span className="mac-title">{appTitles[win.id]}</span>
+        {win.id !== "safari" && <span className="mac-title">{appTitles[win.id]}</span>}
       </header>
       <div className="mac-window-body">
         <AppContent key={win.id === "letter" || win.id === "projects" ? `${win.id}-${win.noteEntry}` : win.id} id={win.id} initialNote={win.initialNote} projectName={win.projectName} onLaunch={onLaunch} onOpenSafari={onOpenSafari} safariRequest={win.safariRequest} />

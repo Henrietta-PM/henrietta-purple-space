@@ -11,6 +11,7 @@ import cvAsset from "@/assets/henrietta-cv.pdf.asset.json";
 import sallyLogo from "@/assets/sally-logo.png";
 import appleCameraIcon from "@/assets/apple-camera-icon.jpg";
 import applePhotosIcon from "@/assets/apple-photos-icon.jpg";
+import appleSafariIcon from "@/assets/apple-safari-icon.png.asset.json";
 import targettLogo from "@/assets/targett-logo-featured.png";
 import vibestackLogo from "@/assets/vibestack-logo.png";
 import bloomieLogo from "@/assets/bloomie-logo-featured.png";
@@ -549,7 +550,7 @@ export function AppContent({ id, compact = false, projectName, initialNote, onLa
 }
 
 export function AppIcon({ launcher, size = "md" }: { launcher: Launcher; size?: "sm" | "md" | "lg" }) {
-  if (launcher.id === "safari") return <span className={`os-icon os-icon-${size} os-safari-icon`} aria-hidden="true"><span className="os-safari-face"><span className="os-safari-needle" /></span></span>;
+  if (launcher.id === "safari") return <ImageIcon src={appleSafariIcon.url} size={size} />;
   if (launcher.id === "mail") return <span className={`os-icon os-icon-${size} os-apple-mail`} aria-hidden="true"><svg viewBox="0 0 60 60" fill="currentColor"><rect x="8" y="14" width="44" height="32" rx="4" /><path d="m9 16 21 17 21-17M9 45l15-14m27 14L36 31" fill="none" stroke="hsl(var(--apple-blue))" strokeWidth="2" /></svg></span>;
   if (launcher.id === "camera") return <ImageIcon src={appleCameraIcon} size={size} />;
   if (launcher.id === "photos") return <ImageIcon src={applePhotosIcon} size={size} />;
