@@ -1,4 +1,5 @@
 import { useEffect, useSyncExternalStore } from "react";
+import reboundAsset from "@/assets/apple-rebound.mp3.asset.json";
 
 export type OsSound = "tap" | "open" | "close" | "notification" | "unlock";
 const storageKey = "portfolio-sound-muted";
@@ -8,6 +9,15 @@ try { muted = localStorage.getItem(storageKey) === "true"; } catch { /* Storage 
 let context: AudioContext | undefined;
 let tapTimer: ReturnType<typeof setTimeout> | undefined;
 let lastPlayed = 0;
+let notificationBuffer: Promise<AudioBuffer | undefined> | undefined;
+
+function loadNotification(audio: AudioContext) {
+  notificationBuffer ??= fetch(reboundAsset.url)
+    .then((response) => response.ok ? response.arrayBuffer() : Promise.reject())
+    .then((bytes) => audio.decodeAudioData(bytes))
+    .catch(() => undefined);
+  return notificationBuffer;
+}
 
 export function soundAllowed(isMuted: boolean, activated: boolean, visible: boolean) {
   return !isMuted && activated && visible;
@@ -16,6 +26,7 @@ export function soundAllowed(isMuted: boolean, activated: boolean, visible: bool
 export function activateOsAudio() {
   try {
     context ??= new AudioContext();
+    void loadNotification(context);
     if (context.state === "suspended") void context.resume().catch(() => undefined);
   } catch { /* Audio is optional on unsupported browsers. */ }
 }
@@ -27,6 +38,20 @@ export function playOsSound(kind: OsSound) {
   const now = audio.currentTime;
   if (now - lastPlayed < 0.06) return;
   lastPlayed = now;
+  if (kind === "notification") {
+    void loadNotification(audio).then((buffer) => {
+      if (!buffer || !soundAllowed(muted, audio.state === "running", document.visibilityState === "visible")) return;
+      const source = audio.createBufferSource();
+      const gain = audio.createGain();
+      source.buffer = buffer;
+      gain.gain.value = 0.6;
+      source.connect(gain);
+      gain.connect(audio.destination);
+      source.start();
+      source.onended = () => { source.disconnect(); gain.disconnect(); };
+    });
+    return;
+  }
   const tone = (frequency: number, delay: number, duration: number, volume: number, endFrequency = frequency) => {
     const oscillator = audio.createOscillator();
     const gain = audio.createGain();
@@ -43,10 +68,6 @@ export function playOsSound(kind: OsSound) {
     oscillator.onended = () => { oscillator.disconnect(); gain.disconnect(); };
   };
   switch (kind) {
-    case "notification":
-      tone(880, 0, 0.25, 0.045);
-      tone(1320, 0.1, 0.35, 0.035);
-      break;
     case "open": tone(440, 0, 0.16, 0.025, 740); break;
     case "close": tone(620, 0, 0.14, 0.022, 330); break;
     case "unlock": tone(660, 0, 0.16, 0.03); tone(990, 0.07, 0.22, 0.025); break;

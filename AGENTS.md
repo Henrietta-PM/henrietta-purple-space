@@ -1,6 +1,6 @@
 # Project rules
 
-- Share OS sound synthesis and visitor-local mute state between both shells; activate audio only after visitor interaction and silence hidden tabs so browser autoplay limits and visitor preferences are respected.
+- Share OS audio playback and visitor-local mute state between both shells; use an externalized recording for notification audio, activate only after visitor interaction and silence hidden tabs so browser autoplay limits and visitor preferences are respected. Phone Silent Mode lives in Settings, while Mac retains its menu-bar sound control.
 
 - Serve the fixed downloadable CV through a Lovable Assets pointer so the uploaded PDF stays outside source control.
 - Preserve existing portfolio experience and defer conflicting resume facts to the owner instead of silently replacing them.
