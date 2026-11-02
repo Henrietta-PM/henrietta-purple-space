@@ -1,4 +1,4 @@
-- [ ] Add shared notification, click and window sounds with a visitor-local mute control, smoother app transitions, and verify phone/Mac interactions.
+- [x] Add shared notification, click and window sounds with a visitor-local mute control and smoother app transitions; phone/Mac checks confirmed no pre-entry audio, silent muted launches, audible launches and notification tones, app closing, and no runtime errors. Four sound rules and existing navigation/layout tests passed.
 - [x] Remove unwanted project screenshots and expand all case studies in Henrietta's voice using confirmed facts; verified the expanded ProxyMedicine tour and removed screenshot chapter on phone and Mac. Syncu tools remain omitted because none were confirmed.
 - [x] Add the uploaded CV download. Hosted PDF verified; local preview does not serve the asset gateway.
 - [x] Add nonconflicting CV and project details without removing existing experience.
