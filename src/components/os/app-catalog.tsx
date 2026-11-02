@@ -9,6 +9,8 @@ export interface OrganizedApp extends LayoutApp {
   projectName?: string;
 }
 
+const webApps = allProjects.filter((project) => project.link !== "#");
+
 const categoryFor = (id: LauncherId): string => {
   if (["camera", "photos"].includes(id)) return "Photo & Video";
   if (["instagram", "linkedin", "x", "contact", "love", "messages"].includes(id)) return "Social";
@@ -30,6 +32,6 @@ export const phoneLayout: AppLayout = {
   dock: tiles(["contact", "love", "letter", "hire"]),
 };
 export const desktopLayout: AppLayout = {
-  desktop: tiles(["shortcut:cv", "shortcut:letter"]),
+  desktop: tiles(["shortcut:cv", "shortcut:letter", ...webApps.map((project) => `web:${project.name}`)]),
   dock: tiles(launchers.map((launcher) => launcher.id)),
 };
