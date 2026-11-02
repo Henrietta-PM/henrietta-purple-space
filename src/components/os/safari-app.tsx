@@ -24,13 +24,12 @@ function ProjectTour({ project, onWebsite }: { project: Project; onWebsite: () =
   const [chapter, setChapter] = useState(0);
   const reducedMotion = useReducedMotion();
   const chapters = [
-    { title: project.name, label: "What it is", paragraphs: [project.overview] },
-    { title: "The problem", label: "The problem", paragraphs: project.problem ? [project.problem] : [] },
-    { title: "What I did", label: "What I did", paragraphs: project.whatIDid ? [project.whatIDid] : project.responsibilities ?? [] },
+    { title: project.name, label: "What it is", paragraphs: project.overview.split("\n\n") },
+    { title: "The problem", label: "The problem", paragraphs: project.problem?.split("\n\n") ?? [] },
+    { title: "What I did", label: "What I did", paragraphs: project.whatIDid?.split("\n\n") ?? project.responsibilities ?? [] },
     { title: "The strategy", label: "The strategy", paragraphs: project.strategy ?? [] },
     { title: "Outcome", label: "Outcome", paragraphs: project.outcome ?? project.achievements ?? [] },
     { title: "Stack and tools", label: "Stack and tools", paragraphs: project.stack ? [project.stack] : [] },
-    { title: "Inside the product", label: "Screens", paragraphs: project.screens?.length ? ["screens"] : [] },
   ].filter((item) => item.paragraphs.length);
   const current = chapters[chapter];
   if (!current) return null;
@@ -39,7 +38,7 @@ function ProjectTour({ project, onWebsite }: { project: Project; onWebsite: () =
     <div className="safari-chapter">
       <AnimatePresence mode="wait"><motion.div key={chapter} initial={reducedMotion ? false : { opacity:0, y:12 }} animate={{ opacity:1, y:0 }} exit={{ opacity:0 }} transition={{ duration:.16 }}>
         {chapter === 0 && <img className="safari-tour-image" src={project.image} alt={`${project.name} product preview`} />}
-        <div className="safari-story"><small>{String(chapter + 1).padStart(2,"0")} / {String(chapters.length).padStart(2,"0")} · {current.label}</small><h1>{current.title}</h1>{current.label === "Screens" ? <div className="safari-screens">{project.screens?.map((screen) => <figure key={screen.src}><img src={screen.src} alt={screen.caption} loading="lazy" /><figcaption>{screen.caption}</figcaption></figure>)}</div> : <div className={current.label === "Outcome" ? "safari-outcomes" : ""}>{current.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>}</div>
+        <div className="safari-story"><small>{String(chapter + 1).padStart(2,"0")} / {String(chapters.length).padStart(2,"0")} · {current.label}</small><h1>{current.title}</h1><div className={current.label === "Outcome" ? "safari-outcomes" : ""}>{current.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div></div>
       </motion.div></AnimatePresence>
     </div>
     <footer className="safari-chapters"><Button variant="ghost" size="icon" aria-label="Previous tour chapter" disabled={chapter === 0} onClick={() => setChapter(chapter - 1)}><ChevronLeft /></Button><div>{chapters.map((item,index) => <Button variant="ghost" key={item.label} size="icon" aria-label={item.label} title={item.label} aria-current={chapter === index} onClick={() => setChapter(index)}><i /></Button>)}</div><Button variant="ghost" size="icon" aria-label="Next tour chapter" disabled={chapter === chapters.length - 1} onClick={() => setChapter(chapter + 1)}><ChevronRight /></Button></footer>

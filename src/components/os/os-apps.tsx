@@ -105,9 +105,9 @@ function ActionBar({ children }: { children: ReactNode }) {
 
 function ProjectDetail({ project, onBack, compact, onOpenSafari }: { project: Project; onBack: () => void; compact: boolean; onOpenSafari?: (url: string, projectName?: string, mode?: "tour" | "website") => void }) {
   const sections = [
-    { title: "What it is", paragraphs: [project.overview] },
-    { title: "The problem", paragraphs: project.problem ? [project.problem] : [] },
-    { title: "What I did", paragraphs: project.whatIDid ? [project.whatIDid] : project.responsibilities || [] },
+    { title: "What it is", paragraphs: project.overview.split("\n\n") },
+    { title: "The problem", paragraphs: project.problem?.split("\n\n") ?? [] },
+    { title: "What I did", paragraphs: project.whatIDid?.split("\n\n") ?? project.responsibilities ?? [] },
     { title: "The strategy", paragraphs: project.strategy || [] },
     { title: "Outcome", paragraphs: project.outcome || project.achievements || [] },
     { title: "Stack and tools", paragraphs: project.stack ? [project.stack] : [] },

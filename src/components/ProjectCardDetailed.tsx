@@ -126,16 +126,16 @@ const ProjectCardDetailed = ({ project }: ProjectCardDetailedProps) => {
 
                 <div className="space-y-8">
                   <Section title="What it is">
-                    <p className="text-muted-foreground leading-relaxed text-sm">{overview}</p>
+                    <div className="space-y-4">{overview.split("\n\n").map((paragraph) => <p key={paragraph} className="text-muted-foreground leading-relaxed text-sm">{paragraph}</p>)}</div>
                   </Section>
                   {problem && (
                     <Section title="The problem">
-                      <p className="text-muted-foreground leading-relaxed text-sm">{problem}</p>
+                      <div className="space-y-4">{problem.split("\n\n").map((paragraph) => <p key={paragraph} className="text-muted-foreground leading-relaxed text-sm">{paragraph}</p>)}</div>
                     </Section>
                   )}
                   {whatIDid && (
                     <Section title="What I did">
-                      <p className="text-muted-foreground leading-relaxed text-sm">{whatIDid}</p>
+                      <div className="space-y-4">{whatIDid.split("\n\n").map((paragraph) => <p key={paragraph} className="text-muted-foreground leading-relaxed text-sm">{paragraph}</p>)}</div>
                     </Section>
                   )}
                   {responsibilities && responsibilities.length > 0 && (
