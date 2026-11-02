@@ -59,7 +59,6 @@ function MacWindow({ win, index, focused, bounds, onFocus, onClose, onMinimize, 
       role="dialog"
       aria-label={appTitles[win.id]}
       className={`mac-window ${win.id === "safari" ? "mac-window-safari" : ""} ${focused ? "focused" : ""} ${win.maximized ? "maximized" : ""}`}
-      style={{ zIndex: win.z, width: win.maximized ? undefined : size.w, height: win.maximized ? undefined : size.h, left: win.maximized ? undefined : `calc(50% - ${size.w / 2}px + ${index * 28 - 40}px)`, top: win.maximized ? undefined : 60 + index * 26 }}
       drag={!win.maximized}
       dragControls={controls}
       dragListener={false}
