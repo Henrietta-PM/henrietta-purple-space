@@ -5,7 +5,7 @@ import { Moon, Sun } from "lucide-react";
 import { AppleLogo, MacBattery, MacWifiArcs } from "./status-icons";
 import { useOsTheme } from "./use-os-theme";
 import { useWallpaper } from "./use-wallpaper";
-import { AppContent, appTitles, externalLinks, isLink, type AppId, type LauncherId } from "./os-apps";
+import { AppContent, allProjects, appTitles, externalLinks, isLink, type AppId, type LauncherId } from "./os-apps";
 import { useClock } from "./use-clock";
 import MacWidgets from "./mac-widgets";
 import ExplorationNotifications from "./exploration-notifications";
