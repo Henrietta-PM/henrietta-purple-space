@@ -638,6 +638,10 @@ button.mw:hover { transform:translateY(-2px); }
 .mac-widgets .mw-intro h1 { font-size:20px; margin:4px 0 6px; }
 .mac-widgets .mw-intro h1 span { font-size:24px; }
 .mac-widgets .mw-intro p { font-size:12px; line-height:1.45; }
+.mac-widgets .mw-notes { width:100%; white-space:normal; gap:0; align-items:flex-start; justify-content:flex-start; text-align:left; }
+.mac-widgets .mw-notes .mw-accent { color:hsl(var(--notes-accent)); letter-spacing:0; }
+.mac-widgets .mw-note-title { font-size:20px; line-height:1.2; margin:6px 0; font-weight:700; }
+.mac-widgets .mw-notes:hover { background:hsl(var(--os-glass-dark)); color:hsl(var(--os-on-dark)); }
 .mac-widgets .mw-temp { font-size:36px; font-weight:300; }
 .mac-widgets .mw-sky-label, .mac-widgets .mw-hl { font-size:11px; }
 @media (max-width:1100px) {

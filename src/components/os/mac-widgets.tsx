@@ -3,7 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import { addDays, format } from "date-fns";
 import { Cloud, CloudRain, CloudSun, Navigation, Sun } from "lucide-react";
 import type { LauncherId } from "./os-apps";
-import type { NoteId } from "@/data/notes";
+import { aboutMeNote, type NoteId } from "@/data/notes";
+import { Button } from "@/components/ui/button";
 
 interface MacWidgetsProps {
   now: Date;
@@ -81,10 +82,12 @@ export default function MacWidgets({ now, onLaunch }: MacWidgetsProps) {
         ))}
       </motion.div>
 
-      <motion.div className="mw mw-wide mw-intro" {...enter(0.34)}>
-        <span className="mw-cap mw-accent">MyPvrpleSpace</span>
-        <h1>Hi, I'm&nbsp;<span className="font-handwritten">Henrietta.</span></h1>
-        <p>Product management for me is about people, their needs, and the paths we create to meet them. I've shipped 5+ MVPs with up to 85% faster time to market.</p>
+      <motion.div className="mw-wide" {...enter(0.34)}>
+        <Button variant="ghost" className="mw mw-intro mw-notes" onClick={() => onLaunch("letter", "about-me")} aria-label="Read About Me note">
+          <span className="mw-cap mw-accent">Notes</span>
+          <strong className="mw-note-title">{aboutMeNote.title}</strong>
+          <p>{aboutMeNote.preview} {aboutMeNote.intro.replace(/\.$/, "")}...</p>
+        </Button>
       </motion.div>
 
       <motion.button type="button" className="mw mw-sq mw-weather" {...enter(0.42)} onClick={() => onLaunch("weather")} aria-label="Open Weather for Lagos">
