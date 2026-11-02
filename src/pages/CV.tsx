@@ -20,7 +20,7 @@ const timelineNodes = [
       "Defined PRDs, user stories, acceptance criteria, and release plans for ProxyMedicine, StatWellMD, and Bloomie AI, enabling on-time launches of all three",
       "Defined and shipped LLM-powered clinical features, keeping workflows LegitScript compliant and HIPAA aligned alongside legal",
       "Deployed AI agents into patient onboarding and moved identity verification and health-profile completion to immediately after checkout, improving completion and reducing clinician review delays",
-      "Found about 80% of traffic was mobile, rebuilt acquisition and onboarding mobile first, and grew monthly consultations from about 52 to about 2x in month 1 and 2.5x within 2 months",
+      "Found about 80% of traffic was mobile, rebuilt acquisition and onboarding mobile first, and grew monthly consultations from about 52 to 4.5x in 3 months",
       "Designed an internal AI-powered SEO workflow that increased organic search clicks by 36%",
       "Contributed to healthcare IP later licensed for $120,000, forming the foundation of StatWellMD",
     ],
@@ -42,7 +42,7 @@ const timelineNodes = [
     dates: "Feb 2025 – Current",
     url: "www.prxy.health",
     highlights: [
-      "Took an AI-enabled telehealth platform from concept to production, scaling to 1,400 patients, 1,072 refill requests and 15 to 25 encounters daily",
+      "Took an AI-enabled telehealth platform from concept to production, scaling to 1,400 patients, 1,072 refill requests and 20 to 30 encounters daily",
       "Directed the product launch process, contributing to healthcare IP later licensed for $120,000",
       "Planned subscription and pricing changes directly with engineering, driving a 35% increase in conversion",
       "Conducted 5+ user interviews weekly to inform data-driven product decisions",
@@ -106,7 +106,7 @@ const timelineNodes = [
 
 const selectedWork = [
   { name: "Targett", line: "Raised an AI discoverability score from 44 to 98 in two weeks, with 50+ users onboarded through consultative discovery." },
-  { name: "NYSC Attendance System", line: "Replaced a paper clearance process for a public-sector agency. 6,700+ registered users and about 3,200 daily active users." },
+  { name: "NYSC Attendance System", line: "NYSC check-in and clearance, replacing a paper process. 6,831 registered users and 128,180 visits in the last 90 days." },
   { name: "Sally", line: "AI personal brand manager with live LinkedIn and TikTok publishing. Launched June 2026 with zero ad spend. Scoped and shipped Paddle billing and Resend lifecycle email, and specified a pgvector long-term memory layer and an MCP server for external AI agents." },
   { name: "VibeStack", line: "Design-system generator and prompt workspace for AI-built apps, shipped from zero to live solo using AI agents for prototyping, research and production code." },
 ];
@@ -239,7 +239,7 @@ const CV = () => {
                   delivery alongside clinicians, engineers and designers.
                 </li>
                 <li className="pl-1">
-                  Launched three products, scaled a US telehealth platform to 1,400 patients and 15 to 25 encounters
+                  Launched three products, scaled a US telehealth platform to 1,400 patients and 20 to 30 encounters
                   daily, and contributed to healthcare IP licensed for $120,000.
                 </li>
               </ul>

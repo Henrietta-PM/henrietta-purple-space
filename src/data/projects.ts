@@ -45,8 +45,8 @@ export const proxyMedicine: Project = {
     "1,400 patients",
     "1,072 refill requests",
     "17 live consultations",
-    "Now running 15 to 25 encounters daily",
-    "Monthly consultations went from about 52 to about 2x in month 1 and 2.5x within 2 months",
+    "Now running 20 to 30 encounters daily",
+    "Monthly consultations went from about 52 to 4.5x in 3 months",
     "35% increase in conversion from the subscription and pricing work",
     "40% lift in post-launch user satisfaction from A/B tests on core task completion flows",
     "Contributed to healthcare IP later licensed for $120,000, which became the foundation of StatWell MD",
@@ -152,7 +152,7 @@ export const projectsData: Project[] = [
     image: nyscImage,
     isLive: false,
     overview:
-      "A cloud check-in and clearance platform built for a public-sector agency, replacing a paper process.",
+      "An NYSC check-in and clearance platform that replaces a paper process with QR check-in, notifications and admin tooling.",
     problem:
       "Clearance ran on paper. That meant queues, lost records, and no way for anyone to see what was happening until after it had gone wrong.",
     whatIDid: "I designed and launched the platform and have kept iterating on it in production.",
@@ -162,7 +162,8 @@ export const projectsData: Project[] = [
       "I also designed for the wait rather than pretending it away. Adding engagement features that kept people occupied while queuing raised average session time.",
     ],
     outcome: [
-      "6,700+ registered users",
+      "6,831 registered users",
+      "128,180 visits in the last 90 days",
       "About 3,200 daily active users",
       "Same-day production fixes driven by log analysis",
       "Raised average session time",
