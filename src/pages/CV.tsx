@@ -10,7 +10,7 @@ import { useScrollFade } from "@/hooks/use-scroll-fade";
 import FloatingActionButton from "@/components/FloatingActionButton";
 import { HIRE_CALENDAR_URL, openHireCalendar } from "@/lib/booking";
 
-const timelineNodes = [
+export const timelineNodes = [
   {
     title: "Demz Analytics",
     role: "Product Manager",
@@ -104,12 +104,24 @@ const timelineNodes = [
   },
 ];
 
-const selectedWork = [
+export const selectedWork = [
   { name: "Targett", line: "Raised an AI discoverability score from 44 to 98 in two weeks, with 50+ users onboarded through consultative discovery." },
   { name: "NYSC Attendance System", line: "NYSC check-in and clearance, replacing a paper process. 6,831 registered users and 128,180 visits in the last 90 days." },
   { name: "Sally", line: "AI personal brand manager with live LinkedIn and TikTok publishing. Launched June 2026 with zero ad spend. Scoped and shipped Paddle billing and Resend lifecycle email, and specified a pgvector long-term memory layer and an MCP server for external AI agents." },
   { name: "VibeStack", line: "Design-system generator and prompt workspace for AI-built apps, shipped from zero to live solo using AI agents for prototyping, research and production code." },
 ];
+
+export const professionalOverview = [
+  "Product Manager with 3+ years taking AI-enabled healthcare and SaaS products from discovery to production.",
+  "Owns the AI use-case pipeline, the PRDs and acceptance criteria behind LLM features, and delivery alongside clinicians, engineers and designers.",
+  "Launched three products, scaled a US telehealth platform to 1,400 patients and 20 to 30 encounters daily, and contributed to healthcare IP licensed for $120,000.",
+];
+
+export const education = [
+  { title: "University of Uyo", qualification: "BSc Architecture", dates: "Jul 2018 - Jul 2024", description: "Strong foundation in human-centered design." },
+  { title: "Women Techsters Fellowship (Tech4Dev)", qualification: "Product Management Fellowship", dates: "Oct 2023 - Oct 2024", description: "" },
+];
+export const certifications = ["Google Project Management Certificate (Coursera)", "Alison Diploma in Project Management", "ALX Virtual Assistant (Honours)"];
 
 export const skillCategories = {
   softSkills: [
@@ -230,18 +242,7 @@ const CV = () => {
             >
               <h2 className="text-3xl font-display font-bold mb-4">Professional Overview</h2>
               <ul className="list-disc space-y-4 pl-5 text-muted-foreground leading-relaxed marker:text-primary-visible">
-                <li className="pl-1">
-                  Product Manager with 3+ years taking AI-enabled healthcare and SaaS products from discovery to
-                  production.
-                </li>
-                <li className="pl-1">
-                  Owns the AI use-case pipeline, the PRDs and acceptance criteria behind LLM features, and
-                  delivery alongside clinicians, engineers and designers.
-                </li>
-                <li className="pl-1">
-                  Launched three products, scaled a US telehealth platform to 1,400 patients and 20 to 30 encounters
-                  daily, and contributed to healthcare IP licensed for $120,000.
-                </li>
+                {professionalOverview.map((line) => <li className="pl-1" key={line}>{line}</li>)}
               </ul>
             </div>
           </div>
@@ -287,21 +288,19 @@ const CV = () => {
           <div className="max-w-4xl mx-auto mb-16">
             <h2 className="text-3xl font-display font-bold mb-6">Education and Certifications</h2>
             <div className="glass p-6 rounded-[1.5rem]">
-              <h3 className="text-xl font-display font-bold mb-1">University of Uyo</h3>
-              <p className="text-primary font-semibold text-sm mb-1">BSc Architecture</p>
-              <p className="text-xs text-muted-foreground mb-3">Jul 2018 – Jul 2024</p>
-              <p className="text-sm text-muted-foreground">Strong foundation in human-centered design.</p>
+              <h3 className="text-xl font-display font-bold mb-1">{education[0].title}</h3>
+              <p className="text-primary font-semibold text-sm mb-1">{education[0].qualification}</p>
+              <p className="text-xs text-muted-foreground mb-3">{education[0].dates}</p>
+              <p className="text-sm text-muted-foreground">{education[0].description}</p>
             </div>
             <div className="mt-6 space-y-4">
               <div>
-                <h3 className="text-xl font-display font-bold mb-1">Women Techsters Fellowship (Tech4Dev)</h3>
-                <p className="text-primary font-semibold text-sm mb-1">Product Management Fellowship</p>
-                <p className="text-xs text-muted-foreground">Oct 2023 - Oct 2024</p>
+                <h3 className="text-xl font-display font-bold mb-1">{education[1].title}</h3>
+                <p className="text-primary font-semibold text-sm mb-1">{education[1].qualification}</p>
+                <p className="text-xs text-muted-foreground">{education[1].dates}</p>
               </div>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>Google Project Management Certificate (Coursera)</li>
-                <li>Alison Diploma in Project Management</li>
-                <li>ALX Virtual Assistant (Honours)</li>
+                {certifications.map((line) => <li key={line}>{line}</li>)}
               </ul>
             </div>
           </div>
