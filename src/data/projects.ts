@@ -6,6 +6,23 @@ import syncuImage from "@/assets/syncu-preview.png";
 import careerpassImage from "@/assets/careerpass-preview.png";
 import targettImage from "@/assets/targett-preview-new.png";
 import nyscImage from "@/assets/nysc-preview.png";
+import mykopa1 from "@/assets/tours/mykopa-1.jpg.asset.json";
+import proxy1 from "@/assets/tours/proxymedicine-1.jpg.asset.json";
+import proxy2 from "@/assets/tours/proxymedicine-2.jpg.asset.json";
+import sally1 from "@/assets/tours/sally-1.jpg.asset.json";
+import sally2 from "@/assets/tours/sally-2.jpg.asset.json";
+import targett1 from "@/assets/tours/targett-1.jpg.asset.json";
+import targett2 from "@/assets/tours/targett-2.jpg.asset.json";
+import targett3 from "@/assets/tours/targett-3.jpg.asset.json";
+import vibestack1 from "@/assets/tours/vibestack-1.jpg.asset.json";
+import vibestack2 from "@/assets/tours/vibestack-2.jpg.asset.json";
+import vibestack3 from "@/assets/tours/vibestack-3.jpg.asset.json";
+import bloomie1 from "@/assets/tours/bloomie-1.jpg.asset.json";
+import careerpass1 from "@/assets/tours/careerpass-1.jpg.asset.json";
+import careerpass2 from "@/assets/tours/careerpass-2.jpg.asset.json";
+import careerpass3 from "@/assets/tours/careerpass-3.jpg.asset.json";
+
+export interface ProjectScreen { src: string; caption: string }
 
 export interface Project {
   name: string;
@@ -21,6 +38,7 @@ export interface Project {
   stack?: string;
   responsibilities?: string[];
   achievements?: string[];
+  screens?: ProjectScreen[];
 }
 
 export const proxyMedicine: Project = {
@@ -51,7 +69,8 @@ export const proxyMedicine: Project = {
     "40% lift in post-launch user satisfaction from A/B tests on core task completion flows",
     "Contributed to healthcare IP later licensed for $120,000, which became the foundation of StatWell MD",
   ],
-  stack: "Cursor, Lovable, Figma, Jira, Google Analytics, LLM features in production.",
+  screens: [{ src: proxy1.url, caption: "Home on mobile. Urgent care from $39.99, refills and a condition search up front." }, { src: proxy2.url, caption: "Step 1 of the visit: pick a condition. Built mobile first, since about 80% of traffic is on phones." }],
+    stack: "Cursor, Lovable, Figma, Jira, Google Analytics, LLM features in production.",
 };
 
 export const targett: Project = {
@@ -75,7 +94,8 @@ export const targett: Project = {
     "50+ users onboarded through consultative discovery",
     "Cut optimisation work from days to minutes",
   ],
-  stack: "Lovable, Stripe, Resend, GitHub, WordPress, prompt and context engineering.",
+  screens: [{ src: targett1.url, caption: "Enter a website, get an AI discoverability score." }, { src: targett2.url, caption: "The score and its 4-pillar breakdown: crawlability, structured knowledge, content and authority." }, { src: targett3.url, caption: "Credit-based pricing, Free and Pro, billed through Stripe." }],
+    stack: "Lovable, Stripe, Resend, GitHub, WordPress, prompt and context engineering.",
 };
 
 export const sally: Project = {
@@ -100,7 +120,8 @@ export const sally: Project = {
     "Live LinkedIn and TikTok publishing, Paddle billing and Resend lifecycle email",
     "pgvector memory layer and an MCP server for external agents",
   ],
-  stack: "LinkedIn and TikTok developer APIs, Paddle, Resend, pgvector, MCP.",
+  screens: [{ src: sally1.url, caption: "Share a moment by voice or text and Sally drafts the post." }, { src: sally2.url, caption: "Approved posts go out on schedule, on autopilot." }],
+    stack: "LinkedIn and TikTok developer APIs, Paddle, Resend, pgvector, MCP.",
 };
 
 export const projectsData: Project[] = [
@@ -120,6 +141,7 @@ export const projectsData: Project[] = [
       "I treated the parent dashboard as a product surface rather than reporting. Adaptive lessons keep the child engaged, and the progress dashboard is what keeps the parent paying, so both had to be designed rather than one being a by-product of the other.",
     ],
     outcome: ["500+ users in 2 months", "80% adoption of the AI tool"],
+    screens: [{ src: bloomie1.url, caption: "Adaptive learning that changes with each child's pace and progress." }],
     stack: "AI adaptive lessons, progress dashboards.",
   },
   proxyMedicine,
@@ -142,6 +164,7 @@ export const projectsData: Project[] = [
       "Shipped from zero to a live product solo",
       "200k+ icons, curated palettes, font pairings and layout styles in one generated theme",
     ],
+    screens: [{ src: vibestack1.url, caption: "One prompt, one theme." }, { src: vibestack2.url, caption: "200k+ icons, palettes, font pairings and atmospheres mixed together." }, { src: vibestack3.url, caption: "The generated instructions an AI builder follows to apply the theme." }],
     stack: "AI coding agents, Lovable.",
   },
   targett,
@@ -168,6 +191,7 @@ export const projectsData: Project[] = [
       "Same-day production fixes driven by log analysis",
       "Raised average session time",
     ],
+    screens: [{ src: mykopa1.url, caption: "Live sign-in screen with real counts: 6.6k corps members, 82.9k check-ins and 90 events. Sign in by email, biometrics or PIN." }],
     stack: "Lovable, QR check-in, notifications, admin tooling, production log analysis.",
   },
   {
@@ -204,6 +228,7 @@ export const projectsData: Project[] = [
       "Implemented Trello workflows to track deliverables and dependencies.",
       "Oversaw integration of psychometric models into the platform.",
     ],
+    screens: [{ src: careerpass1.url, caption: "Take the assessment to find your strengths." }, { src: careerpass2.url, caption: "Career tracks matched to the results." }, { src: careerpass3.url, caption: "How the psychometric assessment guides the recommendation." }],
     achievements: [
       "Delivered MVP on time with full functionality within 8 weeks.",
       "Selected as a Top 5 project at a major career showcase.",
