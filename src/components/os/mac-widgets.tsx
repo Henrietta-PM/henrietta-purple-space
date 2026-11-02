@@ -85,7 +85,7 @@ export default function MacWidgets({ now, onLaunch }: MacWidgetsProps) {
       <motion.div className="mw-wide" {...enter(0.34)}>
         <Button variant="ghost" className="mw mw-intro mw-notes" onClick={() => onLaunch("letter", "about-me")} aria-label="Read About Me note">
           <span className="mw-cap mw-accent">Notes</span>
-          <strong className="mw-note-title">{aboutMeNote.title}</strong>
+          <h1>Hi, I'm&nbsp;<span className="font-handwritten">Henrietta.</span></h1>
           <p>{aboutMeNote.preview} {aboutMeNote.intro.replace(/\.$/, "")}...</p>
         </Button>
       </motion.div>
