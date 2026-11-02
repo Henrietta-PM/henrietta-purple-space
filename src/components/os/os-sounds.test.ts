@@ -1,10 +1,16 @@
 import { describe, expect, it } from "vitest";
-import { hasAppleSound, soundAllowed } from "./os-sounds";
+import { hasAppleSound, notificationRecording, soundAllowed } from "./os-sounds";
 
 describe("OS sounds", () => {
   it("uses the Apple recording only for notifications, not fake interaction tones", () => {
     expect(hasAppleSound("notification")).toBe(true);
+    expect(hasAppleSound("lock-notification")).toBe(true);
     for (const kind of ["tap", "open", "close", "unlock"] as const) expect(hasAppleSound(kind)).toBe(false);
+  });
+  it("uses Tri-tone for lock arrivals and a separate Rebound recording for popups", () => {
+    expect(notificationRecording("lock-notification")).toContain("apple-tri-tone.mp3");
+    expect(notificationRecording("notification")).toContain("apple-rebound.mp3");
+    expect(notificationRecording("lock-notification")).not.toBe(notificationRecording("notification"));
   });
   it("allows sounds after interaction while visible and unmuted", () => {
     expect(soundAllowed(false, true, true)).toBe(true);

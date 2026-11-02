@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { playOsSound } from "./os-sounds";
 import { lockWallpaper } from "./lock-wallpaper";
 import { format } from "date-fns";
 import { ChevronUp, Lock } from "lucide-react";
@@ -21,6 +23,14 @@ const notices: LockNotice[] = [
 ];
 
 export function IphoneLock({ now, onUnlock }: { now: Date; onUnlock: (app?: LauncherId) => void }) {
+  const [arrived, setArrived] = useState(0);
+  useEffect(() => {
+    const timers = notices.map((_, index) => window.setTimeout(() => {
+      setArrived(index + 1);
+      playOsSound("lock-notification");
+    }, 1000 + index * 3000));
+    return () => timers.forEach(window.clearTimeout);
+  }, []);
   return (
     <motion.section
       className="ios-lock"
@@ -40,7 +50,7 @@ export function IphoneLock({ now, onUnlock }: { now: Date; onUnlock: (app?: Laun
       </div>
 
       <div className="ios-notices">
-        {notices.map((notice, index) => {
+        {notices.slice(0, arrived).map((notice) => {
           return (
             <motion.button
               key={notice.title}
@@ -48,7 +58,7 @@ export function IphoneLock({ now, onUnlock }: { now: Date; onUnlock: (app?: Laun
               onClick={() => onUnlock(notice.app)}
               initial={{ opacity: 0, y: 30, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ delay: 0.5 + index * 0.35, type: "spring", stiffness: 260, damping: 22 }}
+              transition={{ type: "spring", stiffness: 260, damping: 22 }}
               whileTap={{ scale: 0.97 }}
             >
               {notice.title === "Sally" ? <ImageIcon src={sallyLogo} size="sm" /> : notice.title === "ProxyMedicine" ? <ImageIcon src={proxyIcon.url} size="sm" /> : notice.app === "hire" ? <CalendarIcon size="sm" /> : <NotesIcon size="sm" />}
