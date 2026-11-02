@@ -5,7 +5,7 @@ import { Moon, Sun } from "lucide-react";
 import { AppleLogo, MacBattery, MacWifiArcs } from "./status-icons";
 import { useOsTheme } from "./use-os-theme";
 import { useWallpaper } from "./use-wallpaper";
-import { AppContent, appTitles, externalLinks, isLink, type AppId, type LauncherId } from "./os-apps";
+import { AppContent, allProjects, appTitles, externalLinks, isLink, type AppId, type LauncherId } from "./os-apps";
 import { useClock } from "./use-clock";
 import MacWidgets from "./mac-widgets";
 import ExplorationNotifications from "./exploration-notifications";
@@ -144,7 +144,7 @@ export function MacDesktop() {
         </div>
       </nav>}
 
-      <AppOrganizer storageKey="portfolio-desktop-apps-v1" hideControls={locked} defaults={desktopLayout} openIds={windows.map((win) => win.id)} onLaunch={(app) => { if (app.launcher) launch(app.launcher, app.id === "shortcut:letter" ? "letter" : undefined); }}>
+      <AppOrganizer storageKey="portfolio-desktop-apps-v1" hideControls={locked} defaults={desktopLayout} openIds={windows.map((win) => win.id)} onLaunch={(app) => { if (app.id.startsWith("web:")) { const project = allProjects.find((item) => item.name === app.projectName); if (project) openSafari(project.link, project.name, "website"); return; } if (app.launcher) launch(app.launcher, app.id === "shortcut:letter" ? "letter" : undefined); }}>
       <div ref={bounds} className="mac-desktop">
         <MacWidgets now={now} onLaunch={(id, note, project) => launch(id, note, project)} />
 

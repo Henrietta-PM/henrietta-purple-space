@@ -65,7 +65,7 @@ export function restoreLayout(value: unknown, defaults: AppLayout): AppLayout {
     }
   }
   const missing = validApps.filter((id) => !seen.has(id));
-  if (missing.some((id) => !["mail", "safari"].includes(id))) return defaults;
+  if (missing.some((id) => !["mail", "safari"].includes(id) && !id.startsWith("web:"))) return defaults;
   for (const [zone, tiles] of Object.entries(defaults)) {
     for (const tile of tiles) {
       if (tile.apps.length === 1 && missing.includes(tile.apps[0])) restored[zone].push({ ...tile, apps: [...tile.apps] });

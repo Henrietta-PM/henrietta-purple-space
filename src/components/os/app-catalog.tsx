@@ -9,6 +9,8 @@ export interface OrganizedApp extends LayoutApp {
   projectName?: string;
 }
 
+const webApps = allProjects.filter((project) => project.link !== "#");
+
 const categoryFor = (id: LauncherId): string => {
   if (["camera", "photos"].includes(id)) return "Photo & Video";
   if (["instagram", "linkedin", "x", "contact", "love", "messages"].includes(id)) return "Social";
@@ -21,6 +23,7 @@ export const appCatalog: OrganizedApp[] = [
   ...allProjects.map((project) => ({ id: `project:${project.name}`, name: project.name.replace(" Attendance System", ""), category: "Projects", projectName: project.name, icon: <ProjectIcon project={project} size="lg" /> })),
   { id: "settings", name: "Settings", category: "Utilities", icon: <ImageIcon src={settingsIcon} size="lg" /> },
   ...launchers.filter((launcher) => ["cv", "letter"].includes(launcher.id)).map((launcher) => ({ id: `shortcut:${launcher.id}`, name: launcher.id === "cv" ? "CV.pdf" : "Letter.note", category: "Portfolio", launcher: launcher.id, icon: <AppIcon launcher={launcher} size="md" /> })),
+  ...webApps.map((project) => ({ id: `web:${project.name}`, name: project.name.replace(" Attendance System", ""), category: "Web Apps", projectName: project.name, icon: <ProjectIcon project={project} size="md" /> })),
 ];
 
 const tiles = (ids: string[]) => ids.map((id) => ({ id, apps: [id] }));
@@ -30,6 +33,6 @@ export const phoneLayout: AppLayout = {
   dock: tiles(["contact", "love", "letter", "hire"]),
 };
 export const desktopLayout: AppLayout = {
-  desktop: tiles(["shortcut:cv", "shortcut:letter"]),
+  desktop: tiles(["shortcut:cv", "shortcut:letter", ...webApps.map((project) => `web:${project.name}`)]),
   dock: tiles(launchers.map((launcher) => launcher.id)),
 };
