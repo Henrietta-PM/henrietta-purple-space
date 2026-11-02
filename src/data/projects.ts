@@ -148,7 +148,7 @@ export const projectsData: Project[] = [
   {
     name: "NYSC Attendance System",
     tags: ["GovTech", "Attendance"],
-    link: "#",
+    link: "https://mykopa.app",
     image: nyscImage,
     isLive: false,
     overview:
