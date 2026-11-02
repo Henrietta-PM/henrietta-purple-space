@@ -180,7 +180,11 @@ export function MacDesktop() {
         <AppZone zone="dock" className="os-mac-dock-apps" />
       </nav>}
       </AppOrganizer>
-      {locked && <LoadingLock desktop onUnlock={() => { activateOsAudio(); playOsSound("unlock"); setLocked(false); }} />}
+      {locked && <LoadingLock desktop onUnlock={() => { activateOsAudio(); playOsSound("unlock"); setLocked(false); }} onNotice={(app, title) => {
+        activateOsAudio();
+        setLocked(false);
+        launch(app, app === "letter" ? "letter" : undefined, app === "projects" ? title : undefined);
+      }} />}
     </div>
   );
 }

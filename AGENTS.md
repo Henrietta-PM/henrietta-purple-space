@@ -16,6 +16,7 @@
 - Shared Apple app navigation provides phone tab bars and desktop sidebars, with app-specific content kept separate so portfolio facts and visitor actions remain unchanged.
 - My Journey is a keyless Leaflet/OpenStreetMap map showing only owner-confirmed places, with visitor city lookup done in the browser via Open-Meteo geocoding, so no location is invented and no key is needed.
 - Render a lightweight lock-screen fallback while OS app code loads and initialize the shared viewport hook synchronously, so phones never first mount the desktop shell; both shells start locked and defer exploration notifications until entry.
+- Share lock-screen notification content between phone and desktop, rendering the desktop stack only after its shell is ready so loading does not duplicate arrivals or block entry.
 - Mail shares its composer with Contacts, keeps drafts and sent copies visitor-local, and uses a validated contact function with the existing email provider and atomic network throttle; never expose the owner's inbox or store private mail in the public guestbook.
 - When adding Mail or Safari to saved app layouts, insert only the missing tiles into their default zones while preserving validated visitor folders and positions so existing organization is not reset.
 - Safari shares its project tours and website navigation between both shells, reuses project data, and receives explicit website requests without remounting existing Mac windows; embedded sites retain their own security restrictions and blocked sites get an external fallback.
