@@ -3,6 +3,7 @@
 - Share OS audio playback and visitor-local mute state between both shells; use an externalized recording for notification audio, activate only after visitor interaction and silence hidden tabs so browser autoplay limits and visitor preferences are respected. Phone Silent Mode lives in Settings, while Mac retains its menu-bar sound control.
 
 - Serve the fixed downloadable CV through a Lovable Assets pointer so the uploaded PDF stays outside source control.
+- Render the OS CV as a readable timeline document using exports shared with the classic CV page, with the fixed PDF available through Download CV; Skills uses the same skill data with distinct summary, category and search views.
 - Preserve existing portfolio experience and defer conflicting resume facts to the owner instead of silently replacing them.
 - The Mac and iPhone style experience is the site home at /; classic pages stay reachable by URL but nothing in the new experience, sitemap or llms.txt links to them, and OS apps reuse the classic components' exported data so content is never duplicated.
 - Pick the Mac or iPhone interface by viewport width with the shared mobile hook, and share app content between both shells.

@@ -7,7 +7,6 @@ import HeartModal from "@/components/HeartModal";
 import portrait from "@/assets/henrietta-portrait.jpg";
 import { Button } from "@/components/ui/button";
 import { featuredProjects, projectsData, type Project } from "@/data/projects";
-import cvAsset from "@/assets/henrietta-cv.pdf.asset.json";
 import sallyLogo from "@/assets/sally-logo.png";
 import appleCameraIcon from "@/assets/apple-camera-icon.jpg";
 import applePhotosIcon from "@/assets/apple-photos-icon.jpg";
@@ -33,6 +32,8 @@ import { AppleSearch, AppleSections } from "./apple-app-chrome";
 import MailApp from "./mail-app";
 import SafariApp, { type SafariRequest } from "./safari-app";
 import { Compass } from "lucide-react";
+import CvApp from "./cv-app";
+import "./skills-app.css";
 
 export type AppId = "projects" | "cv" | "letter" | "contact" | "mail" | "safari" | "shop" | "love" | "messages" | "health" | "reminders" | "maps" | "weather" | "camera" | "photos";
 export type LinkId = "hire" | "instagram" | "linkedin" | "x";
@@ -287,31 +288,6 @@ function ProjectsApp({ compact, initial, onOpenSafari }: { compact: boolean; ini
       {showFolders && <p className="os-files-count">{fileFolders.length} folders, {allProjects.length} projects</p>}
     </div>
     </AppleSections>
-  );
-}
-
-function CvApp({ compact }: { compact: boolean }) {
-  const download = (
-    <Button size={compact ? "lg" : "sm"} className={compact ? "w-full" : ""} asChild>
-      <a href={cvAsset.url} download="Henrietta-Onwuneme-CV.pdf"><Download /> Download CV</a>
-    </Button>
-  );
-  return (
-    <div className="os-docs">
-      <div className="os-docs-bar">
-        <span className="os-docs-icon" aria-hidden="true"><FileText /></span>
-        <div className="os-docs-name">
-          <strong>Henrietta Onwuneme CV</strong>
-          <small>Product Manager · PDF</small>
-        </div>
-        {!compact && download}
-      </div>
-      <div className="os-docs-canvas">
-        <iframe title="Henrietta Onwuneme CV" src={cvAsset.url} className="os-docs-page" />
-        <a href={cvAsset.url} target="_blank" rel="noopener noreferrer" className="os-docs-link">Open the CV in a new tab <ArrowUpRight /></a>
-      </div>
-      {compact && <ActionBar>{download}</ActionBar>}
-    </div>
   );
 }
 
@@ -626,8 +602,8 @@ export function ProjectIcon({ project, size = "md" }: { project: Project; size?:
 
 function SkillsApp({ compact }: { compact: boolean }) {
   const groups = [
-    { title: "Soft Skills", tone: "soft", items: skillCategories.softSkills },
-    { title: "Technical Skills", tone: "tech", items: skillCategories.technicalSkills },
+    { title: "Product & AI", tone: "tech", items: skillCategories.technicalSkills },
+    { title: "Leadership & Collaboration", tone: "soft", items: skillCategories.softSkills },
     { title: "Tools", tone: "tools", items: skillCategories.tools },
   ];
   const [open, setOpen] = useState<string | null>(null);
@@ -635,23 +611,26 @@ function SkillsApp({ compact }: { compact: boolean }) {
   const [query, setQuery] = useState("");
   return (
     <div className="apple-health apple-height">
-    <AppleSections compact={compact} title="Health" sections={[{ id: "summary", label: "Summary", icon: Heart }, { id: "browse", label: "Browse", icon: Grid2X2 }, { id: "search", label: "Search", icon: Search }]} selected={section} onSelect={setSection}>
-    <div className="os-health">
-      <span className="os-health-date">{format(new Date(), "EEEE d MMMM").toUpperCase()}</span>
+    <AppleSections compact={compact} title="Skills" sections={[{ id: "summary", label: "Summary", icon: Heart }, { id: "browse", label: "Browse", icon: Grid2X2 }, { id: "search", label: "Search", icon: Search }]} selected={section} onSelect={(id) => { setSection(id); setQuery(""); setOpen(null); }}>
+    <div className="os-health portfolio-skills">
       <h2 className="os-large-title">{section === "summary" ? "Summary" : section === "browse" ? "Browse" : "Search"}</h2>
       {section === "search" && <AppleSearch value={query} onChange={setQuery} label="Search skills" />}
-      <p className="os-health-section">{section === "summary" ? "Pinned" : "Skills"}</p>
+      <p className="os-health-section">{section === "summary" ? "Skills" : section === "search" ? "Results" : "Categories"}</p>
       {groups.filter((group) => `${group.title} ${group.items.join(" ")}`.toLowerCase().includes(query.toLowerCase())).map((group) => {
-        const expanded = open === group.title;
-        const shown = expanded ? group.items : group.items.slice(0, 4);
+        const expanded = section !== "summary" || open === group.title;
+        const filtered = section === "search" && query.trim() && !group.title.toLowerCase().includes(query.trim().toLowerCase()) ? group.items.filter((item) => item.toLowerCase().includes(query.trim().toLowerCase())) : group.items;
+        const shown = expanded ? filtered : group.items.slice(0, 4);
         return (
-          <Button variant="ghost" key={group.title} className={`os-health-card os-health-${group.tone}`} onClick={() => setOpen(expanded ? null : group.title)} aria-expanded={expanded}>
-            <span className="os-health-head"><Activity aria-hidden="true" /><strong>{group.title}</strong>{expanded ? <ChevronDown className="os-health-chev" aria-hidden="true" /> : <ChevronRight className="os-health-chev" aria-hidden="true" />}</span>
-            <span className="os-health-value"><b>{group.items.length}</b> skills</span>
-            <span className="os-health-list">{shown.join(" · ")}{!expanded && group.items.length > 4 ? ` · +${group.items.length - 4} more` : ""}</span>
-          </Button>
+          <section key={group.title} className={`os-health-card os-health-${group.tone}`}>
+            <Button variant="ghost" className="skills-category-toggle" onClick={() => { if (section !== "summary") { setSection("summary"); setOpen(null); } else setOpen(expanded ? null : group.title); }} aria-expanded={expanded}>
+              <span className="os-health-head"><strong>{group.title}</strong>{expanded ? <ChevronDown className="os-health-chev" aria-hidden="true" /> : <ChevronRight className="os-health-chev" aria-hidden="true" />}</span>
+            </Button>
+            <ul className={expanded ? "skills-item-list" : "skills-preview-list"}>{shown.map((item) => <li key={item}>{item}</li>)}</ul>
+            {!expanded && group.items.length > 4 && <Button variant="ghost" className="skills-view-all" onClick={() => setOpen(group.title)}>Show all<ChevronRight aria-hidden="true" /></Button>}
+          </section>
         );
       })}
+      {query.trim() && !groups.some((group) => `${group.title} ${group.items.join(" ")}`.toLowerCase().includes(query.trim().toLowerCase())) && <p className="os-muted">No skills found</p>}
     </div>
     </AppleSections>
     </div>

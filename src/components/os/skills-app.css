@@ -1,0 +1,9 @@
+.portfolio-skills .os-health-card { display:block; height:auto; padding:0; overflow:hidden; text-align:left; background:hsl(var(--os-window)); border:1px solid hsl(var(--os-line) / .4); box-shadow:none; }
+.skills-category-toggle { display:flex; width:100%; height:auto; padding:16px; border-radius:0; color:hsl(var(--os-ink)); justify-content:flex-start; }
+.skills-category-toggle .os-health-head { width:100%; font-size:17px; }
+.skills-category-toggle:hover, .skills-view-all:hover { background:hsl(var(--os-ink) / .04); }
+.skills-item-list, .skills-preview-list { list-style:none; padding:0 16px 12px; margin:0; }
+.skills-item-list li { padding:10px 0; font-size:15px; border-top:1px solid hsl(var(--os-line) / .5); line-height:1.4; overflow-wrap:anywhere; }
+.skills-preview-list { display:flex; flex-wrap:wrap; gap:5px 12px; color:hsl(var(--os-ink-soft)); font-size:14px; line-height:1.5; }
+.skills-view-all { display:flex; width:100%; height:40px; justify-content:space-between; padding:0 16px; border-radius:0; border-top:1px solid hsl(var(--os-line) / .5); color:hsl(var(--os-ink-soft)); font-size:13px; }
+.skills-view-all svg { width:15px; height:15px; }
