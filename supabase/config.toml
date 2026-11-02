@@ -2,3 +2,6 @@ project_id = "dszlcpqluiralgnnyjrx"
 
 [functions.send-heart-email]
 verify_jwt = false
+
+[functions.safari-frame-check]
+verify_jwt = false
